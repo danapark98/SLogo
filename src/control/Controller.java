@@ -1,5 +1,8 @@
 package control;
 
+import instructions.IExecutable;
+import instructions.Instruction;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +22,7 @@ public class Controller {
 		myView = view;
 	}
 
-	public Instruction sendString(String s) {
+	public IExecutable sendString(String s) {
 		return Parser.generateInstruction(s);
 	}
 
@@ -53,7 +56,7 @@ public class Controller {
 
 	}
 
-	public void runInstruction(Instruction instr, Model myModel) {
+	public void runInstruction(IExecutable instr, Model myModel) {
 		// myModel.getTurtle.perfromAction(instr);
 	}
 
