@@ -2,7 +2,17 @@ package exceptions;
 
 public class IllegalInstructionException extends Exception {
 
+    private static final long serialVersionUID = 1L;
+    private String myCommand;
+
     public IllegalInstructionException(String command) {
-        //TODO: figure out exceptions and how to send them to the view
+        super();
+        myCommand = command;
     }
+    
+    @Override
+    public String toString() {
+        return "Error: " + myCommand + "is not a legal instruction";
+    }
+    
 }
