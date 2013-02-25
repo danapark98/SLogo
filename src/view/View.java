@@ -35,9 +35,13 @@ public class View implements SLogoViewable {
         });
         return result;
     }
-    is there a way to pass off a JButton with an ActionListener to the control class. Then have the control class override the actionPerformed so that it does what control knows it needs to
+    
+    probably we want to send the button or any other componenet type (not sure if we want several specific methods or 1 more general one) and then add the listener and action performed to it 
+    
+    otherwise stuck wondering if there is a way to pass off a JButton with an ActionListener to the control class. Then have the control class override the actionPerformed so that it does what control knows it needs to
     suppose we could pass off the JComponents with as much info as possible from the view. Then let the controller read all of its Listener info, create a new instance with the proper actionPerformed, and then 
     place this newer ActionListener w/ complete actionPerformed into the JButton
+    
      */
 /**
  * This method will most likely send the controller all of the JComponents w/listeners that it needs to add actions to
