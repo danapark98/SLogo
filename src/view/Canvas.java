@@ -53,25 +53,19 @@ public class Canvas extends JComponent {
         myView = view;
         setPreferredSize(size);
         setSize(size);
-        setFocusable(true);
-        requestFocus();
-        setInputListeners();
+        //do  not believe this needs to be focusable because there is no user interaction
+        //with the canvas display being showed
     }
 
-    public void setInputListeners(){
-
-    }
-
-    public void paintComponent( Graphics pen) {
+    /**\
+     * This method paints all Graphics objects such as the turtle and the lines.
+     * @param pen 
+     */
+    public void paintComponent(Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         if (mySimulation != null) {
-            mySimulation.paint((Graphics2D) pen);//TODO: we need a public paint method within the Model...will need to be added to the API
+            mySimulation.paint((Graphics2D) pen);//TODO: public paint method within the Model will be implemented
         }
-    }
-
-    public void loadModel() {
-        Model model = new Model();
-
     }
 }
