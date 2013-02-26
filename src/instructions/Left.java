@@ -24,7 +24,7 @@ public class Left extends BaseInstruction{
 
     @Override
     public void execute (Model model) {
-        model.getTurtle.rotate(myRotation);
+        model.getTurtle().rotate(myRotation);
     }
 
     /**
