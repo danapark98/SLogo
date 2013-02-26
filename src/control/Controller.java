@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+import javax.activity.InvalidActivityException;
+
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
 
@@ -64,8 +66,9 @@ public class Controller {
 			}
 
 			input.close();
-		} catch (Exception e) {
+		} catch (FileNotFoundException | IllegalStateException  e) {
 			// should not happen because File came from user selection
+			throw new IncorrectFileFormatException();
 			myView.displayText(e.toString());
 		}
 
