@@ -1,5 +1,10 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
 import control.Controller;
 
 
@@ -11,18 +16,41 @@ import control.Controller;
  */
 public class View extends SLogoView {
 
+    public static final String FORWARD = "Forward";
+    public static final String FD = "fd ";
+    public static final int DEFAULT_FD_MAG = 10;
    
 /**
  * Creates an instance of the View.
+ * @param title The title of this View
+ * @param language The desired language for the View
  */
-    public View() {
-    
+    public View(String title, String language) {
+        super(title, language);
     }
 
     @Override
     public void displayText(String text) {
 
     }
+    
+    private JButton makeForwardButton() {
+        //TODO: change fd mag to a variable from an input slider
+        final String command = FD + DEFAULT_FD_MAG;
+        final Controller controller = super.myController;
+        JButton button = new JButton(super.myResources.getString(FORWARD));
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                controller.sendString(command);
+            }
+        });
+        return button;
+    }
+    
+    
+    
+//    myController.sendString(s);
 
     
     //TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve instances of swing objects so that it can use "j.addKeyListener( new .....)" would need to document as a change to our API  

@@ -1,8 +1,12 @@
 package view;
 
 import java.awt.Dimension;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import simulation.Model;
 
@@ -13,20 +17,32 @@ import control.Controller;
  * @author srwareham
  *
  */
-public abstract class SLogoView {
+public abstract class SLogoView extends JFrame {
+
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+	private static final String ENGLISH = "English";
 /**
  * Preferred Dimensions of the Canvas.
  */
     public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 400);
 
+    protected ResourceBundle myResources;
     private Canvas myCanvas;
-    private Controller myController;
+    protected Controller myController;
     
     
     /**
      * Creates a SLogoView.
+     * @param title The title of this View
+     * @param language The desired language for the View
      */
-    public SLogoView() {
+    public SLogoView(String title, String language) {
+        try {
+            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);    
+        }
+        catch (MissingResourceException e) {
+            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + ENGLISH);
+        }
         
     }
     
@@ -54,13 +70,13 @@ public abstract class SLogoView {
         myCanvas = new Canvas(PREFERRED_CANVAS_SIZE, this, model);
     }
     
-    private void sendComponent(JComponent component) {
-        //TODO: need a public method within the controller to add listeners to swing components
-        //from the view.  Needs to be done by the controller because it is the only place 
-        //where definitions for the @override actionPerformed for the anonymous actionListener
-        //to add to API
-    	myController.sendString(s)
-        myController.addListener(component);
+    /**
+     * Method to send commands to the controller.
+     * @param command String that needs to be parsed (may be multiple lines)
+     */
+    
+    protected void sendCommand(String command) {
+        myController.sendString(command);
     }
     
 }
