@@ -1,9 +1,18 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import control.Controller;
 
@@ -15,10 +24,15 @@ import control.Controller;
  *
  */
 public class View extends SLogoView {
-
-    public static final String FORWARD = "Forward";
+    private static final String USER_DIR = "user.dir";
+    public static final String FORWARD = "ForwardCommand";
     public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
+    private JFileChooser myChooser;private ActionListener myActionListener;
+    private KeyListener myKeyListener;
+    private MouseListener myMouseListener;
+    private MouseMotionListener myMouseMotionListener;
+    private FocusListener myFocusListener;
    
 /**
  * Creates an instance of the View.
@@ -27,11 +41,21 @@ public class View extends SLogoView {
  */
     public View(String title, String language) {
         super(title, language);
+        getContentPane().add(makeInput(), BorderLayout.NORTH);
+        pack();
+        setVisible(true);
+        
     }
 
     @Override
     public void displayText(String text) {
 
+    }
+    @Override
+    protected JComponent makeInput() {
+        JPanel result = new JPanel();
+        result.add(makeForwardButton());
+        return result;
     }
     
     private JButton makeForwardButton() {
@@ -43,6 +67,7 @@ public class View extends SLogoView {
             @Override
             public void actionPerformed (ActionEvent e) {
                 controller.sendString(command);
+                System.out.println("HIIIII");
             }
         });
         return button;
@@ -76,6 +101,8 @@ public class View extends SLogoView {
     
      */
 
-
+public static void main(String[] args){
+	View hi = new View("HI","English");
+}
 
 }

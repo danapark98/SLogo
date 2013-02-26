@@ -15,12 +15,6 @@ import exceptions.IncorrectFileFormatException;
 import simulation.Model;
 import view.View;
 
-/**
- * Passes instructions to the parser and executes those instructions on the model.
- * Saves and loads the state of the model
- * @author Ryan Fishel
- *
- */
 public class Controller {
 
 	private Model myModel;

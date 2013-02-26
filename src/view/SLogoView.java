@@ -1,11 +1,17 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import simulation.Model;
@@ -21,6 +27,16 @@ public abstract class SLogoView extends JFrame {
 
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 	private static final String ENGLISH = "English";
+	private static final String USER_DIR = "user.dir";
+    private JFileChooser myChooser;private ActionListener myActionListener;
+    private KeyListener myKeyListener;
+    private MouseListener myMouseListener;
+    private MouseMotionListener myMouseMotionListener;
+    private FocusListener myFocusListener;
+	
+	
+	
+	
 /**
  * Preferred Dimensions of the Canvas.
  */
@@ -43,9 +59,16 @@ public abstract class SLogoView extends JFrame {
         catch (MissingResourceException e) {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + ENGLISH);
         }
+      
+        setTitle(title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         
     }
     
+    protected abstract JComponent makeInput();
+    
+   
    
     /**
      * Method to display a text to the user in a display Box.
