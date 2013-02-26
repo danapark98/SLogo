@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import view.SLogoView;
 import view.View;
 
 public class Model implements LineAdder {
@@ -14,7 +13,7 @@ public class Model implements LineAdder {
     
     public Model(View view) {
         myView = view;
-        myTurtle = new Turtle(this, SLogoView.PREFERRED_CANVAS_SIZE);
+        myTurtle = new Turtle(this);
         myLines = new ArrayList<Line>();
     }
     
@@ -38,7 +37,7 @@ public class Model implements LineAdder {
     }
     
     public void reset() {
-    	myTurtle.resetTurtle(SLogoView.PREFERRED_CANVAS_SIZE);
+    	myTurtle.resetTurtle();
     	myLines.clear();
     }
     

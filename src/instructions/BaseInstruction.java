@@ -23,6 +23,31 @@ public abstract class BaseInstruction extends Instruction {
      * @throws IllegalInstructionException 
      */
     public abstract void load(Scanner line, Parser parser) throws IllegalInstructionException;
+    
+    protected Instruction parseList(Scanner line, Parser parser) {
+        StringBuilder sb = new StringBuilder();
+        String str = line.next();
+        int counterBracket = 1;
+        while (counterBracket != 0) {
+            str = line.next();
+            if (str.equals("[")) {
+                counterBracket ++;
+            }
+            if (str.equals("]"))
+            {
+                counterBracket --;
+                if (counterBracket == 0) 
+                {
+                     break;
+                }
+            }
+            sb.append(str);
+            sb.append(" ");           
+        }
+        return parser.generateInstruction(sb.toString());
+    }
+   
+    
 
     @Override
     public Instruction copy () {

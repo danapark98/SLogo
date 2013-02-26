@@ -19,6 +19,7 @@ public class Environment {
 
     /** mapping of Instruction keywords to Instruction */
     private Map<String, Instruction> myInstructionMap;
+    private Map<String, Integer> myVariables;
 
     /**
      * default constructor initiates the instructionMap
@@ -26,6 +27,7 @@ public class Environment {
     public Environment () {
         myInstructionMap = new HashMap<String, Instruction>();
         initiateInstructionMap();
+        myVariables = new HashMap<String, Integer>();
     }
 
     /**
@@ -47,6 +49,10 @@ public class Environment {
         myInstructionMap.put(keyword, userInstruction);
     }
 
+    public void addUserDefinedVariable (String variableName, int value) {
+        myVariables.put(variableName, value);
+    }
+
     /**
      * gives the Instruction associated with the passed keyword
      * 
@@ -55,14 +61,14 @@ public class Environment {
      * 
      * @param commandName - the keyword for the instruction
      * @return - the Instruction associated with the keyword
-     * @throws IllegalInstructionException 
+     * @throws IllegalInstructionException
      */
-    public Instruction systemInstructionSkeleton (String commandName) throws IllegalInstructionException {
+    public Instruction systemInstructionSkeleton (String commandName)
+                                                                     throws IllegalInstructionException {
 
         if (!myInstructionMap.containsKey(commandName)) {
 
-            throw new IllegalInstructionException(commandName); 
-        }
+        throw new IllegalInstructionException(commandName); }
 
         return myInstructionMap.get(commandName).copy();
 

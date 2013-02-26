@@ -13,7 +13,7 @@ import exceptions.IllegalInstructionException;
 public class Right extends Left {
 
     /** keyword that calls this instruction*/
-    public final static String KEYWORD = "right";
+    public static final String KEYWORD = "right";
 
     
     @Override

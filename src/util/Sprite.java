@@ -23,6 +23,7 @@ public abstract class Sprite {
 
     // state
     private Location myCenter;
+    private double myAngle;
     private Vector myVelocity;
     private Dimension mySize;
     private Pixmap myView;
@@ -47,6 +48,7 @@ public abstract class Sprite {
     public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         myOriginalCenter = new Location(center);
+        myAngle = 0;
         myOriginalSize = new Dimension(size);
         myOriginalVelocity = new Vector(velocity);
         myOriginalView = new Pixmap(image);
@@ -88,6 +90,14 @@ public abstract class Sprite {
     public void setCenter (Location center) {
         setCenter(center.getX(), center.getY());
     }
+    
+    /**
+     * Resets shape's angle
+     */
+    public void setAngle(double angle) {
+        myAngle = angle;
+    }
+    
 
     /**
      * Returns shape's x coordinate in pixels.
@@ -101,6 +111,13 @@ public abstract class Sprite {
      */
     public double getY () {
         return myCenter.getY();
+    }
+    
+    /**
+     * Returns shape's angle relative to up direction.
+     */
+    public double getAngle() {
+        return myAngle;
     }
 
     /**

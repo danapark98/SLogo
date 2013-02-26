@@ -15,7 +15,7 @@ import exceptions.IllegalInstructionException;
 public class Left extends BaseInstruction{
 
     /** keyword that calls this instruction*/
-    public final static String KEYWORD = "left";
+    public static final String KEYWORD = "left";
     
     private double myRotation;
     

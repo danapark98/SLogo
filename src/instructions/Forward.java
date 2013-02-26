@@ -18,7 +18,7 @@ import simulation.Turtle;
 public class Forward extends BaseInstruction {
     
     /** the keyword associated with this instruction for user generated code*/
-    public static String KEYWORD = "fd";
+    public static final String KEYWORD = "fd";
 
     private int myMagnitude;
 
@@ -35,6 +35,7 @@ public class Forward extends BaseInstruction {
     public void execute (Model model) {
         Turtle turtle = model.getTurtle();
         //turtle.moveForward(myMagnitude);
+        model.displayMessage(myMagnitude + "");
     }
 
 

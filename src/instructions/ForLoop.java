@@ -7,13 +7,14 @@ import simulation.Model;
 import exceptions.IllegalInstructionException;
 
 public class ForLoop extends BaseInstruction {
+    public static String KEYWORD = "REPEAT";
     private int myRepeats;
     private Instruction myInstruction;
     
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-
+        myRepeats = line.nextInt();
+        myInstruction = parseList(line, parser);
     }
 
     @Override
@@ -21,7 +22,6 @@ public class ForLoop extends BaseInstruction {
         for(int i = 0; i < myRepeats; ++i){
             myInstruction.execute(model);
         }
-
     }
 
 }
