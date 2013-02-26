@@ -46,7 +46,7 @@ public class Parser {
             // right now the environment will handle the exceptions
             Instruction base = myEnvironment.systemInstructionSkeleton(commandName);
 
-            base.load(line);
+            base.load(line, this);
 
             resultInstruct.add(base);
 

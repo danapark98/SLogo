@@ -1,6 +1,8 @@
 package instructions;
 
 import java.util.Scanner;
+
+import control.Parser;
 import simulation.Model;
 import exceptions.IllegalInstructionException;
 
@@ -18,13 +20,13 @@ public class Left extends BaseInstruction{
     private double myRotation;
     
     @Override
-    public void load (Scanner line) throws IllegalInstructionException {
+    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
         myRotation = line.nextDouble();
     }
 
     @Override
     public void execute (Model model) {
-        model.getTurtle().rotate(myRotation);
+       // model.getTurtle().rotate(myRotation);
     }
 
     /**

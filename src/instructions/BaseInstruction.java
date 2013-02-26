@@ -1,6 +1,8 @@
 package instructions;
 
 import java.util.Scanner;
+
+import control.Parser;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
@@ -20,7 +22,7 @@ public abstract class BaseInstruction extends Instruction {
      * @param line - scanner from which information is read
      * @throws IllegalInstructionException 
      */
-    public abstract void load(Scanner line) throws IllegalInstructionException;
+    public abstract void load(Scanner line, Parser parser) throws IllegalInstructionException;
 
     @Override
     public Instruction copy () {

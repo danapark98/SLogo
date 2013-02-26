@@ -25,8 +25,8 @@ public class UserInstruction extends BaseInstruction {
     }
     
     @Override
-    public void load (Scanner line) throws IllegalInstructionException{
-        myInstruction = Parser.generateInstruction(line);
+    public void load (Scanner line, Parser parser) throws IllegalInstructionException{
+        myInstruction = parser.generateInstruction(line);
     }
 
     @Override

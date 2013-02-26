@@ -3,6 +3,8 @@ package instructions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import control.Parser;
 import simulation.Model;
 
 
@@ -41,7 +43,7 @@ public class CompoundInstruction extends Instruction {
     }
 
     @Override
-    public void load (Scanner line) {
+    public void load (Scanner line, Parser parser) {
         // do nothing, can't load a compound instruction directly
         // TODO: find good way to get rid of this method
     }

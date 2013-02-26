@@ -1,6 +1,8 @@
 package instructions;
 
 import java.util.Scanner;
+
+import control.Parser;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
@@ -37,7 +39,7 @@ public abstract class Instruction implements IExecutable {
      * @throws IllegalInstructionException - when the user attemps to call an instruction that does
      *         not exist or has not been defined
      */
-    public abstract void load (Scanner line) throws IllegalInstructionException;
+    public abstract void load (Scanner line, Parser parser) throws IllegalInstructionException;
 
     /**
      * copies this instruction. Level of similarity depends on the subclass.

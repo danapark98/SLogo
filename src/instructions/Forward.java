@@ -1,7 +1,10 @@
 package instructions;
 
 import java.util.Scanner;
+
+import control.Parser;
 import simulation.Model;
+import simulation.Turtle;
 
 /**
  * represents the forward instruction
@@ -24,14 +27,14 @@ public class Forward extends BaseInstruction {
     }
 
     @Override
-    public void load (Scanner line) {
+    public void load (Scanner line, Parser parser) {
         myMagnitude = (int) line.nextDouble();
     }
 
     @Override
     public void execute (Model model) {
         Turtle turtle = model.getTurtle();
-        turtle.moveForward(myMagnitude);
+        //turtle.moveForward(myMagnitude);
     }
 
 
