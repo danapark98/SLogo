@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -11,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import control.Controller;
 
 
@@ -26,6 +30,7 @@ public class View extends SLogoView {
     public static final String FORWARD = "ForwardCommand";
     public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
+    public static final Dimension PREFERED_HISTORY_SIZE = new Dimension(200,200);
     private JFileChooser myChooser;
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
@@ -42,7 +47,7 @@ public class View extends SLogoView {
     public View (String title, String language) {
         super(title, language);
         getContentPane().add(makeInput(), BorderLayout.NORTH);
-        // getContentPane().add(myCanvas, BorderLayout.CENTER);
+        getContentPane().add(makeDisplay(), BorderLayout.CENTER);
         pack();
         setVisible(true);
 
@@ -63,7 +68,8 @@ public class View extends SLogoView {
     @Override
     protected JComponent makeDisplay () {
         JPanel panel = new JPanel();
-        panel.add(myCanvas);
+//        panel.add(myCanvas);
+        panel.add(makeCommandHistory());
         return panel;
     }
 
@@ -82,6 +88,13 @@ public class View extends SLogoView {
             }
         });
         return button;
+    }
+    
+    private JScrollPane makeCommandHistory() {
+        JTextArea textArea = new JTextArea();
+        JScrollPane hi = new JScrollPane(textArea);
+        hi.setPreferredSize(PREFERED_HISTORY_SIZE);
+        return hi;
     }
 
     // myController.sendString(s);
