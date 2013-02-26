@@ -57,7 +57,7 @@ public class Controller {
 		}
 	}
 
-	public void loadState(File f) {
+	public void loadState(File f) throws IncorrectFileFormatException {
 		try {
 			Scanner input = new Scanner(f);
 			while (input.hasNext()) {
@@ -67,9 +67,9 @@ public class Controller {
 
 			input.close();
 		} catch (FileNotFoundException | IllegalStateException  e) {
-			// should not happen because File came from user selection
-			throw new IncorrectFileFormatException();
 			myView.displayText(e.toString());
+			throw new IncorrectFileFormatException();
+			
 		}
 
 	}
