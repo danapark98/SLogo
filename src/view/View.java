@@ -14,7 +14,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import control.Controller;
 
 
@@ -27,16 +26,22 @@ import control.Controller;
  */
 public class View extends SLogoView {
     private static final String USER_DIR = "user.dir";
-    public static final String FORWARD = "ForwardCommand";
+    public static final String FORWARD_COMMAND = "ForwardCommand";
+    public static final String SUBMIT_COMMAND = "SubmitCommand";
     public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
-    public static final Dimension PREFERED_HISTORY_SIZE = new Dimension(200,200);
+    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(200, 200);
+    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(200, 200);
     private JFileChooser myChooser;
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
     private FocusListener myFocusListener;
+    
+    
+    private JTextArea myConsole;
+    private JTextArea myHistory;
 
     /**
      * Creates an instance of the View.
@@ -62,6 +67,7 @@ public class View extends SLogoView {
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.add(makeForwardButton());
+        result.add(makeSubmitButton());
         return result;
     }
 
@@ -69,7 +75,8 @@ public class View extends SLogoView {
     protected JComponent makeDisplay () {
         JPanel panel = new JPanel();
 //        panel.add(myCanvas);
-        panel.add(makeCommandHistory());
+        panel.add(makeCommandConsole());
+        panel.add(makeHistory());
         return panel;
     }
 
@@ -78,7 +85,7 @@ public class View extends SLogoView {
         // we also need to look into this final usage
         final String command = FD + DEFAULT_FD_MAG;
         final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(FORWARD));
+        JButton button = new JButton(super.myResources.getString(FORWARD_COMMAND));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -90,11 +97,43 @@ public class View extends SLogoView {
         return button;
     }
     
-    private JScrollPane makeCommandHistory() {
+    private JButton makeSubmitButton() {
+        JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                //TODO: add contoller command here.
+                if (myHistory.getText().length() == 0) {
+                    myHistory.append(myConsole.getText());
+                }
+                else {
+                    myHistory.append("\n" + myConsole.getText());
+                }
+                myConsole.setText("");
+            }
+        });
+        return button;
+    }
+    
+    
+    //TODO: should subsume these two methods
+    private JScrollPane makeCommandConsole() {
         JTextArea textArea = new JTextArea();
-        JScrollPane hi = new JScrollPane(textArea);
-        hi.setPreferredSize(PREFERED_HISTORY_SIZE);
-        return hi;
+        myConsole = textArea;
+//        textArea.setEditable(false);
+        JScrollPane pane = new JScrollPane(textArea);
+        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
+        
+        return pane;
+    }
+    
+    private JScrollPane makeHistory() {
+        JTextArea text = new JTextArea();
+        myHistory = text;
+        text.setEditable(false);
+        JScrollPane pane = new JScrollPane(text);
+        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
+        return pane;
     }
 
     // myController.sendString(s);
