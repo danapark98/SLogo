@@ -6,7 +6,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -33,17 +32,14 @@ public abstract class SLogoView extends JFrame {
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
     private FocusListener myFocusListener;
-	
-	
-	
-	
+
 /**
  * Preferred Dimensions of the Canvas.
  */
     public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 400);
 
     protected ResourceBundle myResources;
-    private Canvas myCanvas;
+    protected Canvas myCanvas;
     protected Controller myController;
     
     
@@ -65,10 +61,17 @@ public abstract class SLogoView extends JFrame {
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         
     }
-    
+    /**
+     * Method to build all InputAccepting JComponents.
+     * @return
+     */
     protected abstract JComponent makeInput();
     
-   
+    /**
+     * Method to build the display area consisting of the Canvas
+     * @return
+     */
+    protected abstract JComponent makeDisplay();
    
     /**
      * Method to display a text to the user in a display Box.
@@ -99,7 +102,7 @@ public abstract class SLogoView extends JFrame {
      */
     
     protected void sendCommand(String command) {
-        myController.sendString(command);
+        myController.createRunInstruction(command);
     }
     
 }

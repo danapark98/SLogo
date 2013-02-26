@@ -11,7 +11,6 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import control.Controller;
@@ -42,6 +41,7 @@ public class View extends SLogoView {
     public View(String title, String language) {
         super(title, language);
         getContentPane().add(makeInput(), BorderLayout.NORTH);
+//        getContentPane().add(myCanvas, BorderLayout.CENTER);
         pack();
         setVisible(true);
         
@@ -56,6 +56,12 @@ public class View extends SLogoView {
         JPanel result = new JPanel();
         result.add(makeForwardButton());
         return result;
+    }
+    
+    @Override protected JComponent makeDisplay() {
+        JPanel panel = new JPanel();
+        panel.add(myCanvas);
+        return panel;
     }
     
     private JButton makeForwardButton() {
@@ -104,7 +110,8 @@ public class View extends SLogoView {
      */
 
 public static void main(String[] args){
-	View hi = new View("HI","English");
+    SLogoView hi = new View("HI","English");
+
 }
 
 }
