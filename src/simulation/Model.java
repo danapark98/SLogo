@@ -4,16 +4,17 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import view.SLogoView;
 import view.View;
 
-public class Model {
+public class Model implements LineAdder {
     private View myView;
     private Turtle myTurtle;
     private Collection<Line> myLines;
     
     public Model(View view) {
         myView = view;
-        myTurtle = new Turtle(myView.PREFERRED_CANVAS_SIZE);
+        myTurtle = new Turtle(this, SLogoView.PREFERRED_CANVAS_SIZE);
         myLines = new ArrayList<Line>();
     }
     
@@ -27,7 +28,7 @@ public class Model {
             line.paint(pen);
         }
     }
-    
+
     public void addLine(Line line) {
         myLines.add(line);
     }
@@ -37,7 +38,11 @@ public class Model {
     }
     
     public void reset() {
-    	myTurtle.resetTurtle(myView.PREFERRED_CANVAS_SIZE);
+    	myTurtle.resetTurtle(SLogoView.PREFERRED_CANVAS_SIZE);
     	myLines.clear();
+    }
+    
+    public void displayMessage(String s) {
+        myView.displayText(s);
     }
 }
