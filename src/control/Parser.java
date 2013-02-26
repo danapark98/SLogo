@@ -16,7 +16,7 @@ import exceptions.IllegalInstructionException;
 public class Parser {
 
     /** environment contains the system functions and user defined variables/functions */
-    private static Environment myEnvironment;
+    private Environment myEnvironment;
 
     /**
      * default constructor, sets the environment for the parser to use as reference
@@ -37,7 +37,7 @@ public class Parser {
      * @return - the instruction that represents the user input
      * @throws IllegalInstructionException
      */
-    public static Instruction generateInstruction (Scanner line) throws IllegalInstructionException {
+    public Instruction generateInstruction (Scanner line) throws IllegalInstructionException {
         CompoundInstruction resultInstruct = new CompoundInstruction();
 
         while (line.hasNext()) {
@@ -61,7 +61,7 @@ public class Parser {
      * @return
      * @throws IllegalInstructionException
      */
-    public static Instruction generateInstruction (String userInput) throws IllegalInstructionException {
+    public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
         Scanner line = new Scanner(userInput);
         return generateInstruction(line);
     }

@@ -37,6 +37,10 @@ public class Turtle extends Sprite {
     private static Location getCenter (Dimension bounds) {
         return new Location(bounds.getWidth()/2, bounds.getHeight()/2);
     }
+    
+    public void resetTurtle(Dimension bounds) {
+    	setCenter(getCenter(bounds));
+    }
 
     
 }

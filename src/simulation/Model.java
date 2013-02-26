@@ -13,7 +13,7 @@ public class Model {
     
     public Model(View view) {
         myView = view;
-        myTurtle = new Turtle(); // need access to Canvas bounds
+        myTurtle = new Turtle(myView.PREFERRED_CANVAS_SIZE);
         myLines = new ArrayList<Line>();
     }
     
@@ -32,11 +32,12 @@ public class Model {
         myLines.add(line);
     }
     
-    public void clearLines() {
-        myLines.clear();
-    }
-    
     public Turtle getTurtle() {
         return myTurtle;
+    }
+    
+    public void reset() {
+    	myTurtle.resetTurtle(myView.PREFERRED_CANVAS_SIZE);
+    	myLines.clear();
     }
 }

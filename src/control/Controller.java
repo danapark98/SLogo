@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
+
 import simulation.Model;
 import view.View;
 
@@ -20,16 +23,26 @@ import view.View;
  */
 public class Controller {
 
-	Model myModel;
-	View myView;
+	private Model myModel;
+	private View myView;
+	private Parser myParser; 
+	private Environment myEnvironment;
 
 	public Controller(Model model, View view) {
 		myModel = model;
 		myView = view;
+		myEnvironment = new Environment();
+		myParser = new Parser(myEnvironment);
 	}
 
-	public IExecutable sendString(String s) {
-		return Parser.generateInstruction(s);
+	public void createRunInstruction(String s) {
+		try {
+			IExecutable instruction = myParser.generateInstruction(s);
+			instruction.execute(myModel);
+		} catch (IllegalInstructionException e) {
+			myView.displayText(e.toString());
+		}
+		
 	}
 
 	public void saveState(FileWriter fw){
@@ -38,7 +51,7 @@ public class Controller {
 			// TODO: write the variables that need to be saved
 		}
 		catch(Exception e){
-			// print error
+			myView.displayText(e.toString());
 		}
 	}
 
@@ -51,19 +64,16 @@ public class Controller {
 			}
 
 			input.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			// should not happen because File came from user selection
-			e.printStackTrace();
+			myView.displayText(e.toString());
 		}
 
 	}
 
 	public void clear() {
-
+		myModel.reset();
 	}
 
-	public void runInstruction(IExecutable instr, Model myModel) {
-		// myModel.getTurtle.perfromAction(instr);
-	}
 
 }
