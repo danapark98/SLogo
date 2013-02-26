@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Set;
 
 import javax.swing.JComponent;
@@ -18,6 +19,10 @@ import simulation.Model;
  */
 public class Canvas extends JComponent {
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    /**
      * Frames_Per_Second for running the simulation.
      */
     public static final int FRAMES_PER_SECOND = 30;
@@ -28,29 +33,25 @@ public class Canvas extends JComponent {
     /**
      * Default delay time
      */
-    public static final int DEFAULT_DELY = ONE_SECOND / FRAMES_PER_SECOND;
-    /**
-     * Defined value for when no key is pressed.
-     */
-    public static final int NO_KEY_PRESSED = -1;
-    /**
-     * Defined value for when no mouse click has occured.
-     */
-    public static final Point NO_MOUSE_PRESSED = null;
+    public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
 
-    private Timer myTime;
+    private Timer myTimer;
     private Model mySimulation;
-    private View myView;
+    private SLogoView myView;
 
     private int myLastKeyPressed;
     private Set<Integer> myKeys;
+    private Dimension myBounds;
 /**
  * Creates a Canvas of the given size.
  * @param size Desired Dimension for the Canvas
  * @param view Parent view for this Canvas
+ * @param model The simulation environment to be displayed in the canvas
  */
-    public Canvas (Dimension size, View view) {
+    public Canvas (Dimension size, SLogoView view, Model model) {
         myView = view;
+        mySimulation = model;
+        myBounds = size;
         setPreferredSize(size);
         setSize(size);
         //do  not believe this needs to be focusable because there is no user interaction
@@ -65,7 +66,42 @@ public class Canvas extends JComponent {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         if (mySimulation != null) {
-            mySimulation.paint((Graphics2D) pen);//TODO: public paint method within the Model will be implemented
+            mySimulation.paint((Graphics2D) pen);
         }
+    }
+    /**
+     * Starts the timer which is responsible for updating the model.
+     * This is within the purview of the View because at every frame the view
+     * requires something to display, it gets a new snapshot from the model.
+     */
+    public void start () {
+        // create a timer to animate the canvas
+        myTimer = new Timer(DEFAULT_DELAY, 
+            new ActionListener() {
+                public void actionPerformed (ActionEvent e) {
+                    step(mySimulation);
+                }
+            });
+        // start animation
+//        mySimulation = new Model(myView);
+//        loadModel();
+        myTimer.start();
+    }
+    
+    //TODO: we will need to add stop to the api
+    /**
+     * Stops the timer animating the simulation.
+     */
+    public void stop() {
+        myTimer.stop();
+    }
+    //TODO: we will need to add step to the api might be able to keep this private
+    /**
+     * Increments the animation one step.
+     * @param simulation The model to be stepped
+     */
+    public void step (Model simulation) {
+        simulation.update((double)FRAMES_PER_SECOND / ONE_SECOND, myBounds);
+        repaint();
     }
 }

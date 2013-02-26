@@ -1,11 +1,7 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-
 import control.Controller;
+
 
 /**
  * The View is comprised of everything visible to the user.
@@ -13,13 +9,21 @@ import control.Controller;
  * @author srwareham
  *
  */
-public class View implements SLogoViewable {
+public class View extends SLogoView {
+
+   
 /**
  * Creates an instance of the View.
  */
     public View() {
     
     }
+
+    @Override
+    public void displayText(String text) {
+
+    }
+
     
     //TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve instances of swing objects so that it can use "j.addKeyListener( new .....)" would need to document as a change to our API  
     //the issue stems from the fact that the view holds the JComponent, while the Control hods the definiton for what the actionPerformed should be.  May also need seperate one for JButton to be able to addActionListener for some reason
@@ -43,23 +47,6 @@ public class View implements SLogoViewable {
     place this newer ActionListener w/ complete actionPerformed into the JButton
     
      */
-/**
- * This method will most likely send the controller all of the JComponents w/listeners that it needs to add actions to
- * ie send in a textbox and the controller adds a text focus listener for the
- * @param controller The master controller which will determine how each JComponent should be handled
- */
-    @Override 
-    public void setControllers(Controller controller) {
-
-
-    }
-
-
-    @Override
-    public void displayText(String text) {
-
-
-    }
 
 
 
