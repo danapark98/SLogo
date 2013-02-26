@@ -60,14 +60,16 @@ public class View extends SLogoView {
     
     private JButton makeForwardButton() {
         //TODO: change fd mag to a variable from an input slider
+        //we also need to look into this final usage
         final String command = FD + DEFAULT_FD_MAG;
         final Controller controller = super.myController;
         JButton button = new JButton(super.myResources.getString(FORWARD));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                controller.sendString(command);
-                System.out.println("HIIIII");
+                //TODO: this was a change to the API we noticed
+                controller.createRunInstruction(command);
+                System.out.println("Forward Button");
             }
         });
         return button;
