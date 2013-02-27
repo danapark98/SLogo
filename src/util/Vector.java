@@ -126,14 +126,14 @@ public class Vector {
      * Returns the change in only the X direction represented by this vector.
      */
     public double getXChange () {
-        return getMagnitude() * Math.cos(Math.toRadians(getDirection()));
+        return getMagnitude() * Math.cos(Math.toRadians(getDirection() - 90));
     }
 
     /**
      * Returns the change in only the Y direction represented by this vector.
      */
     public double getYChange () {
-        return getMagnitude() * Math.sin(Math.toRadians(getDirection()));
+        return getMagnitude() * Math.sin(Math.toRadians(getDirection() - 90));
     }
 
     /**

@@ -9,7 +9,7 @@ import util.Sprite;
 
 
 public class Line extends Sprite {
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("turtle_art.png");
+    private static final Pixmap DEFAULT_IMAGE = new Pixmap("line.png");
     private Location myStart;
     private Location myEnd;
     private Color myColor;

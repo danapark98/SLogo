@@ -33,15 +33,15 @@ public class Model implements LineAdder {
     public void addLine (Line line) {
         myLines.add(line);
     }
-
+    
+    public void clearLines() {
+        myLines.clear();
+    }
+    
     public Turtle getTurtle () {
         return myTurtle;
     }
 
-    public void reset () {
-        myTurtle.resetTurtle();
-        myLines.clear();
-    }
 
     public void displayMessage (String s) {
         myView.displayText(s);

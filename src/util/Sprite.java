@@ -250,7 +250,7 @@ public abstract class Sprite {
      */
     public void paint (Graphics2D pen)
     {
-        // myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
+        //myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
         myView.paint(pen, myCenter, mySize, myAngle);
     }
 

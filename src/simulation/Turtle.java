@@ -15,7 +15,7 @@ import view.SLogoView;
 
 public class Turtle extends Sprite {
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("turtle_art.png");
-    private static final Dimension DEFAULT_SIZE = new Dimension(42, 42);
+    private static final Dimension DEFAULT_SIZE = new Dimension(70, 70);
     private static final double X_OFFSET = 10;
     private static final double Y_OFFSET = 10;
     private LineAdder myLineAdder;
@@ -23,16 +23,10 @@ public class Turtle extends Sprite {
     private Color myPenColor;
 
     public Turtle (LineAdder la) {
-        super(DEFAULT_IMAGE, getCenter(), DEFAULT_SIZE);
+        super(DEFAULT_IMAGE, centerOfScreen(), DEFAULT_SIZE);
         myLineAdder = la;
         initTexts();
         myPenColor = Color.BLACK;
-    }
-
-    private void initTexts () {
-        myStatus = new ArrayList<ValueText>();
-        // TODO: finish this.
-
     }
 
     @Override
@@ -42,7 +36,17 @@ public class Turtle extends Sprite {
     }
 
     private void updateStatus () {
-        // TODO Auto-generated method stub
+        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
+        int x = (int) (getX() - bounds.getWidth()/2); 
+        int y = (int) (bounds.getHeight()/2 - getY());
+        int angle = (int) getAngle();
+        int[] currentStatus = {x, y, angle};
+        
+        for (int i = 0; i < myStatus.size(); i++) {
+            ValueText vt = myStatus.get(i);
+            vt.resetValue();
+            vt.updateValue(currentStatus[i]);
+        }
     }
 
     @Override
@@ -59,6 +63,16 @@ public class Turtle extends Sprite {
         }
     }
 
+    private static Location centerOfScreen () {
+        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
+        return new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
+    }
+
+    public void resetTurtle () {
+        setCenter(centerOfScreen());
+        setAngle(0);
+    }
+
     @Override
     public void translate (Vector v) {
         Location originalLocation = new Location(getX(), getY());
@@ -68,23 +82,19 @@ public class Turtle extends Sprite {
         myLineAdder.addLine(line);
     }
 
-    private static Location getCenter () {
-        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
-        return new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
-    }
-
-   
-    public void resetTurtle () {
-        setCenter(getCenter());
-        setAngle(0);
-    }
-
     public void changePen (Color color) {
         myPenColor = color;
     }
 
     public Color getPenColor () {
         return myPenColor;
+    }
+
+    private void initTexts () {
+        myStatus = new ArrayList<ValueText>();
+        myStatus.add(new ValueText("X-coordinate", 0));
+        myStatus.add(new ValueText("Y-coordinate", 0));
+        myStatus.add(new ValueText("Angle", 0));
     }
 
 }

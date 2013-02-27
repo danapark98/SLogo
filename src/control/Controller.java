@@ -76,7 +76,8 @@ public class Controller {
     }
 
     public void clear () {
-        myModel.reset();
+        myModel.clearLines();
+        myModel.getTurtle().resetTurtle();
     }
 
 }

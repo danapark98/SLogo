@@ -28,7 +28,8 @@ public class Left extends BaseInstruction {
     @Override
     public void execute (Model model) {
         Turtle turtle = model.getTurtle();
-        turtle.setAngle(turtle.getAngle() + myRotation);
+        turtle.setAngle(turtle.getAngle() - getRotations());
+        model.displayMessage(getRotations() + "");
     }
 
     /**

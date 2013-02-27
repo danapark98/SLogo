@@ -132,6 +132,7 @@ public class View extends SLogoView {
             public void actionPerformed (ActionEvent e) {
                 // TODO: add contoller command here.
 //                appendHistory(myConsole.getText());
+                
                 myConsole.setText("");
             }
         });

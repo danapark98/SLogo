@@ -18,7 +18,8 @@ public class Right extends Left {
     @Override
     public void execute (Model model) {
         Turtle turtle = model.getTurtle();
-        turtle.setAngle(turtle.getAngle() - getRotations());
+        turtle.setAngle(turtle.getAngle() + getRotations());
+        model.displayMessage(getRotations() + "");
     }
 
 }

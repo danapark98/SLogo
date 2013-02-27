@@ -35,7 +35,7 @@ public class Forward extends BaseInstruction {
     @Override
     public void execute (Model model) {
         Turtle turtle = model.getTurtle();
-        turtle.translate(new Vector(myMagnitude,0));
+        turtle.translate(new Vector(turtle.getAngle(), myMagnitude));
         model.displayMessage(myMagnitude + "");
     }
 
