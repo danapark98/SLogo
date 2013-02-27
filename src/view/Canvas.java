@@ -1,4 +1,5 @@
 package view;
+import control.Controller;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-import control.Controller;
+
 import simulation.Model;
 
 
@@ -20,11 +21,6 @@ import simulation.Model;
  * 
  */
 public class Canvas extends JComponent {
-
-    /**
-     * default serialization ID
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * Frames_Per_Second for running the simulation.
@@ -42,9 +38,13 @@ public class Canvas extends JComponent {
      */
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
 
+    /**
+     * default serialization ID
+     */
+    private static final long serialVersionUID = 1L;
+
     private Dimension myBounds;
     private Model mySimulation;
-    private SLogoView myView;
     private Timer myTimer;
 
     /**
@@ -89,9 +89,9 @@ public class Canvas extends JComponent {
                                 public void actionPerformed (ActionEvent e) {
                                     step();
                                 }
-                            });
+                            }
+                );
         mySimulation = new Model(view);
-        Controller temp =new Controller(mySimulation, view);
         view.setController(new Controller(mySimulation, view));
         myTimer.start();
     }
