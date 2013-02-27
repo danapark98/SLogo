@@ -5,10 +5,11 @@ import simulation.Model;
 import control.Parser;
 import exceptions.IllegalInstructionException;
 
+
 public class Sum extends BaseInstruction {
     public static final String KEYWORD = "SUM";
     public static final String KEYWORD1 = "+";
-    
+
     private int myFirstVal;
     private int mySecondVal;
 

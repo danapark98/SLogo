@@ -1,10 +1,9 @@
 package instructions;
 
 import java.util.Scanner;
-
+import simulation.Model;
 import control.Parser;
 import exceptions.IllegalInstructionException;
-import simulation.Model;
 
 
 /**
@@ -29,6 +28,7 @@ public abstract class Instruction implements IExecutable {
      * 
      * @param model is the model on which this Instruction will execute
      */
+    @Override
     public abstract void execute (Model model);
 
     /**

@@ -2,6 +2,7 @@ package instructions;
 
 import simulation.Model;
 
+
 public interface IExecutable {
 
     /**
@@ -12,5 +13,5 @@ public interface IExecutable {
      * 
      * @param model - model on which this instruction will act
      */
-    public abstract void execute(Model model);
+    public abstract void execute (Model model);
 }

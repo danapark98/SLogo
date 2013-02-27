@@ -1,10 +1,10 @@
 package instructions;
 
 import java.util.Scanner;
-
-import control.Parser;
 import simulation.Model;
+import control.Parser;
 import exceptions.IllegalInstructionException;
+
 
 public class IfElse extends BaseInstruction {
     private int myValue;
@@ -14,9 +14,8 @@ public class IfElse extends BaseInstruction {
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
         myValue = line.nextInt();
-        myTrueInstruction = parseList(line, parser);
-        myFalseInstruction = parseList(line, parser);
-
+        myTrueInstruction = parser.parseList(line);
+        myFalseInstruction = parser.parseList(line);
     }
 
     @Override

@@ -3,9 +3,8 @@ package instructions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import control.Parser;
 import simulation.Model;
+import control.Parser;
 
 
 /**
@@ -51,7 +50,7 @@ public class CompoundInstruction extends Instruction {
     @Override
     public Instruction copy () {
         CompoundInstruction copy = new CompoundInstruction();
-        for(Instruction i: myInstructions) {
+        for (Instruction i : myInstructions) {
             copy.add(i);
         }
         return copy;

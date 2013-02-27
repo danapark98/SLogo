@@ -5,6 +5,7 @@ import simulation.Model;
 import control.Parser;
 import exceptions.IllegalInstructionException;
 
+
 public class MakeVariable extends BaseInstruction {
 
     @Override

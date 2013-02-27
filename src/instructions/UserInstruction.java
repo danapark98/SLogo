@@ -1,31 +1,32 @@
 package instructions;
 
 import java.util.Scanner;
+import simulation.Model;
 import control.Parser;
 import exceptions.IllegalInstructionException;
-import simulation.Model;
+
 
 /**
  * represents a user defined Instruction
  * 
  * @author Scott Valentine
- *
+ * 
  */
 public class UserInstruction extends BaseInstruction {
-   
+
     private Instruction myInstruction;
     private String myKeyword;
-    
-    public UserInstruction(String keyword) {
+
+    public UserInstruction (String keyword) {
         myKeyword = keyword;
     }
 
-    public String keyword() {
+    public String keyword () {
         return myKeyword;
     }
-    
+
     @Override
-    public void load (Scanner line, Parser parser) throws IllegalInstructionException{
+    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
         myInstruction = parser.generateInstruction(line);
     }
 
@@ -43,7 +44,7 @@ public class UserInstruction extends BaseInstruction {
     }
 
     private void setInstruction (Instruction copy) {
-        this.myInstruction = copy;
+        myInstruction = copy;
     }
 
 }

@@ -1,5 +1,5 @@
 package simulation;
 
 public interface LineAdder {
-    public void addLine(Line line);
+    public void addLine (Line line);
 }

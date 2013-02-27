@@ -90,14 +90,13 @@ public abstract class Sprite {
     public void setCenter (Location center) {
         setCenter(center.getX(), center.getY());
     }
-    
+
     /**
      * Resets shape's angle
      */
-    public void setAngle(double angle) {
+    public void setAngle (double angle) {
         myAngle = angle;
     }
-    
 
     /**
      * Returns shape's x coordinate in pixels.
@@ -112,11 +111,11 @@ public abstract class Sprite {
     public double getY () {
         return myCenter.getY();
     }
-    
+
     /**
      * Returns shape's angle relative to up direction.
      */
-    public double getAngle() {
+    public double getAngle () {
         return myAngle;
     }
 
@@ -251,7 +250,8 @@ public abstract class Sprite {
      */
     public void paint (Graphics2D pen)
     {
-        myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
+        // myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
+        myView.paint(pen, myCenter, mySize, myAngle);
     }
 
     /**

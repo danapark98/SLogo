@@ -5,44 +5,45 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import view.SLogoView;
-import view.View;
+
 
 public class Model implements LineAdder {
     private SLogoView myView;
     private Turtle myTurtle;
     private Collection<Line> myLines;
-    
-    public Model(SLogoView view) {
+
+    public Model (SLogoView view) {
         myView = view;
         myTurtle = new Turtle(this);
         myLines = new ArrayList<Line>();
     }
-    
+
     public void update (double elapsedTime, Dimension bounds) {
         myTurtle.update(elapsedTime, bounds);
     }
-    
-    public void paint(Graphics2D pen) {
+
+    public void paint (Graphics2D pen) {
         myTurtle.paint(pen);
         for (Line line : myLines) {
             line.paint(pen);
         }
     }
 
-    public void addLine(Line line) {
+    @Override
+    public void addLine (Line line) {
         myLines.add(line);
     }
-    
-    public Turtle getTurtle() {
+
+    public Turtle getTurtle () {
         return myTurtle;
     }
-    
-    public void reset() {
-    	myTurtle.resetTurtle();
-    	myLines.clear();
+
+    public void reset () {
+        myTurtle.resetTurtle();
+        myLines.clear();
     }
-    
-    public void displayMessage(String s) {
+
+    public void displayMessage (String s) {
         myView.displayText(s);
     }
 }

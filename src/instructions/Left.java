@@ -1,24 +1,25 @@
 package instructions;
 
 import java.util.Scanner;
-
-import control.Parser;
 import simulation.Model;
+import simulation.Turtle;
+import control.Parser;
 import exceptions.IllegalInstructionException;
+
 
 /**
  * Instruction for the turtle to rotate to the left
  * 
  * @author Scott Valentine
- *
+ * 
  */
-public class Left extends BaseInstruction{
+public class Left extends BaseInstruction {
 
-    /** keyword that calls this instruction*/
+    /** keyword that calls this instruction */
     public static final String KEYWORD = "left";
-    
+
     private double myRotation;
-    
+
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
         myRotation = line.nextDouble();
@@ -26,14 +27,16 @@ public class Left extends BaseInstruction{
 
     @Override
     public void execute (Model model) {
-       // model.getTurtle().rotate(myRotation);
+        Turtle turtle = model.getTurtle();
+        turtle.setAngle(turtle.getAngle() + myRotation);
     }
 
     /**
      * allows other directions to use this class and access myRotation
+     * 
      * @return
      */
-    protected double getRotations() {
+    protected double getRotations () {
         return myRotation;
     }
 }

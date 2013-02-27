@@ -1,7 +1,6 @@
 package control;
 
 import instructions.CompoundInstruction;
-import instructions.IExecutable;
 import instructions.Instruction;
 import java.util.Scanner;
 import exceptions.IllegalInstructionException;
@@ -66,4 +65,26 @@ public class Parser {
         return generateInstruction(line);
     }
 
+    public Instruction parseList (Scanner line) {
+        StringBuilder sb = new StringBuilder();
+        String str = line.next();
+        int counterBracket = 1;
+        while (counterBracket != 0) {
+            str = line.next();
+            if (str.equals("[")) {
+                counterBracket++;
+            }
+            if (str.equals("]"))
+            {
+                counterBracket--;
+                if (counterBracket == 0)
+                {
+                    break;
+                }
+            }
+            sb.append(str);
+            sb.append(" ");
+        }
+        return generateInstruction(sb.toString());
+    }
 }

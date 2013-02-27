@@ -1,12 +1,13 @@
+import simulation.Model;
 import view.SLogoView;
 import view.View;
+import control.Controller;
 
 
 /**
  * Runs the SLogo simulation.
  * 
- * @author Yoshida, Sean
- * 
+ * @author Yoshida, Sean, Ellango
  */
 public class Main {
 

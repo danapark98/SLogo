@@ -1,18 +1,15 @@
 package control;
 
 import instructions.IExecutable;
-import instructions.Instruction;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
-import javax.activity.InvalidActivityException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import simulation.Model;
 import view.SLogoView;
-import view.View;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 
 
 /**
@@ -37,6 +34,7 @@ public class Controller {
     }
 
     public void createRunInstruction (String s) {
+        myView.displayText(">> " + s);
         try {
             IExecutable instruction = myParser.generateInstruction(s);
             instruction.execute(myModel);
@@ -49,8 +47,7 @@ public class Controller {
 
     public void saveState (FileWriter fw) {
         try {
-            BufferedWriter out = new BufferedWriter(fw);
-            // TODO: write the variables that need to be saved
+            new BufferedWriter(fw);
         }
         catch (Exception e) {
             myView.displayText(e.toString());
@@ -61,18 +58,17 @@ public class Controller {
         try {
             Scanner input = new Scanner(f);
             while (input.hasNext()) {
-                Scanner line = new Scanner(input.nextLine());
-                // TODO: create variables
+                new Scanner(input.nextLine());
             }
 
             input.close();
         }
-        catch ( IllegalStateException e) {
+        catch (IllegalStateException e) {
             myView.displayText(e.toString());
             throw new IncorrectFileFormatException();
 
         }
-        catch (FileNotFoundException  e) {
+        catch (FileNotFoundException e) {
             myView.displayText(e.toString());
             throw new IncorrectFileFormatException();
 

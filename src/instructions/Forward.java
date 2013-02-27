@@ -1,10 +1,11 @@
 package instructions;
 
 import java.util.Scanner;
-
-import control.Parser;
 import simulation.Model;
 import simulation.Turtle;
+import util.Vector;
+import control.Parser;
+
 
 /**
  * represents the forward instruction
@@ -13,11 +14,11 @@ import simulation.Turtle;
  * fd 50 moves the turtle 50 pixels in its current direction
  * 
  * @author Scott Valentine
- *
+ * 
  */
 public class Forward extends BaseInstruction {
-    
-    /** the keyword associated with this instruction for user generated code*/
+
+    /** the keyword associated with this instruction for user generated code */
     public static final String KEYWORD = "fd";
 
     private int myMagnitude;
@@ -34,9 +35,8 @@ public class Forward extends BaseInstruction {
     @Override
     public void execute (Model model) {
         Turtle turtle = model.getTurtle();
-        //turtle.moveForward(myMagnitude);
+        turtle.translate(new Vector(myMagnitude,0));
         model.displayMessage(myMagnitude + "");
     }
-
 
 }
