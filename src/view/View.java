@@ -85,7 +85,7 @@ public class View extends SLogoView {
     @Override
     protected JComponent makeDisplay () {
         JPanel panel = new JPanel();
-//        panel.add(myCanvas);
+        panel.add(myCanvas);
         panel.add(makeCommandConsole());
         panel.add(makeHistory());
         return panel;
