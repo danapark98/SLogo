@@ -11,8 +11,10 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import control.Controller;
 
@@ -32,14 +34,19 @@ public class View extends SLogoView {
     public static final int DEFAULT_FD_MAG = 10;
     public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(200, 200);
     public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(200, 200);
+
+    private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
+    public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
+    public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
+    public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
+
     private JFileChooser myChooser;
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
     private FocusListener myFocusListener;
-    
-    
+
     private JTextArea myConsole;
     private JTextArea myHistory;
 
@@ -51,7 +58,7 @@ public class View extends SLogoView {
      */
     public View (String title, String language) {
         super(title, language);
-        getContentPane().add(makeInput(), BorderLayout.NORTH);
+        getContentPane().add(makeInput(), BorderLayout.WEST);
         getContentPane().add(makeDisplay(), BorderLayout.CENTER);
         pack();
         setVisible(true);
@@ -60,7 +67,7 @@ public class View extends SLogoView {
 
     @Override
     public void displayText (String text) {
-
+        myHistory.append(text);
     }
 
     @Override
@@ -68,14 +75,15 @@ public class View extends SLogoView {
         JPanel result = new JPanel();
         result.add(makeForwardButton());
         result.add(makeSubmitButton());
+        result.add(makeCommandConsole());
+//        result.add(makeTurnMagnitudeSlider());
         return result;
     }
 
     @Override
     protected JComponent makeDisplay () {
         JPanel panel = new JPanel();
-        panel.add(myCanvas);
-        panel.add(makeCommandConsole());
+        // panel.add(myCanvas);
         panel.add(makeHistory());
         return panel;
     }
@@ -96,13 +104,30 @@ public class View extends SLogoView {
         });
         return button;
     }
-    
-    private JButton makeSubmitButton() {
+
+    private JButton makeBackwardButton () {
+        // TODO: change fd mag to a variable from an input slider
+        // we also need to look into this final usage
+        final String command = FD + -DEFAULT_FD_MAG;
+        final Controller controller = super.myController;
+        JButton button = new JButton(super.myResources.getString(FORWARD_COMMAND));
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // TODO: this was a change to the API we noticed
+                controller.createRunInstruction(command);
+                System.out.println("Forward Button");
+            }
+        });
+        return button;
+    }
+
+    private JButton makeSubmitButton () {
         JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                //TODO: add contoller command here.
+                // TODO: add contoller command here.
                 if (myHistory.getText().length() == 0) {
                     myHistory.append(myConsole.getText());
                 }
@@ -114,20 +139,19 @@ public class View extends SLogoView {
         });
         return button;
     }
-    
-    
-    //TODO: should subsume these two methods
-    private JScrollPane makeCommandConsole() {
+
+    // TODO: should subsume these two methods
+    private JScrollPane makeCommandConsole () {
         JTextArea textArea = new JTextArea();
         myConsole = textArea;
-//        textArea.setEditable(false);
+        // textArea.setEditable(false);
         JScrollPane pane = new JScrollPane(textArea);
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
-        
+
         return pane;
     }
-    
-    private JScrollPane makeHistory() {
+
+    private JScrollPane makeHistory () {
         JTextArea text = new JTextArea();
         myHistory = text;
         text.setEditable(false);
@@ -135,7 +159,21 @@ public class View extends SLogoView {
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
     }
-
+//TODO: maybe add slider.  A default value is acceptable practice
+//    private JSlider makeTurnMagnitudeSlider () {
+//        JLabel turnLabel = new JLabel(myResources.getString(TURN_MAGNITUDE_LABEL));
+//        JSlider mag = new JSlider(JSlider.HORIZONTAL,
+//                                  MIN_DISPLACEMENT_MAGNITUDE,
+//                                  MAX_DISPLACEMENT_MAGNITUDE,
+//                                  INITIAL_DISPLACEMENT_MAGNITUDE);
+//        mag.setMajorTickSpacing(10);
+//        mag.setMinorTickSpacing(1);
+//        mag.setPaintTicks(true);
+//        mag.setPaintLabels(true);
+//        // TODO: having difficulty adding listener for the slider...
+//        return mag;
+//
+//    }
     // myController.sendString(s);
 
     // TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve
@@ -169,10 +207,4 @@ public class View extends SLogoView {
      * actionPerformed, and then
      * place this newer ActionListener w/ complete actionPerformed into the JButton
      */
-
-    public static void main (String[] args) {
-        new View("HI", "English");
-
-    }
-
 }
