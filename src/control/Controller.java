@@ -11,6 +11,7 @@ import javax.activity.InvalidActivityException;
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
 import simulation.Model;
+import view.SLogoView;
 import view.View;
 
 
@@ -24,11 +25,11 @@ import view.View;
 public class Controller {
 
     private Model myModel;
-    private View myView;
+    private SLogoView myView;
     private Parser myParser;
     private Environment myEnvironment;
 
-    public Controller (Model model, View view) {
+    public Controller (Model model, SLogoView view) {
         myModel = model;
         myView = view;
         myEnvironment = new Environment();
@@ -66,7 +67,12 @@ public class Controller {
 
             input.close();
         }
-        catch (FileNotFoundException | IllegalStateException e) {
+        catch ( IllegalStateException e) {
+            myView.displayText(e.toString());
+            throw new IncorrectFileFormatException();
+
+        }
+        catch (FileNotFoundException  e) {
             myView.displayText(e.toString());
             throw new IncorrectFileFormatException();
 

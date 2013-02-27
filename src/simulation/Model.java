@@ -4,14 +4,15 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import view.SLogoView;
 import view.View;
 
 public class Model implements LineAdder {
-    private View myView;
+    private SLogoView myView;
     private Turtle myTurtle;
     private Collection<Line> myLines;
     
-    public Model(View view) {
+    public Model(SLogoView view) {
         myView = view;
         myTurtle = new Turtle(this);
         myLines = new ArrayList<Line>();
