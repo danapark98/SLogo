@@ -11,12 +11,9 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JTextArea;
-import javax.swing.event.ChangeListener;
 import control.Controller;
 
 
@@ -28,21 +25,13 @@ import control.Controller;
  * 
  */
 public class View extends SLogoView {
-    private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
-
-    public static final String USER_DIR = "user.dir";
-    
-    public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
-    public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
-    public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
+    private static final String USER_DIR = "user.dir";
     public static final String FORWARD_COMMAND = "ForwardCommand";
     public static final String SUBMIT_COMMAND = "SubmitCommand";
     public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
     public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(200, 200);
     public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(200, 200);
-    
-    
     private JFileChooser myChooser;
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
@@ -145,21 +134,6 @@ public class View extends SLogoView {
         JScrollPane pane = new JScrollPane(text);
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
-    }
-    
-    private JSlider makeTurnMagnitudeSlider() {
-        JLabel turnLabel = new JLabel(myResources.getString(TURN_MAGNITUDE_LABEL));
-        JSlider mag = new JSlider(JSlider.HORIZONTAL,
-                                  MIN_DISPLACEMENT_MAGNITUDE,
-                                  MAX_DISPLACEMENT_MAGNITUDE,
-                                 INITIAL_DISPLACEMENT_MAGNITUDE);
-        mag.setMajorTickSpacing(10);
-        mag.setMinorTickSpacing(1);
-        mag.setPaintTicks(true);
-        mag.setPaintLabels(true);
-        //TODO: having difficulty adding listener for the slider...
-        return mag;
-        
     }
 
     // myController.sendString(s);

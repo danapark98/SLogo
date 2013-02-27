@@ -96,11 +96,13 @@ public abstract class SLogoView extends JFrame {
     /**
      * Sets the canvas for the view. Will be called from the model or controller.
      * Called with command within controller such as myView.super.setCanvas(model)
+     * This method also starts the Canvas, which loads the model
      * 
      * @param model Model that should be displayed within the Canvas
      */
-    public void setCanvas (Model model) {
-        myCanvas = new Canvas(PREFERRED_CANVAS_SIZE, this, model);
+    public void setCanvas () {
+        myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
+        myCanvas.start(this);
     }
 
     /**
