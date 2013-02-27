@@ -14,10 +14,14 @@ import view.SLogoView;
 
 
 public class Turtle extends Sprite {
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("turtle_art.png");
+    public static final Pixmap DEFAULT_IMAGE = new Pixmap("turtle_art.png");
+    public static final Pixmap NO_IMAGE = new Pixmap("blank.png");
     private static final Dimension DEFAULT_SIZE = new Dimension(70, 70);
-    private static final double X_OFFSET = 10;
-    private static final double Y_OFFSET = 10;
+    private static final String X_LABEL = "X-coordinate:";
+    private static final String Y_LABEL = "Y-coordinate:";
+    private static final String ANGLE_LABEL = "Angle:";
+    private static final double X_OFFSET = 60;
+    private static final double Y_OFFSET = 20;
     private LineAdder myLineAdder;
     private List<ValueText> myStatus;
     private Color myPenColor;
@@ -56,10 +60,10 @@ public class Turtle extends Sprite {
     }
 
     private void paintStatus (Graphics2D pen) {
-        Location textLoc = new Location(X_OFFSET, Y_OFFSET);
+        Location textLoc = new Location(X_OFFSET, 0);
         for (ValueText vt:myStatus) {
             textLoc.setLocation(X_OFFSET, textLoc.getY() + Y_OFFSET);
-            vt.paint(pen, textLoc, Color.WHITE);
+            vt.paint(pen, textLoc, Color.BLACK);
         }
     }
 
@@ -92,9 +96,9 @@ public class Turtle extends Sprite {
 
     private void initTexts () {
         myStatus = new ArrayList<ValueText>();
-        myStatus.add(new ValueText("X-coordinate", 0));
-        myStatus.add(new ValueText("Y-coordinate", 0));
-        myStatus.add(new ValueText("Angle", 0));
+        myStatus.add(new ValueText(X_LABEL, 0));
+        myStatus.add(new ValueText(Y_LABEL, 0));
+        myStatus.add(new ValueText(ANGLE_LABEL, 0));
     }
 
 }
