@@ -39,6 +39,7 @@ public class View extends SLogoView {
     public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
     public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
     public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
+    private static final String BACKWARD_COMMAND = "BackwardCommand";
 
     private JFileChooser myChooser;
     private ActionListener myActionListener;
@@ -64,10 +65,10 @@ public class View extends SLogoView {
         setVisible(true);
 
     }
-
+//TODO: merge this and appendHistory,they are the same
     @Override
     public void displayText (String text) {
-        myHistory.append(text);
+        appendHistory(text);
     }
 
     @Override
@@ -76,6 +77,7 @@ public class View extends SLogoView {
         result.add(makeForwardButton());
         result.add(makeSubmitButton());
         result.add(makeCommandConsole());
+        result.add(makeBackwardButton());
 //        result.add(makeTurnMagnitudeSlider());
         return result;
     }
@@ -91,7 +93,7 @@ public class View extends SLogoView {
     private JButton makeForwardButton () {
         // TODO: change fd mag to a variable from an input slider
         // we also need to look into this final usage
-        final String command = FD + DEFAULT_FD_MAG;
+        final String command = ""+FD + DEFAULT_FD_MAG;
         final Controller controller = super.myController;
         JButton button = new JButton(super.myResources.getString(FORWARD_COMMAND));
         button.addActionListener(new ActionListener() {
@@ -99,7 +101,8 @@ public class View extends SLogoView {
             public void actionPerformed (ActionEvent e) {
                 // TODO: this was a change to the API we noticed
                 controller.createRunInstruction(command);
-                System.out.println("Forward Button");
+//                appendHistory(command);
+                System.out.println(command);
             }
         });
         return button;
@@ -110,7 +113,7 @@ public class View extends SLogoView {
         // we also need to look into this final usage
         final String command = FD + -DEFAULT_FD_MAG;
         final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(FORWARD_COMMAND));
+        JButton button = new JButton(super.myResources.getString(BACKWARD_COMMAND));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -128,17 +131,24 @@ public class View extends SLogoView {
             @Override
             public void actionPerformed (ActionEvent e) {
                 // TODO: add contoller command here.
-                if (myHistory.getText().length() == 0) {
-                    myHistory.append(myConsole.getText());
-                }
-                else {
-                    myHistory.append("\n" + myConsole.getText());
-                }
+//                appendHistory(myConsole.getText());
                 myConsole.setText("");
             }
         });
         return button;
     }
+    
+    private void appendHistory(String text) {
+        if (text.length() > 0) {
+            if (myHistory.getText().length() == 0) {
+                myHistory.append(text);
+            }
+            else {
+                myHistory.append("\n" + text);
+            }
+        }
+    }
+    
 
     // TODO: should subsume these two methods
     private JScrollPane makeCommandConsole () {

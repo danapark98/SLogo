@@ -78,9 +78,11 @@ public abstract class SLogoView extends JFrame {
 
     /**
      * Method to display a text to the user in a display Box.
-     * 
+     * TODO:we need this to be called by the controller twice for every parsed phrase.  
+     * One repeating the phrase sent with ">>" before it, and then once for the return value
      * @param text Text to display
      */
+    
     public abstract void displayText (String text);
 
     /**
