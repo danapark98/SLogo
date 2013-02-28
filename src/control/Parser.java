@@ -27,6 +27,10 @@ public class Parser {
         myEnvironment = environment;
 
     }
+    
+    public Environment getEnvironment() {
+    	return myEnvironment;
+    }
 
     /**
      * Takes user input and converts it to either

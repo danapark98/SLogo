@@ -64,5 +64,4 @@ public abstract class Instruction{
         return instruct;
     }
 
-    TO test [ x y z ] [   ]
 }

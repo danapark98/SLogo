@@ -43,7 +43,7 @@ public class UserInstruction extends BaseInstruction {
         return copy;
     }
 
-    private void setInstruction (Instruction copy) {
+    public void setInstruction (Instruction copy) {
         myInstruction = copy;
     }
 
