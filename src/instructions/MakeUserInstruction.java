@@ -11,13 +11,16 @@ public class MakeUserInstruction extends BaseInstruction {
 
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-
+        // get name
+        // get list of variables
+        // get list of instructions
+        // make new UserInstruction
+        // add UserInstruction to environment
     }
 
     @Override
     public int execute (Model model) {
-        // TODO Auto-generated method stub
+        // default return value (this instruction only defines something)
         return 0;
     }
 

@@ -17,6 +17,12 @@ public class Model implements LineAdder {
         myTurtle = new Turtle(this);
         myLines = new ArrayList<Line>();
     }
+    
+    //used for testing (make life easier
+    // TODO: get rid of this constructor, please!
+    public Model() {
+        
+    }
 
     public void update (double elapsedTime, Dimension bounds) {
         myTurtle.update(elapsedTime, bounds);

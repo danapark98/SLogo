@@ -4,6 +4,7 @@ import instructions.Forward;
 import instructions.Instruction;
 import instructions.Left;
 import instructions.Right;
+import instructions.Sum;
 import java.util.HashMap;
 import java.util.Map;
 import exceptions.IllegalInstructionException;
@@ -34,6 +35,7 @@ public class Environment {
      * populates myInstructionMap with relevant instructions
      */
     private void initiateInstructionMap () {
+        myInstructionMap.put(Sum.KEYWORD, new Sum());
         myInstructionMap.put(Forward.KEYWORD, new Forward());
         myInstructionMap.put(Right.KEYWORD, new Right());
         myInstructionMap.put(Left.KEYWORD, new Left());

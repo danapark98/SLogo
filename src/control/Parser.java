@@ -73,7 +73,7 @@ public class Parser {
 
     public Instruction parseList (Scanner line) {
         StringBuilder sb = new StringBuilder();
-        String str = line.next();
+        String str = "";
         int counterBracket = 1;
         while (counterBracket != 0) {
             str = line.next();
