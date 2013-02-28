@@ -15,9 +15,9 @@ public class MakeVariable extends BaseInstruction {
     }
 
     @Override
-    public void execute (Model model) {
+    public int execute (Model model) {
         // TODO Auto-generated method stub
-
+        return 0;
     }
 
 }

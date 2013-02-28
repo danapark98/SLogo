@@ -26,10 +26,12 @@ public class CompoundInstruction extends Instruction {
     }
 
     @Override
-    public void execute (Model model) {
+    public int execute (Model model) {
+        int lastReturn = 0;
         for (Instruction i : myInstructions) {
-            i.execute(model);
+            lastReturn = i.execute(model);
         }
+        return lastReturn;
     }
 
     /**

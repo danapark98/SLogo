@@ -31,8 +31,8 @@ public class UserInstruction extends BaseInstruction {
     }
 
     @Override
-    public void execute (Model model) {
-        myInstruction.execute(model);
+    public int execute (Model model) {
+        return myInstruction.execute(model);
     }
 
     @Override

@@ -10,19 +10,19 @@ public class Sum extends BaseInstruction {
     public static final String KEYWORD = "SUM";
     public static final String KEYWORD1 = "+";
 
-    private int myFirstVal;
-    private int mySecondVal;
+    private Instruction myFirstVal;
+    private Instruction mySecondVal;
 
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myFirstVal = line.nextInt();
-        mySecondVal = line.nextInt();
+        myFirstVal = nextInstruction(line, parser);
+        mySecondVal = nextInstruction(line, parser);
     }
 
     @Override
-    public void execute (Model model) {
-        Integer result = myFirstVal + mySecondVal;
-        model.displayMessage(result.toString());
+    public int execute (Model model) {
+        return myFirstVal.execute(model) + mySecondVal.execute(model);
     }
+    
 
 }

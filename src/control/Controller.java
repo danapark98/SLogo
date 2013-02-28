@@ -1,6 +1,6 @@
 package control;
 
-import instructions.IExecutable;
+import instructions.Instruction;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,8 +36,8 @@ public class Controller {
     public void createRunInstruction (String s) {
         myView.displayText(">> " + s);
         try {
-            IExecutable instruction = myParser.generateInstruction(s);
-            instruction.execute(myModel);
+            Instruction instruction = myParser.generateInstruction(s);
+            myView.displayText("" + instruction.execute(myModel));
         }
         catch (IllegalInstructionException e) {
             myView.displayText(e.toString());

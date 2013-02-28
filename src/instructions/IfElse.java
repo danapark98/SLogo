@@ -7,24 +7,26 @@ import exceptions.IllegalInstructionException;
 
 
 public class IfElse extends BaseInstruction {
-    private int myValue;
+    private Instruction myValue;
     private Instruction myTrueInstruction;
     private Instruction myFalseInstruction;
 
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myValue = line.nextInt();
+        myValue = nextInstruction(line, parser);
+        
+        
         myTrueInstruction = parser.parseList(line);
         myFalseInstruction = parser.parseList(line);
     }
 
     @Override
-    public void execute (Model model) {
-        if (myValue != 0) {
-            myTrueInstruction.execute(model);
+    public int  execute (Model model) {
+        if (myValue.execute(model) != 0) {
+            return myTrueInstruction.execute(model);
         }
         else {
-            myFalseInstruction.execute(model);
+            return myFalseInstruction.execute(model);
         }
     }
 

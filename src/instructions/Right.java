@@ -16,10 +16,12 @@ public class Right extends Left {
     public static final String KEYWORD = "right";
 
     @Override
-    public void execute (Model model) {
+    public int execute (Model model) {
+        int rotation = getRotations().execute(model);
+        
         Turtle turtle = model.getTurtle();
-        turtle.setAngle(turtle.getAngle() + getRotations());
-        model.displayMessage(getRotations() + "");
+        turtle.setAngle(turtle.getAngle() + rotation);
+        return rotation;
     }
 
 }

@@ -13,5 +13,5 @@ public interface IExecutable {
      * 
      * @param model - model on which this instruction will act
      */
-    public abstract void execute (Model model);
+    public abstract int execute (Model model);
 }

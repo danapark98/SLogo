@@ -18,18 +18,22 @@ public class Left extends BaseInstruction {
     /** keyword that calls this instruction */
     public static final String KEYWORD = "left";
 
-    private double myRotation;
+    private Instruction myRotation;
 
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myRotation = line.nextDouble();
+        myRotation = nextInstruction(line, parser);
     }
 
     @Override
-    public void execute (Model model) {
+    public int execute (Model model) {
+        
+        int rotation = getRotations().execute(model);
+        
         Turtle turtle = model.getTurtle();
-        turtle.setAngle(turtle.getAngle() - getRotations());
-        model.displayMessage(getRotations() + "");
+        turtle.setAngle(turtle.getAngle() - rotation);
+        
+        return rotation;
     }
 
     /**
@@ -37,7 +41,7 @@ public class Left extends BaseInstruction {
      * 
      * @return
      */
-    protected double getRotations () {
+    protected Instruction getRotations () {
         return myRotation;
     }
 }

@@ -21,22 +21,20 @@ public class Forward extends BaseInstruction {
     /** the keyword associated with this instruction for user generated code */
     public static final String KEYWORD = "fd";
 
-    private int myMagnitude;
+    private Instruction myMagnitude;
 
-    public Forward () {
-        myMagnitude = 0;
-    }
 
     @Override
     public void load (Scanner line, Parser parser) {
-        myMagnitude = (int) line.nextDouble();
+        myMagnitude = nextInstruction(line, parser);
     }
 
     @Override
-    public void execute (Model model) {
+    public int execute (Model model) {
+        int mag  = myMagnitude.execute(model);        
         Turtle turtle = model.getTurtle();
-        turtle.translate(new Vector(turtle.getAngle(), myMagnitude));
-        model.displayMessage(myMagnitude + "");
+        turtle.translate(new Vector(turtle.getAngle(), mag));
+        return mag;
     }
 
 }

@@ -18,7 +18,7 @@ import exceptions.IllegalInstructionException;
  * @author Scott Valentine
  * 
  */
-public abstract class Instruction implements IExecutable {
+public abstract class Instruction{
 
     /**
      * executes this Instruction on the model
@@ -28,8 +28,8 @@ public abstract class Instruction implements IExecutable {
      * 
      * @param model is the model on which this Instruction will execute
      */
-    @Override
-    public abstract void execute (Model model);
+    
+    public abstract int execute (Model model);
 
     /**
      * loads this instruction from a scanner of user input
@@ -49,5 +49,19 @@ public abstract class Instruction implements IExecutable {
      * @return a copy of this instruction
      */
     public abstract Instruction copy ();
+    
+    protected Instruction nextInstruction (Scanner line, Parser parser) {
+        Instruction instruct;
+        
+        String next = line.next();
+        if(next.equals("[")){
+            // this is a list
+            instruct = parser.parseList(line);
+        }
+        else{
+            instruct = parser.generateInstruction(next);
+        }
+        return instruct;
+    }
 
 }

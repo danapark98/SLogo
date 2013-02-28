@@ -1,6 +1,7 @@
 package control;
 
 import instructions.CompoundInstruction;
+import instructions.ConstantInstruction;
 import instructions.Instruction;
 import java.util.Scanner;
 import exceptions.IllegalInstructionException;
@@ -41,13 +42,18 @@ public class Parser {
 
         while (line.hasNext()) {
             String commandName = line.next();
+            try {
+                Instruction result = new ConstantInstruction(Integer.parseInt(commandName));
+                resultInstruct.add(result);
+            }
+            catch (NumberFormatException e) {
+                // right now the environment will handle the exceptions
+                Instruction base = myEnvironment.systemInstructionSkeleton(commandName);
 
-            // right now the environment will handle the exceptions
-            Instruction base = myEnvironment.systemInstructionSkeleton(commandName);
+                base.load(line, this);
 
-            base.load(line, this);
-
-            resultInstruct.add(base);
+                resultInstruct.add(base);
+            }
 
         }
         return resultInstruct;

@@ -8,20 +8,22 @@ import exceptions.IllegalInstructionException;
 
 public class ForLoop extends BaseInstruction {
     public static String KEYWORD = "REPEAT";
-    private int myRepeats;
+    private Instruction myRepeats;
     private Instruction myInstruction;
 
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myRepeats = line.nextInt();
+        myRepeats = nextInstruction(line, parser);
         myInstruction = parser.parseList(line);
     }
 
     @Override
-    public void execute (Model model) {
-        for (int i = 0; i < myRepeats; ++i) {
-            myInstruction.execute(model);
+    public int execute (Model model) {     
+        int last = 0;
+        for (int i = 0; i < myRepeats.execute(model); ++i) {
+            last = myInstruction.execute(model);
         }
+        return last;
     }
 
 }
