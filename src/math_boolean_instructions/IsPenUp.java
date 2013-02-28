@@ -1,4 +1,4 @@
-package instructions;
+package math_boolean_instructions;
 
 import simulation.Model;
 

@@ -1,5 +1,6 @@
-package instructions;
+package math_boolean_instructions;
 
+import instructions.BaseInstruction;
 import java.util.Scanner;
 import simulation.Model;
 import control.Parser;
