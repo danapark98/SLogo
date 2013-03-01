@@ -133,6 +133,7 @@ public class View extends SLogoView {
             public void actionPerformed (ActionEvent e) {
                 // TODO: add contoller command here.
                 //appendHistory(myConsole.getText());
+                //this is redunadant with view method for sending a command
                 controller.createRunInstruction(myConsole.getText());
                 myConsole.setText("");
             }
