@@ -1,14 +1,14 @@
 package control;
 
+import exceptions.IllegalInstructionException;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import java.util.Scanner;
-import exceptions.IllegalInstructionException;
 
 
 /**
- * Converts a user inputed string into an SystemInstruction that can do work on the model
+ * Converts a user inputed string into an Instruction that can execute on the model.
  * 
  * @author Scott Valentine
  * 
@@ -19,16 +19,20 @@ public class Parser {
     private Environment myEnvironment;
 
     /**
-     * default constructor, sets the environment for the parser to use as reference
+     * Default constructor: sets the environment for the parser to use as reference.
      * 
-     * @param environment - environment that the parser uses for reference
+     * @param environment that the parser uses for reference to build instructions
      */
     public Parser (Environment environment) {
         myEnvironment = environment;
     }
     
+    /**
+     * Gives the environment used in this parser.
+     * @return this parser's environment
+     */
     public Environment getEnvironment() {
-    	return myEnvironment;
+        return myEnvironment;
     }
 
     /**
@@ -36,9 +40,10 @@ public class Parser {
      * 1. CompoundInstruction to be executed on the model
      * 2. An exception to be displayed in the command history
      * 
-     * @param line - scanner of data to be parsed into an instruction
-     * @return - the instruction that represents the user input
-     * @throws IllegalInstructionException
+     * @param line - A scanner of data to be parsed into an instruction.
+     * @return The instruction that represents the user input.
+     * @throws IllegalInstructionException If the instruction is not mapped in the
+     * environment, throw this exception with argument of the incompatible string
      */
     public Instruction generateInstruction (Scanner line) throws IllegalInstructionException {
         CompoundInstruction resultInstruct = new CompoundInstruction();
@@ -68,11 +73,14 @@ public class Parser {
     }
 
     /**
-     * secondary method signature: can call by using a string instead of a scanner
+     * Takes user input and converts it to either
+     * 1. CompoundInstruction to be executed on the model
+     * 2. An exception to be displayed in the command history
      * 
-     * @param userInput
-     * @return
-     * @throws IllegalInstructionException
+     * @param userInput - A string of data to be parsed into an instruction.
+     * @return The instruction that represents the user input.
+     * @throws IllegalInstructionException If the instruction is not mapped in the
+     * environment, throw this exception with argument of the incompatible string
      */
     public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
         Scanner line = new Scanner(userInput);
@@ -80,10 +88,10 @@ public class Parser {
     }
 
     /**
-     * first bracket read before calling.
+     * Parses a list into an instruction that represents the contents of the list.
      * 
-     * @param line is a scanner that iterates through the list
-     * @return an instruction that is made from the list
+     * @param line is a scanner that iterates through the list.
+     * @return an instruction that is made from the list.
      */
     public Instruction parseList (Scanner line) {
         StringBuilder sb = new StringBuilder();
@@ -91,6 +99,7 @@ public class Parser {
         int counterBracket = 1;
         while (counterBracket != 0) {
             str = line.next();
+            // TODO: use resources to define the brackets
             if (str.equals("[")) {
                 counterBracket++;
             }
@@ -108,6 +117,19 @@ public class Parser {
         return generateInstruction(sb.toString());
     }
 
+    /**
+     * Parses through the next complete instruction. 
+     * <br><br>
+     * <u>Example:</u>
+     * <br>
+     * If the input comes from the Scanner that represents the
+     * string "fd 50 backward 50"
+     * then
+     * nextInstruction will return the instruction fd 50.
+     * 
+     * @param line is the data to be parsed into an instruction.
+     * @return The next instruction from the scanner, line.
+     */
     public Instruction nextInstruction (Scanner line) {
         Instruction instruct;
         

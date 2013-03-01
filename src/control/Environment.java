@@ -1,9 +1,9 @@
 package control;
 
+import exceptions.IllegalInstructionException;
 import instructions.Instruction;
 import java.io.FileNotFoundException;
 import java.util.Map;
-import exceptions.IllegalInstructionException;
 
 
 /**
@@ -35,8 +35,10 @@ public class Environment {
 
         try {
             myInstructionMap = imf.buildInstructionMap();
-        } catch (FileNotFoundException e) {
-            // TODO: do something if nothing is found (map will be empty and all user commands will fail)
+        } 
+        catch (FileNotFoundException e) {
+            // TODO: do something if nothing is found 
+            // (map will be empty and all user commands will fail)
             return;
         }
     }
@@ -63,7 +65,7 @@ public class Environment {
      * @throws IllegalInstructionException
      */
     public Instruction systemInstructionSkeleton(String commandName)
-                                                                    throws IllegalInstructionException {
+        throws IllegalInstructionException {
 
         if (!myInstructionMap.containsKey(commandName))
             throw new IllegalInstructionException(commandName);

@@ -12,16 +12,20 @@ import java.util.Scanner;
 
 /**
  * Creates a map for all of the instructions in the user defined text file of
- * each instruction's
- * keyword to an instance of the instruction.
+ * each instruction's keyword to an instance of the instruction.
+ * 
+ * Creating the map requires an instruction index file.
+ * 
+ * To change the instruction index file, change the value of the static field
+ * INSTRUCTION_INDEX_FILE
  * 
  * @author Scott Valentine
  * 
  */
 public class InstructionMapFactory {
 
-    /** location of all instruction classpath data */
-    public static final String INSTRUCTION_INDEX_FILE =
+    /** Location of all instruction classpath data. */
+    private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/instruction_index.txt";
 
     /** default location of the resouces package */
@@ -47,12 +51,12 @@ public class InstructionMapFactory {
     private ResourceBundle myResources;
 
     /**
-     * instantiates the factory based on the language to be used for the
-     * commands
+     * Instantiates the factory based on the language to be used for the
+     * commands.
      * 
-     * @param language - language of the commands (must be file in resource
+     * @param language of the commands (must be file in resource
      *        folder)
-     * @throws FileNotFoundException - if the resource bundle cannot be found
+     * @throws FileNotFoundException if the resource bundle cannot be found
      */
     public InstructionMapFactory(String language) {
         try {
@@ -65,10 +69,9 @@ public class InstructionMapFactory {
         }
     }
 
-    /**
-     * 
-     * builds an Instruction an instruction map from the file where the names
-     * are stored
+    /** 
+     * Builds an instruction map that maps keyword strings to their
+     * instructions.
      * 
      * @param filename - name of file where instruction class names are stored
      * @return - a map of keywords to instructions
@@ -77,7 +80,6 @@ public class InstructionMapFactory {
      */
     public Map<String, Instruction> buildInstructionMap() 
         throws FileNotFoundException {
-                                                                        
 
         String currentDirectory = System.getProperty("user.dir");
 
@@ -124,13 +126,10 @@ public class InstructionMapFactory {
             catch (IllegalAccessException e) {
                 return;
             }
-
             // gets parameters from line
             for (int i = 1; i < params.length; ++i) {
                 instructionMap.put(myResources.getString(params[i]), instruct);
-
             }
         }
     }
-
 }
