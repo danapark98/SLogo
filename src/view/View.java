@@ -75,9 +75,9 @@ public class View extends SLogoView {
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.add(makeForwardButton());
-        result.add(makeSubmitButton());
-        result.add(makeCommandConsole());
         result.add(makeBackwardButton());
+        result.add(makeCommandConsole());
+        result.add(makeSubmitButton());
 //        result.add(makeTurnMagnitudeSlider());
         return result;
     }
