@@ -1,28 +1,28 @@
 package instructions;
 
 import java.util.Scanner;
-import simulation.Model;
 import control.Parser;
-import exceptions.IllegalInstructionException;
+import simulation.Model;
 
 
 public class MakeVariable extends BaseInstruction {
+    public static String KEYWORD = "MAKE";
+    private static final int NUMBER_OF_ARGUMENTS = 2;
 
-    
-    
     @Override
-    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        // load name
-        // load value (which is an instruction)
-        // put new const  --> Environment
-        // TODO: implement this
-
+    public void load(Scanner line, Parser parser) {
+        //TODO: will probably have to do something special here.
     }
-
+    
     @Override
     public int execute (Model model) {
-        // is definition, so returns default value;
-        return 0;
+        nextOperand();
+        return nextOperand().execute(model);
+    }
+    
+    @Override
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }

@@ -1,29 +1,27 @@
 package instructions;
 
-import java.util.Scanner;
 import simulation.Model;
-import control.Parser;
-import exceptions.IllegalInstructionException;
 
 
 public class ForLoop extends BaseInstruction {
+    
     public static String KEYWORD = "REPEAT";
-    private Instruction myRepeats;
-    private Instruction myInstruction;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
+
 
     @Override
-    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myRepeats = nextInstruction(line, parser);
-        myInstruction = parser.parseList(line);
-    }
-
-    @Override
-    public int execute (Model model) {     
+    public int execute (Model model) { 
+        int numberOfIterations = nextOperand().execute(model);
+        Instruction commandsToLoop = nextOperand();
         int last = 0;
-        for (int i = 0; i < myRepeats.execute(model); ++i) {
-            last = myInstruction.execute(model);
+        for (int i = 0; i < numberOfIterations; ++i) {
+            last = commandsToLoop.execute(model);
         }
         return last;
     }
 
+    @Override
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
+    }
 }

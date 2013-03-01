@@ -1,8 +1,6 @@
 package instructions;
 
 import simulation.Model;
-import simulation.Turtle;
-
 
 /**
  * Instruction for the turtle to rotate to the right
@@ -10,18 +8,15 @@ import simulation.Turtle;
  * @author Scott Valentine
  * 
  */
-public class Right extends Left {
+public class Right extends Rotate {
 
     /** keyword that calls this instruction */
     public static final String KEYWORD = "right";
+    public static final String KEYWORD0 = "rt";
 
     @Override
-    public int execute (Model model) {
-        int rotation = getRotations().execute(model);
-        
-        Turtle turtle = model.getTurtle();
-        turtle.setAngle(turtle.getAngle() + rotation);
-        return rotation;
+    public int getRotation(Model model) {
+        return nextOperand().execute(model);
     }
 
 }

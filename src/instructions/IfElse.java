@@ -1,33 +1,28 @@
 package instructions;
 
-import java.util.Scanner;
 import simulation.Model;
-import control.Parser;
-import exceptions.IllegalInstructionException;
 
 
 public class IfElse extends BaseInstruction {
-    private Instruction myValue;
-    private Instruction myTrueInstruction;
-    private Instruction myFalseInstruction;
-
-    @Override
-    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myValue = nextInstruction(line, parser);
-        
-        
-        myTrueInstruction = parser.parseList(line);
-        myFalseInstruction = parser.parseList(line);
-    }
+    public static final String KEYWORD = "IFELSE";
+    private static final int NUMBER_OF_ARGUMENTS = 3;
 
     @Override
     public int  execute (Model model) {
-        if (myValue.execute(model) != 0) {
-            return myTrueInstruction.execute(model);
+        int condition = nextOperand().execute(model);
+        Instruction trueInstruction = nextOperand();
+        Instruction falseInstruction = nextOperand();
+        if (condition != 0) {
+            return trueInstruction.execute(model);
         }
         else {
-            return myFalseInstruction.execute(model);
+            return falseInstruction.execute(model);
         }
+    }
+
+    @Override
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }

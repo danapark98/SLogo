@@ -1,5 +1,8 @@
 package instructions;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import control.Parser;
 import exceptions.IllegalInstructionException;
@@ -12,6 +15,7 @@ import exceptions.IllegalInstructionException;
  * 
  */
 public abstract class BaseInstruction extends Instruction {
+    private Iterator<Instruction> myOperands;
 
     /**
      * loads the base instruction from a scanner of user input
@@ -19,9 +23,44 @@ public abstract class BaseInstruction extends Instruction {
      * @param line - scanner from which information is read
      * @throws IllegalInstructionException
      */
-    @Override
-    public abstract void load (Scanner line, Parser parser) throws IllegalInstructionException;
+    
+    public void load (Scanner line, Parser parser)  throws IllegalInstructionException {
+        List<Instruction> operands = new ArrayList<>();
+        for (int i = 0; i < getNumberOfArguments(); i++) {
+            operands.add(parser.generateInstruction(line));
+        }
+        myOperands = operands.iterator();
+    }
+    
+    public Instruction nextOperand() {
+        return myOperands.next();
+    }
 
+    
+    public abstract int getNumberOfArguments();
+    
+//    // the number of catch blocks suggests this might be a bad solution.
+//    public int getNumberOfArguments() {
+//        try {
+//            Field number = this.getClass().getDeclaredField("NUMBER_OF_ARGUMENTS");
+//            number.setAccessible(true);
+//            return number.getInt(this);
+//        }
+//        catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        }
+//        catch (SecurityException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IllegalArgumentException e) {
+//            e.printStackTrace();
+//        }
+//        catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return -1;
+//    }
+    
     @Override
     public Instruction copy () {
         Instruction copy = null;

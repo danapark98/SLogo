@@ -1,10 +1,6 @@
 package instructions;
 
-import java.util.Scanner;
 import simulation.Model;
-import simulation.Turtle;
-import util.Vector;
-import control.Parser;
 
 
 /**
@@ -16,25 +12,15 @@ import control.Parser;
  * @author Scott Valentine
  * 
  */
-public class Forward extends BaseInstruction {
+public class Forward extends Translate {
 
     /** the keyword associated with this instruction for user generated code */
-    public static final String KEYWORD = "fd";
-
-    private Instruction myMagnitude;
-
-
+    public static final String KEYWORD = "forward";
+    public static final String KEYWORD1 = "fd";
+    
     @Override
-    public void load (Scanner line, Parser parser) {
-        myMagnitude = nextInstruction(line, parser);
+    public int getMagnitude(Model model) {
+        return nextOperand().execute(model);
     }
-
-    @Override
-    public int execute (Model model) {
-        int mag  = myMagnitude.execute(model);        
-        Turtle turtle = model.getTurtle();
-        turtle.translate(new Vector(turtle.getAngle(), mag));
-        return mag;
-    }
-
+    
 }

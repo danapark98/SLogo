@@ -1,9 +1,6 @@
 package instructions;
 
-import java.util.Scanner;
 import simulation.Model;
-import control.Parser;
-import exceptions.IllegalInstructionException;
 
 
 /**
@@ -13,38 +10,28 @@ import exceptions.IllegalInstructionException;
  * 
  */
 public class UserInstruction extends BaseInstruction {
-
+    private int myNumberOfArguments;
     private Instruction myInstruction;
-    private String myKeyword;
 
-    public UserInstruction (String keyword) {
-        myKeyword = keyword;
-    }
-
-    public String keyword () {
-        return myKeyword;
-    }
-
-    @Override
-    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myInstruction = parser.generateInstruction(line);
+    public UserInstruction (int numberOfArgs, Instruction instruction) {
+        myNumberOfArguments = numberOfArgs;
+        myInstruction = instruction;
     }
 
     @Override
     public int execute (Model model) {
+        //TODO: need a way of loading in arguments.
         return myInstruction.execute(model);
     }
 
     @Override
     public Instruction copy () {
-        Instruction instruct = myInstruction.copy();
-        UserInstruction copy = new UserInstruction(myKeyword);
-        copy.setInstruction(instruct);
-        return copy;
+        return new UserInstruction(myNumberOfArguments, myInstruction.copy());
     }
 
-    public void setInstruction (Instruction copy) {
-        myInstruction = copy;
+    @Override
+    public int getNumberOfArguments () {
+        return myNumberOfArguments;
     }
 
 }

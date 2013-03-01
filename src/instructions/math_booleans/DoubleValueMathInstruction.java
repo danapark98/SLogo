@@ -34,8 +34,8 @@ public abstract class DoubleValueMathInstruction extends BaseInstruction {
 
     @Override
     public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        myFirstVal = nextInstruction(line, parser);
-        mySecondVal = nextInstruction(line, parser);
+        myFirstVal = parser.nextInstruction(line);
+        mySecondVal = parser.nextInstruction(line);
     }
 
     /**

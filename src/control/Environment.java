@@ -20,7 +20,6 @@ public class Environment {
 
     /** mapping of Instruction keywords to Instruction */
     private Map<String, Instruction> myInstructionMap;
-    private Map<String, Integer> myVariables;
 
     /**
      * default constructor initiates the instructionMap
@@ -28,7 +27,6 @@ public class Environment {
     public Environment () {
         myInstructionMap = new HashMap<String, Instruction>();
         initiateInstructionMap();
-        myVariables = new HashMap<String, Integer>();
     }
 
     /**
@@ -37,6 +35,7 @@ public class Environment {
     private void initiateInstructionMap () {
         myInstructionMap.put(Sum.KEYWORD, new Sum());
         myInstructionMap.put(Forward.KEYWORD, new Forward());
+        myInstructionMap.put(Forward.KEYWORD1, new Forward());
         myInstructionMap.put(Right.KEYWORD, new Right());
         myInstructionMap.put(Left.KEYWORD, new Left());
     }
@@ -49,10 +48,6 @@ public class Environment {
      */
     public void addUserDefinedFunction (String keyword, Instruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
-    }
-
-    public void addUserDefinedVariable (String variableName, int value) {
-        myVariables.put(variableName, value);
     }
 
     /**

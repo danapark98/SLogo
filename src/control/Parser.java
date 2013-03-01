@@ -25,7 +25,6 @@ public class Parser {
      */
     public Parser (Environment environment) {
         myEnvironment = environment;
-
     }
     
     public Environment getEnvironment() {
@@ -46,6 +45,11 @@ public class Parser {
 
         while (line.hasNext()) {
             String commandName = line.next();
+            // ignore copied and pasted commands
+            if (commandName.startsWith(">>"))
+            {
+                commandName = line.nextLine();
+            }
             try {
                 Instruction result = new ConstantInstruction(Integer.parseInt(commandName));
                 resultInstruct.add(result);
@@ -76,6 +80,7 @@ public class Parser {
     }
 
     /**
+     * first bracket read before calling.
      * 
      * @param line is a scanner that iterates through the list
      * @return an instruction that is made from the list
@@ -101,5 +106,19 @@ public class Parser {
             sb.append(" ");
         }
         return generateInstruction(sb.toString());
+    }
+
+    public Instruction nextInstruction (Scanner line) {
+        Instruction instruct;
+        
+        String next = line.next();
+        if(next.equals("[")){
+            // this is a list
+            instruct = parseList(line);
+        }
+        else{
+            instruct = generateInstruction(next);
+        }
+        return instruct;
     }
 }

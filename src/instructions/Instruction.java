@@ -49,19 +49,5 @@ public abstract class Instruction{
      * @return a copy of this instruction
      */
     public abstract Instruction copy ();
-    
-    protected Instruction nextInstruction (Scanner line, Parser parser) {
-        Instruction instruct;
-        
-        String next = line.next();
-        if(next.equals("[")){
-            // this is a list
-            instruct = parser.parseList(line);
-        }
-        else{
-            instruct = parser.generateInstruction(next);
-        }
-        return instruct;
-    }
 
 }

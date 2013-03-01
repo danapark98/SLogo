@@ -1,12 +1,10 @@
 package instructions;
 
-import java.util.Scanner;
 import simulation.Model;
-import control.Parser;
-import exceptions.IllegalInstructionException;
 
-public class ConstantInstruction extends Instruction {
-    
+public class ConstantInstruction extends BaseInstruction {
+   
+    private static final int NUMBER_OF_ARGUMENTS = 0;
     private int myValue;
     
     public ConstantInstruction(int value) {
@@ -19,14 +17,8 @@ public class ConstantInstruction extends Instruction {
     }
 
     @Override
-    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
-        // should never happen (see parser)
-    }
-
-    @Override
-    public Instruction copy () {
-        // should never have to copy either
-        return new ConstantInstruction(myValue);
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }
