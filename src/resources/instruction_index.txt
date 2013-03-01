@@ -1,0 +1,61 @@
+#-------------------------------------------
+# This file is used for loading instances of each instruction.
+# This is done in the following grammar for an instruction with n keywords:
+#
+# classpath keyword1 keyword2 ... keywordn
+#
+# For example:
+# instructions.turtle.Forward Forward1 Forward2
+#
+#-------------------------------------------
+#
+# -- turtle instructions -- #
+#
+instructions.turtle.Forward Forward1 Forward2 	
+instructions.turtle.Backward
+instructions.turtle.Left
+instructions.turtle.Right
+instructions.turtle.SetHeading
+instructions.turtle.SetTowards
+instructions.turtle.SetPositon
+instructions.turtle.PenDown
+instructions.turtle.PenUp
+instructions.turtle.ShowTurtle
+instructions.turtle.HideTurtle
+instructions.turtle.TurtleHome
+instructions.turtle.XCoordinate
+instructions.turtle.YCoordinate
+instructions.turtle.Heading
+instructions.turtle.IsPenDown
+instructions.turtle.IsPenUp
+instructions.turtle.IsShowing
+instructions.turtle.ClearScreen
+#
+# -- boolean instructions -- #
+#
+instructions.booleans.LessThan
+instructions.booleans.GreaterThan
+instructions.booleans.Equal
+instructions.booleans.NotEqual
+instructions.booleans.And
+instructions.booleans.Or
+instructions.booleans.Not
+#
+# -- math instructions -- #
+#
+instructions.math.Sum
+instructions.math.Difference
+instructions.math.Product
+instructions.math.Quotient
+instructions.math.Remainder
+instructions.math.Minus
+instructions.math.Random
+#
+# -- user defined instruction -- #
+#
+instructions.user_defined.MakeUserVariable
+instructions.user_defined.MakeUserInstruction
+instructions.user_defined.ForLoop
+instructions.user_defined.IfElse
+instructions.user_defined.If
+instructions.user_defined
