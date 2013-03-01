@@ -16,13 +16,9 @@ public class MakeUserInstruction extends BaseInstruction {
 		// get name
 		myCommandName = line.next();
 		// get list of variables
-		// open bracket
-		String next = line.next();
-		Instruction variables = parser.parseList(line);
+		Instruction variables = nextInstruction(line, parser);
 		// get list of instructions
-		//open bracket
-		next = line.next();
-		Instruction instruction = parser.parseList(line);
+		Instruction instruction = nextInstruction(line, parser);
 		// make new UserInstruction
 		UserInstruction userInstruction= new UserInstruction(myCommandName);
 		userInstruction.setInstruction(instruction);
