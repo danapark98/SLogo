@@ -1,11 +1,7 @@
 package control;
 
-import instructions.Forward;
 import instructions.Instruction;
-import instructions.Left;
-import instructions.Right;
-import instructions.math_booleans.Sum;
-import java.util.HashMap;
+import java.io.FileNotFoundException;
 import java.util.Map;
 import exceptions.IllegalInstructionException;
 
@@ -24,20 +20,25 @@ public class Environment {
     /**
      * default constructor initiates the instructionMap
      */
-    public Environment () {
-        myInstructionMap = new HashMap<String, Instruction>();
+    public Environment() {
         initiateInstructionMap();
     }
 
     /**
      * populates myInstructionMap with relevant instructions
      */
-    private void initiateInstructionMap () {
-        myInstructionMap.put(Sum.KEYWORD, new Sum());
-        myInstructionMap.put(Forward.KEYWORD, new Forward());
-        myInstructionMap.put(Forward.KEYWORD1, new Forward());
-        myInstructionMap.put(Right.KEYWORD, new Right());
-        myInstructionMap.put(Left.KEYWORD, new Left());
+    private void initiateInstructionMap() {
+        // TODO: english should not come from constant, should come from input
+        // in main
+
+        InstructionMapFactory imf = new InstructionMapFactory(InstructionMapFactory.ENGLISH);
+
+        try {
+            myInstructionMap = imf.buildInstructionMap(InstructionMapFactory.INSTRUCTION_INDEX_FILE);
+        } catch (FileNotFoundException e) {
+            // TODO: do something if nothing is found (map will be empty and all user commands will fail)
+            return;
+        }
     }
 
     /**
@@ -46,7 +47,8 @@ public class Environment {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction - instruction to be added to the environment
      */
-    public void addUserDefinedFunction (String keyword, Instruction userInstruction) {
+    public void addUserDefinedFunction(String keyword,
+                                       Instruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }
 
@@ -60,8 +62,8 @@ public class Environment {
      * @return - the Instruction associated with the keyword
      * @throws IllegalInstructionException
      */
-    public Instruction systemInstructionSkeleton (String commandName)
-                                                                     throws IllegalInstructionException {
+    public Instruction systemInstructionSkeleton(String commandName)
+                                                                    throws IllegalInstructionException {
 
         if (!myInstructionMap.containsKey(commandName))
             throw new IllegalInstructionException(commandName);
@@ -69,6 +71,5 @@ public class Environment {
         return myInstructionMap.get(commandName).copy();
 
     }
-
 
 }
