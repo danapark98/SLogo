@@ -113,10 +113,14 @@ public abstract class Sprite {
     }
 
     /**
-     * Returns shape's angle relative to up direction.
+     * Returns shape's angle relative to up direction.  Return a result between
+     * 0 and 360
      */
     public double getAngle () {
-        return myAngle;
+        while (myAngle < 0) {
+            myAngle += 360;
+        }
+        return myAngle % 360;
     }
 
     /**

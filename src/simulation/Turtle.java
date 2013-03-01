@@ -22,14 +22,14 @@ public class Turtle extends Sprite {
     private static final String ANGLE_LABEL = "Angle:";
     private static final double X_OFFSET = 60;
     private static final double Y_OFFSET = 20;
-    private LineAdder myLineAdder;
+    private DisplayEditor myLineAdder;
     private List<ValueText> myStatus;
     private Color myPenColor;
 
-    public Turtle (LineAdder la) {
-        super(DEFAULT_IMAGE, centerOfScreen(), DEFAULT_SIZE);
+    public Turtle (DisplayEditor la) {
+        super(DEFAULT_IMAGE, turtleStartingLocation(), DEFAULT_SIZE);
         myLineAdder = la;
-        initTexts();
+        initStatus();
         myPenColor = Color.BLACK;
     }
 
@@ -67,13 +67,13 @@ public class Turtle extends Sprite {
         }
     }
 
-    private static Location centerOfScreen () {
+    private static Location turtleStartingLocation () {
         Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
         return new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
     }
 
     public void resetTurtle () {
-        setCenter(centerOfScreen());
+        setCenter(turtleStartingLocation());
         setAngle(0);
     }
 
@@ -94,7 +94,7 @@ public class Turtle extends Sprite {
         return myPenColor;
     }
 
-    private void initTexts () {
+    private void initStatus () {
         myStatus = new ArrayList<ValueText>();
         myStatus.add(new ValueText(X_LABEL, 0));
         myStatus.add(new ValueText(Y_LABEL, 0));

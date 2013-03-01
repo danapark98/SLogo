@@ -4,24 +4,15 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import view.SLogoView;
 
 
-public class Model implements LineAdder {
-    private SLogoView myView;
+public class Model implements DisplayEditor {
     private Turtle myTurtle;
     private Collection<Line> myLines;
 
-    public Model (SLogoView view) {
-        myView = view;
+    public Model () {
         myTurtle = new Turtle(this);
         myLines = new ArrayList<Line>();
-    }
-    
-    //used for testing (make life easier
-    // TODO: get rid of this constructor, please!
-    public Model() {
-        
     }
 
     public void update (double elapsedTime, Dimension bounds) {
@@ -46,10 +37,5 @@ public class Model implements LineAdder {
     
     public Turtle getTurtle () {
         return myTurtle;
-    }
-
-
-    public void displayMessage (String s) {
-        myView.displayText(s);
     }
 }
