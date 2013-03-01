@@ -28,9 +28,9 @@ public class Environment {
      * populates myInstructionMap with relevant instructions
      */
     private void initiateInstructionMap() {
-        // TODO: english should not come from constant, should come from input
-        // in main
 
+        // TODO: would much rather have the constructor take a ResourceBundle instead of a 
+        // string that indicates where to find the ResourceBundle
         InstructionMapFactory imf = new InstructionMapFactory(InstructionMapFactory.ENGLISH);
 
         try {
