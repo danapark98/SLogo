@@ -1,4 +1,4 @@
-#-------------------------------------------
+#-------------------------------------------------------------------------------------------------
 # This file is used for loading instances of each instruction.
 # This is done in the following grammar for an instruction with n keywords:
 #
@@ -7,55 +7,58 @@
 # For example:
 # instructions.turtle.Forward Forward1 Forward2
 #
-#-------------------------------------------
+#-------------------------------------------------------------------------------------------------
+# ADDING NEW INSTRUCTIONS
+#
+# add new instruction by adding a class path followed by the keyword names in the properties file
+#
+#-------------------------------------------------------------------------------------------------
 #
 # -- turtle instructions -- #
 #
 instructions.turtle.Forward Forward1 Forward2 	
-instructions.turtle.Backward
-instructions.turtle.Left
-instructions.turtle.Right
-instructions.turtle.SetHeading
-instructions.turtle.SetTowards
-instructions.turtle.SetPositon
-instructions.turtle.PenDown
-instructions.turtle.PenUp
-instructions.turtle.ShowTurtle
-instructions.turtle.HideTurtle
-instructions.turtle.TurtleHome
-instructions.turtle.XCoordinate
-instructions.turtle.YCoordinate
-instructions.turtle.Heading
-instructions.turtle.IsPenDown
-instructions.turtle.IsPenUp
-instructions.turtle.IsShowing
-instructions.turtle.ClearScreen
+instructions.turtle.Backward Backward1 Backward2
+instructions.turtle.Left Left1 Left2
+instructions.turtle.Right Right1 Right2
+instructions.turtle.SetHeading SetHeading1 Setheading2
+instructions.turtle.SetTowards SetTowards1
+instructions.turtle.SetPositon SetPosition1
+instructions.turtle.PenDown PenDown1 PenDown2
+instructions.turtle.PenUp PenUp1 PenUp2
+instructions.turtle.ShowTurtle ShowTurtle1 ShowTurtle2
+instructions.turtle.HideTurtle HideTurtle1 HideTurtle2
+instructions.turtle.TurtleHome TurtleHome1
+instructions.turtle.XCoordinate XCoordinate1
+instructions.turtle.YCoordinate YCoordinate1
+instructions.turtle.Heading Heading1
+instructions.turtle.IsPenDown IsPenDown1 IsPenDown2
+instructions.turtle.IsShowing IsShowing1 IsShowing2
+instructions.turtle.ClearScreen ClearScreen1
 #
 # -- boolean instructions -- #
 #
-instructions.booleans.LessThan
-instructions.booleans.GreaterThan
-instructions.booleans.Equal
-instructions.booleans.NotEqual
-instructions.booleans.And
-instructions.booleans.Or
-instructions.booleans.Not
+instructions.booleans.LessThan LessThan1 LessThan2
+instructions.booleans.GreaterThan GreaterThan1 GreaterThan2
+instructions.booleans.Equal Equal1 Equal2
+instructions.booleans.NotEqual NotEqual1 NotEqual2
+instructions.booleans.And And1
+instructions.booleans.Or Or1
+instructions.booleans.Not Not1
 #
 # -- math instructions -- #
 #
-instructions.math.Sum
-instructions.math.Difference
-instructions.math.Product
-instructions.math.Quotient
-instructions.math.Remainder
-instructions.math.Minus
-instructions.math.Random
+instructions.math.Sum Sum1
+instructions.math.Difference Difference1
+instructions.math.Product Product1
+instructions.math.Quotient Quotient1
+instructions.math.Remainder Remainder1
+instructions.math.Minus Minus1
+instructions.math.Random Random1
 #
 # -- user defined instruction -- #
 #
-instructions.user_defined.MakeUserVariable
-instructions.user_defined.MakeUserInstruction
-instructions.user_defined.ForLoop
-instructions.user_defined.IfElse
-instructions.user_defined.If
-instructions.user_defined
+instructions.user_defined.MakeUserVariable MakeUserVariable1
+instructions.user_defined.MakeUserInstruction MakeUserInstruction1
+instructions.user_defined.ForLoop ForLoop1
+instructions.user_defined.IfElse IfElse1
+instructions.user_defined.If If1

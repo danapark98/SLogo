@@ -75,13 +75,13 @@ public class InstructionMapFactory {
      * @throws FileNotFoundException - if the instruction_index file is not
      *         found
      */
-    public Map<String, Instruction> buildInstructionMap(String filename) 
+    public Map<String, Instruction> buildInstructionMap() 
         throws FileNotFoundException {
                                                                         
 
         String currentDirectory = System.getProperty("user.dir");
 
-        FileReader fileToBeRead = new FileReader(currentDirectory + filename);
+        FileReader fileToBeRead = new FileReader(currentDirectory + INSTRUCTION_INDEX_FILE);
         Scanner line = new Scanner(fileToBeRead);
 
         Map<String, Instruction> instructionMap =

@@ -34,7 +34,7 @@ public class Environment {
         InstructionMapFactory imf = new InstructionMapFactory(InstructionMapFactory.ENGLISH);
 
         try {
-            myInstructionMap = imf.buildInstructionMap(InstructionMapFactory.INSTRUCTION_INDEX_FILE);
+            myInstructionMap = imf.buildInstructionMap();
         } catch (FileNotFoundException e) {
             // TODO: do something if nothing is found (map will be empty and all user commands will fail)
             return;
