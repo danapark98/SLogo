@@ -1,4 +1,4 @@
-package math_boolean_instructions;
+package mathBoolean;
 
 import instructions.Instruction;
 import exceptions.IllegalInstructionException;
@@ -11,7 +11,7 @@ public class Quotient extends DoubleValueMathInstruction {
     
     @Override
     public int execute (Model model) {
-        Instruction[] myInstructions = getValues();
+        Instruction[] myInstructions = getTwoValues();
         int val1 = myInstructions[0].execute(model);
         int val2 = myInstructions[1].execute(model);
         

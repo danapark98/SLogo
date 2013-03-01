@@ -1,4 +1,4 @@
-package math_boolean_instructions;
+package mathBoolean;
 
 import instructions.Instruction;
 import simulation.Model;
@@ -10,7 +10,7 @@ public class Sum extends DoubleValueMathInstruction {
 
     @Override
     public int execute (Model model) {
-        Instruction[] myInstructions = getValues();
+        Instruction[] myInstructions = getTwoValues();
         return myInstructions[0].execute(model) + myInstructions[0].execute(model);
     }
     
