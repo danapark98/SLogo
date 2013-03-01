@@ -13,9 +13,9 @@ import java.util.Scanner;
 /**
  * Creates a map for all of the instructions in the user defined text file of
  * each instruction's keyword to an instance of the instruction.
- * 
+ * <br><br>
  * Creating the map requires an instruction index file.
- * 
+ * <br><br>
  * To change the instruction index file, change the value of the static field
  * INSTRUCTION_INDEX_FILE
  * 
@@ -28,7 +28,7 @@ public class InstructionMapFactory {
     private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/instruction_index.txt";
 
-    /** default location of the resouces package */
+    /** Default location of the resources package. */
     // TODO: make one of these (currently one here and one in view)
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
 
@@ -37,15 +37,15 @@ public class InstructionMapFactory {
     public static final String ENGLISH = "English";
 
     /**
-     * character that indicates a comment when places at beginning of line of
-     * Instruction index file
+     * Character that indicates a comment when places at beginning of line of
+     * Instruction index file.
      */
     private static final char COMMENT_CHARACTER = '#';
 
-    /** string that splits elements on a line in instruction index file */
+    /** String that splits elements on a line in instruction index file. */
     private static final String SPLITTING_STRING = " ";
 
-    /** resources for SLogo */
+    /** Resources for SLogo */
     // TODO: we currently have two of these (one for view and one here), want
     // only one
     private ResourceBundle myResources;
@@ -73,10 +73,10 @@ public class InstructionMapFactory {
      * Builds an instruction map that maps keyword strings to their
      * instructions.
      * 
-     * @param filename - name of file where instruction class names are stored
-     * @return - a map of keywords to instructions
-     * @throws FileNotFoundException - if the instruction_index file is not
-     *         found
+     * @param filename is the name of file where instruction class names are stored.
+     * @return Map of keywords to instructions.
+     * @throws FileNotFoundException If the instruction_index file is not
+     *         found.
      */
     public Map<String, Instruction> buildInstructionMap() 
         throws FileNotFoundException {
@@ -97,10 +97,10 @@ public class InstructionMapFactory {
     }
 
     /**
-     * parses line of instruction and keyword and adds it to the instruction map
+     * Parses line of instruction and keyword and adds it to the instruction map.
      * 
-     * @param instructionMap - map of keywords to instructions
-     * @param line - current line being read
+     * @param instructionMap is a map of keywords to instructions.
+     * @param line is the current line being read.
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
