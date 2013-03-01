@@ -18,13 +18,7 @@ public class MakeUserInstruction extends BaseInstruction {
 		// get list of variables
 		// open bracket
 		String next = line.next();
-		// first variable
-		next = line.next();
-		List<String> variables = new ArrayList<String>();
-		while (next != "]") {
-			variables.add(next);
-			next = line.next();
-		}
+		Instruction variables = parser.parseList(line);
 		// get list of instructions
 		//open bracket
 		next = line.next();

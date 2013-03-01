@@ -6,7 +6,7 @@ import exceptions.IllegalInstructionException;
 
 
 /**
- * represents an instruction definition in the predefined instruction set
+ * Represents an instruction definition in the predefined instruction set.
  * 
  * @author Scott Valentine
  * 

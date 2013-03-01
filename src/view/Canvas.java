@@ -91,7 +91,7 @@ public class Canvas extends JComponent {
                                 }
                             }
                 );
-        mySimulation = new Model(view);
+        mySimulation = new Model();
         view.setController(new Controller(mySimulation, view));
         myTimer.start();
     }

@@ -6,7 +6,7 @@ import instructions.Left;
 import instructions.Right;
 import java.util.HashMap;
 import java.util.Map;
-import math_boolean_instructions.Sum;
+import mathBoolean.Sum;
 import exceptions.IllegalInstructionException;
 
 

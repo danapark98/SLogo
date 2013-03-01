@@ -1,4 +1,4 @@
-package math_boolean_instructions;
+package mathBoolean;
 
 import instructions.Instruction;
 import simulation.Model;
@@ -10,7 +10,7 @@ public class NotEqual extends DoubleValueMathInstruction {
     
     @Override
     public int execute (Model model) {
-        Instruction[] myInstructions = getValues();
+        Instruction[] myInstructions = getTwoValues();
         if(myInstructions[0].execute(model) != myInstructions[1].execute(model)){
             return 1;
         }

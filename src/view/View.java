@@ -23,7 +23,7 @@ import control.Controller;
  * The View is comprised of everything visible to the user.
  * The View is the interactive space containing a file menu, buttons, and the Canvas.
  * 
- * @author srwareham
+ * @author srwareham, yoshi
  * 
  */
 public class View extends SLogoView {
@@ -32,8 +32,8 @@ public class View extends SLogoView {
     public static final String SUBMIT_COMMAND = "SubmitCommand";
     public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
-    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(200, 200);
-    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(200, 200);
+    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(300, 400);
+    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(300, 400);
 
     private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
     public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
@@ -60,7 +60,7 @@ public class View extends SLogoView {
     public View (String title, String language) {
         super(title, language);
         getContentPane().add(makeInput(), BorderLayout.WEST);
-        getContentPane().add(makeDisplay(), BorderLayout.CENTER);
+        getContentPane().add(makeDisplay(), BorderLayout.EAST);
         pack();
         setVisible(true);
 
@@ -75,9 +75,9 @@ public class View extends SLogoView {
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.add(makeForwardButton());
-        result.add(makeSubmitButton());
-        result.add(makeCommandConsole());
         result.add(makeBackwardButton());
+        result.add(makeCommandConsole());
+        result.add(makeSubmitButton());
 //        result.add(makeTurnMagnitudeSlider());
         return result;
     }
@@ -101,7 +101,7 @@ public class View extends SLogoView {
             public void actionPerformed (ActionEvent e) {
                 // TODO: this was a change to the API we noticed
                 controller.createRunInstruction(command);
-//                appendHistory(command);
+                appendHistory(command);
                 System.out.println(command);
             }
         });
@@ -126,13 +126,15 @@ public class View extends SLogoView {
     }
 
     private JButton makeSubmitButton () {
+        final Controller controller = super.myController;
         JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 // TODO: add contoller command here.
-//                appendHistory(myConsole.getText());
-                
+                //appendHistory(myConsole.getText());
+                //this is redunadant with view method for sending a command
+                controller.createRunInstruction(myConsole.getText());
                 myConsole.setText("");
             }
         });

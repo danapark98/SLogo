@@ -75,6 +75,11 @@ public class Parser {
         return generateInstruction(line);
     }
 
+    /**
+     * 
+     * @param line is a scanner that iterates through the list
+     * @return an instruction that is made from the list
+     */
     public Instruction parseList (Scanner line) {
         StringBuilder sb = new StringBuilder();
         String str = "";
