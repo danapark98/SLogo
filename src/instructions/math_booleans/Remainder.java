@@ -1,13 +1,12 @@
-package mathBoolean;
+package instructions.math_booleans;
 
 import instructions.Instruction;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-public class Quotient extends DoubleValueMathInstruction {
+public class Remainder extends DoubleValueMathInstruction {
 
-    public final static String KEYWORD = "QUOTIENT";
-    
+    public static final String KEYWORD = "REMAINDER";
     
     @Override
     public int execute (Model model) {
@@ -18,7 +17,7 @@ public class Quotient extends DoubleValueMathInstruction {
         if(val2 == 0){
             throw new IllegalInstructionException(DIVIDE_BY_ZERO_MESSAGE);
         }
-        return val1 / val2;        
+        return val1 % val2;  
     }
 
 }

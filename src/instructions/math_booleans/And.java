@@ -1,12 +1,12 @@
-package mathBoolean;
+package instructions.math_booleans;
 
 import instructions.Instruction;
 import simulation.Model;
 
 
 /**
- * represents the logical and operation on two values.
- * Example:
+ * Represents the logical and operation on two values.
+ * Examples:
  * and 1 0 --> 0
  * and 1 1 --> 1
  * 

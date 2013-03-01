@@ -4,9 +4,9 @@ import instructions.Forward;
 import instructions.Instruction;
 import instructions.Left;
 import instructions.Right;
+import instructions.math_booleans.Sum;
 import java.util.HashMap;
 import java.util.Map;
-import mathBoolean.Sum;
 import exceptions.IllegalInstructionException;
 
 
