@@ -4,6 +4,10 @@ import simulation.Model;
 
 public class ConstantInstruction extends BaseInstruction {
    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2244620866117586663L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
     private int myValue;
     

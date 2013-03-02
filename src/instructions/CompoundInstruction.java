@@ -15,6 +15,10 @@ import control.Parser;
  */
 public class CompoundInstruction extends Instruction {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8327060009397874139L;
     /** list of base instructions this is made of */
     private List<Instruction> myInstructions;
 
@@ -44,9 +48,10 @@ public class CompoundInstruction extends Instruction {
     }
 
     @Override
+    @Deprecated
     public void load (Scanner line, Parser parser) {
         // do nothing, can't load a compound instruction directly
-        // TODO: find good way to get rid of this method
+        return;
     }
 
     @Override

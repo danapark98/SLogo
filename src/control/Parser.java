@@ -26,14 +26,6 @@ public class Parser {
     public Parser (Environment environment) {
         myEnvironment = environment;
     }
-    
-    /**
-     * Gives the environment used in this parser.
-     * @return this parser's environment
-     */
-    public Environment getEnvironment() {
-        return myEnvironment;
-    }
 
     /**
      * Takes user input and converts it to either
@@ -50,9 +42,9 @@ public class Parser {
 
         while (line.hasNext()) {
             String commandName = line.next();
+            commandName = commandName.toLowerCase();
             // ignore copied and pasted commands
-            if (commandName.startsWith(">>"))
-            {
+            if (commandName.startsWith(">>")) {
                 commandName = line.nextLine();
             }
             try {
@@ -60,14 +52,10 @@ public class Parser {
                 resultInstruct.add(result);
             }
             catch (NumberFormatException e) {
-                // right now the environment will handle the exceptions
                 Instruction base = myEnvironment.systemInstructionSkeleton(commandName);
-
                 base.load(line, this);
-
                 resultInstruct.add(base);
             }
-
         }
         return resultInstruct;
     }
@@ -103,11 +91,9 @@ public class Parser {
             if (str.equals("[")) {
                 counterBracket++;
             }
-            if (str.equals("]"))
-            {
+            if (str.equals("]")) {
                 counterBracket--;
-                if (counterBracket == 0)
-                {
+                if (counterBracket == 0) {
                     break;
                 }
             }
@@ -129,8 +115,9 @@ public class Parser {
      * 
      * @param line is the data to be parsed into an instruction.
      * @return The next instruction from the scanner, line.
+     * @throws IllegalInstructionException 
      */
-    public Instruction nextInstruction (Scanner line) {
+    public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
         String next = line.next();
         if(next.equals("[")) next = parseList(line);
         return generateInstruction(next);

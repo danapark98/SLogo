@@ -21,6 +21,10 @@ import exceptions.IllegalInstructionException;
  */
 public abstract class Instruction implements Serializable{
 
+    /**
+     * Eclipse auto-generated ID.
+     */
+    private static final long serialVersionUID = -7815874863167351861L;
 
     /**
      * executes this Instruction on the model
@@ -51,5 +55,4 @@ public abstract class Instruction implements Serializable{
      * @return a copy of this instruction
      */
     public abstract Instruction copy ();
-
 }

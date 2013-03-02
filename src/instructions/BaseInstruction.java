@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import control.Parser;
+import exceptions.CorruptedEnvironmentException;
 import exceptions.IllegalInstructionException;
 
 
@@ -15,6 +16,11 @@ import exceptions.IllegalInstructionException;
  * 
  */
 public abstract class BaseInstruction extends Instruction {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2028940084662626878L;
+    
     private Iterator<Instruction> myOperands;
 
     /**
@@ -25,7 +31,7 @@ public abstract class BaseInstruction extends Instruction {
      */
     
     public void load (Scanner line, Parser parser)  throws IllegalInstructionException {
-        List<Instruction> operands = new ArrayList<>();
+        List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
             operands.add(parser.generateInstruction(line));
         }
@@ -67,13 +73,8 @@ public abstract class BaseInstruction extends Instruction {
         try {
             copy = this.getClass().newInstance();
         }
-        catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        catch (InstantiationException|IllegalAccessException e) {
+            throw new CorruptedEnvironmentException();
         }
         return copy;
     }

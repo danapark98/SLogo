@@ -85,8 +85,7 @@ public class InstructionMapFactory {
      * @throws FileNotFoundException If the instruction_index file is not
      *         found.
      */
-    public Map<String, Instruction> buildInstructionMap()
-        throws FileNotFoundException {
+    public Map<String, Instruction> buildInstructionMap() throws FileNotFoundException {
 
         String currentDirectory = System.getProperty("user.dir");
 
@@ -101,6 +100,7 @@ public class InstructionMapFactory {
             String nextLine = line.nextLine();
             parseLine(instructionMap, nextLine);
         }
+        line.close();
         return instructionMap;
     }
 
@@ -117,23 +117,12 @@ public class InstructionMapFactory {
     private void parseLine(Map<String, Instruction> instructionMap, String line) {
         if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
             
-            Class<?> instruction;
-            try {
-                instruction = Class.forName(line);
-            } 
-            catch (ClassNotFoundException e1) {
-                System.out.println(line);
-                return;
-            }
             Instruction instruct;
             try {
-                instruct = (Instruction) instruction.newInstance();
+                Class<?> instructionClass = Class.forName(line);
+                instruct = (Instruction) instructionClass.newInstance();
             } 
-            catch (InstantiationException e) {
-                // if not possible, skip
-                return;
-            } 
-            catch (IllegalAccessException e) {
+            catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
                 // if not possible skip
                 return;
             }
@@ -145,7 +134,6 @@ public class InstructionMapFactory {
             String[] keywords = entry.split(PROPERTIES_SEPERATOR);
 
             for (int i = 0; i < keywords.length; ++i) {
-                
                 instructionMap.put(keywords[i], instruct);
             }
         }
