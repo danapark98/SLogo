@@ -14,9 +14,6 @@ import simulation.Model;
  */
 public class Forward extends Translate {
 
-    /** the keyword associated with this instruction for user generated code */
-    public static final String KEYWORD = "forward";
-    public static final String KEYWORD1 = "fd";
     
     @Override
     public int getMagnitude(Model model) {

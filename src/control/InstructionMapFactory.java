@@ -35,7 +35,7 @@ public class InstructionMapFactory {
     /** Default location of the resources package. */
     // TODO: make one of these (currently one here and one in view)
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String PROPERTIES_SEPERATOR = ",";
+    private static final String PROPERTIES_SEPERATOR = "[,]";
 
     /**
      * Character that indicates a comment when places at beginning of line of
@@ -116,11 +116,13 @@ public class InstructionMapFactory {
      */
     private void parseLine(Map<String, Instruction> instructionMap, String line) {
         if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
+            
             Class<?> instruction;
             try {
                 instruction = Class.forName(line);
             } 
             catch (ClassNotFoundException e1) {
+                System.out.println(line);
                 return;
             }
             Instruction instruct;
@@ -142,7 +144,8 @@ public class InstructionMapFactory {
 
             String[] keywords = entry.split(PROPERTIES_SEPERATOR);
 
-            for (int i = 1; i < keywords.length; ++i) {
+            for (int i = 0; i < keywords.length; ++i) {
+                
                 instructionMap.put(keywords[i], instruct);
             }
         }
@@ -155,7 +158,8 @@ public class InstructionMapFactory {
      * @return The name of the class at the given classPath.
      */
     private String getClassName(String classPath) {
-        String[] path = classPath.split(".");
-        return path[path.length - 1];
+        String[] path = classPath.split("[.]");
+        String str = path[path.length - 1];
+        return str;
     }
 }
