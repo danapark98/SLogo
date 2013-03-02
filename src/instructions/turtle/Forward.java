@@ -14,7 +14,8 @@ import simulation.Model;
  */
 public class Forward extends Translate {
 
-    
+    private static final long serialVersionUID = 443555056700673405L;
+
     @Override
     public int getMagnitude(Model model) {
         return nextOperand().execute(model);

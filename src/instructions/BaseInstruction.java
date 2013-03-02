@@ -33,7 +33,7 @@ public abstract class BaseInstruction extends Instruction {
     public void load (Scanner line, Parser parser)  throws IllegalInstructionException {
         List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
-            operands.add(parser.generateInstruction(line));
+            operands.add(parser.nextInstruction(line));
         }
         myOperands = operands.iterator();
     }

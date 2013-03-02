@@ -37,9 +37,8 @@ public class Parser {
      * @throws IllegalInstructionException If the instruction is not mapped in the
      * environment, throw this exception with argument of the incompatible string
      */
-    public Instruction generateInstruction (Scanner line) throws IllegalInstructionException {
+    private Instruction generateInstruction (Scanner line) throws IllegalInstructionException {
         CompoundInstruction resultInstruct = new CompoundInstruction();
-
         while (line.hasNext()) {
             String commandName = line.next();
             commandName = commandName.toLowerCase();
@@ -81,7 +80,7 @@ public class Parser {
      * @param line is a scanner that iterates through the list.
      * @return an instruction that is made from the list.
      */
-    public String parseList (Scanner line) {
+    private String parseList (Scanner line) {
         StringBuilder sb = new StringBuilder();
         String str = "";
         int counterBracket = 1;

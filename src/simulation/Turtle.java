@@ -76,7 +76,7 @@ public class Turtle extends Sprite {
         setCenter(turtleStartingLocation());
         setAngle(0);
     }
-
+    
     @Override
     public void translate (Vector v) {
         Location originalLocation = new Location(getX(), getY());
@@ -86,6 +86,45 @@ public class Turtle extends Sprite {
         myLineAdder.addLine(line);
     }
 
+//    @Override
+//    public void translate (Vector v) {
+//        //createLines(v.getMagnitude(), originalLocation);
+//        super.translate(v);
+//        fixCenter();
+//    }
+
+   /* private void createLines (double distanceRemaining, double startX, double startY) {
+        if (distanceRemaining < 0) {
+            return;
+        }
+        Location end = new Location(start);
+        end.translate(new Vector(getAngle(), 1));
+        myLineAdder.addLine(new Line(start, end, myPenColor));
+        createLines(distanceRemaining - 1, end);
+    }*/
+    
+//    Location originalLocation = new Location(getX(), getY());
+//    Location newLocation = ...
+//    Line line = new Line(originalLocation, newLocation, myPenColor);
+//    myLineAdder.addLine(line);
+
+//    private void fixCenter () {
+//        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
+//        double width = bounds.width;
+//        double height = bounds.height;
+//        double x = getX();
+//        double y = getY();
+//        while (x < 0) {
+//            x += width;
+//        }
+//        while (y < 0) {
+//            y += height;
+//        }
+//        x = x%width;
+//        y = y%height;
+//        super.setCenter(x, y);
+//    }
+    
     public void changePen (Color color) {
         myPenColor = color;
     }
