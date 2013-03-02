@@ -79,7 +79,7 @@ public class Controller {
      * @throws IncorrectFileFormatException which is thrown when a file
      * is not formatted correctly to be loaded into an SLogo workspace
      */
-    public void loadState (File f) {
+    public void loadState (File f) throws IncorrectFileFormatException {
         try {
             Scanner input = new Scanner(f);
             while (input.hasNext()) {
