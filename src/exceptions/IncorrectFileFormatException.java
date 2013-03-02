@@ -2,9 +2,6 @@ package exceptions;
 
 public class IncorrectFileFormatException extends Exception {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     public IncorrectFileFormatException () {
@@ -12,7 +9,7 @@ public class IncorrectFileFormatException extends Exception {
     }
 
     @Override
-    public String toString () {
-        return "Error: " + "File format is not recognized";
+    public String getMessage () {
+        return "Error: " + "File format is not compatible";
     }
 }

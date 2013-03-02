@@ -5,12 +5,12 @@ import view.View;
 /**
  * Runs the SLogo simulation.
  * 
- * @author Yoshida, Sean
+ * @author Yoshida, Sean, Ellango, Ryan, Scott
  */
 public class Main {
 
     private static final String TITLE = "SLogo";
-    private static final String LANGUAGE = "English";
+    public static final String LANGUAGE = "English";
 
     /**
      * @param Creates the SLogo simulation.

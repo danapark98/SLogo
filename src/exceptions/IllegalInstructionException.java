@@ -11,7 +11,7 @@ public class IllegalInstructionException extends RuntimeException {
     }
 
     @Override
-    public String toString () {
+    public String getMessage () {
         return "Error: " + myCommand + " is not a legal instruction";
     }
 

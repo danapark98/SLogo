@@ -1,5 +1,6 @@
 package instructions;
 
+import java.io.Serializable;
 import java.util.Scanner;
 import simulation.Model;
 import control.Parser;
@@ -18,7 +19,8 @@ import exceptions.IllegalInstructionException;
  * @author Scott Valentine
  * 
  */
-public abstract class Instruction{
+public abstract class Instruction implements Serializable{
+
 
     /**
      * executes this Instruction on the model

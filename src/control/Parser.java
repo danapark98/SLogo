@@ -85,7 +85,7 @@ public class Parser {
      * @param line is a scanner that iterates through the list
      * @return an instruction that is made from the list
      */
-    public Instruction parseList (Scanner line) {
+    public String parseList (Scanner line) {
         StringBuilder sb = new StringBuilder();
         String str = "";
         int counterBracket = 1;
@@ -105,20 +105,12 @@ public class Parser {
             sb.append(str);
             sb.append(" ");
         }
-        return generateInstruction(sb.toString());
+        return sb.toString();
     }
 
     public Instruction nextInstruction (Scanner line) {
-        Instruction instruct;
-        
         String next = line.next();
-        if(next.equals("[")){
-            // this is a list
-            instruct = parseList(line);
-        }
-        else{
-            instruct = generateInstruction(next);
-        }
-        return instruct;
+        if(next.equals("[")) next = parseList(line);
+        return generateInstruction(next);
     }
 }

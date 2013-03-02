@@ -5,6 +5,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.util.Map;
 import java.util.Scanner;
 import simulation.Model;
 import view.SLogoView;
@@ -57,8 +62,7 @@ public class Controller {
     }
 
     /**
-     * Saves the state of the workspace
-     * @param fw
+     * Saves the instructions and variables that are available to the user.
      */
     public void saveState (FileWriter fw) {
         try {
@@ -70,12 +74,12 @@ public class Controller {
     }
     
     /**
-     * This loads the state of a saved workspace
-     * @param f is a file that can be loaded to a workspace
+     * This loads in the state of instructions and variables from a source
+     * that was saved by saveState().
      * @throws IncorrectFileFormatException which is thrown when a file
-     * is not formatted correctly to be loaded into  an SLogo workspace
+     * is not formatted correctly to be loaded into an SLogo workspace
      */
-    public void loadState (File f) throws IncorrectFileFormatException {
+    public void loadState (File f) {
         try {
             Scanner input = new Scanner(f);
             while (input.hasNext()) {
@@ -95,6 +99,7 @@ public class Controller {
 
         }
     }
+    
     /**
      * Clears the lines in the model and resets the turtle to the center of
      * the screen
