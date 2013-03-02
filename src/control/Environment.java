@@ -1,8 +1,17 @@
 package control;
 
+import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 import instructions.Instruction;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Map;
 
 
@@ -20,24 +29,24 @@ public class Environment {
     /**
      * default constructor initiates the instructionMap
      */
-    public Environment() {
+    public Environment () {
         initiateInstructionMap();
     }
 
     /**
      * populates myInstructionMap with relevant instructions
      */
-    private void initiateInstructionMap() {
+    private void initiateInstructionMap () {
 
-        // TODO: would much rather have the constructor take a ResourceBundle instead of a 
+        // TODO: would much rather have the constructor take a ResourceBundle instead of a
         // string that indicates where to find the ResourceBundle
         InstructionMapFactory imf = new InstructionMapFactory(InstructionMapFactory.ENGLISH);
 
         try {
             myInstructionMap = imf.buildInstructionMap();
-        } 
+        }
         catch (FileNotFoundException e) {
-            // TODO: do something if nothing is found 
+            // TODO: do something if nothing is found
             // (map will be empty and all user commands will fail)
             return;
         }
@@ -49,8 +58,8 @@ public class Environment {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction - instruction to be added to the environment
      */
-    public void addUserDefinedFunction(String keyword,
-                                       Instruction userInstruction) {
+    public void addUserDefinedFunction (String keyword,
+                                        Instruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }
 
@@ -64,8 +73,8 @@ public class Environment {
      * @return - the Instruction associated with the keyword
      * @throws IllegalInstructionException
      */
-    public Instruction systemInstructionSkeleton(String commandName)
-        throws IllegalInstructionException {
+    public Instruction systemInstructionSkeleton (String commandName)
+                                                                     throws IllegalInstructionException {
 
         if (!myInstructionMap.containsKey(commandName))
             throw new IllegalInstructionException(commandName);
@@ -73,7 +82,29 @@ public class Environment {
         return myInstructionMap.get(commandName).copy();
 
     }
-    
-    
+
+    public void load (InputStream is) throws IncorrectFileFormatException {
+        ObjectInput in;
+        try {
+            in = new ObjectInputStream(is);
+            myInstructionMap = (Map<String, Instruction>) in.readObject();
+        }
+        catch (ClassNotFoundException | IOException e) {
+            throw new IncorrectFileFormatException();
+        }
+
+    }
+
+    public void save (OutputStream os) throws FileSavingException {
+        ObjectOutput out;
+        try {
+            out = new ObjectOutputStream(os);
+            out.writeObject(myInstructionMap);
+        }
+        catch (IOException e) {
+            throw new FileSavingException();
+        }
+       
+    }
 
 }

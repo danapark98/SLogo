@@ -7,7 +7,7 @@ package exceptions;
  * @author Scott Valentine
  * 
  */
-public class IllegalInstructionException extends RuntimeException {
+public class IllegalInstructionException extends Exception {
 
     private static final long serialVersionUID = 1L;
     
