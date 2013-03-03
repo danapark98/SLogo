@@ -1,15 +1,16 @@
 package view;
-import control.Controller;
 
+import control.Controller;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-
+import javax.swing.border.Border;
 import simulation.Model;
 
 
@@ -21,32 +22,32 @@ import simulation.Model;
  * 
  */
 public class Canvas extends JComponent {
-
+    
     /**
      * Frames_Per_Second for running the simulation.
      */
     public static final int FRAMES_PER_SECOND = 30;
-
+    
     /**
      * 
      * Number of milliseconds in a second.
      */
     public static final int ONE_SECOND = 1000;
-
+    
     /**
      * Default delay time
      */
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
-
+    
     /**
      * default serialization ID
      */
     private static final long serialVersionUID = 1L;
-
+    
     private Dimension myBounds;
     private Model mySimulation;
     private Timer myTimer;
-
+    
     /**
      * Creates a default Canvas for the view.
      * 
@@ -55,9 +56,9 @@ public class Canvas extends JComponent {
     public Canvas (Dimension size) {
         myBounds = size;
         setPreferredSize(size);
-        setSize(size);
+        setMinimumSize(size);
     }
-
+    
     /**
      * Paint the contents of the canvas.
      * 
@@ -72,7 +73,7 @@ public class Canvas extends JComponent {
             mySimulation.paint((Graphics2D) pen);
         }
     }
-
+    
     /**
      * Starts the timer which is responsible for updating the model.
      * Creates the model and the controller.
@@ -81,7 +82,7 @@ public class Canvas extends JComponent {
      * 
      * @param view used to create the model and controller.
      */
-    public void start (SLogoView view) {
+    public void start (View view) {
         // create a timer to animate the canvas
         myTimer = new Timer(DEFAULT_DELAY,
                             new ActionListener() {
@@ -95,7 +96,7 @@ public class Canvas extends JComponent {
         view.setController(new Controller(mySimulation, view));
         myTimer.start();
     }
-
+    
     // TODO: we will need to add stop to the api.
     /**
      * Stops the timer animating the simulation.
@@ -103,7 +104,7 @@ public class Canvas extends JComponent {
     public void stop () {
         myTimer.stop();
     }
-
+    
     /**
      * Increments the animation one step.
      * 
@@ -113,5 +114,5 @@ public class Canvas extends JComponent {
         mySimulation.update((double) FRAMES_PER_SECOND / ONE_SECOND, myBounds);
         repaint();
     }
-
+    
 }
