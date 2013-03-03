@@ -17,6 +17,6 @@ public class Main {
      */
     public static void main (String[] args) {
         @SuppressWarnings("unused")
-        SLogoView view = new View(TITLE, LANGUAGE);
+        View view = new SLogoView(TITLE, LANGUAGE);
     }
 }

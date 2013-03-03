@@ -15,19 +15,22 @@ import exceptions.IllegalInstructionException;
  * @author Scott Valentine
  * 
  */
-public abstract class BaseInstruction extends Instruction {
+public abstract class BaseInstruction implements Instruction {
     /**
-     * 
+     * Eclipse auto-generated ID.
      */
     private static final long serialVersionUID = 2028940084662626878L;
     
     private Iterator<Instruction> myOperands;
 
+    
     /**
-     * loads the base instruction from a scanner of user input
+     * loads this instruction from a scanner of user input
      * 
-     * @param line - scanner from which information is read
-     * @throws IllegalInstructionException
+     * 
+     * @param line - scanner that contains necessary information for this instruction
+     * @throws IllegalInstructionException - when the user attempts to call an 
+     * instruction that does not exist or has not been defined
      */
     
     public void load (Scanner line, Parser parser)  throws IllegalInstructionException {
@@ -38,12 +41,31 @@ public abstract class BaseInstruction extends Instruction {
         myOperands = operands.iterator();
     }
     
+    
     public Instruction nextOperand() {
         return myOperands.next();
     }
-
     
+    /**
+     * copies this instruction. result is only identical in Class name
+     * 
+     * @return a copy of this instruction
+     */
+    
+    public BaseInstruction copy () {
+        BaseInstruction copy = null;
+        try {
+            copy = this.getClass().newInstance();
+        }
+        catch (InstantiationException|IllegalAccessException e) {
+            throw new CorruptedEnvironmentException();
+        }
+        return copy;
+    }
+
     public abstract int getNumberOfArguments();
+    
+    
     
 //    // the number of catch blocks suggests this might be a bad solution.
 //    public int getNumberOfArguments() {
@@ -66,17 +88,6 @@ public abstract class BaseInstruction extends Instruction {
 //        }
 //        return -1;
 //    }
-    
-    @Override
-    public Instruction copy () {
-        Instruction copy = null;
-        try {
-            copy = this.getClass().newInstance();
-        }
-        catch (InstantiationException|IllegalAccessException e) {
-            throw new CorruptedEnvironmentException();
-        }
-        return copy;
-    }
+
 
 }

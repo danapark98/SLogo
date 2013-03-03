@@ -1,5 +1,6 @@
 package control;
 
+import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
@@ -32,6 +33,21 @@ public class Parser {
      * 1. CompoundInstruction to be executed on the model
      * 2. An exception to be displayed in the command history
      * 
+     * @param userInput - A string of data to be parsed into an instruction.
+     * @return The instruction that represents the user input.
+     * @throws IllegalInstructionException If the instruction is not mapped in the
+     *         environment, throw this exception with argument of the incompatible string
+     */
+    public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
+        Scanner line = new Scanner(userInput);
+        return generateInstruction(line);
+    }
+
+    /**
+     * Takes user input and converts it to either
+     * 1. CompoundInstruction to be executed on the model
+     * 2. An exception to be displayed in the command history
+     * 
      * @param line - A scanner of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
@@ -51,7 +67,7 @@ public class Parser {
                 resultInstruct.add(result);
             }
             catch (NumberFormatException e) {
-                Instruction base = myEnvironment.systemInstructionSkeleton(commandName);
+                BaseInstruction base = myEnvironment.systemInstructionSkeleton(commandName);
                 base.load(line, this);
                 resultInstruct.add(base);
             }
@@ -60,18 +76,24 @@ public class Parser {
     }
 
     /**
-     * Takes user input and converts it to either
-     * 1. CompoundInstruction to be executed on the model
-     * 2. An exception to be displayed in the command history
+     * Parses through the next complete instruction. <br>
+     * <br>
+     * <u>Example:</u> <br>
+     * If the input comes from the Scanner that represents the
+     * string "fd 50 backward 50"
+     * then
+     * nextInstruction will return the instruction fd 50.
      * 
-     * @param userInput - A string of data to be parsed into an instruction.
-     * @return The instruction that represents the user input.
-     * @throws IllegalInstructionException If the instruction is not mapped in the
-     *         environment, throw this exception with argument of the incompatible string
+     * @param line is the data to be parsed into an instruction.
+     * @return The next instruction from the scanner, line.
+     * @throws IllegalInstructionException if instruction not recognized
      */
-    public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
-        Scanner line = new Scanner(userInput);
-        return generateInstruction(line);
+    public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
+        String next = line.next();
+        if (next.equals("[")) {
+            next = parseList(line);
+        }
+        return generateInstruction(next);
     }
 
     /**
@@ -100,26 +122,5 @@ public class Parser {
             sb.append(" ");
         }
         return sb.toString();
-    }
-
-    /**
-     * Parses through the next complete instruction. <br>
-     * <br>
-     * <u>Example:</u> <br>
-     * If the input comes from the Scanner that represents the
-     * string "fd 50 backward 50"
-     * then
-     * nextInstruction will return the instruction fd 50.
-     * 
-     * @param line is the data to be parsed into an instruction.
-     * @return The next instruction from the scanner, line.
-     * @throws IllegalInstructionException if instruction not recognized
-     */
-    public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
-        String next = line.next();
-        if (next.equals("[")) {
-            next = parseList(line);
-        }
-        return generateInstruction(next);
     }
 }

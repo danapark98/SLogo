@@ -1,10 +1,7 @@
 package instructions;
 
 import java.io.Serializable;
-import java.util.Scanner;
 import simulation.Model;
-import control.Parser;
-import exceptions.IllegalInstructionException;
 
 
 /**
@@ -13,18 +10,16 @@ import exceptions.IllegalInstructionException;
  * for instance, if the user types in:
  * fd 50 right 90 fd 90
  * <br>
- * and a CompoundInstruction will be made consisting of the BaseInstructions (Forward, Rotate, Forward)
- * that will act on the turtle.
+ * and a CompoundInstruction will be made consisting of the BaseInstructions 
+ * (Forward, Rotate, Forward) that will act on the turtle.
+ * 
+ * Instruction extends Serializable so that all classes that implement this can
+ * be saved and restored
  * 
  * @author Scott Valentine
  * 
  */
-public abstract class Instruction implements Serializable{
-
-    /**
-     * Eclipse auto-generated ID.
-     */
-    private static final long serialVersionUID = -7815874863167351861L;
+public interface Instruction extends Serializable{
 
     /**
      * executes this Instruction on the model
@@ -34,25 +29,6 @@ public abstract class Instruction implements Serializable{
      * 
      * @param model is the model on which this Instruction will execute
      */
-    
-    public abstract int execute (Model model);
+    public int execute (Model model);
 
-    /**
-     * loads this instruction from a scanner of user input
-     * 
-     * 
-     * @param line - scanner that contains necessary information for this instruction
-     * @throws IllegalInstructionException - when the user attemps to call an instruction that does
-     *         not exist or has not been defined
-     */
-    public abstract void load (Scanner line, Parser parser) throws IllegalInstructionException;
-
-    /**
-     * copies this instruction. Level of similarity depends on the subclass.
-     * CompoundInstructions and UserInstructions are completely identical
-     * BaseInstructions are only identical in Class name
-     * 
-     * @return a copy of this instruction
-     */
-    public abstract Instruction copy ();
 }

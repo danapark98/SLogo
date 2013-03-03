@@ -2,9 +2,7 @@ package instructions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import simulation.Model;
-import control.Parser;
 
 
 /**
@@ -13,10 +11,10 @@ import control.Parser;
  * @author Scott Valentine
  * 
  */
-public class CompoundInstruction extends Instruction {
+public class CompoundInstruction implements Instruction{
 
     /**
-     * 
+     * Eclipse auto-generated ID.
      */
     private static final long serialVersionUID = 8327060009397874139L;
     /** list of base instructions this is made of */
@@ -47,20 +45,13 @@ public class CompoundInstruction extends Instruction {
         myInstructions.add(instruction);
     }
 
-    @Override
-    @Deprecated
-    public void load (Scanner line, Parser parser) {
-        // do nothing, can't load a compound instruction directly
-        return;
-    }
 
-    @Override
-    public Instruction copy () {
-        CompoundInstruction copy = new CompoundInstruction();
-        for (Instruction i : myInstructions) {
-            copy.add(i);
-        }
-        return copy;
-    }
+//    public Instruction copy () {
+//        CompoundInstruction copy = new CompoundInstruction();
+//        for (Instruction i : myInstructions) {
+//            copy.add(i);
+//        }
+//        return copy;
+//    }
 
 }

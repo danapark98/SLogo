@@ -1,6 +1,6 @@
 package control;
 
-import instructions.Instruction;
+import instructions.BaseInstruction;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -85,7 +85,7 @@ public class InstructionMapFactory {
      * @throws MissingResourceExeption. This is a fatal error because otherwise
      *         none of the instructions will be accessible.
      */
-    public Map<String, Instruction> buildInstructionMap () {
+    public Map<String, BaseInstruction> buildInstructionMap () {
 
         String currentDirectory = System.getProperty("user.dir");
 
@@ -98,8 +98,8 @@ public class InstructionMapFactory {
         }
         Scanner line = new Scanner(fileToBeRead);
 
-        Map<String, Instruction> instructionMap =
-                new HashMap<String, Instruction>();
+        Map<String, BaseInstruction> instructionMap =
+                new HashMap<String, BaseInstruction>();
 
         while (line.hasNextLine()) {
             String nextLine = line.nextLine();
@@ -119,13 +119,13 @@ public class InstructionMapFactory {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    private void parseLine (Map<String, Instruction> instructionMap, String line) {
+    private void parseLine (Map<String, BaseInstruction> instructionMap, String line) {
         if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
 
-            Instruction instruct;
+            BaseInstruction instruct;
             try {
                 Class<?> instructionClass = Class.forName(line);
-                instruct = (Instruction) instructionClass.newInstance();
+                instruct = (BaseInstruction) instructionClass.newInstance();
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
                 // if not possible, skip

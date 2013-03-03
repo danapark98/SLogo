@@ -1,6 +1,6 @@
 package control;
 
-import instructions.Instruction;
+import instructions.BaseInstruction;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -23,7 +23,7 @@ import exceptions.IncorrectFileFormatException;
 public class Environment {
 
     /** mapping of Instruction keywords to Instruction */
-    private Map<String, Instruction> myInstructionMap;
+    private Map<String, BaseInstruction> myInstructionMap;
 
     /**
      * default constructor initiates the instructionMap
@@ -52,7 +52,7 @@ public class Environment {
      * @param userInstruction - instruction to be added to the environment
      */
     public void addUserDefinedFunction (String keyword,
-                                        Instruction userInstruction) {
+                                        BaseInstruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }
 
@@ -66,7 +66,7 @@ public class Environment {
      * @return - the Instruction associated with the keyword
      * @throws IllegalInstructionException
      */
-    public Instruction systemInstructionSkeleton (String commandName)
+    public BaseInstruction systemInstructionSkeleton (String commandName)
                                                                      throws IllegalInstructionException {
 
         if (!myInstructionMap.containsKey(commandName))
@@ -84,11 +84,12 @@ public class Environment {
      * @throws IncorrectFileFormatException if not readable.
      * 
      */
+    @SuppressWarnings("unchecked") // will only load from files saved by save()
     public void load (InputStream is) throws IncorrectFileFormatException {
         ObjectInput in;
         try {
             in = new ObjectInputStream(is);
-            myInstructionMap = (Map<String, Instruction>) in.readObject();
+            myInstructionMap = (Map<String, BaseInstruction>) in.readObject();
         }
         catch (ClassNotFoundException | IOException e) {
             throw new IncorrectFileFormatException();

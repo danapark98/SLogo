@@ -4,7 +4,6 @@ import instructions.Instruction;
 import java.io.InputStream;
 import java.io.OutputStream;
 import simulation.Model;
-import view.SLogoView;
 import view.View;
 import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
