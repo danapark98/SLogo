@@ -36,6 +36,7 @@ public class Controller {
         myModel = model;
         myView = view;
         myEnvironment = new Environment();
+        model.setEnvironment(myEnvironment);
         myParser = new Parser(myEnvironment);
     }
 

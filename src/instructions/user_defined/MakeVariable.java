@@ -15,21 +15,19 @@ public class MakeVariable extends BaseInstruction {
     private static final long serialVersionUID = 1453503090469524379L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
     private String myName;
-    private Parser myParser;
     
 
     @Override
     public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myName = line.next();
         super.load(line, parser);
-        myParser = parser;
     }
     
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         int variableValue = nextOperand().execute(model);
         BaseInstruction variable = new ConstantInstruction(variableValue);
-        myParser.addUserDefinedInstruction(myName, variable);
+        model.addInstruction(myName, variable);
         return variableValue;
     }
     

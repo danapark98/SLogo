@@ -3,6 +3,7 @@ package instructions;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import control.Parser;
 import exceptions.CorruptedEnvironmentException;
@@ -20,8 +21,7 @@ public abstract class BaseInstruction implements Instruction {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 2028940084662626878L;
-    
-    private Iterator<Instruction> myOperands;
+    private ListIterator<Instruction> myOperands;
 
     
     /**
@@ -38,12 +38,24 @@ public abstract class BaseInstruction implements Instruction {
         for (int i = 0; i < getNumberOfArguments(); i++) {
             operands.add(parser.nextInstruction(line));
         }
-        myOperands = operands.iterator();
+        myOperands = operands.listIterator();
     }
     
     
     public Instruction nextOperand() {
+        if (!myOperands.hasNext()) {
+            resetOperands();            
+        }
         return myOperands.next();
+    }
+    
+    /**
+     * used when the execute method is called more than once.
+     */
+    private void resetOperands() {
+        while (myOperands.hasPrevious()) {
+            myOperands.previous();
+        }
     }
     
     /**

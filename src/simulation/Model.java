@@ -1,14 +1,17 @@
 package simulation;
 
+import instructions.BaseInstruction;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import control.Environment;
 
 
 public class Model implements DisplayEditor {
     private Turtle myTurtle;
     private Collection<Line> myLines;
+    private Environment myEnvironment;
 
     public Model () {
         myTurtle = new Turtle(this);
@@ -37,5 +40,19 @@ public class Model implements DisplayEditor {
     
     public Turtle getTurtle () {
         return myTurtle;
+    }
+    
+    public void setEnvironment (Environment environment) {
+        myEnvironment = environment;
+    }
+    
+    /**
+     * adds a new user defined instruction to the environment
+     * 
+     * @param keyword associated with the instruction for future calls
+     * @param unstruction - instruction to be added to the environment
+     */
+    public void addInstruction(String keyword, BaseInstruction instruction) {
+        myEnvironment.addUserDefinedInstruction(keyword, instruction);
     }
 }

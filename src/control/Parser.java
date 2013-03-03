@@ -129,15 +129,4 @@ public class Parser {
         }
         return sb.toString();
     }
-    
-    /**
-     * adds a new user defined instruction to the environment
-     * 
-     * @param keyword associated with the instruction for future calls
-     * @param userInstruction - instruction to be added to the environment
-     */
-    public void addUserDefinedInstruction (String keyword,
-                                        BaseInstruction userInstruction) {
-        myEnvironment.addUserDefinedInstruction(keyword, userInstruction);
-    }
 }
