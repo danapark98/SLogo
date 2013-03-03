@@ -31,6 +31,7 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 import control.Controller;
 
 
@@ -59,6 +60,10 @@ public class SLogoView extends View {
     public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
     public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
     private static final String BACKWARD_COMMAND = "BackwardCommand";
+    private static final String CANVAS_NAME = "Canvas";
+    private static final String WORKSPACE_NAME = "Workspace";
+    private static final String HISTORY_NAME = "History";
+    private static final String INPUT_NAME = "Input";
     
     private JFileChooser myChooser;
     private JTextArea myConsole;
@@ -127,12 +132,7 @@ public class SLogoView extends View {
     protected JComponent makeCanvasPanel () {
         JPanel canvasPanel = new JPanel();
         canvasPanel.add(myCanvas);
-        canvasPanel
-                .setBorder(BorderFactory.createCompoundBorder(
-                                                              BorderFactory
-                                                                      .createTitledBorder("Canvas"),
-                                                              BorderFactory.createEmptyBorder(5, 5,
-                                                                                              5, 5)));
+        canvasPanel.setBorder(makeBorder(CANVAS_NAME));
         return canvasPanel;
     }
     
@@ -154,8 +154,7 @@ public class SLogoView extends View {
         scrollPane.setPreferredSize(PREFERRED_HISTORY_SIZE);
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
         histPane.add(scrollPane);
-        histPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-                .createTitledBorder("History"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        histPane.setBorder(makeBorder(HISTORY_NAME));
         return histPane;
     }
     
@@ -163,11 +162,7 @@ public class SLogoView extends View {
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.setLayout(new BoxLayout(result, BoxLayout.PAGE_AXIS));
-        result.setBorder(BorderFactory.createCompoundBorder(
-                                                            BorderFactory
-                                                                    .createTitledBorder("Input"),
-                                                            BorderFactory.createEmptyBorder(5, 5,
-                                                                                            5, 5)));
+        result.setBorder(makeBorder(INPUT_NAME));
         result.add(makeForwardButton());
         result.add(makeBackwardButton());
         result.add(makeCommandConsole());
@@ -185,47 +180,35 @@ public class SLogoView extends View {
     }
     
     private JButton makeForwardButton () {
-        // TODO: change fd mag to a variable from an input slider
-        // we also need to look into this final usage
-        final String command = "" + FD + DEFAULT_FD_MAG;
-        final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(FORWARD_COMMAND));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // TODO: this was a change to the API we noticed
-                controller.createRunInstruction(command);
-                displayText(command);
-                System.out.println(command);
-            }
-        });
-        return button;
+        final String command = FD + DEFAULT_FD_MAG;
+        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), command);
     }
     
     private JButton makeBackwardButton () {
         // TODO: change fd mag to a variable from an input slider
-        // we also need to look into this final usage
         final String command = FD + -DEFAULT_FD_MAG;
-        final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(BACKWARD_COMMAND));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // TODO: this was a change to the API we noticed
-                controller.createRunInstruction(command);
-                System.out.println("Forward Button");
-            }
-        });
-        return button;
+        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), command);
     }
     
     private JButton makeSubmitButton () {
+        return makeJButtonCommand(super.myResources.getString(SUBMIT_COMMAND), myConsole.getText());
+    }
+    
+    private Border makeBorder (String panelName) {
+        Border border;
+        border = BorderFactory.createCompoundBorder(BorderFactory
+                .createTitledBorder(super.myResources.getString(panelName)),
+                                                    BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        return border;
+    }
+    
+    private JButton makeJButtonCommand (String name, final String command) {
+        JButton button = new JButton(name);
         final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                controller.createRunInstruction(myConsole.getText());
+                controller.createRunInstruction(command);
                 myConsole.setText("");
             }
         });
