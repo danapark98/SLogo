@@ -88,26 +88,21 @@ public class Turtle extends Sprite {
 
 //    @Override
 //    public void translate (Vector v) {
-//        //createLines(v.getMagnitude(), originalLocation);
+//        createLines(v.getMagnitude(), new Location(getX(), getY()));
 //        super.translate(v);
 //        fixCenter();
 //    }
-
-   /* private void createLines (double distanceRemaining, double startX, double startY) {
-        if (distanceRemaining < 0) {
-            return;
-        }
-        Location end = new Location(start);
-        end.translate(new Vector(getAngle(), 1));
-        myLineAdder.addLine(new Line(start, end, myPenColor));
-        createLines(distanceRemaining - 1, end);
-    }*/
-    
-//    Location originalLocation = new Location(getX(), getY());
-//    Location newLocation = ...
-//    Line line = new Line(originalLocation, newLocation, myPenColor);
-//    myLineAdder.addLine(line);
-
+//
+//    private void createLines (double distanceRemaining, Location start) {
+//        if (distanceRemaining < 0) {
+//            return;
+//        }
+//        Location end = new Location(start);
+//        end.translate(new Vector(getAngle(), 1));
+//        myLineAdder.addLine(new Line(start, end, myPenColor));
+//        createLines(distanceRemaining - 1, end);
+//    }
+//    
 //    private void fixCenter () {
 //        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
 //        double width = bounds.width;
