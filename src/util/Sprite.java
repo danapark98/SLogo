@@ -113,7 +113,7 @@ public abstract class Sprite {
     }
 
     /**
-     * Returns shape's angle relative to up direction.  Return a result between
+     * Returns shape's angle relative to up direction. Return a result between
      * 0 and 360
      */
     public double getAngle () {
@@ -254,7 +254,7 @@ public abstract class Sprite {
      */
     public void paint (Graphics2D pen)
     {
-        //myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
+        // myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
         myView.paint(pen, myCenter, mySize, myAngle);
     }
 

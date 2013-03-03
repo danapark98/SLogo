@@ -1,10 +1,10 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import java.util.Scanner;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -35,7 +35,7 @@ public class Parser {
      * @param line - A scanner of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
-     * environment, throw this exception with argument of the incompatible string
+     *         environment, throw this exception with argument of the incompatible string
      */
     private Instruction generateInstruction (Scanner line) throws IllegalInstructionException {
         CompoundInstruction resultInstruct = new CompoundInstruction();
@@ -67,7 +67,7 @@ public class Parser {
      * @param userInput - A string of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
-     * environment, throw this exception with argument of the incompatible string
+     *         environment, throw this exception with argument of the incompatible string
      */
     public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
         Scanner line = new Scanner(userInput);
@@ -103,10 +103,9 @@ public class Parser {
     }
 
     /**
-     * Parses through the next complete instruction. 
-     * <br><br>
-     * <u>Example:</u>
+     * Parses through the next complete instruction. <br>
      * <br>
+     * <u>Example:</u> <br>
      * If the input comes from the Scanner that represents the
      * string "fd 50 backward 50"
      * then
@@ -114,11 +113,13 @@ public class Parser {
      * 
      * @param line is the data to be parsed into an instruction.
      * @return The next instruction from the scanner, line.
-     * @throws IllegalInstructionException 
+     * @throws IllegalInstructionException if instruction not recognized
      */
     public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
         String next = line.next();
-        if(next.equals("[")) next = parseList(line);
+        if (next.equals("[")) {
+            next = parseList(line);
+        }
         return generateInstruction(next);
     }
 }
