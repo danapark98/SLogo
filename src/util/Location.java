@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 
@@ -59,6 +60,31 @@ public class Location extends Point2D.Double {
      */
     public Vector difference (Point2D other) {
         return new Vector(this, other);
+    }
+    
+    /**
+     * Resets the provided location to lie within the provided bounds
+     * 
+     * @param location 
+     * @param bounds 
+     * @return true if location changed.
+     */
+    public boolean tryCorrectingBounds (Dimension bounds) {
+        Location start = new Location(this.getX(), this.getY());
+        double width = bounds.getWidth();
+        double height = bounds.getHeight();
+        double x = this.getX();
+        double y = this.getY();
+        while (x < 0) {
+            x += width;
+        }
+        while (y < 0) {
+            y += height;
+        }
+        x = x%width;
+        y = y%height;
+        this.setLocation(x, y);
+        return (start.getX() != x || start.getY() != y);
     }
 
 }

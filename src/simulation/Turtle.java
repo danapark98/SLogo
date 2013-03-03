@@ -20,7 +20,7 @@ public class Turtle extends Sprite {
     private static final String X_LABEL = "X-coordinate:";
     private static final String Y_LABEL = "Y-coordinate:";
     private static final String ANGLE_LABEL = "Angle:";
-    private static final double X_OFFSET = 60;
+    private static final double X_OFFSET = 65;
     private static final double Y_OFFSET = 15;
     private DisplayEditor myLineAdder;
     private List<ValueText> myStatus;
@@ -53,13 +53,6 @@ public class Turtle extends Sprite {
         }
     }
     
-    public Location getLocationOnCanvas() {
-        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
-        double x = getX() - bounds.getWidth()/2;
-        double y = bounds.getHeight()/2 - getY();
-        return new Location(x,y);
-    }
-
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
@@ -73,55 +66,6 @@ public class Turtle extends Sprite {
             vt.paint(pen, textLoc, Color.BLACK);
         }
     }
-
-    public static Location startingLocation () {
-        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
-        return new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
-    }
-    
-    @Override
-    public void translate (Vector v) {
-        Location startLocation = new Location(getX(), getY());
-        super.translate(v);
-        Location endLocation = new Location(getX(), getY());
-        Line line = new Line(startLocation, endLocation, myPenColor);
-        myLineAdder.addLine(line);
-        fixCenter();
-    }
-
-//    @Override
-//    public void translate (Vector v) {
-//        createLines(v.getMagnitude(), new Location(getX(), getY()));
-//        super.translate(v);
-//        fixCenter();
-//    }
-//
-//    private void createLines (double distanceRemaining, Location start) {
-//        if (distanceRemaining < 0) {
-//            return;
-//        }
-//        Location end = new Location(start);
-//        end.translate(new Vector(getAngle(), 1));
-//        myLineAdder.addLine(new Line(start, end, myPenColor));
-//        createLines(distanceRemaining - 1, end);
-//    }
-    
-    private void fixCenter () {
-        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
-        double width = bounds.getWidth();
-        double height = bounds.getHeight();
-        double x = getX();
-        double y = getY();
-        while (x < 0) {
-            x += width;
-        }
-        while (y < 0) {
-            y += height;
-        }
-        x = x%width;
-        y = y%height;
-        super.setCenter(x, y);
-    }
     
     public void changePen (Color color) {
         myPenColor = color;
@@ -129,6 +73,49 @@ public class Turtle extends Sprite {
 
     public Color getPenColor () {
         return myPenColor;
+    }
+
+    public static Location startingLocation () {
+        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
+        return new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
+    }
+   
+    public Location getLocationOnCanvas() {
+        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
+        double x = getX() - bounds.getWidth()/2;
+        double y = bounds.getHeight()/2 - getY();
+        return new Location(x,y);
+    }
+
+    @Override
+    public void translate (Vector v) {
+        drawLines(v.getMagnitude());
+        super.translate(v);
+        Location location = new Location(getX(), getY());
+        location.tryCorrectingBounds(View.PREFERRED_CANVAS_SIZE);
+        super.setCenter(location);
+    }
+    
+    private void drawLines(double distance) {
+        Location start = new Location(getX(), getY());
+        double angle = getAngle();
+        if (distance < 0) {
+            distance = -1*distance;
+            angle += 180;
+        }
+        recursiveLineCreation(distance, start, angle);
+    }
+
+    private void recursiveLineCreation (double distanceRemaining, Location start, double angle) {
+        if (distanceRemaining < 0) {
+            return;
+        }
+        Location end = new Location(start);
+        end.translate(new Vector(angle, 1));
+        if (!end.tryCorrectingBounds(View.PREFERRED_CANVAS_SIZE)){
+            myLineAdder.addLine(new Line(start, end, myPenColor));
+        }
+        recursiveLineCreation(distanceRemaining - 1, end, angle);
     }
 
     private void initStatus () {
