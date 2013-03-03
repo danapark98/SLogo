@@ -17,7 +17,7 @@
 # -- turtle instructions -- #
 #
 instructions.turtle.Forward
-#instructions.turtle.Backward
+instructions.turtle.Backward
 instructions.turtle.Left
 instructions.turtle.Right
 #instructions.turtle.SetHeading
