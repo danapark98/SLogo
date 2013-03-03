@@ -1,5 +1,6 @@
 package instructions.user_defined;
 
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import simulation.Model;
@@ -7,12 +8,15 @@ import simulation.Model;
 
 public class ForLoop extends BaseInstruction {
     
-    public static String KEYWORD = "REPEAT";
+    /**
+     * Eclipse auto-generated ID to implement Serializable interface.
+     */
+    private static final long serialVersionUID = -6196556606163979681L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
 
 
     @Override
-    public int execute (Model model) { 
+    public int execute (Model model) throws IllegalInstructionException { 
         int numberOfIterations = nextOperand().execute(model);
         Instruction commandsToLoop = nextOperand();
         int last = 0;

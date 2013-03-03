@@ -51,7 +51,7 @@ public class Environment {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction - instruction to be added to the environment
      */
-    public void addUserDefinedFunction (String keyword,
+    public void addUserDefinedInstruction (String keyword,
                                         BaseInstruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }

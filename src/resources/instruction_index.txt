@@ -57,8 +57,8 @@ instructions.math.Random
 #
 # -- user defined instruction -- #
 #
-#instructions.user_defined.MakeUserVariable
+instructions.user_defined.MakeVariable
 #instructions.user_defined.MakeUserInstruction
-#instructions.user_defined.ForLoop
-#instructions.user_defined.IfElse
-#instructions.user_defined.If
+instructions.user_defined.ForLoop
+instructions.user_defined.IfElse
+instructions.user_defined.If

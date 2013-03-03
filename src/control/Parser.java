@@ -103,12 +103,16 @@ public class Parser {
      * 
      * @param line is a scanner that iterates through the list.
      * @return an instruction that is made from the list.
+     * @throws IllegalInstructionException if list not constructed properly
      */
-    private String parseList (Scanner line) {
+    private String parseList (Scanner line) throws IllegalInstructionException {
         StringBuilder sb = new StringBuilder();
         String str = "";
         int counterBracket = 1;
         while (counterBracket != 0) {
+            if (!line.hasNext()) {
+                throw new IllegalInstructionException("");
+            }
             str = line.next();
             // TODO: use resources to define the brackets
             if (str.equals("[")) {
@@ -124,5 +128,16 @@ public class Parser {
             sb.append(" ");
         }
         return sb.toString();
+    }
+    
+    /**
+     * adds a new user defined instruction to the environment
+     * 
+     * @param keyword associated with the instruction for future calls
+     * @param userInstruction - instruction to be added to the environment
+     */
+    public void addUserDefinedInstruction (String keyword,
+                                        BaseInstruction userInstruction) {
+        myEnvironment.addUserDefinedInstruction(keyword, userInstruction);
     }
 }

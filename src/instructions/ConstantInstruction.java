@@ -24,5 +24,10 @@ public class ConstantInstruction extends BaseInstruction {
     public int getNumberOfArguments () {
         return NUMBER_OF_ARGUMENTS;
     }
+    
+    @Override
+    public BaseInstruction copy() {
+        return this;
+    }
 
 }
