@@ -2,6 +2,7 @@ package instructions;
 
 import java.util.ArrayList;
 import java.util.List;
+import exceptions.IllegalInstructionException;
 import simulation.Model;
 
 
@@ -14,7 +15,7 @@ import simulation.Model;
 public class CompoundInstruction implements Instruction{
 
     /**
-     * Eclipse auto-generated ID.
+     * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 8327060009397874139L;
     /** list of base instructions this is made of */
@@ -28,7 +29,7 @@ public class CompoundInstruction implements Instruction{
     }
 
     @Override
-    public int execute (Model model) {
+    public int execute (Model model) throws IllegalInstructionException {
         int lastReturn = 0;
         for (Instruction i : myInstructions) {
             lastReturn = i.execute(model);

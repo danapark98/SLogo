@@ -1,21 +1,24 @@
 package instructions.booleans;
 
-import instructions.Instruction;
-import instructions.math.DoubleValueMathInstruction;
+import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-public class NotEqual extends DoubleValueMathInstruction {
+public class NotEqual extends BooleanInstruction {
 
-    public final static String KEYWORD1 = "NOTEQUAL?";
-    public final static String KEYWORD2 = "NOTEQUALP";
-    
+    /**
+     * Eclipse auto-generated ID to implement Serializable interface.
+     */
+    private static final long serialVersionUID = -3010226380769115508L;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
+
     @Override
-    public int execute (Model model) {
-        Instruction[] myInstructions = getTwoValues();
-        if(myInstructions[0].execute(model) != myInstructions[1].execute(model)){
-            return 1;
-        }
-        return 0;
+    public boolean executeBoolean (Model model) throws IllegalInstructionException {
+        return nextOperand().execute(model) != nextOperand().execute(model);
+    }
+
+    @Override
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }

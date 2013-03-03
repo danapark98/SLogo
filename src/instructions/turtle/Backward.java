@@ -1,6 +1,10 @@
 package instructions.turtle;
 
+import exceptions.IllegalInstructionException;
+import instructions.BaseInstruction;
 import simulation.Model;
+import simulation.Turtle;
+import util.Vector;
 
 
 /**
@@ -12,12 +16,25 @@ import simulation.Model;
  * @author Scott Valentine
  * 
  */
-public class Backward extends Translate {
+public class Backward extends BaseInstruction {
 
-    private static final long serialVersionUID = 443555056700673405L;
+    /**
+     * Eclipse auto-generated ID to implement Serializable interface.
+     */
+    private static final long serialVersionUID = 7749994394524662088L;
+    private static final int NUMBER_OF_ARGUMENTS = 1;
+
 
     @Override
-    public int getMagnitude(Model model) {
-        return -nextOperand().execute(model);
+    public int execute (Model model) throws IllegalInstructionException {
+        int magnitude = nextOperand().execute(model);
+        Turtle turtle = model.getTurtle();
+        turtle.translate(new Vector(turtle.getAngle(), -1*magnitude));
+        return magnitude;
+    }
+
+    @Override
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
     }
 }

@@ -1,6 +1,7 @@
 package instructions;
 
 import java.io.Serializable;
+import exceptions.IllegalInstructionException;
 import simulation.Model;
 
 
@@ -28,7 +29,9 @@ public interface Instruction extends Serializable{
      * instruction
      * 
      * @param model is the model on which this Instruction will execute
+     * @throws IllegalInstructionException if instruction cannot be performed
+     * (i.e. dividing by zero)
      */
-    public int execute (Model model);
+    public int execute (Model model) throws IllegalInstructionException;
 
 }

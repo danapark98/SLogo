@@ -1,6 +1,6 @@
 package instructions.booleans;
 
-import instructions.BaseInstruction;
+import exceptions.IllegalInstructionException;
 import simulation.Model;
 
 
@@ -13,24 +13,18 @@ import simulation.Model;
  * @author Scott Valentine
  * 
  */
-public class And extends BaseInstruction {
-
-    private static final int NUMBER_OF_ARGUMENTS = 2;
+public class And extends BooleanInstruction {
 
     /**
-     * 
+     * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 3595351121913558476L;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
 
     @Override
-    public int execute(Model model) {
-
-        //TODO: use binary operators
-        if (nextOperand().execute(model) == 1 && 
-            nextOperand().execute(model) == 1) { 
-            return 1; 
-        }
-        return 0;
+    public boolean executeBoolean (Model model) throws IllegalInstructionException {
+        return nextOperand().execute(model) == 1 &&
+               nextOperand().execute(model) == 1;
     }
 
     @Override

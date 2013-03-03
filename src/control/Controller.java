@@ -1,6 +1,7 @@
 package control;
 
 import instructions.Instruction;
+import instructions.turtle.ClearScreen;
 import java.io.InputStream;
 import java.io.OutputStream;
 import simulation.Model;
@@ -69,7 +70,7 @@ public class Controller {
             myEnvironment.load(is);
         }
         catch (IncorrectFileFormatException e) {
-            myView.displayText(e.getMessage());
+            myView.displayText(e.toString());
         }
     }
 
@@ -84,7 +85,7 @@ public class Controller {
             myEnvironment.save(os);
         }
         catch (FileSavingException e) {
-            myView.displayText(e.getMessage());
+            myView.displayText(e.toString());
         }
 
     }
@@ -94,8 +95,7 @@ public class Controller {
      * the screen
      */
     public void clear () {
-        myModel.clearLines();
-        myModel.getTurtle().resetTurtle();
+        new ClearScreen().execute(myModel);
     }
 
 }

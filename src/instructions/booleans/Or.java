@@ -1,20 +1,25 @@
 package instructions.booleans;
 
-import instructions.Instruction;
-import instructions.math.DoubleValueMathInstruction;
+import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-public class Or extends DoubleValueMathInstruction {
+public class Or extends BooleanInstruction {
 
-    public final static String KEYWORD = "OR";
-    
+    /**
+     * Eclipse auto-generated ID to implement Serializable interface.
+     */
+    private static final long serialVersionUID = 6607652502391503222L;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
+
     @Override
-    public int execute (Model model) {
-        Instruction[] myInstructions = getTwoValues();
-        if(myInstructions[0].execute(model) == 1 || myInstructions[1].execute(model) == 1){
-            return 1;
-        }
-        return 0;
+    public boolean executeBoolean (Model model) throws IllegalInstructionException {
+        return nextOperand().execute(model) == 1 ||
+               nextOperand().execute(model) == 1;
+    }
+
+    @Override
+    public int getNumberOfArguments () {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }

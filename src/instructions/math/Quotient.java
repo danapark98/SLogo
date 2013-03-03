@@ -7,28 +7,22 @@ import simulation.Model;
 public class Quotient extends BaseInstruction {
 
     /**
-     * 
+     * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = -6567230868551176878L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    private static String DIVIDE_BY_ZERO_MESSAGE = "Dividing by zero";
     
     
     @Override
-    public int execute (Model model) {
-        int val1 = nextOperand().execute(model);
-        int val2 = nextOperand().execute(model);
+    public int execute (Model model) throws IllegalInstructionException {
+        int arg0 = nextOperand().execute(model);
+        int arg1 = nextOperand().execute(model);
         
-        if(val2 == 0){
-            try {
-                throw new IllegalInstructionException(DIVIDE_BY_ZERO_MESSAGE);
-            } catch (IllegalInstructionException e) {
-                return 0;
-            }
+        if(arg1 == 0){
+            throw new IllegalInstructionException(IllegalInstructionException.DIVIDE_BY_ZERO);
         }
-        return val1 / val2;        
+        return arg0 / arg1;        
     }
-
 
     @Override
     public int getNumberOfArguments() {

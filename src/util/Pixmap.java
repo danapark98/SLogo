@@ -28,6 +28,14 @@ public class Pixmap {
     public Pixmap (String fileName) {
         setImage(fileName);
     }
+    
+    /**
+     * Returns the file name from which the image was created.
+     */
+    @Override
+    public String toString() {
+        return myFileName;
+    }
 
     /**
      * Create a copy of image from the given other image.

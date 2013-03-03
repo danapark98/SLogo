@@ -17,7 +17,7 @@ import exceptions.IllegalInstructionException;
  */
 public abstract class BaseInstruction implements Instruction {
     /**
-     * Eclipse auto-generated ID.
+     * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 2028940084662626878L;
     

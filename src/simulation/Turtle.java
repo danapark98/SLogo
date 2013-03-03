@@ -10,7 +10,7 @@ import util.Pixmap;
 import util.Sprite;
 import util.ValueText;
 import util.Vector;
-import view.SLogoView;
+import view.View;
 
 
 public class Turtle extends Sprite {
@@ -21,13 +21,13 @@ public class Turtle extends Sprite {
     private static final String Y_LABEL = "Y-coordinate:";
     private static final String ANGLE_LABEL = "Angle:";
     private static final double X_OFFSET = 60;
-    private static final double Y_OFFSET = 20;
+    private static final double Y_OFFSET = 15;
     private DisplayEditor myLineAdder;
     private List<ValueText> myStatus;
     private Color myPenColor;
 
     public Turtle (DisplayEditor la) {
-        super(DEFAULT_IMAGE, turtleStartingLocation(), DEFAULT_SIZE);
+        super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
         myLineAdder = la;
         initStatus();
         myPenColor = Color.BLACK;
@@ -40,9 +40,9 @@ public class Turtle extends Sprite {
     }
 
     private void updateStatus () {
-        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
-        int x = (int) (getX() - bounds.getWidth()/2); 
-        int y = (int) (bounds.getHeight()/2 - getY());
+        Location current = getLocationOnCanvas();
+        int x = (int) current.getX();
+        int y = (int) current.getY(); 
         int angle = (int) getAngle();
         int[] currentStatus = {x, y, angle};
         
@@ -51,6 +51,13 @@ public class Turtle extends Sprite {
             vt.resetValue();
             vt.updateValue(currentStatus[i]);
         }
+    }
+    
+    public Location getLocationOnCanvas() {
+        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
+        double x = getX() - bounds.getWidth()/2;
+        double y = bounds.getHeight()/2 - getY();
+        return new Location(x,y);
     }
 
     @Override
@@ -67,14 +74,9 @@ public class Turtle extends Sprite {
         }
     }
 
-    private static Location turtleStartingLocation () {
-        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
+    public static Location startingLocation () {
+        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
         return new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
-    }
-
-    public void resetTurtle () {
-        setCenter(turtleStartingLocation());
-        setAngle(0);
     }
     
     @Override
@@ -105,9 +107,9 @@ public class Turtle extends Sprite {
 //    }
     
     private void fixCenter () {
-        Dimension bounds = SLogoView.PREFERRED_CANVAS_SIZE;
-        double width = bounds.width;
-        double height = bounds.height;
+        Dimension bounds = View.PREFERRED_CANVAS_SIZE;
+        double width = bounds.getWidth();
+        double height = bounds.getHeight();
         double x = getX();
         double y = getY();
         while (x < 0) {

@@ -1,31 +1,26 @@
 package instructions.math;
 
+import instructions.BaseInstruction;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-public class Remainder extends DoubleValueMathInstruction {
+public class Remainder extends BaseInstruction {
 
     /**
-     * 
+     * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = -4013823908746631449L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
     @Override
-    public int execute (Model model) {
+    public int execute (Model model) throws IllegalInstructionException {
+        int arg0 = nextOperand().execute(model);
+        int arg1 = nextOperand().execute(model);
         
-        int val1 = nextOperand().execute(model);
-        int val2 = nextOperand().execute(model);
-        
-        if(val2 == 0){
-            try {
-                throw new IllegalInstructionException(DIVIDE_BY_ZERO_MESSAGE);
-            } catch (IllegalInstructionException e) {
-                // TODO Auto-generated catch block
-                return 0;
-            }
+        if(arg1 == 0){
+            throw new IllegalInstructionException(IllegalInstructionException.DIVIDE_BY_ZERO);
         }
-        return val1 % val2;  
+        return arg0 % arg1;      
     }
 
     @Override

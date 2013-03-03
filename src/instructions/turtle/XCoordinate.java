@@ -1,23 +1,21 @@
-package instructions;
+package instructions.turtle;
 
 import simulation.Model;
+import simulation.Turtle;
+import instructions.BaseInstruction;
 
-public class ConstantInstruction extends BaseInstruction {
-   
+public class XCoordinate extends BaseInstruction {
+
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
      */
-    private static final long serialVersionUID = -2244620866117586663L;
+    private static final long serialVersionUID = -1625057934983841840L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    private int myValue;
-    
-    public ConstantInstruction(int value) {
-        myValue = value;
-    }
-    
+
     @Override
     public int execute (Model model) {
-        return myValue;
+        Turtle turtle = model.getTurtle();
+        return (int) turtle.getLocationOnCanvas().getX();
     }
 
     @Override

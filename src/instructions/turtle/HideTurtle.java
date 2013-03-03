@@ -1,23 +1,22 @@
-package instructions;
+package instructions.turtle;
 
 import simulation.Model;
+import simulation.Turtle;
+import instructions.BaseInstruction;
 
-public class ConstantInstruction extends BaseInstruction {
-   
+public class HideTurtle extends BaseInstruction {
+
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
      */
-    private static final long serialVersionUID = -2244620866117586663L;
+    private static final long serialVersionUID = 7797738746693384437L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    private int myValue;
-    
-    public ConstantInstruction(int value) {
-        myValue = value;
-    }
-    
+
     @Override
     public int execute (Model model) {
-        return myValue;
+        Turtle turtle = model.getTurtle();
+        turtle.setView(Turtle.NO_IMAGE);
+        return 0;
     }
 
     @Override

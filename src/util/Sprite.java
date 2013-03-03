@@ -208,6 +208,13 @@ public abstract class Sprite {
     public void setVelocity (Vector velocity) {
         setVelocity(velocity.getDirection(), velocity.getMagnitude());
     }
+    
+    /**
+     * Returns shape's image.
+     */
+    public Pixmap getView() {
+        return myView;
+    }
 
     /**
      * Resets shape's image.
