@@ -97,7 +97,8 @@ public class SLogoView extends View {
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
         JPanel contentPanel = new JPanel();
-        workspace.addTab("Worspace 1", null, contentPanel, "SLogo");
+        //TODO: add this to the properties file
+        workspace.addTab("Workspace 1", null, contentPanel, "SLogo");
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         contentPanel.add(makeCanvasPanel());
