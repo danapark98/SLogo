@@ -6,11 +6,12 @@ import org.junit.Test;
 import simulation.Model;
 import control.Environment;
 import control.Parser;
+import exceptions.IllegalInstructionException;
 
 public class InstructionTests {
 
     @Test
-    public void testSum(){
+    public void testSum() throws IllegalInstructionException{
         
         Environment e = new Environment();
         Parser p = new Parser(e);

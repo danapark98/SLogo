@@ -1,24 +1,38 @@
 package instructions.math;
 
-import instructions.Instruction;
+import instructions.BaseInstruction;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-public class Quotient extends DoubleValueMathInstruction {
+public class Quotient extends BaseInstruction {
 
-    public final static String KEYWORD = "QUOTIENT";
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6567230868551176878L;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
+    private static String DIVIDE_BY_ZERO_MESSAGE = "Dividing by zero";
     
     
     @Override
     public int execute (Model model) {
-        Instruction[] myInstructions = getTwoValues();
-        int val1 = myInstructions[0].execute(model);
-        int val2 = myInstructions[1].execute(model);
+        int val1 = nextOperand().execute(model);
+        int val2 = nextOperand().execute(model);
         
         if(val2 == 0){
-            throw new IllegalInstructionException(DIVIDE_BY_ZERO_MESSAGE);
+            try {
+                throw new IllegalInstructionException(DIVIDE_BY_ZERO_MESSAGE);
+            } catch (IllegalInstructionException e) {
+                return 0;
+            }
         }
         return val1 / val2;        
+    }
+
+
+    @Override
+    public int getNumberOfArguments() {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }
