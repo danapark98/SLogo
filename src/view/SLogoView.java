@@ -51,8 +51,8 @@ public class SLogoView extends View {
     public static final String SUBMIT_COMMAND = "SubmitCommand";
     public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
-    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 200);
-    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(250, 200);
+    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 50);
+    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
     
     private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
     public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
@@ -310,7 +310,7 @@ public class SLogoView extends View {
     private JScrollPane makeCommandConsole () {
         JTextArea textArea = new JTextArea();
         myConsole = textArea;
-        // textArea.setEditable(false);
+        //textArea.setEditable(false);
         JScrollPane pane = new JScrollPane(textArea);
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         
@@ -319,14 +319,16 @@ public class SLogoView extends View {
     
     private JPanel makeHistory () {
         JTextArea text = new JTextArea();
+        JPanel histPane = new JPanel();
         myHistory = text;
         text.setEditable(false);
         JScrollPane pane = new JScrollPane(text);
-        JPanel histPane = new JPanel();
-        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
+       
+        
         histPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory
                                                               .createTitledBorder("History"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         histPane.add(pane);
+        text.setPreferredSize(PREFERRED_HISTORY_SIZE);
         return histPane;
     }
     
