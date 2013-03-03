@@ -8,7 +8,7 @@ Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 
 
 How to add a new instruction:
-1. Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction
+<br>1. Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction
 <br>2. add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
 <br>3. add keywords to each of the properties files 
 <br>	example for keywords "loop" and "loopdeloop":
