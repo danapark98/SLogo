@@ -18,7 +18,7 @@ import control.Controller;
 /**
  * The Abstract that all implementations of a view for this SLogo implementaiton will use.
  * 
- * @author srwareham
+ * @author srwareham, yoshi
  * 
  */
 public abstract class View extends JFrame {
@@ -77,15 +77,12 @@ public abstract class View extends JFrame {
      * 
      * @return
      */
-    protected abstract JComponent makeDisplay ();
+    protected abstract JComponent makeCanvasPanel ();
 
     /**
      * Method to display a text to the user in a display Box.
-     * TODO:we need this to be called by the controller twice for every parsed phrase.  
-     * One repeating the phrase sent with ">>" before it, and then once for the return value
      * @param text Text to display
      */
-    
     public abstract void displayText (String text);
 
     /**

@@ -61,11 +61,14 @@ public class SLogoView extends View {
     private static final String BACKWARD_COMMAND = "BackwardCommand";
     
     private JFileChooser myChooser;
+    private JTextArea myConsole;
+    private JTextArea myHistory;
     
     /*
      * TODO: Implement correctly the menu bar
      * TODO: Implement SAVE, CLEAR
      * TODO: Implement the NEW workspace command
+     * TODO: Labels from the Resources
      * TODO: REFACTOR CODE!
      */
     /*
@@ -75,9 +78,6 @@ public class SLogoView extends View {
      * private MouseMotionListener myMouseMotionListener;
      * private FocusListener myFocusListener;
      */
-    
-    private JTextArea myConsole;
-    private JTextArea myHistory;
     
     /**
      * Creates an instance of the View.
@@ -91,13 +91,30 @@ public class SLogoView extends View {
         getContentPane().add(makeMenus(), BorderLayout.NORTH);
         pack();
         setVisible(true);
-        
     }
     
+    // TODO: merge this and appendHistory,they are the same
+    @Override
+    public void displayText (String text) {
+        if (text.length() > 0) {
+            if (myHistory.getText().length() == 0) {
+                myHistory.append(text);
+            }
+            else {
+                myHistory.append("\n" + text);
+            }
+        }
+    }
+    
+    /**
+     * *******************************************************************************
+     * 
+     * @return
+     */
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
         JPanel contentPanel = new JPanel();
-        workspace.addTab("Worspace 1", null, contentPanel, "SLogo");
+        workspace.addTab("Workspace", null, contentPanel, "SLogo");
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         contentPanel.add(makeCanvasPanel());
@@ -106,15 +123,16 @@ public class SLogoView extends View {
         
     }
     
-    private JComponent makeCanvasPanel () {
+    @Override
+    protected JComponent makeCanvasPanel () {
         JPanel canvasPanel = new JPanel();
         canvasPanel.add(myCanvas);
         canvasPanel
-        .setBorder(BorderFactory.createCompoundBorder(
-                                                      BorderFactory
-                                                      .createTitledBorder("Canvas"),
-                                                      BorderFactory.createEmptyBorder(5, 5,
-                                                                                      5, 5)));
+                .setBorder(BorderFactory.createCompoundBorder(
+                                                              BorderFactory
+                                                                      .createTitledBorder("Canvas"),
+                                                              BorderFactory.createEmptyBorder(5, 5,
+                                                                                              5, 5)));
         return canvasPanel;
     }
     
@@ -122,14 +140,23 @@ public class SLogoView extends View {
         JPanel hstInpPanel = new JPanel();
         hstInpPanel.setLayout(new BoxLayout(hstInpPanel, BoxLayout.PAGE_AXIS));
         hstInpPanel.add(makeInput());
-        hstInpPanel.add(makeHistory());
+        hstInpPanel.add(makeHistoryPane());
         return hstInpPanel;
     }
     
-    // TODO: merge this and appendHistory,they are the same
-    @Override
-    public void displayText (String text) {
-        appendHistory(text);
+    private JPanel makeHistoryPane () {
+        JPanel histPane = new JPanel();
+        JTextArea textArea = new JTextArea();
+        myHistory = textArea;
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        
+        scrollPane.setPreferredSize(PREFERRED_HISTORY_SIZE);
+        histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
+        histPane.add(scrollPane);
+        histPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+                .createTitledBorder("History"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        return histPane;
     }
     
     @Override
@@ -138,7 +165,7 @@ public class SLogoView extends View {
         result.setLayout(new BoxLayout(result, BoxLayout.PAGE_AXIS));
         result.setBorder(BorderFactory.createCompoundBorder(
                                                             BorderFactory
-                                                            .createTitledBorder("Input"),
+                                                                    .createTitledBorder("Input"),
                                                             BorderFactory.createEmptyBorder(5, 5,
                                                                                             5, 5)));
         result.add(makeForwardButton());
@@ -149,12 +176,12 @@ public class SLogoView extends View {
         return result;
     }
     
-    @Override
-    protected JComponent makeDisplay () {
-        JPanel panel = new JPanel();
-        panel.add(myCanvas);
-        panel.add(makeHistory());
-        return panel;
+    private JScrollPane makeCommandConsole () {
+        JTextArea textArea = new JTextArea();
+        myConsole = textArea;
+        JScrollPane pane = new JScrollPane(textArea);
+        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
+        return pane;
     }
     
     private JButton makeForwardButton () {
@@ -168,7 +195,7 @@ public class SLogoView extends View {
             public void actionPerformed (ActionEvent e) {
                 // TODO: this was a change to the API we noticed
                 controller.createRunInstruction(command);
-                appendHistory(command);
+                displayText(command);
                 System.out.println(command);
             }
         });
@@ -198,9 +225,6 @@ public class SLogoView extends View {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                // TODO: add contoller command here.
-                // appendHistory(myConsole.getText());
-                // this is redunadant with view method for sending a command
                 controller.createRunInstruction(myConsole.getText());
                 myConsole.setText("");
             }
@@ -239,7 +263,7 @@ public class SLogoView extends View {
                 }
                 catch (IOException io) {
                     // let user know an error occurred, but keep going
-                   // showError(io.toString());
+                    // showError(io.toString());
                 }
             }
         });
@@ -251,7 +275,7 @@ public class SLogoView extends View {
                 }
                 catch (IOException io) {
                     // let user know an error occurred, but keep going
-                    //showError(io.toString());
+                    // showError(io.toString());
                 }
             }
         });
@@ -267,17 +291,6 @@ public class SLogoView extends View {
         return result;
     }
     
-    private void appendHistory (String text) {
-        if (text.length() > 0) {
-            if (myHistory.getText().length() == 0) {
-                myHistory.append(text);
-            }
-            else {
-                myHistory.append("\n" + text);
-            }
-        }
-    }
-    
     /**
      * Echo display to writer
      */
@@ -287,6 +300,7 @@ public class SLogoView extends View {
         output.flush();
         output.close();
     }
+    
     /**
      * Echo data read from reader to display
      */
@@ -299,37 +313,11 @@ public class SLogoView extends View {
                 s += line + "\n";
                 line = input.readLine();
             }
-            myHistory.append("\n"+s);
+            myHistory.append("\n" + s);
         }
         catch (IOException e) {
-           // showError(e.toString());
+            // showError(e.toString());
         }
-    }
-    
-    // TODO: should subsume these two methods
-    private JScrollPane makeCommandConsole () {
-        JTextArea textArea = new JTextArea();
-        myConsole = textArea;
-        //textArea.setEditable(false);
-        JScrollPane pane = new JScrollPane(textArea);
-        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
-        
-        return pane;
-    }
-    
-    private JPanel makeHistory () {
-        JTextArea text = new JTextArea();
-        JPanel histPane = new JPanel();
-        myHistory = text;
-        text.setEditable(false);
-        JScrollPane pane = new JScrollPane(text);
-       
-        
-        histPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory
-                                                              .createTitledBorder("History"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        histPane.add(pane);
-        text.setPreferredSize(PREFERRED_HISTORY_SIZE);
-        return histPane;
     }
     
     // TODO: maybe add slider. A default value is acceptable practice
