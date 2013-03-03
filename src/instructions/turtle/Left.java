@@ -10,9 +10,10 @@ import simulation.Model;
  */
 public class Left extends Rotate {
 
-    /** keyword that calls this instruction */
-    public static final String KEYWORD = "left";
-    public static final String KEYWORD1 = "lt";
+    /**
+     * Left unique serial number
+     */
+    private static final long serialVersionUID = -6371140632719070106L;
 
     @Override
     public int getRotation (Model model) {

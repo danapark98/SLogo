@@ -1,7 +1,6 @@
 package instructions.booleans;
 
-import instructions.Instruction;
-import instructions.math.DoubleValueMathInstruction;
+import instructions.BaseInstruction;
 import simulation.Model;
 
 
@@ -14,15 +13,29 @@ import simulation.Model;
  * @author Scott Valentine
  * 
  */
-public class And extends DoubleValueMathInstruction {
+public class And extends BaseInstruction {
 
-    public final static String KEYWORD = "AND";
+    private static final int NUMBER_OF_ARGUMENTS = 2;
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3595351121913558476L;
 
     @Override
-    public int execute (Model model) {
-        Instruction[] myInstructions = getTwoValues();
-        if (myInstructions[0].execute(model) == 1 && myInstructions[1].execute(model) == 1) { return 1; }
+    public int execute(Model model) {
+
+        //TODO: use binary operators
+        if (nextOperand().execute(model) == 1 && 
+            nextOperand().execute(model) == 1) { 
+            return 1; 
+        }
         return 0;
+    }
+
+    @Override
+    public int getNumberOfArguments() {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }

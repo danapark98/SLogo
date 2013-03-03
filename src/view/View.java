@@ -1,223 +1,123 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import javax.swing.JButton;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JTextArea;
+import javax.swing.JFrame;
+import simulation.Model;
 import control.Controller;
 
 
 /**
- * The View is comprised of everything visible to the user.
- * The View is the interactive space containing a file menu, buttons, and the Canvas.
+ * The Abstract that all implementations of a view for this SLogo implementaiton will use.
  * 
- * @author srwareham, yoshi
+ * @author srwareham
  * 
  */
-public class View extends SLogoView {
+public abstract class View extends JFrame {
+
+    private static final long serialVersionUID = 1L;
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String ENGLISH = "English";
     private static final String USER_DIR = "user.dir";
-    public static final String FORWARD_COMMAND = "ForwardCommand";
-    public static final String SUBMIT_COMMAND = "SubmitCommand";
-    public static final String FD = "fd ";
-    public static final int DEFAULT_FD_MAG = 10;
-    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(300, 400);
-    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(300, 400);
-
-    private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
-    public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
-    public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
-    public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
-    private static final String BACKWARD_COMMAND = "BackwardCommand";
-
     private JFileChooser myChooser;
+    /*
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
     private FocusListener myFocusListener;
 
-    private JTextArea myConsole;
-    private JTextArea myHistory;
+    */
+    /**
+     * Preferred Dimensions of the Canvas.
+     */
+    public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 500);
+
+    protected ResourceBundle myResources;
+    protected Canvas myCanvas;
+    protected Controller myController;
 
     /**
-     * Creates an instance of the View.
+     * Creates a SLogoView.
      * 
      * @param title The title of this View
      * @param language The desired language for the View
      */
     public View (String title, String language) {
-        super(title, language);
-        getContentPane().add(makeInput(), BorderLayout.WEST);
-        getContentPane().add(makeDisplay(), BorderLayout.EAST);
-        pack();
-        setVisible(true);
-
-    }
-//TODO: merge this and appendHistory,they are the same
-    @Override
-    public void displayText (String text) {
-        appendHistory(text);
-    }
-
-    @Override
-    protected JComponent makeInput () {
-        JPanel result = new JPanel();
-        result.add(makeForwardButton());
-        result.add(makeBackwardButton());
-        result.add(makeCommandConsole());
-        result.add(makeSubmitButton());
-//        result.add(makeTurnMagnitudeSlider());
-        return result;
-    }
-
-    @Override
-    protected JComponent makeDisplay () {
-        JPanel panel = new JPanel();
-        panel.add(myCanvas);
-        panel.add(makeHistory());
-        return panel;
-    }
-
-    private JButton makeForwardButton () {
-        // TODO: change fd mag to a variable from an input slider
-        // we also need to look into this final usage
-        final String command = ""+FD + DEFAULT_FD_MAG;
-        final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(FORWARD_COMMAND));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // TODO: this was a change to the API we noticed
-                controller.createRunInstruction(command);
-                appendHistory(command);
-                System.out.println(command);
-            }
-        });
-        return button;
-    }
-
-    private JButton makeBackwardButton () {
-        // TODO: change fd mag to a variable from an input slider
-        // we also need to look into this final usage
-        final String command = FD + -DEFAULT_FD_MAG;
-        final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(BACKWARD_COMMAND));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // TODO: this was a change to the API we noticed
-                controller.createRunInstruction(command);
-                System.out.println("Forward Button");
-            }
-        });
-        return button;
-    }
-
-    private JButton makeSubmitButton () {
-        final Controller controller = super.myController;
-        JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // TODO: add contoller command here.
-                //appendHistory(myConsole.getText());
-                //this is redunadant with view method for sending a command
-                controller.createRunInstruction(myConsole.getText());
-                myConsole.setText("");
-            }
-        });
-        return button;
-    }
-    
-    private void appendHistory(String text) {
-        if (text.length() > 0) {
-            if (myHistory.getText().length() == 0) {
-                myHistory.append(text);
-            }
-            else {
-                myHistory.append("\n" + text);
-            }
+        try {
+            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         }
-    }
-    
+        catch (MissingResourceException e) {
+            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + ENGLISH);
+        }
 
-    // TODO: should subsume these two methods
-    private JScrollPane makeCommandConsole () {
-        JTextArea textArea = new JTextArea();
-        myConsole = textArea;
-        // textArea.setEditable(false);
-        JScrollPane pane = new JScrollPane(textArea);
-        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
-
-        return pane;
+        setTitle(title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        setCanvas();
     }
 
-    private JScrollPane makeHistory () {
-        JTextArea text = new JTextArea();
-        myHistory = text;
-        text.setEditable(false);
-        JScrollPane pane = new JScrollPane(text);
-        pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
-        return pane;
-    }
-//TODO: maybe add slider.  A default value is acceptable practice
-//    private JSlider makeTurnMagnitudeSlider () {
-//        JLabel turnLabel = new JLabel(myResources.getString(TURN_MAGNITUDE_LABEL));
-//        JSlider mag = new JSlider(JSlider.HORIZONTAL,
-//                                  MIN_DISPLACEMENT_MAGNITUDE,
-//                                  MAX_DISPLACEMENT_MAGNITUDE,
-//                                  INITIAL_DISPLACEMENT_MAGNITUDE);
-//        mag.setMajorTickSpacing(10);
-//        mag.setMinorTickSpacing(1);
-//        mag.setPaintTicks(true);
-//        mag.setPaintLabels(true);
-//        // TODO: having difficulty adding listener for the slider...
-//        return mag;
-//
-//    }
-    // myController.sendString(s);
-
-    // TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve
-    // instances of swing objects so that it can use "j.addKeyListener( new .....)" would need to
-    // document as a change to our API
-    // the issue stems from the fact that the view holds the JComponent, while the Control hods the
-    // definiton for what the actionPerformed should be. May also need seperate one for JButton to
-    // be able to addActionListener for some reason
-    /*
-     * Example:
-     * protected JButton makeClear () {
-     * JButton result = new JButton(myResources.getString("ClearCommand"));
-     * result.addActionListener(new ActionListener() {
+    /**
+     * Method to build all InputAccepting JComponents.
      * 
-     * @Override
-     * public void actionPerformed (ActionEvent e) {
-     * myTextArea.setText("");
-     * }
-     * });
-     * return result;
-     * }
-     * 
-     * probably we want to send the button or any other componenet type (not sure if we want several
-     * specific methods or 1 more general one) and then add the listener and action performed to it
-     * 
-     * otherwise stuck wondering if there is a way to pass off a JButton with an ActionListener to
-     * the control class. Then have the control class override the actionPerformed so that it does
-     * what control knows it needs to
-     * suppose we could pass off the JComponents with as much info as possible from the view. Then
-     * let the controller read all of its Listener info, create a new instance with the proper
-     * actionPerformed, and then
-     * place this newer ActionListener w/ complete actionPerformed into the JButton
+     * @return
      */
+    protected abstract JComponent makeInput ();
+
+    /**
+     * Method to build the display area consisting of the Canvas
+     * 
+     * @return
+     */
+    protected abstract JComponent makeDisplay ();
+
+    /**
+     * Method to display a text to the user in a display Box.
+     * TODO:we need this to be called by the controller twice for every parsed phrase.  
+     * One repeating the phrase sent with ">>" before it, and then once for the return value
+     * @param text Text to display
+     */
+    
+    public abstract void displayText (String text);
+
+    /**
+     * Sets the Controller for this View.
+     * 
+     * @param controller Controller that will watch over all View Actions
+     *        / will create listeners
+     */
+    public void setController (Controller controller) {
+        myController = controller;
+    }
+
+    /**
+     * Sets the canvas for the view. Will be called from the model or controller.
+     * Called with command within controller such as myView.super.setCanvas(model)
+     * This method also starts the Canvas, which loads the model
+     * 
+     * @param model Model that should be displayed within the Canvas
+     */
+    public void setCanvas () {
+        myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
+        myCanvas.start(this);
+    }
+
+    /**
+     * Method to send commands to the controller.
+     * 
+     * @param command String that needs to be parsed (may be multiple lines)
+     */
+
+    protected void sendCommand (String command) {
+        myController.createRunInstruction(command);
+    }
+
 }

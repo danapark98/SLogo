@@ -1,21 +1,27 @@
 package instructions.booleans;
 
-import instructions.Instruction;
-import instructions.math.DoubleValueMathInstruction;
+import instructions.BaseInstruction;
 import simulation.Model;
 
-public class Equal extends DoubleValueMathInstruction {
+public class Equal extends BaseInstruction {
     
-    public final static String KEYWORD1 = "EQUAL?";
-    public final static String KEYWORD2 = "EQUALP";
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -9085755361792996511L;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
     
     @Override
     public int execute (Model model) {
-        Instruction[] myInstructions = getTwoValues();
-        if(myInstructions[0].execute(model) == myInstructions[1].execute(model)){
+        if(nextOperand().execute(model) == nextOperand().execute(model)){
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    public int getNumberOfArguments() {
+        return NUMBER_OF_ARGUMENTS;
     }
 
 }

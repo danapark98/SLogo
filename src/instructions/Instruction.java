@@ -8,13 +8,13 @@ import exceptions.IllegalInstructionException;
 
 
 /**
- * represents every user or otherwise generated instruction that acts on the model
- * 
+ * Represents every user or otherwise generated instruction that acts on the model.
+ * <br><br>
  * for instance, if the user types in:
  * fd 50 right 90 fd 90
- * 
- * a CompoundInstruction will be made consisting of the BaseInstructions (Forward, Rotate, Forward)
- * that will act on the turtle
+ * <br>
+ * and a CompoundInstruction will be made consisting of the BaseInstructions (Forward, Rotate, Forward)
+ * that will act on the turtle.
  * 
  * @author Scott Valentine
  * 

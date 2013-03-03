@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import simulation.Model;
 import view.SLogoView;
+import view.View;
 import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
@@ -20,7 +21,7 @@ import exceptions.IncorrectFileFormatException;
 public class Controller {
 
     private Model myModel;
-    private SLogoView myView;
+    private View myView;
     private Parser myParser;
     private Environment myEnvironment;
 
@@ -31,7 +32,7 @@ public class Controller {
      * @param model is a Model that represents the state of the simulation
      * @param view is a View that represents what will be displayed
      */
-    public Controller (Model model, SLogoView view) {
+    public Controller (Model model, View view) {
         myModel = model;
         myView = view;
         myEnvironment = new Environment();
