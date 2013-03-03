@@ -10,15 +10,16 @@ package exceptions;
 public class IllegalInstructionException extends Exception {
 
     private static final long serialVersionUID = 1L;
-    
-    /** String that resulted in the exception.*/
+
+    /** String that resulted in the exception. */
     private String myCommand;
 
     /**
      * Creates new instance from the string that resulted in this exception.
+     * 
      * @param command is the string that resulted in the exception.
      */
-    public IllegalInstructionException(String command) {
+    public IllegalInstructionException (String command) {
         super();
         myCommand = command;
     }

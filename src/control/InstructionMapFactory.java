@@ -26,7 +26,7 @@ public class InstructionMapFactory {
 
     /** Default Language */
     // TODO: make one of these (currently one here and one in view)
-    public static final String ENGLISH = "English";
+    public static final String ENGLISH_LANGUAGE = "English";
 
     /** Location of all instruction classpath data. */
     private static final String INSTRUCTION_INDEX_FILE =
@@ -55,14 +55,14 @@ public class InstructionMapFactory {
      * @param language of the commands (must be file in resource
      *        folder)
      */
-    public InstructionMapFactory(String language) {
+    public InstructionMapFactory (String language) {
         try {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
                                                    + language);
-        } 
+        }
         catch (MissingResourceException e) {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
-                                                   + ENGLISH);
+                                                   + ENGLISH_LANGUAGE);
         }
     }
 
@@ -73,7 +73,7 @@ public class InstructionMapFactory {
      * @param resources is a resource bundle that contains keywords for
      *        instructions
      */
-    public InstructionMapFactory(ResourceBundle resources) {
+    public InstructionMapFactory (ResourceBundle resources) {
         myResources = resources;
     }
 
@@ -82,15 +82,20 @@ public class InstructionMapFactory {
      * instructions.
      * 
      * @return Map of keywords to instructions.
-     * @throws FileNotFoundException If the instruction_index file is not
-     *         found.
+     * @throws MissingResourceExeption. This is a fatal error because otherwise
+     *         none of the instructions will be accessible.
      */
-    public Map<String, Instruction> buildInstructionMap() throws FileNotFoundException {
+    public Map<String, Instruction> buildInstructionMap () {
 
         String currentDirectory = System.getProperty("user.dir");
 
-        FileReader fileToBeRead =
-                new FileReader(currentDirectory + INSTRUCTION_INDEX_FILE);
+        FileReader fileToBeRead = null;
+        try {
+            fileToBeRead = new FileReader(currentDirectory + INSTRUCTION_INDEX_FILE);
+        }
+        catch (FileNotFoundException e) {
+            throw new MissingResourceException("Missing instruction class names", "", "");
+        }
         Scanner line = new Scanner(fileToBeRead);
 
         Map<String, Instruction> instructionMap =
@@ -114,16 +119,16 @@ public class InstructionMapFactory {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    private void parseLine(Map<String, Instruction> instructionMap, String line) {
+    private void parseLine (Map<String, Instruction> instructionMap, String line) {
         if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
-            
+
             Instruction instruct;
             try {
                 Class<?> instructionClass = Class.forName(line);
                 instruct = (Instruction) instructionClass.newInstance();
-            } 
+            }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
-                // if not possible skip
+                // if not possible, skip
                 return;
             }
             // gets parameters from line
@@ -133,8 +138,8 @@ public class InstructionMapFactory {
 
             String[] keywords = entry.split(PROPERTIES_SEPERATOR);
 
-            for (int i = 0; i < keywords.length; ++i) {
-                instructionMap.put(keywords[i], instruct);
+            for (String keyword : keywords) {
+                instructionMap.put(keyword, instruct);
             }
         }
     }
@@ -145,7 +150,7 @@ public class InstructionMapFactory {
      * @param classPath is the classPath to determine the class name.
      * @return The name of the class at the given classPath.
      */
-    private String getClassName(String classPath) {
+    private String getClassName (String classPath) {
         String[] path = classPath.split("[.]");
         String str = path[path.length - 1];
         return str;

@@ -47,7 +47,7 @@ instructions.turtle.Right
 #
 # -- math instructions -- #
 #
-#instructions.math.Sum
+instructions.math.Sum
 #instructions.math.Difference
 #instructions.math.Product
 #instructions.math.Quotient

@@ -1,10 +1,6 @@
 package control;
 
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import instructions.Instruction;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -13,6 +9,9 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 
 
 /**
@@ -40,16 +39,10 @@ public class Environment {
 
         // TODO: would much rather have the constructor take a ResourceBundle instead of a
         // string that indicates where to find the ResourceBundle
-        InstructionMapFactory imf = new InstructionMapFactory(InstructionMapFactory.ENGLISH);
+        InstructionMapFactory imf =
+                new InstructionMapFactory(InstructionMapFactory.ENGLISH_LANGUAGE);
+        myInstructionMap = imf.buildInstructionMap();
 
-        try {
-            myInstructionMap = imf.buildInstructionMap();
-        }
-        catch (FileNotFoundException e) {
-            // TODO: do something if nothing is found
-            // (map will be empty and all user commands will fail)
-            return;
-        }
     }
 
     /**
@@ -83,6 +76,14 @@ public class Environment {
 
     }
 
+    /**
+     * Loads in instructions and variables for the Environment from an
+     * InputStream. The source must be something saved by the save() method.
+     * 
+     * @param is the source to read in from
+     * @throws IncorrectFileFormatException if not readable.
+     * 
+     */
     public void load (InputStream is) throws IncorrectFileFormatException {
         ObjectInput in;
         try {
@@ -95,6 +96,14 @@ public class Environment {
 
     }
 
+    /**
+     * Saves instructions and variables to an OutputStream. Used only for
+     * reading in at a later point by the load() method.
+     * 
+     * @param os to write to
+     * @throws FileSavingException is an exception thrown if the OutputStream
+     *         provided cannot be written to successfully.
+     */
     public void save (OutputStream os) throws FileSavingException {
         ObjectOutput out;
         try {
@@ -104,7 +113,7 @@ public class Environment {
         catch (IOException e) {
             throw new FileSavingException();
         }
-       
+
     }
 
 }

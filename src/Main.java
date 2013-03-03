@@ -10,10 +10,10 @@ import view.View;
 public class Main {
 
     private static final String TITLE = "SLogo";
-    public static final String LANGUAGE = "English";
+    private static final String LANGUAGE = "English";
 
     /**
-     * @param Creates the SLogo simulation.
+     * Creates the SLogo simulation.
      */
     public static void main (String[] args) {
         @SuppressWarnings("unused")

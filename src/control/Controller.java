@@ -62,8 +62,7 @@ public class Controller {
      * This loads in the state of instructions and variables from a source
      * that was saved by saveState().
      * 
-     * @throws IncorrectFileFormatException which is thrown when a file
-     *         is not formatted correctly to be loaded into an SLogo workspace
+     * @param is the source to read from
      */
     public void loadState (InputStream is) {
         try {
@@ -76,6 +75,8 @@ public class Controller {
 
     /**
      * Saves the instructions and variables that are available to the user.
+     * 
+     * @param os is the stream to write to.
      */
     public void saveState (OutputStream os) {
 
