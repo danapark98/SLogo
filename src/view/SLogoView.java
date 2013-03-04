@@ -225,11 +225,11 @@ public class SLogoView extends View {
     @Override
     protected JComponent makeInput () {
         JPanel result = new JPanel();
-        result.setLayout(new BoxLayout(result, BoxLayout.PAGE_AXIS));
+        result.setLayout(new BorderLayout());
         result.setBorder(makeBorder(INPUT_NAME));
-        result.add(makeTurtleMoveButtons());
-        result.add(makeCommandConsole());
-        result.add(makeSubmitButton());
+        result.add(makeTurtleMoveButtons(), BorderLayout.NORTH);
+        result.add(makeCommandConsole(),BorderLayout.CENTER);
+        result.add(makeSubmitButton(), BorderLayout.SOUTH);
         return result;
     }
     /**
