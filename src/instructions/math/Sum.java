@@ -5,19 +5,6 @@ import instructions.BaseInstruction;
 import simulation.Model;
 
 
-/**
- * Represents arithmetic addition as an instruction. <br>
- * <br>
- * <u> Examples:</u> <br>
- * sum 10 10 ---> 200 <br>
- * sum -4 4 ---> 0 <br>
- * sum -5 2 ---> -3
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class Sum extends BaseInstruction {
     /**
      * Eclipse auto-generated ID to implement Serializable interface.

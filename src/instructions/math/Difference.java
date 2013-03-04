@@ -4,16 +4,6 @@ import exceptions.IllegalInstructionException;
 import simulation.Model;
 import instructions.BaseInstruction;
 
-/**
- * Represents a subtraction math operation as an instruction.
- * <br><br>
- * <u> Examples:</u>
- * <br> difference 10 10 ---> 0
- * <br> difference -4 -8 ---> -12
- * 
- * @author Scott Valentine
- *
- */
 public class Difference extends BaseInstruction {
 
     /**

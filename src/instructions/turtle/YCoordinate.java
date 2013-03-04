@@ -1,25 +1,9 @@
 package instructions.turtle;
 
-import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
+import instructions.BaseInstruction;
 
-
-/**
- * Represents query of the turtle's current y-coordinate as an instruction.
- * Takes no
- * arguments and returns the current y-coordinate of the turtle in pixels.<br>
- * <br>
- * <u> Examples:</u> <br>
- * Suppose turtle is at (-19, 46), <br>
- * 
- * ycor ---> returns 46. <br>
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class YCoordinate extends BaseInstruction {
 
     /**
@@ -29,13 +13,13 @@ public class YCoordinate extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getLocationOnCanvas().getY();
     }
 
     @Override
-    public int getNumberOfArguments() {
+    public int getNumberOfArguments () {
         return NUMBER_OF_ARGUMENTS;
     }
 

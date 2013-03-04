@@ -1,8 +1,5 @@
 package control;
 
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,72 +9,72 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
-
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 
 
 /**
- * Represents the current available commands and variables in the workspace. Any
- * user defined variables or instructions are also added to the environment.
+ * Represents the current available commands and variables in the workspace
  * 
  * @author Scott Valentine
  * 
  */
 public class Environment {
 
-    /** Mapping of Instruction keywords to Instruction */
+    /** mapping of Instruction keywords to Instruction */
     private Map<String, BaseInstruction> myInstructionMap;
 
     /**
-     * Creates a new Environment with the default instructions located
-     * .\resources\instruction_index.txt
+     * default constructor initiates the instructionMap
      */
-    public Environment() {
+    public Environment () {
         initiateInstructionMap();
     }
 
     /**
-     * Populates myInstructionMap with relevant instructions
-     * from the instruction_index.txt file and their keywords from a .properties
-     * file
+     * populates myInstructionMap with relevant instructions
      */
-    private void initiateInstructionMap() {
+    private void initiateInstructionMap () {
 
-        // TODO: would much rather have the constructor take a ResourceBundle
-        // instead of a
+        // TODO: would much rather have the constructor take a ResourceBundle instead of a
         // string that indicates where to find the ResourceBundle
         InstructionMapFactory imf =
-                new InstructionMapFactory(
-                                          InstructionMapFactory.ENGLISH_LANGUAGE);
+                new InstructionMapFactory(InstructionMapFactory.ENGLISH_LANGUAGE);
         myInstructionMap = imf.buildInstructionMap();
 
     }
 
     /**
-     * Adds a new user defined instruction to the environment.
+     * adds a new user defined instruction to the environment
      * 
      * @param keyword associated with the instruction for future calls
-     * @param userInstruction is the instruction to be added to the environment.
+     * @param userInstruction - instruction to be added to the environment
      */
-    public void addUserDefinedInstruction(String keyword,
-                                          BaseInstruction userInstruction) {
+    public void addUserDefinedInstruction (String keyword,
+                                        BaseInstruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }
 
     /**
-     * Gives the Instruction associated with the passed keyword.
+     * gives the Instruction associated with the passed keyword
+     * 
+     * if the keyword is not associated with an Instruction, this
+     * will throw an IllegalInstructionExcpection
      * 
      * @param commandName - the keyword for the instruction
-     * @return The Instruction associated with the keyword
-     * @throws IllegalInstructionException This occurs when the keyword is not
-     *         found in the environment.
+     * @return - the Instruction associated with the keyword
+     * @throws IllegalInstructionException
      */
-    public BaseInstruction systemInstructionSkeleton(String commandName)
-        throws IllegalInstructionException {
+    public BaseInstruction systemInstructionSkeleton (String commandName)
+                                                                     throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName)) { 
-            throw new IllegalInstructionException( commandName); 
+        if (!myInstructionMap.containsKey(commandName)) {
+            throw new IllegalInstructionException(commandName);
         }
+
         return myInstructionMap.get(commandName).newCopy();
+
     }
 
     /**
@@ -88,14 +85,14 @@ public class Environment {
      * @throws IncorrectFileFormatException if not readable.
      * 
      */
-    @SuppressWarnings("unchecked")
-    // will only load from files saved by save()
-    public void load(InputStream is) throws IncorrectFileFormatException {
+    @SuppressWarnings("unchecked") // will only load from files saved by save()
+    public void load (InputStream is) throws IncorrectFileFormatException {
         ObjectInput in;
         try {
             in = new ObjectInputStream(is);
             myInstructionMap = (Map<String, BaseInstruction>) in.readObject();
-        } catch (ClassNotFoundException | IOException e) {
+        }
+        catch (ClassNotFoundException | IOException e) {
             throw new IncorrectFileFormatException();
         }
 
@@ -109,12 +106,13 @@ public class Environment {
      * @throws FileSavingException is an exception thrown if the OutputStream
      *         provided cannot be written to successfully.
      */
-    public void save(OutputStream os) throws FileSavingException {
+    public void save (OutputStream os) throws FileSavingException {
         ObjectOutput out;
         try {
             out = new ObjectOutputStream(os);
             out.writeObject(myInstructionMap);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new FileSavingException();
         }
 

@@ -3,18 +3,6 @@ package instructions.booleans;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-/**
- * Represents the instruction for !=, and returns 0 if the two arguments are
- * equal, otherwise returns 1. <br>
- * <br>
- * <u>Example:</u> <br>
- * notequal? 8 8 ---> 0 <br>
- * notequalp 9 10 ----> 1
- * 
- * 
- * @author Scott Valentine
- * 
- */
 public class NotEqual extends BooleanInstruction {
 
     /**

@@ -1,17 +1,9 @@
 package instructions.booleans;
 
+import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
-import simulation.Model;
 
-/**a
- * Represents an boolean as an instruction. 
- * <br><br>
- * ex: and, or, greater, less, equal, notequal
- * 
- * @author Scott Valentine
- *
- */
 public abstract class BooleanInstruction extends BaseInstruction {
 
     /**

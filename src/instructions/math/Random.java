@@ -1,19 +1,9 @@
 package instructions.math;
 
+import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
-import simulation.Model;
 
-
-/**
- * Represents a random integer generator as an instruction. Produces a random
- * number between 0 and its argument when executed. <br>
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class Random extends BaseInstruction {
 
     /**
@@ -23,15 +13,16 @@ public class Random extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 1;
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int max = nextOperand().execute(model);
-        if (max < 0) { throw new IllegalInstructionException(
-                                                             IllegalInstructionException.NEGATIVE); }
+        if (max < 0) {
+            throw new IllegalInstructionException(IllegalInstructionException.NEGATIVE);
+        }
         return new java.util.Random().nextInt(max);
     }
 
     @Override
-    public int getNumberOfArguments() {
+    public int getNumberOfArguments () {
         return NUMBER_OF_ARGUMENTS;
     }
 

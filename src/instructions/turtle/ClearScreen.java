@@ -1,22 +1,8 @@
 package instructions.turtle;
 
-import instructions.BaseInstruction;
 import simulation.Model;
+import instructions.BaseInstruction;
 
-
-/**
- * Represents clearing the current screen of all lines as an instruction. This
- * does not take any agruments<br>
- * <br>
- * <u> Examples:</u> <br>
- * clearscreen ---> clears screen of all lines <br>
- * cs ---> clears screen of all lines<br>
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class ClearScreen extends BaseInstruction {
 
     /**
@@ -26,13 +12,13 @@ public class ClearScreen extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         model.clearLines();
         return new Home().execute(model);
     }
 
     @Override
-    public int getNumberOfArguments() {
+    public int getNumberOfArguments () {
         return NUMBER_OF_ARGUMENTS;
     }
 

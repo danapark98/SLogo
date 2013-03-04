@@ -1,25 +1,10 @@
 package instructions.turtle;
 
-import instructions.booleans.BooleanInstruction;
 import simulation.Model;
 import simulation.Turtle;
 import util.Pixmap;
+import instructions.booleans.BooleanInstruction;
 
-
-/**
- * Represents a boolean of whether or not the turtle is currently
- * showing as an instruction. Takes zero arguments and returns 1 if the turtle is
- * showing, or 0 otherwise. <br>
- * <br>
- * <u> Examples:</u> <br>
- * showing? ---> if turtle is showing returns 1, 0 otherwise <br>
- * showingp ---> if turtle is showing returns 1, 0 otherwise
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class IsShowing extends BooleanInstruction {
 
     /**

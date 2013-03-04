@@ -1,22 +1,10 @@
 package instructions.turtle;
 
-import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
+import instructions.BaseInstruction;
 
-/**
- * Represents making the turtle visible as an instruction. Takes zero
- * arguments and always returns 1.<br>
- * <br>
- * <u> Examples:</u> <br>
- * showturtle ---> shows turtle on screen if turtle is not already visible. <br>
- * st ---> shows turtle on screen if turtle is not already visible. <br>
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
+
 public class ShowTurtle extends BaseInstruction {
 
     /**

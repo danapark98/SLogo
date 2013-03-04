@@ -1,25 +1,9 @@
 package instructions.math;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import exceptions.IllegalInstructionException;
 import simulation.Model;
 
-
-/**
- * Represents modular division as an instruction. This is the remainder of a
- * number after being divided by another number.
- * Throws an illegal instruction exception if the user tries to divide by 0. <br>
- * <br>
- * <u> Examples:</u> <br>
- * remainder 10 10 ---> 0 <br>
- * remainder -4 0 ---> throws illegal instruction exception "dividing by zero" <br>
- * remainder 5 2 ---> 1
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class Remainder extends BaseInstruction {
 
     /**
@@ -27,15 +11,16 @@ public class Remainder extends BaseInstruction {
      */
     private static final long serialVersionUID = -4013823908746631449L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-
+    
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int arg0 = nextOperand().execute(model);
         int arg1 = nextOperand().execute(model);
-
-        if (arg1 == 0) { throw new IllegalInstructionException(
-                                                               IllegalInstructionException.DIVIDE_BY_ZERO); }
-        return arg0 % arg1;
+        
+        if(arg1 == 0){
+            throw new IllegalInstructionException(IllegalInstructionException.DIVIDE_BY_ZERO);
+        }
+        return arg0 % arg1;      
     }
 
     @Override

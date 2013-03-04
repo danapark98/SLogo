@@ -82,6 +82,8 @@ public class InstructionMapFactory {
      * instructions.
      * 
      * @return Map of keywords to instructions.
+     * @throws MissingResourceExeption. This is a fatal error because otherwise
+     *         none of the instructions will be accessible.
      */
     public Map<String, BaseInstruction> buildInstructionMap () {
 

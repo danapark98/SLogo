@@ -1,25 +1,10 @@
 package instructions.turtle;
 
-import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
 import util.Location;
+import instructions.BaseInstruction;
 
-
-/**
- * Represents the displacement and rotation of the turtle to its default
- * position (home) as an instruction.
- * Takes zero arguments and returns the distance the turtle traveled.<br>
- * <br>
- * <u> Examples:</u> <br>
- * home ---> places the turtle at (0,0) and facing north (this is a default
- * position). <br>
- * 
- * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
- * 
- */
 public class Home extends BaseInstruction {
 
     /**
@@ -29,7 +14,7 @@ public class Home extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         Turtle turtle = model.getTurtle();
         Location startLocation = new Location(turtle.getX(), turtle.getY());
         turtle.setCenter(Turtle.startingLocation());
@@ -39,7 +24,7 @@ public class Home extends BaseInstruction {
     }
 
     @Override
-    public int getNumberOfArguments() {
+    public int getNumberOfArguments () {
         return NUMBER_OF_ARGUMENTS;
     }
 
