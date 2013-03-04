@@ -13,9 +13,9 @@ import simulation.Model;
  * <br>
  * and a CompoundInstruction will be made consisting of the BaseInstructions 
  * (Forward, Rotate, Forward) that will act on the turtle.
- * 
- * Instruction extends Serializable so that all classes that implement this can
- * be saved and restored
+ * <br><br>
+ * Instruction extends <i>Serializable</i> so that all classes that implement this can
+ * be saved and restored.
  * 
  * @author Scott Valentine
  * 

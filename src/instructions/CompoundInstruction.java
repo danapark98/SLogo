@@ -7,7 +7,7 @@ import simulation.Model;
 
 
 /**
- * represents a list of predefined instructions as one whole instruction
+ * Represents a list of predefined instructions as one whole instruction.
  * 
  * @author Scott Valentine
  * 

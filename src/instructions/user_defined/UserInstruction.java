@@ -7,7 +7,7 @@ import simulation.Model;
 
 
 /**
- * represents a user defined Instruction
+ * Represents a user defined Instruction. TODO: complete this java doc
  * 
  * @author Scott Valentine
  * 
@@ -16,24 +16,31 @@ public class UserInstruction extends BaseInstruction {
     private int myNumberOfArguments;
     private Instruction myInstruction;
 
-    public UserInstruction (int numberOfArgs, Instruction instruction) {
+    /**
+     * Creates a new UserInstruction from the number of 
+     * parameters it takes and how it acts on those parameters.
+     * 
+     * @param numberOfArgs is the number of arguments this instruction takes.
+     * @param instruction - the instruction that executes based on these arguments.
+     */
+    public UserInstruction(int numberOfArgs, Instruction instruction) {
         myNumberOfArguments = numberOfArgs;
         myInstruction = instruction;
     }
 
     @Override
-    public int execute (Model model) throws IllegalInstructionException {
-        //TODO: need a way of loading in arguments.
+    public int execute(Model model) throws IllegalInstructionException {
+        // TODO: need a way of loading in arguments.
         return myInstruction.execute(model);
     }
 
     @Override
-    public BaseInstruction newCopy () {
+    public BaseInstruction newCopy() {
         return new UserInstruction(myNumberOfArguments, myInstruction.newCopy());
     }
 
     @Override
-    public int getNumberOfArguments () {
+    public int getNumberOfArguments() {
         return myNumberOfArguments;
     }
 
