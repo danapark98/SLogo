@@ -1,8 +1,8 @@
 SLogo
 <hr>
 View Team:<br>
-Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 3 <br>
-Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 3<br>
+Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
+Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 4<br>
 <br>
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 
@@ -45,3 +45,9 @@ added parameter ElapsedTime to Turtle.update  was necessary for its feature
 added Location startingLocation to Turtle.java.  Used to reset it back to home location
 added Location getLocationOnCanvas() vital for calculating angles/ distances from locations
 added View.setCanvas() to allow the view to make a canvas that can subsequently make the model and controller
+
+Known Errors: 
+  The current implementation of the New File Menu option is completely developed. If the parent
+  Workspace that openes a new window is closed, all of its child windows will be termindated
+  There are several TODO:'s that have yet to be implemented.
+    Some of which have had intermediate implementations put in place, but the TODO:'s remain for the reminder that we need to fix them
