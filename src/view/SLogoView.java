@@ -175,7 +175,7 @@ public class SLogoView extends View {
     private JScrollPane makeCommandConsole () {
         JTextArea textArea = new JTextArea();
         myConsole = textArea;
-        JScrollPane pane = new JScrollPane(textArea);
+        JScrollPane pane = new JScrollPane(myConsole);
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
     }
@@ -192,7 +192,17 @@ public class SLogoView extends View {
     }
     
     private JButton makeSubmitButton () {
-        return makeJButtonCommand(super.myResources.getString(SUBMIT_COMMAND), myConsole.getText());
+        JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
+        final Controller controller = super.myController;
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                String command = myConsole.getText();
+                controller.createRunInstruction(command);
+                myConsole.setText("");
+            }
+        });
+        return button;
     }
     
     private Border makeBorder (String panelName) {
