@@ -75,6 +75,7 @@ public class SLogoView extends View {
      * TODO: Implement the NEW workspace command
      * TODO: Labels from the Resources
      * TODO: REFACTOR CODE!
+     * TODO: add turn button
      */
     /*
      * private ActionListener myActionListener;
@@ -181,7 +182,7 @@ public class SLogoView extends View {
     
     private JButton makeForwardButton () {
         final String command = FD + DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), command);
+        return makeJButtonCommand(super.myResources.getString(FORWARD_COMMAND), command);
     }
     
     private JButton makeBackwardButton () {
