@@ -1,18 +1,24 @@
 package instructions;
 
+import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
-import exceptions.IllegalInstructionException;
 import simulation.Model;
 
 
 /**
- * represents a list of predefined instructions as one whole instruction
+ * Represents a list of instructions as one whole instruction.<br>
+ * <br>
+ * For example, when a user inputs <i> fd 50 rt 90 fd 50 rt 90 </i>, a compound
+ * instruction is created consisting of
+ * the instructions for <i>forward 50, right 90, forward 50,</i> and <i>right
+ * 90.</i>
  * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
-public class CompoundInstruction implements Instruction{
+public class CompoundInstruction implements Instruction {
 
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
@@ -22,14 +28,14 @@ public class CompoundInstruction implements Instruction{
     private List<Instruction> myInstructions;
 
     /**
-     * default constructor initializes the list
+     * Creates a new empty CompoundInstruction.
      */
-    public CompoundInstruction () {
+    public CompoundInstruction() {
         myInstructions = new ArrayList<Instruction>();
     }
 
     @Override
-    public int execute (Model model) throws IllegalInstructionException {
+    public int execute(Model model) throws IllegalInstructionException {
         int lastReturn = 0;
         for (Instruction i : myInstructions) {
             lastReturn = i.execute(model);
@@ -38,16 +44,21 @@ public class CompoundInstruction implements Instruction{
     }
 
     /**
-     * adds a new instruction to the list of instructions
+     * Adds a new instruction to the list of instructions.
      * 
-     * @param instruction - instruction to be added to this
+     * @param instruction to be added to this compound instruction.
      */
-    public void add (Instruction instruction) {
+    public void add(Instruction instruction) {
         myInstructions.add(instruction);
     }
 
-
-    public Instruction copy () {
+    /**
+     * Copies this instruction by creating a new CompoundInstruction instance
+     * than contains copies of all the sub instructions.
+     * 
+     * @return Copy of this instruction.
+     */
+    public Instruction copy() {
         CompoundInstruction copy = new CompoundInstruction();
         for (Instruction i : myInstructions) {
             copy.add(i);

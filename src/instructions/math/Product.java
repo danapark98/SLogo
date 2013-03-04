@@ -1,10 +1,21 @@
 package instructions.math;
 
 import exceptions.IllegalInstructionException;
-import simulation.Model;
 import instructions.BaseInstruction;
+import simulation.Model;
 
-
+/**
+ * Represents a multiplication math operation as an instruction.
+ * <br><br>
+ * <u> Examples:</u>
+ * <br> product 10 10 ---> 100
+ * <br> product -4 8 ---> -32
+ * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ *
+ */
 public class Product extends BaseInstruction {
 
     /**

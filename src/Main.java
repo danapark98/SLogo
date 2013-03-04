@@ -11,7 +11,7 @@ public class Main {
 
     private static final String TITLE = "SLogo";
     private static final String LANGUAGE = "English";
-
+    
     /**
      * Creates the SLogo simulation.
      */
