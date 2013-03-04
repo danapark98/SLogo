@@ -145,16 +145,12 @@ public class SLogoView extends View {
      */
     @Override
     public void displayText (String text) {
+        String s;
         if (text.length() > 0) {
-            if (myHistory.getText().length() == 0) {
-                myHistory.append(text);
-            }
-            else {
-                myHistory.append("\n" + text);
-            }
+            s = (myHistory.getText().length() == 0) ? text : "\n" + text;
+            myHistory.append(s);
         }
     }
-    
     /**
      * Creates the main panel with a Canvas, a History and an Input panels.
      * 
@@ -228,7 +224,7 @@ public class SLogoView extends View {
         result.setLayout(new BorderLayout());
         result.setBorder(makeBorder(INPUT_NAME));
         result.add(makeTurtleMoveButtons(), BorderLayout.NORTH);
-        result.add(makeCommandConsole(),BorderLayout.CENTER);
+        result.add(makeCommandConsole(), BorderLayout.CENTER);
         result.add(makeSubmitButton(), BorderLayout.SOUTH);
         return result;
     }
@@ -299,7 +295,7 @@ public class SLogoView extends View {
         JScrollPane pane = new JScrollPane(myConsole);
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
-    }
+    }    
     /**
      * Creates a button that submits the text in the console to the controller.
      * The code for this button is very similar to the code of the makeTurtleMoveButton method
@@ -319,7 +315,7 @@ public class SLogoView extends View {
             }
         });
         return button;
-    }
+    }    
     /**
      * Creates a default border for most of the panels.
      * 
@@ -348,7 +344,6 @@ public class SLogoView extends View {
             @Override
             public void actionPerformed (ActionEvent e) {
                 CONTROLLER.createRunInstruction(command);
-                myConsole.setText("");
             }
         });
         return button;
