@@ -109,16 +109,6 @@ public abstract class View extends JFrame {
         myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
         myCanvas.start(this);
     }
-
-    /**
-     * Method to send commands to the controller.
-     * 
-     * @param command String that needs to be parsed (may be multiple lines)
-     */
-
-    protected void sendCommand (String command) {
-        myController.createRunInstruction(command);
-    }
     
     protected Controller getController() {
         return myController;

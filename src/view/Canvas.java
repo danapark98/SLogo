@@ -67,7 +67,6 @@ public class Canvas extends JComponent {
     public void paintComponent (Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        // TODO: Verify if this if condition is really necessary
         if (mySimulation != null) {
             mySimulation.paint((Graphics2D) pen);
         }
@@ -96,9 +95,10 @@ public class Canvas extends JComponent {
         myTimer.start();
     }
 
-    // TODO: we will need to add stop to the api.
+ 
     /**
      * Stops the timer animating the simulation.
+     * This is never used but may be useful.
      */
     public void stop () {
         myTimer.stop();
