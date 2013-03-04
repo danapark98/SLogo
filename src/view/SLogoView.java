@@ -42,6 +42,10 @@ public class SLogoView extends View {
     /**
      * 
      */
+    public static final int BORDER_OFFSET = 5;
+    /**
+     * 
+     */
     public static final String FORWARD_COMMAND = "ForwardCommand";
     /**
      * 
@@ -135,7 +139,8 @@ public class SLogoView extends View {
         JPanel contentPanel = new JPanel();
         workspace.addTab(WORKSPACE_NAME, null, contentPanel, SLOGO_NAME);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_OFFSET,
+                              BORDER_OFFSET, BORDER_OFFSET, BORDER_OFFSET));
         contentPanel.add(makeCanvasPanel());
         contentPanel.add(makeHistAndInputPanel());
         return workspace;
@@ -222,8 +227,9 @@ public class SLogoView extends View {
         Border border;
         border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
              super.myResources.getString(panelName)),
-                                                    BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        //TODO: figure out root of this magic number
+                                                    BorderFactory.createEmptyBorder(BORDER_OFFSET,
+                                                    BORDER_OFFSET, BORDER_OFFSET, BORDER_OFFSET));
+     
         return border;
     }
 
