@@ -85,16 +85,6 @@ public class SLogoView extends View {
     /*
      * TODO: Implement CLEAR?
      * TODO: Implement the NEW workspace command
-     * TODO: Labels from the Resources
-     * TODO: REFACTOR CODE!
-     * TODO: add turn button
-     */
-    /*
-     * private ActionListener myActionListener;
-     * private KeyListener myKeyListener;
-     * private MouseListener myMouseListener;
-     * private MouseMotionListener myMouseMotionListener;
-     * private FocusListener myFocusListener;
      */
 
     /**
@@ -110,7 +100,6 @@ public class SLogoView extends View {
         setVisible(true);
     }
 
-    // TODO: merge this and appendHistory,they are the same
     @Override
     public void displayText (String text) {
         if (text.length() > 0) {
@@ -124,7 +113,7 @@ public class SLogoView extends View {
     }
 
     /**
-     * *******************************************************************************
+     *Create main Panel.
      * 
      * @return
      */
@@ -184,7 +173,8 @@ public class SLogoView extends View {
     
     private JComponent makeTurtleMoveButtons () {
         JPanel turtleMovePane = new JPanel();
-        ImageIcon icon = new ImageIcon(getClass().getResource( RESOURCE_LOCATION+TURTLE_IMG_FILENAME));
+        ImageIcon icon = new ImageIcon(getClass().getResource(RESOURCE_LOCATION +
+                                                              TURTLE_IMG_FILENAME));
         JLabel label = new JLabel(icon);
         turtleMovePane.setLayout(new BorderLayout());
         turtleMovePane.add(makeForwardButton(), BorderLayout.NORTH);
@@ -220,7 +210,6 @@ public class SLogoView extends View {
     }
 
     private JButton makeBackwardButton () {
-        // TODO: change fd mag to a variable from an input slider
         final String COMMAND = FD + -DEFAULT_FD_MAG;
         return makeJButtonCommand(super.getResources().getString(BACKWARD_COMMAND), COMMAND);
     }

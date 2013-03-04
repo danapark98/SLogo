@@ -3,21 +3,12 @@ package view;
 import control.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JSeparator;
 
 
 /**
@@ -36,28 +27,12 @@ public abstract class View extends JFrame {
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String ENGLISH = "English";
     private static final String USER_DIR = "user.dir";
-    private static final String OPEN = "OpenCommand";
-    private static final String FILE = "FileMenu";
-    private static final String QUIT = "QuitCommand";
-    private static final String NEW = "NewCommand";
-    private static final String SAVE = "SaveCommand";
     
-  //TODO: make getter for resources
     private ResourceBundle myResources;
     private Canvas myCanvas;
     private Controller myController; 
-    private  String myTitle;
     private String myLanguage;
     private JFileChooser myChooser;
-    
-    /*
-     * private ActionListener myActionListener;
-     * private KeyListener myKeyListener;
-     * private MouseListener myMouseListener;
-     * private MouseMotionListener myMouseMotionListener;
-     * private FocusListener myFocusListener;
-     */
-
 
     /**
      * Creates a SLogoView.
@@ -66,7 +41,6 @@ public abstract class View extends JFrame {
      * @param language The desired language for the View
      */
     public View (String title, String language) {
-        myTitle = title;
         myLanguage = language;
         try {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
@@ -102,105 +76,10 @@ public abstract class View extends JFrame {
      */
     protected JMenuBar makeMenus () {
         JMenuBar result = new JMenuBar();
-        result.add(makeFileMenu());
+        ViewFileMenu menu = new ViewFileMenu(this);
+        result.add(menu.makeFileMenu());
         return result;
     }
-//_________________vvv FILE MENU STUFF
-    /**
-     * Create a menu that will pop up when the menu button is pressed in the
-     * frame. File menu usually contains Open, Save, and Exit
-     * 
-     * Note, since these classes will not ever be used by any other class, make
-     * them inline (i.e., as anonymous inner classes) --- saves making a
-     * separate file for one line of actual code.
-     */
-    protected JMenu makeFileMenu () {
-        JMenu result = new JMenu(myResources.getString(FILE));
-        result.add(makeMenuBarNew());
-        result.add(makeMenuBarOpen());
-        result.add(makeMenuBarSave());
-        result.add(new JSeparator());
-        result.add(makeMenuBarQuit());
-        return result;
-    }
-    private AbstractAction makeMenuBarNew() {
-        return new AbstractAction(myResources.getString(NEW)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = -686883125108316843L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                //TODO: how do we want a new workspace??  currently this will cascade down.
-                @SuppressWarnings("unused")
-                View newView = new SLogoView(myTitle, myLanguage);
-            }
-        };
-    }
-    
-    private AbstractAction makeMenuBarOpen() {
-        return new AbstractAction(myResources.getString(OPEN)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = -3471532304609267535L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    int response = myChooser.showOpenDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        InputStream in = new FileInputStream(myChooser.getSelectedFile());
-                        myController.loadState(in);
-                    }
-                }
-                catch (IOException io) {
-                    //This should never occur because the picks a file
-                }
-            }
-        };
-    }
-    
-    private AbstractAction makeMenuBarSave() {
-        return new AbstractAction(myResources.getString(SAVE)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = -686883125108316843L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    int response = myChooser.showSaveDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        OutputStream out = new FileOutputStream(myChooser.getSelectedFile());
-                        myController.saveState(out);
-                    }
-                }
-                catch (IOException io) {
-                    //This should never occur because the makes a file
-                }
-            }
-        };
-    }
-    
-    private AbstractAction makeMenuBarQuit() {
-        return new AbstractAction(myResources.getString(QUIT)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 1514963101036925921L;
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                System.exit(0);
-            }
-        };
-    }
-    
-//_____________________^^^^FILE MENU STUFF    
-    
 
     /**
      * Method to display a text to the user in a display Box.
@@ -248,9 +127,25 @@ public abstract class View extends JFrame {
     protected Canvas getCanvas() {
         return myCanvas;
     }
-    
-    protected ResourceBundle getResources() {
+    /**
+     * Returns the Resources from the View.
+     * @return 
+     */
+    public ResourceBundle getResources() {
         return myResources;
     }
-
+    /**
+     * returns the JFileChooser for the View.
+     * @return
+     */
+    public JFileChooser getChooser() {
+        return myChooser;
+    }
+    /**
+     * Returns the current language of the View.
+     * @return
+     */
+    public String getLanguage() {
+        return myLanguage;
+    }
 }

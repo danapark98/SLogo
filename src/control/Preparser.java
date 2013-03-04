@@ -49,7 +49,6 @@ public class Preparser {
         }
         String result = sb.toString();
         String str = result.trim().substring(1, result.length() - 2);
-        System.out.println(str);
         return str;
     }
 
@@ -83,6 +82,7 @@ public class Preparser {
             return base.getNumberOfArguments();
         }
         catch (IllegalInstructionException e) {
+            if (s.length() < 1) throw new IllegalInstructionException(s);
             if (isNumber(s) || s.charAt(0) == ':' || s.charAt(0) == '[' || s.charAt(0) == ']') {
                 return -1;
             }
