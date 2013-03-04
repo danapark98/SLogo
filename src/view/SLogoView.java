@@ -6,23 +6,17 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
-import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
@@ -149,7 +143,7 @@ public class SLogoView extends View {
     @Override
     protected JComponent makeCanvasPanel () {
         JPanel canvasPanel = new JPanel();
-        canvasPanel.add(myCanvas);
+        canvasPanel.add(super.getCanvas());
         canvasPanel.setBorder(makeBorder(CANVAS_NAME));
         return canvasPanel;
     }
@@ -199,18 +193,18 @@ public class SLogoView extends View {
 
     private JButton makeForwardButton () {
         final String COMMAND = FD + DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(FORWARD_COMMAND), COMMAND);
+        return makeJButtonCommand(super.getResources().getString(FORWARD_COMMAND), COMMAND);
     }
 
     private JButton makeBackwardButton () {
         // TODO: change fd mag to a variable from an input slider
         final String COMMAND = FD + -DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), COMMAND);
+        return makeJButtonCommand(super.getResources().getString(BACKWARD_COMMAND), COMMAND);
     }
 
     private JButton makeSubmitButton () {
-        JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
-        final Controller CONTROLLER = super.myController;
+        JButton button = new JButton(super.getResources().getString(SUBMIT_COMMAND));
+        final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -225,7 +219,7 @@ public class SLogoView extends View {
     private Border makeBorder (String panelName) {
         Border border;
         border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
-             super.myResources.getString(panelName)),
+             super.getResources().getString(panelName)),
                                                     BorderFactory.createEmptyBorder(BORDER_OFFSET,
                                                     BORDER_OFFSET, BORDER_OFFSET, BORDER_OFFSET));
      
@@ -234,7 +228,7 @@ public class SLogoView extends View {
 
     private JButton makeJButtonCommand (String name, final String command) {
         JButton button = new JButton(name);
-        final Controller CONTROLLER = super.myController;
+        final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {

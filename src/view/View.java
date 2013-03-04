@@ -1,13 +1,11 @@
 package view;
 
+import control.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JSeparator;
-import control.Controller;
 
 
 /**
@@ -30,7 +27,11 @@ import control.Controller;
  * 
  */
 public abstract class View extends JFrame {
-
+    
+    /**
+     * Preferred Dimensions of the Canvas.
+     */
+    public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 500);
     private static final long serialVersionUID = 1L;
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String ENGLISH = "English";
@@ -40,7 +41,15 @@ public abstract class View extends JFrame {
     private static final String QUIT = "QuitCommand";
     private static final String NEW = "NewCommand";
     private static final String SAVE = "SaveCommand";
+    
+  //TODO: make getter for resources
+    private ResourceBundle myResources;
+    private Canvas myCanvas;
+    private Controller myController; 
+    private  String myTitle;
+    private String myLanguage;
     private JFileChooser myChooser;
+    
     /*
      * private ActionListener myActionListener;
      * private KeyListener myKeyListener;
@@ -48,14 +57,7 @@ public abstract class View extends JFrame {
      * private MouseMotionListener myMouseMotionListener;
      * private FocusListener myFocusListener;
      */
-    /**
-     * Preferred Dimensions of the Canvas.
-     */
-    public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 500);
-//TODO: make getter for resources
-    protected ResourceBundle myResources;
-    protected Canvas myCanvas;
-    protected Controller myController;
+
 
     /**
      * Creates a SLogoView.
@@ -64,6 +66,8 @@ public abstract class View extends JFrame {
      * @param language The desired language for the View
      */
     public View (String title, String language) {
+        myTitle = title;
+        myLanguage = language;
         try {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         }
@@ -129,7 +133,8 @@ public abstract class View extends JFrame {
             @Override
             public void actionPerformed (ActionEvent e) {
                 //TODO: how do we want a new workspace??  currently this will cascade down.
-                View newView = new SLogoView("English", "SLogo");
+                @SuppressWarnings("unused")
+                View newView = new SLogoView(myTitle, myLanguage);
             }
         };
     }
@@ -151,7 +156,7 @@ public abstract class View extends JFrame {
                     }
                 }
                 catch (IOException io) {
-                    //TODO: add exception handeling
+                    //This should never occur because the picks a file
                 }
             }
         };
@@ -174,7 +179,7 @@ public abstract class View extends JFrame {
                     }
                 }
                 catch (IOException io) {
-                    //TODO: add exception handeling
+                    //This should never occur because the makes a file
                 }
             }
         };
@@ -219,7 +224,7 @@ public abstract class View extends JFrame {
      * Called with command within controller such as myView.super.setCanvas(model)
      * This method also starts the Canvas, which loads the model
      * 
-     * @param model Model that should be displayed within the Canvas
+     * 
      */
     public void setCanvas () {
         myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
@@ -234,6 +239,18 @@ public abstract class View extends JFrame {
 
     protected void sendCommand (String command) {
         myController.createRunInstruction(command);
+    }
+    
+    protected Controller getController() {
+        return myController;
+    }
+    
+    protected Canvas getCanvas() {
+        return myCanvas;
+    }
+    
+    protected ResourceBundle getResources() {
+        return myResources;
     }
 
 }
