@@ -1,17 +1,11 @@
 package view;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import simulation.Model;
 import control.Controller;
 
 
@@ -29,13 +23,12 @@ public abstract class View extends JFrame {
     private static final String USER_DIR = "user.dir";
     private JFileChooser myChooser;
     /*
-    private ActionListener myActionListener;
-    private KeyListener myKeyListener;
-    private MouseListener myMouseListener;
-    private MouseMotionListener myMouseMotionListener;
-    private FocusListener myFocusListener;
-
-    */
+     * private ActionListener myActionListener;
+     * private KeyListener myKeyListener;
+     * private MouseListener myMouseListener;
+     * private MouseMotionListener myMouseMotionListener;
+     * private FocusListener myFocusListener;
+     */
     /**
      * Preferred Dimensions of the Canvas.
      */
@@ -81,6 +74,7 @@ public abstract class View extends JFrame {
 
     /**
      * Method to display a text to the user in a display Box.
+     * 
      * @param text Text to display
      */
     public abstract void displayText (String text);

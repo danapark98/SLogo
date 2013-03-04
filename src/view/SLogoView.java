@@ -1,13 +1,10 @@
 package view;
 
+import control.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,23 +14,18 @@ import java.io.Reader;
 import java.io.Writer;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
-import control.Controller;
-
 
 /**
  * The View is comprised of everything visible to the user.
@@ -46,29 +38,50 @@ public class SLogoView extends View {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
-    private static final String USER_DIR = "user.dir";
-    public static final String FORWARD_COMMAND = "ForwardCommand";
-    public static final String SUBMIT_COMMAND = "SubmitCommand";
-    public static final String FD = "fd ";
     public static final int DEFAULT_FD_MAG = 10;
+    /**
+     * 
+     */
+    public static final String FORWARD_COMMAND = "ForwardCommand";
+    /**
+     * 
+     */
+    public static final String SUBMIT_COMMAND = "SubmitCommand";
+    /**
+     * 
+     */
+    public static final String FD = "fd ";
+    /**
+     * 
+     */
     public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 50);
+    /**
+     * 
+     */
     public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     
+    /**
+     * XXX
+     */
+    
+
     private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
-    public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
-    public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
-    public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
+    
     private static final String BACKWARD_COMMAND = "BackwardCommand";
     private static final String CANVAS_NAME = "Canvas";
     private static final String WORKSPACE_NAME = "Workspace";
     private static final String HISTORY_NAME = "History";
     private static final String INPUT_NAME = "Input";
-    
+    private static final String SLOGO_NAME = "SLogo";
+
     private JFileChooser myChooser;
     private JTextArea myConsole;
     private JTextArea myHistory;
-    
+
     /*
      * TODO: Implement correctly the menu bar
      * TODO: Implement SAVE, CLEAR
@@ -84,7 +97,7 @@ public class SLogoView extends View {
      * private MouseMotionListener myMouseMotionListener;
      * private FocusListener myFocusListener;
      */
-    
+
     /**
      * Creates an instance of the View.
      * 
@@ -98,7 +111,7 @@ public class SLogoView extends View {
         pack();
         setVisible(true);
     }
-    
+
     // TODO: merge this and appendHistory,they are the same
     @Override
     public void displayText (String text) {
@@ -111,7 +124,7 @@ public class SLogoView extends View {
             }
         }
     }
-    
+
     /**
      * *******************************************************************************
      * 
@@ -120,15 +133,15 @@ public class SLogoView extends View {
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
         JPanel contentPanel = new JPanel();
-        workspace.addTab("Workspace", null, contentPanel, "SLogo");
+        workspace.addTab(WORKSPACE_NAME, null, contentPanel, SLOGO_NAME);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         contentPanel.add(makeCanvasPanel());
         contentPanel.add(makeHistAndInputPanel());
         return workspace;
-        
+
     }
-    
+
     @Override
     protected JComponent makeCanvasPanel () {
         JPanel canvasPanel = new JPanel();
@@ -136,7 +149,7 @@ public class SLogoView extends View {
         canvasPanel.setBorder(makeBorder(CANVAS_NAME));
         return canvasPanel;
     }
-    
+
     private JComponent makeHistAndInputPanel () {
         JPanel hstInpPanel = new JPanel();
         hstInpPanel.setLayout(new BoxLayout(hstInpPanel, BoxLayout.PAGE_AXIS));
@@ -144,21 +157,21 @@ public class SLogoView extends View {
         hstInpPanel.add(makeHistoryPane());
         return hstInpPanel;
     }
-    
+
     private JPanel makeHistoryPane () {
         JPanel histPane = new JPanel();
         JTextArea textArea = new JTextArea();
         myHistory = textArea;
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
-        
+
         scrollPane.setPreferredSize(PREFERRED_HISTORY_SIZE);
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
         histPane.add(scrollPane);
         histPane.setBorder(makeBorder(HISTORY_NAME));
         return histPane;
     }
-    
+
     @Override
     protected JComponent makeInput () {
         JPanel result = new JPanel();
@@ -171,7 +184,7 @@ public class SLogoView extends View {
         // result.add(makeTurnMagnitudeSlider());
         return result;
     }
-    
+
     private JScrollPane makeCommandConsole () {
         JTextArea textArea = new JTextArea();
         myConsole = textArea;
@@ -179,53 +192,54 @@ public class SLogoView extends View {
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
     }
-    
+
     private JButton makeForwardButton () {
-        final String command = FD + DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(FORWARD_COMMAND), command);
+        final String COMMAND = FD + DEFAULT_FD_MAG;
+        return makeJButtonCommand(super.myResources.getString(FORWARD_COMMAND), COMMAND);
     }
-    
+
     private JButton makeBackwardButton () {
         // TODO: change fd mag to a variable from an input slider
-        final String command = FD + -DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), command);
+        final String COMMAND = FD + -DEFAULT_FD_MAG;
+        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), COMMAND);
     }
-    
+
     private JButton makeSubmitButton () {
         JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
-        final Controller controller = super.myController;
+        final Controller CONTROLLER = super.myController;
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 String command = myConsole.getText();
-                controller.createRunInstruction(command);
+                CONTROLLER.createRunInstruction(command);
                 myConsole.setText("");
             }
         });
         return button;
     }
-    
+
     private Border makeBorder (String panelName) {
         Border border;
-        border = BorderFactory.createCompoundBorder(BorderFactory
-                .createTitledBorder(super.myResources.getString(panelName)),
+        border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
+             super.myResources.getString(panelName)),
                                                     BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        //TODO: figure out root of this magic number
         return border;
     }
-    
+
     private JButton makeJButtonCommand (String name, final String command) {
         JButton button = new JButton(name);
-        final Controller controller = super.myController;
+        final Controller CONTROLLER = super.myController;
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                controller.createRunInstruction(command);
+                CONTROLLER.createRunInstruction(command);
                 myConsole.setText("");
             }
         });
         return button;
     }
-    
+
     /**
      * Create a menu to appear at the top of the frame,
      * usually File, Edit, App Specific Actions, Help
@@ -235,7 +249,7 @@ public class SLogoView extends View {
         result.add(makeFileMenu());
         return result;
     }
-    
+
     /**
      * Create a menu that will pop up when the menu button is pressed in the
      * frame. File menu usually contains Open, Save, and Exit
@@ -284,7 +298,7 @@ public class SLogoView extends View {
         });
         return result;
     }
-    
+
     /**
      * Echo display to writer
      */
@@ -294,7 +308,7 @@ public class SLogoView extends View {
         output.flush();
         output.close();
     }
-    
+
     /**
      * Echo data read from reader to display
      */
@@ -313,7 +327,7 @@ public class SLogoView extends View {
             // showError(e.toString());
         }
     }
-    
+
     // TODO: maybe add slider. A default value is acceptable practice
     // private JSlider makeTurnMagnitudeSlider () {
     // JLabel turnLabel = new JLabel(myResources.getString(TURN_MAGNITUDE_LABEL));
@@ -330,7 +344,7 @@ public class SLogoView extends View {
     //
     // }
     // myController.sendString(s);
-    
+
     // TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve
     // instances of swing objects so that it can use "j.addKeyListener( new .....)" would need to
     // document as a change to our API
