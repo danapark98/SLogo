@@ -26,8 +26,8 @@ public class ConstantInstruction extends BaseInstruction {
     }
     
     @Override
-    public BaseInstruction copy() {
-        return this;
+    public BaseInstruction newCopy() {
+        return new ConstantInstruction(myValue);
     }
 
 }

@@ -73,7 +73,7 @@ public class Environment {
             throw new IllegalInstructionException(commandName);
         }
 
-        return myInstructionMap.get(commandName).copy();
+        return myInstructionMap.get(commandName).newCopy();
 
     }
 

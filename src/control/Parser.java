@@ -39,7 +39,9 @@ public class Parser {
      *         environment, throw this exception with argument of the incompatible string
      */
     public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
-        Scanner line = new Scanner(userInput);
+        Preparser preparser = new Preparser(myEnvironment);
+        String s = preparser.addBrackets(userInput);
+        Scanner line = new Scanner(s);
         return generateInstruction(line);
     }
 
@@ -95,7 +97,7 @@ public class Parser {
         if (next.equals("[")) {
             next = parseList(line);
         }
-        return generateInstruction(next);
+        return generateInstruction(new Scanner(next));
     }
 
     /**
