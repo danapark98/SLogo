@@ -1,9 +1,7 @@
 package instructions.turtle;
 
 import exceptions.IllegalInstructionException;
-import instructions.BaseInstruction;
 import simulation.Model;
-import simulation.Turtle;
 
 
 /**
@@ -23,25 +21,17 @@ import simulation.Turtle;
  * @author Ellango Jothimurugesan
  * 
  */
-public class Right extends BaseInstruction {
+public class Right extends Rotate {
 
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = -592793134932727653L;
-    private static final int NUMBER_OF_ARGUMENTS = 1;
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
-        int rotation = nextOperand().execute(model);
-        Turtle turtle = model.getTurtle();
-        turtle.setAngle(turtle.getAngle() + rotation);
-        return rotation;
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
+    protected int getRotation (Model model) throws IllegalInstructionException {
+        return nextOperand().execute(model);
     }
 
 }
+

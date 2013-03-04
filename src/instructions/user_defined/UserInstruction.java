@@ -13,6 +13,10 @@ import simulation.Model;
  * 
  */
 public class UserInstruction extends BaseInstruction {
+    /**
+     * Eclipse auto-generated ID to implement Serializable interface.
+     */
+    private static final long serialVersionUID = 1776254460831303292L;
     private int myNumberOfArguments;
     private Instruction myInstruction;
 

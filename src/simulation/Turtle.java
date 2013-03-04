@@ -22,13 +22,13 @@ public class Turtle extends Sprite {
     private static final String ANGLE_LABEL = "Angle:";
     private static final double X_OFFSET = 65;
     private static final double Y_OFFSET = 15;
-    private DisplayEditor myLineAdder;
+    private DisplayEditor myDisplayEditor;
     private List<ValueText> myStatus;
     private Color myPenColor;
 
     public Turtle (DisplayEditor la) {
         super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
-        myLineAdder = la;
+        myDisplayEditor = la;
         initStatus();
         myPenColor = Color.BLACK;
     }
@@ -113,7 +113,7 @@ public class Turtle extends Sprite {
         Location end = new Location(start);
         end.translate(new Vector(angle, 1));
         if (!end.tryCorrectingBounds(View.PREFERRED_CANVAS_SIZE)){
-            myLineAdder.addLine(new Line(start, end, myPenColor));
+            myDisplayEditor.addLine(new Line(start, end, myPenColor));
         }
         recursiveLineCreation(distanceRemaining - 1, end, angle);
     }

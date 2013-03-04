@@ -66,14 +66,20 @@ public class Parser {
             if (commandName.startsWith(">>")) {
                 commandName = line.nextLine();
             }
-            try {
-                Instruction result = new ConstantInstruction(Integer.parseInt(commandName));
+            if(commandName.equals("[")) {
+                Instruction result = generateInstruction(new Scanner(parseList(line)));
                 resultInstruct.add(result);
             }
-            catch (NumberFormatException e) {
-                BaseInstruction base = myEnvironment.systemInstructionSkeleton(commandName);
-                base.load(line, this);
-                resultInstruct.add(base);
+            else {
+                try {
+                    Instruction result = new ConstantInstruction(Integer.parseInt(commandName));
+                    resultInstruct.add(result);
+                }
+                catch (NumberFormatException e) {
+                    BaseInstruction base = myEnvironment.systemInstructionSkeleton(commandName);
+                    base.load(line, this);
+                    resultInstruct.add(base);
+                }
             }
         }
         return resultInstruct;

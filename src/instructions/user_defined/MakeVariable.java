@@ -4,6 +4,7 @@ import control.Parser;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
+import instructions.Instruction;
 import java.util.Scanner;
 import simulation.Model;
 
@@ -31,19 +32,20 @@ public class MakeVariable extends BaseInstruction {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 1453503090469524379L;
-    private static final int NUMBER_OF_ARGUMENTS = 1;
+    private static final int NUMBER_OF_ARGUMENTS = 2;
     private String myName;
+    private Instruction myArgument;
+    
 
     @Override
-    public void load(Scanner line, Parser parser)
-        throws IllegalInstructionException {
+    public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myName = line.next();
-        super.load(line, parser);
+        myArgument = parser.nextInstruction(line);
     }
-
+    
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
-        int variableValue = nextOperand().execute(model);
+    public int execute (Model model) throws IllegalInstructionException {
+        int variableValue = myArgument.execute(model);
         BaseInstruction variable = new ConstantInstruction(variableValue);
         model.addInstruction(myName, variable);
         return variableValue;
