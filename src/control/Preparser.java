@@ -32,8 +32,8 @@ public class Preparser {
      */
     public String addBrackets (String s) throws IllegalInstructionException {
         String[] words = s.split("\\s+");
-        if (words.length == 0)
-            return "";
+        if (words.length < 3)
+            return s;
         List<String> wordsList = new ArrayList<String>();
         for (int i = 0; i < words.length; i++) {
             wordsList.add(words[i]);
@@ -41,16 +41,16 @@ public class Preparser {
 
         ReturnValues rv = recurse(wordsList, 1);
         wordsList = rv.list;
+        
 
         StringBuilder sb = new StringBuilder();
         for (String str : wordsList) {
             sb.append(str);
             sb.append(" ");
         }
-        String result = sb.toString();
-        String str = result.trim().substring(1, result.length() - 2);
-        System.out.println(str);
-        return str;
+        String allBracketsAdded = sb.toString();
+        System.out.println(allBracketsAdded);
+        return allBracketsAdded;
     }
 
     private ReturnValues recurse (List<String> wordsList, int argCount)
@@ -59,7 +59,11 @@ public class Preparser {
         int counter = 0;
         for (int i = 0; i < argCount; i++) {
             String command = wordsList.get(counter);
-            if (getArgumentCount(command) == -1) {
+            if (command.charAt(0) == '[' || command.charAt(0) == ']') {
+                counter++;
+                i--;
+            }
+            else if (getArgumentCount(command) == -1) {
                 counter++;
             }
             else {
@@ -83,7 +87,7 @@ public class Preparser {
             return base.getNumberOfArguments();
         }
         catch (IllegalInstructionException e) {
-            if (isNumber(s) || s.charAt(0) == ':' || s.charAt(0) == '[' || s.charAt(0) == ']') {
+            if (isNumber(s) || s.charAt(0) == ':') {
                 return -1;
             }
             else {
