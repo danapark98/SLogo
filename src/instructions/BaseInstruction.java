@@ -1,18 +1,28 @@
 package instructions;
 
 import control.Parser;
+import exceptions.CorruptedEnvironmentException;
+import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
-import exceptions.CorruptedEnvironmentException;
-import exceptions.IllegalInstructionException;
 
 
 /**
- * Represents an instruction definition in the predefined instruction set.
+ * Represents an instruction definition in the predefined instruction set. These
+ * include: <br>
+ * <ul>
+ *  <li>Turtle actions (forward, left, etc.)
+ *  <li>Boolean operations (and, or, equal, etc.)
+ *  <li>Math operations (sum, difference, product, quotient, etc.)
+ *  <li>User-defined instruction (if, repeat, make instruction, make variable, etc.)
+ *  </ul>
+ *  Note that any instruction to be added should in someway extend this class.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public abstract class BaseInstruction implements Instruction {
@@ -22,32 +32,33 @@ public abstract class BaseInstruction implements Instruction {
     private static final long serialVersionUID = 2028940084662626878L;
     private ListIterator<Instruction> myOperands;
 
-    
     /**
-     * loads this instruction from a scanner of user input
+     * Loads this instruction from a scanner of user input.
      * 
      * 
-     * @param line - scanner that contains necessary information for this instruction
-     * @throws IllegalInstructionException - when the user attempts to call an 
-     * instruction that does not exist or has not been defined
+     * @param line - scanner that contains necessary information for this
+     *        instruction
+     * @param parser parses passed instructions. This is used for nested instructions.
+     * @throws IllegalInstructionException - when the user attempts to call an
+     *         instruction that does not exist or has not been defined
      */
-    
-    public void load (Scanner line, Parser parser)  throws IllegalInstructionException {
+
+    public void load(Scanner line, Parser parser)
+        throws IllegalInstructionException {
         List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
             operands.add(parser.nextInstruction(line));
         }
         myOperands = operands.listIterator();
     }
-    
-    
+
     public Instruction nextOperand() {
         if (!myOperands.hasNext()) {
-            resetOperands();            
+            resetOperands();
         }
         return myOperands.next();
     }
-    
+
     /**
      * used when the execute method is called more than once.
      */
@@ -56,49 +67,45 @@ public abstract class BaseInstruction implements Instruction {
             myOperands.previous();
         }
     }
-    
+
     /**
      * copies this instruction.
      * 
      * @return a copy of this instruction
      */
-    
-    
-    public BaseInstruction newCopy () {
+
+    public BaseInstruction newCopy() {
         BaseInstruction copy = null;
         try {
             copy = this.getClass().newInstance();
-        }
-        catch (InstantiationException|IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new CorruptedEnvironmentException();
         }
         return copy;
     }
 
     public abstract int getNumberOfArguments();
-    
-    
-//    // the number of catch blocks suggests this might be a bad solution.
-//    public int getNumberOfArguments() {
-//        try {
-//            Field number = this.getClass().getDeclaredField("NUMBER_OF_ARGUMENTS");
-//            number.setAccessible(true);
-//            return number.getInt(this);
-//        }
-//        catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        }
-//        catch (SecurityException e) {
-//            e.printStackTrace();
-//        }
-//        catch (IllegalArgumentException e) {
-//            e.printStackTrace();
-//        }
-//        catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        return -1;
-//    }
 
+    // // the number of catch blocks suggests this might be a bad solution.
+    // public int getNumberOfArguments() {
+    // try {
+    // Field number = this.getClass().getDeclaredField("NUMBER_OF_ARGUMENTS");
+    // number.setAccessible(true);
+    // return number.getInt(this);
+    // }
+    // catch (NoSuchFieldException e) {
+    // e.printStackTrace();
+    // }
+    // catch (SecurityException e) {
+    // e.printStackTrace();
+    // }
+    // catch (IllegalArgumentException e) {
+    // e.printStackTrace();
+    // }
+    // catch (IllegalAccessException e) {
+    // e.printStackTrace();
+    // }
+    // return -1;
+    // }
 
 }

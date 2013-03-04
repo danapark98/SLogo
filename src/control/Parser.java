@@ -1,11 +1,11 @@
 package control;
 
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import java.util.Scanner;
-import exceptions.IllegalInstructionException;
 
 
 /**
@@ -16,13 +16,13 @@ import exceptions.IllegalInstructionException;
  */
 public class Parser {
 
-    /** environment contains the system functions and user defined variables/functions */
+    /** Environment contains the system functions and user defined variables/functions. */
     private Environment myEnvironment;
 
     /**
-     * Default constructor: sets the environment for the parser to use as reference.
+     * Creates new parser that uses an environment for to create new instructions from text.
      * 
-     * @param environment that the parser uses for reference to build instructions
+     * @param environment contains information to convert text into relevant instructions.
      */
     public Parser (Environment environment) {
         myEnvironment = environment;
@@ -30,9 +30,10 @@ public class Parser {
 
     /**
      * Takes user input and converts it to either
-     * 1. CompoundInstruction to be executed on the model
-     * 2. An exception to be displayed in the command history
-     * 
+     * <ol>
+     * <li> CompoundInstruction to be executed on the model. </li>
+     * <li> An exception to be displayed in the command history. </li>
+     * </ol>
      * @param userInput - A string of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
@@ -47,9 +48,10 @@ public class Parser {
 
     /**
      * Takes user input and converts it to either
-     * 1. CompoundInstruction to be executed on the model
-     * 2. An exception to be displayed in the command history
-     * 
+     * <ol>
+     * <li> CompoundInstruction to be executed on the model. </li>
+     * <li> An exception to be displayed in the command history. </li>
+     * </ol>
      * @param line - A scanner of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
