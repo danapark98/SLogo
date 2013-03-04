@@ -111,7 +111,6 @@ public class SLogoView extends View {
     public SLogoView (String title, String language) {
         super(title, language);
         getContentPane().add(makeMainPanel(), BorderLayout.CENTER);
-        getContentPane().add(makeMenus(), BorderLayout.NORTH);
         pack();
         setVisible(true);
     }
@@ -246,64 +245,7 @@ public class SLogoView extends View {
         return button;
     }
 
-    /**
-     * Create a menu to appear at the top of the frame,
-     * usually File, Edit, App Specific Actions, Help
-     */
-    protected JMenuBar makeMenus () {
-        JMenuBar result = new JMenuBar();
-        result.add(makeFileMenu());
-        return result;
-    }
-
-    /**
-     * Create a menu that will pop up when the menu button is pressed in the
-     * frame. File menu usually contains Open, Save, and Exit
-     * 
-     * Note, since these classes will not ever be used by any other class, make
-     * them inline (i.e., as anonymous inner classes) --- saves making a
-     * separate file for one line of actual code.
-     */
-    protected JMenu makeFileMenu () {
-        JMenu result = new JMenu(myResources.getString("FileMenu"));
-        result.add(new AbstractAction(myResources.getString("OpenCommand")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    int response = myChooser.showOpenDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        echo(new FileReader(myChooser.getSelectedFile()));
-                    }
-                }
-                catch (IOException io) {
-                    // let user know an error occurred, but keep going
-                    // showError(io.toString());
-                }
-            }
-        });
-        result.add(new AbstractAction(myResources.getString("SaveCommand")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    echo(new FileWriter("demo.out"));
-                }
-                catch (IOException io) {
-                    // let user know an error occurred, but keep going
-                    // showError(io.toString());
-                }
-            }
-        });
-        result.add(new JSeparator());
-        result.add(new AbstractAction(myResources.getString("QuitCommand")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // clean up any open resources, then
-                // end program
-                System.exit(0);
-            }
-        });
-        return result;
-    }
+    
 
     /**
      * Echo display to writer
