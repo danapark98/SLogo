@@ -1,7 +1,7 @@
 package instructions;
 
-import java.io.Serializable;
 import exceptions.IllegalInstructionException;
+import java.io.Serializable;
 import simulation.Model;
 
 
@@ -20,7 +20,7 @@ import simulation.Model;
  * @author Scott Valentine
  * 
  */
-public interface Instruction extends Serializable{
+public interface Instruction extends Serializable {
 
     /**
      * executes this Instruction on the model

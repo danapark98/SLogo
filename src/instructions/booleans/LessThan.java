@@ -1,8 +1,21 @@
 package instructions.booleans;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
+import simulation.Model;
 
+/**
+ * Represents the instruction for >, and returns 1 if the first argument is
+ * less than the second, otherwise returns 0. <br>
+ * <br>
+ * <u>Example:</u> <br>
+ * less? 8 8 ---> 0 <br>
+ * lessp 9 10 ---> 1 <br>
+ * less? 10 1 ---> 0
+ * 
+ * 
+ * @author Scott Valentine
+ * 
+ */
 public class LessThan extends BooleanInstruction {
 
     /**

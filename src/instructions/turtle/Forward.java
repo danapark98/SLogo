@@ -8,12 +8,17 @@ import util.Vector;
 
 
 /**
- * represents the forward instruction
- * 
- * i.e.
- * fd 50 moves the turtle 50 pixels in its current direction
+ * Represents forward movement of the turtle as an instruction. Takes one
+ * argument that is the distance (in pixels) the turtle travels<br>
+ * <br>
+ * <u> Examples:</u> <br>
+ * forward 10 ---> turtle shifts forward 10 pixels <br>
+ * forward -4 ---> turtle shifts backward 4 (forward -4) pixels <br>
+ * fd 5---> turtle shifts forward 5 pixels
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public class Forward extends BaseInstruction {

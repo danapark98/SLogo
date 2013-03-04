@@ -1,9 +1,19 @@
 package instructions.math;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
 
+/**
+ * Represents a negation of a value as an instruction.
+ * <br><br>
+ * <u> Examples:</u>
+ * <br> minus 10 ---> -10
+ * <br> minus -4 ---> 4
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class Minus extends BaseInstruction {
 
     /**

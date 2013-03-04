@@ -3,6 +3,20 @@ package instructions.booleans;
 import exceptions.IllegalInstructionException;
 import simulation.Model;
 
+
+/**
+ * Represents the instruction for logical or, and returns 1 if both arguments
+ * are equal to 1, otherwise returns 0. <br>
+ * <br>
+ * <u>Example:</u> <br>
+ * or 8 8 ---> 0 <br>
+ * or 1 1 ---> 1 <br>
+ * or 10 1 ---> 0
+ * 
+ * 
+ * @author Scott Valentine
+ * 
+ */
 public class Or extends BooleanInstruction {
 
     /**
@@ -12,13 +26,14 @@ public class Or extends BooleanInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 2;
 
     @Override
-    public boolean executeBoolean (Model model) throws IllegalInstructionException {
+    public boolean executeBoolean(Model model)
+                                              throws IllegalInstructionException {
         return nextOperand().execute(model) == 1 ||
                nextOperand().execute(model) == 1;
     }
 
     @Override
-    public int getNumberOfArguments () {
+    public int getNumberOfArguments() {
         return NUMBER_OF_ARGUMENTS;
     }
 

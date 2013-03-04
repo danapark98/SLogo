@@ -1,8 +1,8 @@
 package instructions;
 
+import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
-import exceptions.IllegalInstructionException;
 import simulation.Model;
 
 
@@ -12,7 +12,7 @@ import simulation.Model;
  * @author Scott Valentine
  * 
  */
-public class CompoundInstruction implements Instruction{
+public class CompoundInstruction implements Instruction {
 
     /**
      * Eclipse auto-generated ID to implement Serializable interface.

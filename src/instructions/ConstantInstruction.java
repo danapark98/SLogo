@@ -2,6 +2,12 @@ package instructions;
 
 import simulation.Model;
 
+/**
+ * Represents an a constant integer as an instruction.
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class ConstantInstruction extends BaseInstruction {
    
     /**
@@ -11,6 +17,11 @@ public class ConstantInstruction extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 0;
     private int myValue;
     
+    /**
+     * Simply creates an instruction from the constant integer value it represents. 
+     * 
+     * @param value is the integer this instruction will represent
+     */
     public ConstantInstruction(int value) {
         myValue = value;
     }
