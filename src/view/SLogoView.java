@@ -1,38 +1,21 @@
 package view;
 
+import control.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
-import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
-import control.Controller;
 
 
 /**
@@ -44,49 +27,106 @@ import control.Controller;
  */
 public class SLogoView extends View {
     /**
-     * 
+     * Default magnitude for moving the turtle using the forward and backward buttons.
+     */
+    private static final int DEFAULT_FD_MAG = 10;
+    /**
+     * Default magnitude for moving the turtle using the forward button.
+     */
+    private static final int DEFAULT_TURN_MAG = 15;
+    /**
+     * Value for the borders of the JPanels.
+     */
+    private static final int BORDER_OFFSET = 5;
+    /**
+     * Forward button label text.
+     */
+    private static final String FORWARD_LABEL = "ForwardButton";
+    /**
+     * Backward button label text.
+     */
+    private static final String BACKWARD_LABEL = "BackwardButton";
+    /**
+     * Submit button label text.
+     */
+    private static final String SUBMIT_LABEL = "SubmitButton";
+    /**
+     * Right button label text.
+     */
+    private static final String RIGHT_LABEL = "RightButton";
+    /**
+     * Left button label text.
+     */
+    private static final String LEFT_LABEL = "LeftButton";
+    /**
+     * Forward command sent to the controller.
+     */
+    private static final String FD_COMMAND = "fd ";
+    /**
+     * Left command sent to the controller.
+     */
+    private static final String LEFT_COMMAND = "left ";
+    /**
+     * Right command sent to the controller.
+     */
+    private static final String RIGHT_COMMAND = "right ";
+    /**
+     * Initial size of the console area.
+     */
+    private static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 100);
+    /**
+     * Initial size of the history area.
+     */
+    private static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
+    /**
+     * Serial value.
      */
     private static final long serialVersionUID = 1L;
-    private static final String USER_DIR = "user.dir";
-    public static final String FORWARD_COMMAND = "ForwardCommand";
-    public static final String SUBMIT_COMMAND = "SubmitCommand";
-    public static final String FD = "fd ";
-    public static final int DEFAULT_FD_MAG = 10;
-    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 50);
-    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
-    
-    private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
-    public static final int MIN_DISPLACEMENT_MAGNITUDE = 0;
-    public static final int MAX_DISPLACEMENT_MAGNITUDE = 500;
-    public static final int INITIAL_DISPLACEMENT_MAGNITUDE = 50;
-    private static final String BACKWARD_COMMAND = "BackwardCommand";
+    /**
+     * Name of the Canvas panel area.
+     */
     private static final String CANVAS_NAME = "Canvas";
+    /**
+     * Name of the Workspace panel area.
+     */
     private static final String WORKSPACE_NAME = "Workspace";
+    /**
+     * Name of the History panel area.
+     */
     private static final String HISTORY_NAME = "History";
+    /**
+     * Name of the Input panel area.
+     */
     private static final String INPUT_NAME = "Input";
-    
-    private JFileChooser myChooser;
+    /**
+     * ToolTip displayed when mouse is over the Workspace tab.
+     */
+    private static final String SLOGO_NAME = "SLogo";
+    /**
+     * Default location of the image resources.
+     */
+    private static final String RESOURCE_LOCATION = "/resources/images/";
+    /**
+     * Location of the turtle image.
+     */
+    private static final String TURTLE_IMG_FILENAME = "turtle_art.png";
+    /**
+     * Text area where the user can type, edit, copy and paste the commands.
+     */
     private JTextArea myConsole;
+    /**
+     * Text area that displays the commands submitted by the user and
+     * the controller messages
+     */
     private JTextArea myHistory;
     
     /*
-     * TODO: Implement correctly the menu bar
-     * TODO: Implement SAVE, CLEAR
+     * TODO: Implement CLEAR?
      * TODO: Implement the NEW workspace command
-     * TODO: Labels from the Resources
-     * TODO: REFACTOR CODE!
-     * TODO: add turn button
-     */
-    /*
-     * private ActionListener myActionListener;
-     * private KeyListener myKeyListener;
-     * private MouseListener myMouseListener;
-     * private MouseMotionListener myMouseMotionListener;
-     * private FocusListener myFocusListener;
      */
     
     /**
-     * Creates an instance of the View.
+     * Creates an instance of the View with personalized layout.
      * 
      * @param title The title of this View
      * @param language The desired language for the View
@@ -94,12 +134,15 @@ public class SLogoView extends View {
     public SLogoView (String title, String language) {
         super(title, language);
         getContentPane().add(makeMainPanel(), BorderLayout.CENTER);
-        getContentPane().add(makeMenus(), BorderLayout.NORTH);
         pack();
         setVisible(true);
     }
     
-    // TODO: merge this and appendHistory,they are the same
+    /**
+     * Displays the text in the History panel and appends any text to it
+     * 
+     * @param text The string to be appended to the History.
+     */
     @Override
     public void displayText (String text) {
         if (text.length() > 0) {
@@ -113,30 +156,40 @@ public class SLogoView extends View {
     }
     
     /**
-     * *******************************************************************************
+     * Creates the main panel with a Canvas, a History and an Input panels.
      * 
-     * @return
+     * @return The main panel with a workspace.
      */
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
         JPanel contentPanel = new JPanel();
-        workspace.addTab("Workspace", null, contentPanel, "SLogo");
+        workspace.addTab(WORKSPACE_NAME, null, contentPanel, SLOGO_NAME);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_OFFSET,
+                                                               BORDER_OFFSET, BORDER_OFFSET,
+                                                               BORDER_OFFSET));
         contentPanel.add(makeCanvasPanel());
         contentPanel.add(makeHistAndInputPanel());
         return workspace;
         
     }
-    
+    /**
+     * Creates a panel with the Canvas.
+     * 
+     * @return Panel with Canvas.
+     */
     @Override
     protected JComponent makeCanvasPanel () {
         JPanel canvasPanel = new JPanel();
-        canvasPanel.add(myCanvas);
+        canvasPanel.add(super.getCanvas());
         canvasPanel.setBorder(makeBorder(CANVAS_NAME));
         return canvasPanel;
     }
-    
+    /**
+     * Creates a panel with the History and Input Panels in a vertical box.
+     * 
+     * @return Panel with the History and Input.
+     */
     private JComponent makeHistAndInputPanel () {
         JPanel hstInpPanel = new JPanel();
         hstInpPanel.setLayout(new BoxLayout(hstInpPanel, BoxLayout.PAGE_AXIS));
@@ -144,7 +197,11 @@ public class SLogoView extends View {
         hstInpPanel.add(makeHistoryPane());
         return hstInpPanel;
     }
-    
+    /**
+     * Creates a panel with the History, where the commands and results from the user are recorded.
+     * 
+     * @return Panel with History.
+     */
     private JPanel makeHistoryPane () {
         JPanel histPane = new JPanel();
         JTextArea textArea = new JTextArea();
@@ -159,19 +216,83 @@ public class SLogoView extends View {
         return histPane;
     }
     
+    /**
+     * Creates the input panel with buttons for the user to interact with the turtle
+     * and the console in which the user writes the SLogo code.
+     * 
+     * @return Input panel.
+     */
     @Override
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.setLayout(new BoxLayout(result, BoxLayout.PAGE_AXIS));
         result.setBorder(makeBorder(INPUT_NAME));
-        result.add(makeForwardButton());
-        result.add(makeBackwardButton());
+        result.add(makeTurtleMoveButtons());
         result.add(makeCommandConsole());
         result.add(makeSubmitButton());
-        // result.add(makeTurnMagnitudeSlider());
         return result;
     }
-    
+    /**
+     * Creates the buttons for moving the turtle.
+     * The layout is not very nice, right now and are going to be improved in the following version.
+     * 
+     * @return Pane with the buttons.
+     */
+    private JComponent makeTurtleMoveButtons () {
+        JPanel turtleMovePane = new JPanel();
+        ImageIcon icon = 
+                new ImageIcon(getClass().getResource(RESOURCE_LOCATION + TURTLE_IMG_FILENAME));
+        JLabel label = new JLabel(icon);
+        turtleMovePane.setLayout(new BorderLayout());
+        turtleMovePane.add(makeForwardButton(), BorderLayout.NORTH);
+        turtleMovePane.add(makeLeftButton(), BorderLayout.LINE_START);
+        turtleMovePane.add(makeRightButton(), BorderLayout.LINE_END);
+        turtleMovePane.add(makeBackwardButton(), BorderLayout.SOUTH);
+        turtleMovePane.add(label, BorderLayout.CENTER);
+        
+        return turtleMovePane;
+    }
+    /**
+     * Creates a button that turns the turtle left.
+     * 
+     * @return turn right button
+     */
+    private JButton makeLeftButton () {
+        final String COMMAND = LEFT_COMMAND + DEFAULT_TURN_MAG;
+        return makeTurtleMoveButton(super.getResources().getString(LEFT_LABEL), COMMAND);
+    }
+    /**
+     * Creates a button that turns the turtle right.
+     * 
+     * @return turn right button
+     */
+    private JButton makeRightButton () {
+        final String COMMAND = RIGHT_COMMAND + DEFAULT_TURN_MAG;
+        return makeTurtleMoveButton(super.getResources().getString(RIGHT_LABEL), COMMAND);
+    }
+    /**
+     * Creates a button that moves the turtle forward.
+     * 
+     * @return move forward button
+     */
+    private JButton makeForwardButton () {
+        final String COMMAND = FD_COMMAND + DEFAULT_FD_MAG;
+        return makeTurtleMoveButton(super.getResources().getString(FORWARD_LABEL), COMMAND);
+    }
+    /**
+     * Creates a button that moves the turtle backward.
+     * 
+     * @return move backward button
+     */
+    private JButton makeBackwardButton () {
+        final String COMMAND = FD_COMMAND + -DEFAULT_FD_MAG;
+        return makeTurtleMoveButton(super.getResources().getString(BACKWARD_LABEL), COMMAND);
+    }
+    /**
+     * Creates a button that moves the turtle forward.
+     * 
+     * @return pane with the console
+     */
     private JScrollPane makeCommandConsole () {
         JTextArea textArea = new JTextArea();
         myConsole = textArea;
@@ -179,187 +300,57 @@ public class SLogoView extends View {
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
     }
-    
-    private JButton makeForwardButton () {
-        final String command = FD + DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(FORWARD_COMMAND), command);
-    }
-    
-    private JButton makeBackwardButton () {
-        // TODO: change fd mag to a variable from an input slider
-        final String command = FD + -DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.myResources.getString(BACKWARD_COMMAND), command);
-    }
-    
+    /**
+     * Creates a button that submits the text in the console to the controller.
+     * The code for this button is very similar to the code of the makeTurtleMoveButton method
+     * because of the distinct action listener implementation.
+     * 
+     * @return submit button
+     */
     private JButton makeSubmitButton () {
-        JButton button = new JButton(super.myResources.getString(SUBMIT_COMMAND));
-        final Controller controller = super.myController;
+        JButton button = new JButton(super.getResources().getString(SUBMIT_LABEL));
+        final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 String command = myConsole.getText();
-                controller.createRunInstruction(command);
+                CONTROLLER.createRunInstruction(command);
                 myConsole.setText("");
             }
         });
         return button;
     }
-    
+    /**
+     * Creates a default border for most of the panels.
+     * 
+     * @return border for panels
+     */
     private Border makeBorder (String panelName) {
         Border border;
-        border = BorderFactory.createCompoundBorder(BorderFactory
-                .createTitledBorder(super.myResources.getString(panelName)),
-                                                    BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
+                       super.getResources().getString(panelName)),
+                       BorderFactory.createEmptyBorder(BORDER_OFFSET, BORDER_OFFSET, 
+                                                       BORDER_OFFSET, BORDER_OFFSET));
+        
         return border;
     }
     
-    private JButton makeJButtonCommand (String name, final String command) {
+    /**
+     * Creates a button that takes in a final command.
+     * Used to create the turtle movement buttons.
+     * 
+     * @return button
+     */
+    private JButton makeTurtleMoveButton (String name, final String command) {
         JButton button = new JButton(name);
-        final Controller controller = super.myController;
+        final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                controller.createRunInstruction(command);
+                CONTROLLER.createRunInstruction(command);
                 myConsole.setText("");
             }
         });
         return button;
     }
-    
-    /**
-     * Create a menu to appear at the top of the frame,
-     * usually File, Edit, App Specific Actions, Help
-     */
-    protected JMenuBar makeMenus () {
-        JMenuBar result = new JMenuBar();
-        result.add(makeFileMenu());
-        return result;
-    }
-    
-    /**
-     * Create a menu that will pop up when the menu button is pressed in the
-     * frame. File menu usually contains Open, Save, and Exit
-     * 
-     * Note, since these classes will not ever be used by any other class, make
-     * them inline (i.e., as anonymous inner classes) --- saves making a
-     * separate file for one line of actual code.
-     */
-    protected JMenu makeFileMenu () {
-        JMenu result = new JMenu(myResources.getString("FileMenu"));
-        result.add(new AbstractAction(myResources.getString("OpenCommand")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    int response = myChooser.showOpenDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        echo(new FileReader(myChooser.getSelectedFile()));
-                    }
-                }
-                catch (IOException io) {
-                    // let user know an error occurred, but keep going
-                    // showError(io.toString());
-                }
-            }
-        });
-        result.add(new AbstractAction(myResources.getString("SaveCommand")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    echo(new FileWriter("demo.out"));
-                }
-                catch (IOException io) {
-                    // let user know an error occurred, but keep going
-                    // showError(io.toString());
-                }
-            }
-        });
-        result.add(new JSeparator());
-        result.add(new AbstractAction(myResources.getString("QuitCommand")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                // clean up any open resources, then
-                // end program
-                System.exit(0);
-            }
-        });
-        return result;
-    }
-    
-    /**
-     * Echo display to writer
-     */
-    private void echo (Writer w) {
-        PrintWriter output = new PrintWriter(w);
-        // output.println(myHistory.getText());
-        output.flush();
-        output.close();
-    }
-    
-    /**
-     * Echo data read from reader to display
-     */
-    private void echo (Reader r) {
-        try {
-            String s = "";
-            BufferedReader input = new BufferedReader(r);
-            String line = input.readLine();
-            while (line != null) {
-                s += line + "\n";
-                line = input.readLine();
-            }
-            myHistory.append("\n" + s);
-        }
-        catch (IOException e) {
-            // showError(e.toString());
-        }
-    }
-    
-    // TODO: maybe add slider. A default value is acceptable practice
-    // private JSlider makeTurnMagnitudeSlider () {
-    // JLabel turnLabel = new JLabel(myResources.getString(TURN_MAGNITUDE_LABEL));
-    // JSlider mag = new JSlider(JSlider.HORIZONTAL,
-    // MIN_DISPLACEMENT_MAGNITUDE,
-    // MAX_DISPLACEMENT_MAGNITUDE,
-    // INITIAL_DISPLACEMENT_MAGNITUDE);
-    // mag.setMajorTickSpacing(10);
-    // mag.setMinorTickSpacing(1);
-    // mag.setPaintTicks(true);
-    // mag.setPaintLabels(true);
-    // // TODO: having difficulty adding listener for the slider...
-    // return mag;
-    //
-    // }
-    // myController.sendString(s);
-    
-    // TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve
-    // instances of swing objects so that it can use "j.addKeyListener( new .....)" would need to
-    // document as a change to our API
-    // the issue stems from the fact that the view holds the JComponent, while the Control hods the
-    // definiton for what the actionPerformed should be. May also need seperate one for JButton to
-    // be able to addActionListener for some reason
-    /*
-     * Example:
-     * protected JButton makeClear () {
-     * JButton result = new JButton(myResources.getString("ClearCommand"));
-     * result.addActionListener(new ActionListener() {
-     * 
-     * @Override
-     * public void actionPerformed (ActionEvent e) {
-     * myTextArea.setText("");
-     * }
-     * });
-     * return result;
-     * }
-     * 
-     * probably we want to send the button or any other componenet type (not sure if we want several
-     * specific methods or 1 more general one) and then add the listener and action performed to it
-     * 
-     * otherwise stuck wondering if there is a way to pass off a JButton with an ActionListener to
-     * the control class. Then have the control class override the actionPerformed so that it does
-     * what control knows it needs to
-     * suppose we could pass off the JComponents with as much info as possible from the view. Then
-     * let the controller read all of its Listener info, create a new instance with the proper
-     * actionPerformed, and then
-     * place this newer ActionListener w/ complete actionPerformed into the JButton
-     */
 }
