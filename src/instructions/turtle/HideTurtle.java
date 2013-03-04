@@ -6,12 +6,12 @@ import simulation.Turtle;
 
 
 /**
- * Represents hiding the view of the turtle as an instruction. Takes zero
- * arguments and always returns 1<br>
+ * Represents making the turtle invisible as an instruction. Takes zero
+ * arguments and always returns 0.<br>
  * <br>
  * <u> Examples:</u> <br>
- * showturtle ---> shows turtle on screen if turtle is not already visible <br>
- * st ---> shows turtle on screen if turtle is not already visible <br>
+ * hideturtle ---> does not show turtle on screen if turtle is not already invisible. <br>
+ * ht ---> does not shows turtle on screen if turtle is not already invisible. <br>
  * 
  * @author Scott Valentine
  * @author Ryan Fishel
