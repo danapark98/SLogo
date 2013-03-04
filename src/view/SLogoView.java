@@ -5,16 +5,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -40,6 +36,10 @@ public class SLogoView extends View {
     /**
      * 
      */
+    public static final int DEFAULT_TURN_MAG = 15;
+    /**
+     * 
+     */
     public static final String FORWARD_COMMAND = "ForwardCommand";
     /**
      * 
@@ -49,10 +49,11 @@ public class SLogoView extends View {
      * 
      */
     public static final String FD = "fd ";
+    
     /**
      * 
      */
-    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 50);
+    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 100);
     /**
      * 
      */
@@ -60,14 +61,12 @@ public class SLogoView extends View {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
-    
+    private static final String LEFT_COMMAND = "left ";
     /**
-     * XXX
+     * 
      */
-    
-
-    private static final String TURN_MAGNITUDE_LABEL = "TurnMagnitude";
+    private static final String RIGHT_COMMAND = "right ";
+    private static final long serialVersionUID = 1L;
     
     private static final String BACKWARD_COMMAND = "BackwardCommand";
     private static final String CANVAS_NAME = "Canvas";
@@ -75,14 +74,16 @@ public class SLogoView extends View {
     private static final String HISTORY_NAME = "History";
     private static final String INPUT_NAME = "Input";
     private static final String SLOGO_NAME = "SLogo";
+    private static final String RESOURCE_LOCATION = "/resources/images/";
+    private static final String TURTLE_IMG_FILENAME = "turtle_art.png";
+    private static final String RIGHT = "RightButton";
+    private static final String LEFT = "LeftButton";
 
-    private JFileChooser myChooser;
     private JTextArea myConsole;
     private JTextArea myHistory;
 
     /*
-     * TODO: Implement correctly the menu bar
-     * TODO: Implement SAVE, CLEAR
+     * TODO: Implement CLEAR?
      * TODO: Implement the NEW workspace command
      * TODO: Labels from the Resources
      * TODO: REFACTOR CODE!
@@ -175,12 +176,34 @@ public class SLogoView extends View {
         JPanel result = new JPanel();
         result.setLayout(new BoxLayout(result, BoxLayout.PAGE_AXIS));
         result.setBorder(makeBorder(INPUT_NAME));
-        result.add(makeForwardButton());
-        result.add(makeBackwardButton());
+        result.add(makeTurtleMoveButtons());
         result.add(makeCommandConsole());
         result.add(makeSubmitButton());
-        // result.add(makeTurnMagnitudeSlider());
         return result;
+    }
+    
+    private JComponent makeTurtleMoveButtons () {
+        JPanel turtleMovePane = new JPanel();
+        ImageIcon icon = new ImageIcon(getClass().getResource( RESOURCE_LOCATION+TURTLE_IMG_FILENAME));
+        JLabel label = new JLabel(icon);
+        turtleMovePane.setLayout(new BorderLayout());
+        turtleMovePane.add(makeForwardButton(), BorderLayout.NORTH);
+        turtleMovePane.add(makeLeftButton(), BorderLayout.LINE_START);
+        turtleMovePane.add(makeRightButton(), BorderLayout.LINE_END);
+        turtleMovePane.add(makeBackwardButton(), BorderLayout.SOUTH);
+        turtleMovePane.add(label, BorderLayout.CENTER);
+        
+        return turtleMovePane;
+    }
+    
+    private JButton makeLeftButton () {
+        final String COMMAND = LEFT_COMMAND + DEFAULT_TURN_MAG;
+        return makeJButtonCommand(super.getResources().getString(LEFT), COMMAND);
+    }
+    
+    private JButton makeRightButton () {
+        final String COMMAND = RIGHT_COMMAND + DEFAULT_TURN_MAG;
+        return makeJButtonCommand(super.getResources().getString(RIGHT), COMMAND);
     }
 
     private JScrollPane makeCommandConsole () {
@@ -238,84 +261,4 @@ public class SLogoView extends View {
         });
         return button;
     }
-
-    
-
-    /**
-     * Echo display to writer
-     */
-    private void echo (Writer w) {
-        PrintWriter output = new PrintWriter(w);
-        // output.println(myHistory.getText());
-        output.flush();
-        output.close();
-    }
-
-    /**
-     * Echo data read from reader to display
-     */
-    private void echo (Reader r) {
-        try {
-            String s = "";
-            BufferedReader input = new BufferedReader(r);
-            String line = input.readLine();
-            while (line != null) {
-                s += line + "\n";
-                line = input.readLine();
-            }
-            myHistory.append("\n" + s);
-        }
-        catch (IOException e) {
-            // showError(e.toString());
-        }
-    }
-
-    // TODO: maybe add slider. A default value is acceptable practice
-    // private JSlider makeTurnMagnitudeSlider () {
-    // JLabel turnLabel = new JLabel(myResources.getString(TURN_MAGNITUDE_LABEL));
-    // JSlider mag = new JSlider(JSlider.HORIZONTAL,
-    // MIN_DISPLACEMENT_MAGNITUDE,
-    // MAX_DISPLACEMENT_MAGNITUDE,
-    // INITIAL_DISPLACEMENT_MAGNITUDE);
-    // mag.setMajorTickSpacing(10);
-    // mag.setMinorTickSpacing(1);
-    // mag.setPaintTicks(true);
-    // mag.setPaintLabels(true);
-    // // TODO: having difficulty adding listener for the slider...
-    // return mag;
-    //
-    // }
-    // myController.sendString(s);
-
-    // TODO: we may add addJComponent(JComponent j) to our controller so that it can recieve
-    // instances of swing objects so that it can use "j.addKeyListener( new .....)" would need to
-    // document as a change to our API
-    // the issue stems from the fact that the view holds the JComponent, while the Control hods the
-    // definiton for what the actionPerformed should be. May also need seperate one for JButton to
-    // be able to addActionListener for some reason
-    /*
-     * Example:
-     * protected JButton makeClear () {
-     * JButton result = new JButton(myResources.getString("ClearCommand"));
-     * result.addActionListener(new ActionListener() {
-     * 
-     * @Override
-     * public void actionPerformed (ActionEvent e) {
-     * myTextArea.setText("");
-     * }
-     * });
-     * return result;
-     * }
-     * 
-     * probably we want to send the button or any other componenet type (not sure if we want several
-     * specific methods or 1 more general one) and then add the listener and action performed to it
-     * 
-     * otherwise stuck wondering if there is a way to pass off a JButton with an ActionListener to
-     * the control class. Then have the control class override the actionPerformed so that it does
-     * what control knows it needs to
-     * suppose we could pass off the JComponents with as much info as possible from the view. Then
-     * let the controller read all of its Listener info, create a new instance with the proper
-     * actionPerformed, and then
-     * place this newer ActionListener w/ complete actionPerformed into the JButton
-     */
 }
