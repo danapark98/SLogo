@@ -58,12 +58,13 @@ public abstract class BaseInstruction implements Instruction {
     }
     
     /**
-     * copies this instruction. result is only identical in Class name
+     * copies this instruction.
      * 
      * @return a copy of this instruction
      */
     
-    public BaseInstruction copy () {
+    
+    public BaseInstruction newCopy () {
         BaseInstruction copy = null;
         try {
             copy = this.getClass().newInstance();
@@ -75,7 +76,6 @@ public abstract class BaseInstruction implements Instruction {
     }
 
     public abstract int getNumberOfArguments();
-    
     
     
 //    // the number of catch blocks suggests this might be a bad solution.

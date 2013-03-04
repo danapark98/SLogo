@@ -1,5 +1,6 @@
 package instructions.user_defined;
 
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import simulation.Model;
@@ -21,14 +22,14 @@ public class UserInstruction extends BaseInstruction {
     }
 
     @Override
-    public int execute (Model model) {
+    public int execute (Model model) throws IllegalInstructionException {
         //TODO: need a way of loading in arguments.
         return myInstruction.execute(model);
     }
 
     @Override
-    public Instruction copy () {
-        return new UserInstruction(myNumberOfArguments, myInstruction.copy());
+    public BaseInstruction newCopy () {
+        return new UserInstruction(myNumberOfArguments, myInstruction.newCopy());
     }
 
     @Override

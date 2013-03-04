@@ -1,18 +1,14 @@
 package view;
 
+import control.Controller;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import simulation.Model;
-import control.Controller;
+import javax.swing.JMenuBar;
 
 
 /**
@@ -22,28 +18,21 @@ import control.Controller;
  * 
  */
 public abstract class View extends JFrame {
-
-    private static final long serialVersionUID = 1L;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String ENGLISH = "English";
-    private static final String USER_DIR = "user.dir";
-    private JFileChooser myChooser;
-    /*
-    private ActionListener myActionListener;
-    private KeyListener myKeyListener;
-    private MouseListener myMouseListener;
-    private MouseMotionListener myMouseMotionListener;
-    private FocusListener myFocusListener;
-
-    */
+    
     /**
      * Preferred Dimensions of the Canvas.
      */
     public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 500);
-
-    protected ResourceBundle myResources;
-    protected Canvas myCanvas;
-    protected Controller myController;
+    private static final long serialVersionUID = 1L;
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String ENGLISH = "English";
+    private static final String USER_DIR = "user.dir";
+    
+    private ResourceBundle myResources;
+    private Canvas myCanvas;
+    private Controller myController; 
+    private String myLanguage;
+    private JFileChooser myChooser;
 
     /**
      * Creates a SLogoView.
@@ -52,6 +41,7 @@ public abstract class View extends JFrame {
      * @param language The desired language for the View
      */
     public View (String title, String language) {
+        myLanguage = language;
         try {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         }
@@ -63,6 +53,7 @@ public abstract class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         setCanvas();
+        getContentPane().add(makeMenus(), BorderLayout.NORTH);
     }
 
     /**
@@ -78,9 +69,21 @@ public abstract class View extends JFrame {
      * @return
      */
     protected abstract JComponent makeCanvasPanel ();
+    
+    /**
+     * Create a menu to appear at the top of the frame,
+     * usually File, Edit, App Specific Actions, Help
+     */
+    protected JMenuBar makeMenus () {
+        JMenuBar result = new JMenuBar();
+        ViewFileMenu menu = new ViewFileMenu(this);
+        result.add(menu.makeFileMenu());
+        return result;
+    }
 
     /**
      * Method to display a text to the user in a display Box.
+     * 
      * @param text Text to display
      */
     public abstract void displayText (String text);
@@ -100,21 +103,39 @@ public abstract class View extends JFrame {
      * Called with command within controller such as myView.super.setCanvas(model)
      * This method also starts the Canvas, which loads the model
      * 
-     * @param model Model that should be displayed within the Canvas
+     * 
      */
     public void setCanvas () {
         myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
         myCanvas.start(this);
     }
-
-    /**
-     * Method to send commands to the controller.
-     * 
-     * @param command String that needs to be parsed (may be multiple lines)
-     */
-
-    protected void sendCommand (String command) {
-        myController.createRunInstruction(command);
+    
+    protected Controller getController() {
+        return myController;
     }
-
+    
+    protected Canvas getCanvas() {
+        return myCanvas;
+    }
+    /**
+     * Returns the Resources from the View.
+     * @return 
+     */
+    public ResourceBundle getResources() {
+        return myResources;
+    }
+    /**
+     * returns the JFileChooser for the View.
+     * @return
+     */
+    public JFileChooser getChooser() {
+        return myChooser;
+    }
+    /**
+     * Returns the current language of the View.
+     * @return
+     */
+    public String getLanguage() {
+        return myLanguage;
+    }
 }

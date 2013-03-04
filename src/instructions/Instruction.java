@@ -34,4 +34,5 @@ public interface Instruction extends Serializable {
      */
     public int execute (Model model) throws IllegalInstructionException;
 
+
 }

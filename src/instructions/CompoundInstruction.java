@@ -47,12 +47,12 @@ public class CompoundInstruction implements Instruction {
     }
 
 
-//    public Instruction copy () {
-//        CompoundInstruction copy = new CompoundInstruction();
-//        for (Instruction i : myInstructions) {
-//            copy.add(i);
-//        }
-//        return copy;
-//    }
+    public Instruction copy () {
+        CompoundInstruction copy = new CompoundInstruction();
+        for (Instruction i : myInstructions) {
+            copy.add(i);
+        }
+        return copy;
+    }
 
 }
