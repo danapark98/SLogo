@@ -17,6 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+
 /**
  * The View is comprised of everything visible to the user.
  * The View is the interactive space containing a file menu, buttons, and the Canvas.
@@ -26,69 +27,106 @@ import javax.swing.border.Border;
  */
 public class SLogoView extends View {
     /**
-     * 
+     * Default magnitude for moving the turtle using the forward and backward buttons.
      */
-    public static final int DEFAULT_FD_MAG = 10;
+    private static final int DEFAULT_FD_MAG = 10;
     /**
-     * 
+     * Default magnitude for moving the turtle using the forward button.
      */
-    public static final int BORDER_OFFSET = 5;
+    private static final int DEFAULT_TURN_MAG = 15;
     /**
-     * 
+     * Value for the borders of the JPanels.
      */
-    public static final int DEFAULT_TURN_MAG = 15;
+    private static final int BORDER_OFFSET = 5;
     /**
-     * 
+     * Forward button label text.
      */
-    public static final String FORWARD_COMMAND = "ForwardCommand";
+    private static final String FORWARD_LABEL = "ForwardButton";
     /**
-     * 
+     * Backward button label text.
      */
-    public static final String SUBMIT_COMMAND = "SubmitCommand";
+    private static final String BACKWARD_LABEL = "BackwardButton";
     /**
-     * 
+     * Submit button label text.
      */
-    public static final String FD = "fd ";
-    
+    private static final String SUBMIT_LABEL = "SubmitButton";
     /**
-     * 
+     * Right button label text.
      */
-    public static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 100);
+    private static final String RIGHT_LABEL = "RightButton";
     /**
-     * 
+     * Left button label text.
      */
-    public static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
+    private static final String LEFT_LABEL = "LeftButton";
     /**
-     * 
+     * Forward command sent to the controller.
+     */
+    private static final String FD_COMMAND = "fd ";
+    /**
+     * Left command sent to the controller.
      */
     private static final String LEFT_COMMAND = "left ";
     /**
-     * 
+     * Right command sent to the controller.
      */
     private static final String RIGHT_COMMAND = "right ";
+    /**
+     * Initial size of the console area.
+     */
+    private static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 100);
+    /**
+     * Initial size of the history area.
+     */
+    private static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
+    /**
+     * Serial value.
+     */
     private static final long serialVersionUID = 1L;
-    
-    private static final String BACKWARD_COMMAND = "BackwardCommand";
+    /**
+     * Name of the Canvas panel area.
+     */
     private static final String CANVAS_NAME = "Canvas";
+    /**
+     * Name of the Workspace panel area.
+     */
     private static final String WORKSPACE_NAME = "Workspace";
+    /**
+     * Name of the History panel area.
+     */
     private static final String HISTORY_NAME = "History";
+    /**
+     * Name of the Input panel area.
+     */
     private static final String INPUT_NAME = "Input";
+    /**
+     * ToolTip displayed when mouse is over the Workspace tab.
+     */
     private static final String SLOGO_NAME = "SLogo";
+    /**
+     * Default location of the image resources.
+     */
     private static final String RESOURCE_LOCATION = "/resources/images/";
+    /**
+     * Location of the turtle image.
+     */
     private static final String TURTLE_IMG_FILENAME = "turtle_art.png";
-    private static final String RIGHT = "RightButton";
-    private static final String LEFT = "LeftButton";
-
+    /**
+     * Text area where the user can type, edit, copy and paste the commands.
+     */
     private JTextArea myConsole;
+    /**
+     * Text area that displays the commands submitted by the user and
+     * the controller messages
+     */
     private JTextArea myHistory;
-
+    
     /*
      * TODO: Implement CLEAR?
      * TODO: Implement the NEW workspace command
      */
-
+    
     /**
-     * Creates an instance of the View.
+     * Creates an instance of the View with personalized layout.
      * 
      * @param title The title of this View
      * @param language The desired language for the View
@@ -100,6 +138,11 @@ public class SLogoView extends View {
         setVisible(true);
     }
 
+    /**
+     * Displays the text in the History panel and appends any text to it
+     * 
+     * @param text The string to be appended to the History.
+     */
     @Override
     public void displayText (String text) {
         if (text.length() > 0) {
@@ -111,11 +154,11 @@ public class SLogoView extends View {
             }
         }
     }
-
+    
     /**
-     *Create main Panel.
+     * Creates the main panel with a Canvas, a History and an Input panels.
      * 
-     * @return
+     * @return The main panel with a workspace.
      */
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
@@ -123,13 +166,14 @@ public class SLogoView extends View {
         workspace.addTab(WORKSPACE_NAME, null, contentPanel, SLOGO_NAME);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_OFFSET,
-                              BORDER_OFFSET, BORDER_OFFSET, BORDER_OFFSET));
+                                                               BORDER_OFFSET, BORDER_OFFSET,
+                                                               BORDER_OFFSET));
         contentPanel.add(makeCanvasPanel());
         contentPanel.add(makeHistAndInputPanel());
         return workspace;
-
+        
     }
-
+    
     @Override
     protected JComponent makeCanvasPanel () {
         JPanel canvasPanel = new JPanel();
@@ -137,7 +181,7 @@ public class SLogoView extends View {
         canvasPanel.setBorder(makeBorder(CANVAS_NAME));
         return canvasPanel;
     }
-
+    
     private JComponent makeHistAndInputPanel () {
         JPanel hstInpPanel = new JPanel();
         hstInpPanel.setLayout(new BoxLayout(hstInpPanel, BoxLayout.PAGE_AXIS));
@@ -145,21 +189,21 @@ public class SLogoView extends View {
         hstInpPanel.add(makeHistoryPane());
         return hstInpPanel;
     }
-
+    
     private JPanel makeHistoryPane () {
         JPanel histPane = new JPanel();
         JTextArea textArea = new JTextArea();
         myHistory = textArea;
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
-
+        
         scrollPane.setPreferredSize(PREFERRED_HISTORY_SIZE);
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
         histPane.add(scrollPane);
         histPane.setBorder(makeBorder(HISTORY_NAME));
         return histPane;
     }
-
+    
     @Override
     protected JComponent makeInput () {
         JPanel result = new JPanel();
@@ -188,14 +232,14 @@ public class SLogoView extends View {
     
     private JButton makeLeftButton () {
         final String COMMAND = LEFT_COMMAND + DEFAULT_TURN_MAG;
-        return makeJButtonCommand(super.getResources().getString(LEFT), COMMAND);
+        return makeJButtonCommand(super.getResources().getString(LEFT_LABEL), COMMAND);
     }
     
     private JButton makeRightButton () {
         final String COMMAND = RIGHT_COMMAND + DEFAULT_TURN_MAG;
-        return makeJButtonCommand(super.getResources().getString(RIGHT), COMMAND);
+        return makeJButtonCommand(super.getResources().getString(RIGHT_LABEL), COMMAND);
     }
-
+    
     private JScrollPane makeCommandConsole () {
         JTextArea textArea = new JTextArea();
         myConsole = textArea;
@@ -203,19 +247,19 @@ public class SLogoView extends View {
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
     }
-
+    
     private JButton makeForwardButton () {
-        final String COMMAND = FD + DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.getResources().getString(FORWARD_COMMAND), COMMAND);
+        final String COMMAND = FD_COMMAND + DEFAULT_FD_MAG;
+        return makeJButtonCommand(super.getResources().getString(FORWARD_LABEL), COMMAND);
     }
-
+    
     private JButton makeBackwardButton () {
-        final String COMMAND = FD + -DEFAULT_FD_MAG;
-        return makeJButtonCommand(super.getResources().getString(BACKWARD_COMMAND), COMMAND);
+        final String COMMAND = FD_COMMAND + -DEFAULT_FD_MAG;
+        return makeJButtonCommand(super.getResources().getString(BACKWARD_LABEL), COMMAND);
     }
-
+    
     private JButton makeSubmitButton () {
-        JButton button = new JButton(super.getResources().getString(SUBMIT_COMMAND));
+        JButton button = new JButton(super.getResources().getString(SUBMIT_LABEL));
         final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
@@ -227,17 +271,20 @@ public class SLogoView extends View {
         });
         return button;
     }
-
+    
     private Border makeBorder (String panelName) {
         Border border;
-        border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
-             super.getResources().getString(panelName)),
-                                                    BorderFactory.createEmptyBorder(BORDER_OFFSET,
-                                                    BORDER_OFFSET, BORDER_OFFSET, BORDER_OFFSET));
-     
+        border =
+                BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
+                        super.getResources().getString(panelName)),
+                                                   BorderFactory.createEmptyBorder(BORDER_OFFSET,
+                                                                                   BORDER_OFFSET,
+                                                                                   BORDER_OFFSET,
+                                                                                   BORDER_OFFSET));
+        
         return border;
     }
-
+    
     private JButton makeJButtonCommand (String name, final String command) {
         JButton button = new JButton(name);
         final Controller CONTROLLER = super.getController();
