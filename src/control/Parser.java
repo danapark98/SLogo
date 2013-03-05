@@ -5,6 +5,7 @@ import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
+import instructions.user_defined.VariableInstruction;
 import java.util.Scanner;
 
 
@@ -40,8 +41,9 @@ public class Parser {
      *         environment, throw this exception with argument of the incompatible string
      */
     public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
+        userInput = userInput.toLowerCase();
         Preparser preparser = new Preparser(myEnvironment);
-        String s = preparser.addBrackets(userInput);
+        String s = preparser.preParse(userInput);
         Scanner line = new Scanner(s);
         return generateInstruction(line);
     }
@@ -61,26 +63,25 @@ public class Parser {
         CompoundInstruction resultInstruct = new CompoundInstruction();
         while (line.hasNext()) {
             String commandName = line.next();
-            commandName = commandName.toLowerCase();
-            // ignore copied and pasted commands
-            if (commandName.startsWith(">>")) {
-                commandName = line.nextLine();
-            }
+            
+            Instruction result; 
             if(commandName.equals("[")) {
-                Instruction result = generateInstruction(new Scanner(parseList(line)));
-                resultInstruct.add(result);
+                result = generateInstruction(new Scanner(parseList(line)));
+            }
+            else if(commandName.charAt(0) == ':') {
+                result = new VariableInstruction(commandName);
             }
             else {
                 try {
-                    Instruction result = new ConstantInstruction(Integer.parseInt(commandName));
-                    resultInstruct.add(result);
+                    result = new ConstantInstruction(Integer.parseInt(commandName));
                 }
                 catch (NumberFormatException e) {
                     BaseInstruction base = myEnvironment.systemInstructionSkeleton(commandName);
                     base.load(line, this);
-                    resultInstruct.add(base);
+                    result = base;
                 }
             }
+            resultInstruct.add(result);
         }
         return resultInstruct;
     }

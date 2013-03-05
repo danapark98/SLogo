@@ -22,6 +22,24 @@ public class Preparser {
             counterChange = counter;
         }
     }
+    
+    public String preParse(String s) throws IllegalInstructionException {
+        String stepZero = removeResultIndicators(s);
+        String stepOne = addBrackets(stepZero);
+        return stepOne;
+    }
+
+    private String removeResultIndicators (String s) {
+        String lines[] = s.split("\\r?\\n");
+        StringBuilder sb = new StringBuilder();
+        for (String line :lines) {
+            if (!line.startsWith(Controller.PRINT_INDICATOR)) {
+                sb.append(line);
+                sb.append(" ");
+            }
+        }
+        return sb.toString();        
+    }
 
     /**
      * Takes original string of commands and adds list notations to make it
@@ -30,7 +48,7 @@ public class Preparser {
      * @param s original commands
      * @return commands with brackets added 
      */
-    public String addBrackets (String s) throws IllegalInstructionException {
+    private String addBrackets (String s) throws IllegalInstructionException {
         List<String> wordsList = createListFromString(s);
         if (wordsList.size() < 3)
             return s;
@@ -130,18 +148,14 @@ public class Preparser {
     }
 
     private int getArgumentCount (String s) throws IllegalInstructionException {
-        try {
+        if (isNumber(s) || s.charAt(0) == ':') {
+            return -1;
+        }
+        else{
             BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
             return base.getNumberOfArguments();
         }
-        catch (IllegalInstructionException e) {
-            if (isNumber(s) || s.charAt(0) == ':') {
-                return -1;
-            }
-            else {
-                throw new IllegalInstructionException(s);
-            }
-        }
+
     }
 
     private boolean isNumber (String s) {

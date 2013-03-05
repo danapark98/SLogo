@@ -20,6 +20,7 @@ import exceptions.IncorrectFileFormatException;
  */
 public class Controller {
 
+    public static final String PRINT_INDICATOR = ">> ";
     private Model myModel;
     private View myView;
     private Parser myParser;
@@ -49,13 +50,13 @@ public class Controller {
      *        command that the user wants to run
      */
     public void createRunInstruction (String s) {
-        myView.displayText(">> " + s);
+        myView.displayText(s);
         try {
             Instruction instruction = myParser.generateInstruction(s);
-            myView.displayText("" + instruction.execute(myModel));
+            informView(instruction.execute(myModel) + "");
         }
         catch (IllegalInstructionException e) {
-            myView.displayText(e.toString());
+            informView(e.toString());
         }
 
     }
@@ -71,7 +72,7 @@ public class Controller {
             myEnvironment.load(is);
         }
         catch (IncorrectFileFormatException e) {
-            myView.displayText(e.toString());
+            informView(e.toString());
         }
     }
 
@@ -86,7 +87,7 @@ public class Controller {
             myEnvironment.save(os);
         }
         catch (FileSavingException e) {
-            myView.displayText(e.toString());
+            informView(e.toString());
         }
 
     }
@@ -98,5 +99,15 @@ public class Controller {
     public void clear () {
         new ClearScreen().execute(myModel);
     }
-
+   
+    /**
+     * Calls the view method to display the result of the command, or an error 
+     * message back to the user.  Appends an indicator string to the beginning
+     * to differentiate the result from commands issued by the user.
+     * 
+     * @param s return message
+     */
+    private void informView(String s) {
+        myView.displayText(PRINT_INDICATOR + s);
+    }
 }
