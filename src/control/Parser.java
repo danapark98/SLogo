@@ -19,6 +19,12 @@ import exceptions.IllegalInstructionException;
  */
 public class Parser {
 
+    // TODO: use resources to define the brackets
+    public static final String BEGINNING_OF_LIST = "[";
+    public static final String END_OF_LIST = "]";
+    public static final String START_OF_VARIABLE = ":"; 
+    private static final String ARGUMENT_ERROR_MESSAGE = "Incorrect number of arguments";
+    private static final String LIST_ERROR_MESSAGE = "Incorrect bracket formatting";
     /** Environment contains the system functions and user defined variables/functions. */
     private Environment myEnvironment;
 
@@ -68,10 +74,10 @@ public class Parser {
             String commandName = line.next();
 
             Instruction result;
-            if (commandName.equals("[")) {
+            if (commandName.equals(BEGINNING_OF_LIST)) {
                 result = generateInstruction(new Scanner(parseList(line)));
             }
-            else if (commandName.charAt(0) == ':') {
+            else if (commandName.startsWith(START_OF_VARIABLE)) {
                 result = new VariableInstruction(commandName);
             }
             else {
@@ -104,10 +110,10 @@ public class Parser {
      */
     public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
         if (!line.hasNext()) {
-            throw new IllegalInstructionException("");
+            throw new IllegalInstructionException(ARGUMENT_ERROR_MESSAGE);
         }
         String next = line.next();
-        if (next.equals("[")) {
+        if (next.equals(BEGINNING_OF_LIST)) {
             next = parseList(line);
         }
         return generateInstruction(new Scanner(next));
@@ -125,13 +131,12 @@ public class Parser {
         String str = "";
         int counterBracket = 1;
         while (counterBracket != 0) {
-            if (!line.hasNext()) throw new IllegalInstructionException("");
+            if (!line.hasNext()) throw new IllegalInstructionException(LIST_ERROR_MESSAGE);
             str = line.next();
-            // TODO: use resources to define the brackets
-            if (str.equals("[")) {
+            if (str.equals(BEGINNING_OF_LIST)) {
                 counterBracket++;
             }
-            if (str.equals("]")) {
+            if (str.equals(END_OF_LIST)) {
                 counterBracket--;
                 if (counterBracket == 0) {
                     break;

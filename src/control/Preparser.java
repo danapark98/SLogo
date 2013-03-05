@@ -84,6 +84,9 @@ public class Preparser {
             return s;
         }
 
+        // the second argument should just be arbitrarily large, so that it 
+        // can read every instruction provided.  the argument for the recursive
+        // method only has a context when called by itself
         ReturnValues rv = recurse(wordsList, Integer.MAX_VALUE);
         wordsList = rv.list;
 
@@ -98,7 +101,7 @@ public class Preparser {
                 break;
             }
             String command = wordsList.get(counter);
-            if (command.equals("[")) {
+            if (command.equals(Parser.BEGINNING_OF_LIST)) {
                 counter++;
                 int indexOfRightBracket = findRightBracket(wordsList, counter);
                 String s = createStringFromList(wordsList, counter, indexOfRightBracket);
@@ -111,14 +114,14 @@ public class Preparser {
                 counter++;
             }
             else {
-                wordsList.add(counter, "[");
+                wordsList.add(counter, Parser.BEGINNING_OF_LIST);
                 counter++;
                 List<String> restOfList = createRestOfList(wordsList, counter);
                 ReturnValues rv = recurse(restOfList, getArgumentCount(command));
                 counter += rv.counterChange;
                 wordsList.addAll(rv.list);
                 counter++;
-                wordsList.add(counter, "]");
+                wordsList.add(counter, Parser.END_OF_LIST);
                 counter++;
             }
         }
@@ -164,15 +167,16 @@ public class Preparser {
         return sb.toString();
     }
 
+    //TODO: refactor repetitive code here and the Parser's parseList()
     private int findRightBracket (List<String> wordsList, int counter) {
         String str;
         int counterBracket = 1;
         while (counterBracket != 0) {
             str = wordsList.get(counter);
-            if (str.equals("[")) {
+            if (str.equals(Parser.BEGINNING_OF_LIST)) {
                 counterBracket++;
             }
-            if (str.equals("]")) {
+            if (str.equals(Parser.END_OF_LIST)) {
                 counterBracket--;
                 if (counterBracket == 0) {
                     break;
@@ -189,7 +193,7 @@ public class Preparser {
      * at a later point in regular parsing.
      */
     private int getArgumentCount (String s) {
-        if (s.startsWith(":"))
+        if (s.startsWith(Parser.START_OF_VARIABLE))
             return -1;
         else {
             try {
