@@ -6,6 +6,16 @@ import java.util.List;
 import exceptions.IllegalInstructionException;
 
 
+/**
+ * Handles preparsing of the user input. This creates a form that the Parser
+ * class can read in correctly.
+ * 
+ * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ * 
+ */
 public class Preparser {
     private Environment myEnvironment;
 
@@ -22,23 +32,43 @@ public class Preparser {
             counterChange = counter;
         }
     }
-    
-    public String preParse(String s) throws IllegalInstructionException {
-        String stepZero = removeResultIndicators(s);
-        String stepOne = addBrackets(stepZero);
-        return stepOne;
+
+    /**
+     * Takes user input, converts to lower case so that case does not matter,
+     * removes lines starting with a print indicator message, and add brackets
+     * so that the parser knows where arguments start and end.
+     * 
+     * @param s original user input
+     * @return a string that is easier for the Parser to read in
+     * @throws IllegalInstructionException if instruction not recognized
+     */
+    public String preParse (String s) throws IllegalInstructionException {
+        String stepZero = s.toLowerCase();
+        String stepOne = removeResultIndicators(stepZero);
+        String stepTwo = addBrackets(stepOne);
+        return stepTwo;
     }
 
+    /**
+     * Remove the print indicator string and the rest of the line that it is on
+     * from the provided user input.
+     * 
+     * This allows the user to copy and paste from the command history and
+     * messages that are printed back to the user will not be parsed.
+     * 
+     * @param s user input
+     * @return string without printed messages
+     */
     private String removeResultIndicators (String s) {
         String lines[] = s.split("\\r?\\n");
         StringBuilder sb = new StringBuilder();
-        for (String line :lines) {
+        for (String line : lines) {
             if (!line.startsWith(Controller.PRINT_INDICATOR)) {
                 sb.append(line);
                 sb.append(" ");
             }
         }
-        return sb.toString();        
+        return sb.toString();
     }
 
     /**
@@ -46,7 +76,7 @@ public class Preparser {
      * easier to parse later.
      * 
      * @param s original commands
-     * @return commands with brackets added 
+     * @return commands with brackets added
      */
     private String addBrackets (String s) throws IllegalInstructionException {
         List<String> wordsList = createListFromString(s);
@@ -55,7 +85,7 @@ public class Preparser {
 
         ReturnValues rv = recurse(wordsList, Integer.MAX_VALUE);
         wordsList = rv.list;
-        
+
         return createStringFromList(wordsList, 0, wordsList.size());
     }
 
@@ -64,8 +94,9 @@ public class Preparser {
         List<String> restOfList = new ArrayList<String>();
         int counter = 0;
         for (int i = 0; i < argCount; i++) {
-            if (counter >= wordsList.size())
+            if (counter >= wordsList.size()) {
                 break;
+            }
             String command = wordsList.get(counter);
             if (command.equals("[")) {
                 counter++;
@@ -95,7 +126,7 @@ public class Preparser {
     }
 
     private int insertList (List<String> insideList, List<String> wordsList, int counter) {
-        for (String str:insideList) {
+        for (String str : insideList) {
             wordsList.add(counter, str);
             counter++;
         }
@@ -105,8 +136,8 @@ public class Preparser {
     private List<String> createListFromString (String s) {
         String[] words = s.split("\\s+");
         List<String> wordsList = new ArrayList<String>();
-        for (int i = 0; i < words.length; i++) {
-            wordsList.add(words[i]);
+        for (String word : words) {
+            wordsList.add(word);
         }
         return wordsList;
     }
@@ -149,17 +180,16 @@ public class Preparser {
 
     /**
      * Does not throw an exception because could be a user defined thing,
-     * like after a TO command.  if there is an error, it will get caught
+     * like after a TO command. if there is an error, it will get caught
      * at a later point in regular parsing.
      * 
      * @param s
      * @return
      */
     private int getArgumentCount (String s) {
-        if (s.charAt(0) == ':') {
+        if (s.charAt(0) == ':')
             return -1;
-        }
-        else{
+        else {
             try {
                 BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
                 return base.getNumberOfArguments();

@@ -1,8 +1,5 @@
 package control;
 
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +9,9 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
-
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 
 
 /**
@@ -20,6 +19,8 @@ import java.util.Map;
  * user defined variables or instructions are also added to the environment.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public class Environment {
@@ -31,7 +32,7 @@ public class Environment {
      * Creates a new Environment with the default instructions located
      * .\resources\instruction_index.txt
      */
-    public Environment() {
+    public Environment () {
         initiateInstructionMap();
     }
 
@@ -40,7 +41,7 @@ public class Environment {
      * from the instruction_index.txt file and their keywords from a .properties
      * file
      */
-    private void initiateInstructionMap() {
+    private void initiateInstructionMap () {
 
         // TODO: would much rather have the constructor take a ResourceBundle
         // instead of a
@@ -58,13 +59,13 @@ public class Environment {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction is the instruction to be added to the environment.
      */
-    public void addUserDefinedInstruction(String keyword,
-                                          BaseInstruction userInstruction) {
+    public void addUserDefinedInstruction (String keyword,
+                                           BaseInstruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }
 
     public void remove (String variableName) {
-        myInstructionMap.remove(variableName);        
+        myInstructionMap.remove(variableName);
     }
 
     /**
@@ -75,12 +76,11 @@ public class Environment {
      * @throws IllegalInstructionException This occurs when the keyword is not
      *         found in the environment.
      */
-    public BaseInstruction systemInstructionSkeleton(String commandName)
-        throws IllegalInstructionException {
+    public BaseInstruction systemInstructionSkeleton (String commandName)
+                                                                         throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName)) { 
-            throw new IllegalInstructionException( commandName); 
-        }
+        if (!myInstructionMap.containsKey(commandName))
+            throw new IllegalInstructionException(commandName);
         return myInstructionMap.get(commandName).newCopy();
     }
 
@@ -94,12 +94,13 @@ public class Environment {
      */
     @SuppressWarnings("unchecked")
     // will only load from files saved by save()
-    public void load(InputStream is) throws IncorrectFileFormatException {
+    public void load (InputStream is) throws IncorrectFileFormatException {
         ObjectInput in;
         try {
             in = new ObjectInputStream(is);
             myInstructionMap = (Map<String, BaseInstruction>) in.readObject();
-        } catch (ClassNotFoundException | IOException e) {
+        }
+        catch (ClassNotFoundException | IOException e) {
             throw new IncorrectFileFormatException();
         }
 
@@ -113,12 +114,13 @@ public class Environment {
      * @throws FileSavingException is an exception thrown if the OutputStream
      *         provided cannot be written to successfully.
      */
-    public void save(OutputStream os) throws FileSavingException {
+    public void save (OutputStream os) throws FileSavingException {
         ObjectOutput out;
         try {
             out = new ObjectOutputStream(os);
             out.writeObject(myInstructionMap);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new FileSavingException();
         }
 

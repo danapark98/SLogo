@@ -1,18 +1,20 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.util.Scanner;
+import exceptions.IllegalInstructionException;
 
 
 /**
  * Converts a user inputed string into an Instruction that can execute on the model.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public class Parser {
@@ -32,16 +34,16 @@ public class Parser {
     /**
      * Takes user input and converts it to either
      * <ol>
-     * <li> CompoundInstruction to be executed on the model. </li>
-     * <li> An exception to be displayed in the command history. </li>
+     * <li>CompoundInstruction to be executed on the model.</li>
+     * <li>An exception to be displayed in the command history.</li>
      * </ol>
+     * 
      * @param userInput - A string of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
      *         environment, throw this exception with argument of the incompatible string
      */
     public Instruction generateInstruction (String userInput) throws IllegalInstructionException {
-        userInput = userInput.toLowerCase();
         Preparser preparser = new Preparser(myEnvironment);
         String s = preparser.preParse(userInput);
         Scanner line = new Scanner(s);
@@ -49,11 +51,12 @@ public class Parser {
     }
 
     /**
-     * Takes user input and converts it to either
+     * Takes user input and creates an executable instruction
      * <ol>
-     * <li> CompoundInstruction to be executed on the model. </li>
-     * <li> An exception to be displayed in the command history. </li>
+     * <li>CompoundInstruction to be executed on the model.</li>
+     * <li>An exception to be displayed in the command history.</li>
      * </ol>
+     * 
      * @param line - A scanner of data to be parsed into an instruction.
      * @return The instruction that represents the user input.
      * @throws IllegalInstructionException If the instruction is not mapped in the
@@ -63,12 +66,12 @@ public class Parser {
         CompoundInstruction resultInstruct = new CompoundInstruction();
         while (line.hasNext()) {
             String commandName = line.next();
-            
-            Instruction result; 
-            if(commandName.equals("[")) {
+
+            Instruction result;
+            if (commandName.equals("[")) {
                 result = generateInstruction(new Scanner(parseList(line)));
             }
-            else if(commandName.charAt(0) == ':') {
+            else if (commandName.charAt(0) == ':') {
                 result = new VariableInstruction(commandName);
             }
             else {
@@ -121,9 +124,7 @@ public class Parser {
         String str = "";
         int counterBracket = 1;
         while (counterBracket != 0) {
-            if (!line.hasNext()) {
-                throw new IllegalInstructionException("");
-            }
+            if (!line.hasNext()) throw new IllegalInstructionException("");
             str = line.next();
             // TODO: use resources to define the brackets
             if (str.equals("[")) {

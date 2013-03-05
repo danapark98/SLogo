@@ -15,7 +15,9 @@ import exceptions.IncorrectFileFormatException;
  * Passes instructions to the parser and executes those instructions on the model.
  * Saves and loads the state of the model
  * 
+ * @author Scott Valentine
  * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public class Controller {
@@ -99,15 +101,15 @@ public class Controller {
     public void clear () {
         new ClearScreen().execute(myModel);
     }
-   
+
     /**
-     * Calls the view method to display the result of the command, or an error 
-     * message back to the user.  Appends an indicator string to the beginning
+     * Calls the view method to display the result of the command, or an error
+     * message back to the user. Appends an indicator string to the beginning
      * to differentiate the result from commands issued by the user.
      * 
      * @param s return message
      */
-    private void informView(String s) {
+    private void informView (String s) {
         myView.displayText(PRINT_INDICATOR + s);
     }
 }
