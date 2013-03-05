@@ -11,12 +11,6 @@ public class IllegalInstructionException extends Exception {
 
     private static final long serialVersionUID = 1L;
     
-    /**
-     * Some default messages that can be used.
-     */
-    public static final String DIVIDE_BY_ZERO = "Dividing by zero";
-    public static final String NEGATIVE = "Using a negative argument";
-
     /** String that resulted in the exception. */
     private String myCommand;
 

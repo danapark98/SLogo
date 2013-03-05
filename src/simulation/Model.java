@@ -1,11 +1,13 @@
 package simulation;
 
 import control.Environment;
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 
 /**
@@ -90,5 +92,17 @@ public class Model implements DisplayEditor {
      */
     public void addInstruction (String keyword, BaseInstruction instruction) {
         myEnvironment.addUserDefinedInstruction(keyword, instruction);
+    }
+    
+    /**
+     * Gives the Instruction associated with the passed keyword.
+     * 
+     * @param commandName - the keyword for the instruction
+     * @return The Instruction associated with the keyword
+     * @throws IllegalInstructionException This occurs when the keyword is not
+     *         found in the environment.
+     */
+    public BaseInstruction getVariableInstruction(String name) throws IllegalInstructionException {
+        return myEnvironment.systemInstructionSkeleton(name);
     }
 }

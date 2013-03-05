@@ -27,14 +27,14 @@ public class Remainder extends BaseInstruction {
      */
     private static final long serialVersionUID = -4013823908746631449L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    private static final String ERROR_MESSAGE = "Dividing by zero";
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
         int arg0 = nextOperand().execute(model);
         int arg1 = nextOperand().execute(model);
 
-        if (arg1 == 0) { throw new IllegalInstructionException(
-                                                               IllegalInstructionException.DIVIDE_BY_ZERO); }
+        if (arg1 == 0) { throw new IllegalInstructionException(ERROR_MESSAGE); }
         return arg0 % arg1;
     }
 

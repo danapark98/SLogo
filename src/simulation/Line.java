@@ -7,7 +7,13 @@ import util.Location;
 import util.Pixmap;
 import util.Sprite;
 
-
+/**
+ * Represents a 2d line as a sprite.
+ * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ */
 public class Line extends Sprite {
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("line.png");
     private Location myStart;

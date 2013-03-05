@@ -36,7 +36,7 @@ public class MakeUserInstruction extends BaseInstruction {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 4760595117209610147L;
-    private static final int NUMBER_OF_ARGUMENTS = 2;
+    private static final int NUMBER_OF_ARGUMENTS = 3;
     private String myCommandName;
 
     @Override
