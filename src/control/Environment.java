@@ -63,6 +63,10 @@ public class Environment {
         myInstructionMap.put(keyword, userInstruction);
     }
 
+    public void remove (String variableName) {
+        myInstructionMap.remove(variableName);        
+    }
+
     /**
      * Gives the Instruction associated with the passed keyword.
      * 

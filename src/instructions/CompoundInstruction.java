@@ -51,19 +51,12 @@ public class CompoundInstruction implements Instruction {
     public void add(Instruction instruction) {
         myInstructions.add(instruction);
     }
-
-    /**
-     * Copies this instruction by creating a new CompoundInstruction instance
-     * than contains copies of all the sub instructions.
-     * 
-     * @return Copy of this instruction.
-     */
-    public Instruction copy() {
-        CompoundInstruction copy = new CompoundInstruction();
-        for (Instruction i : myInstructions) {
-            copy.add(i);
-        }
-        return copy;
+    
+    public int getSize() {
+        return myInstructions.size();
     }
-
+    
+    public Instruction getInstruction (int index) {
+        return myInstructions.get(index);
+    }
 }

@@ -147,25 +147,28 @@ public class Preparser {
         return counter;
     }
 
-    private int getArgumentCount (String s) throws IllegalInstructionException {
-        if (isNumber(s) || s.charAt(0) == ':') {
+    /**
+     * Does not throw an exception because could be a user defined thing,
+     * like after a TO command.  if there is an error, it will get caught
+     * at a later point in regular parsing.
+     * 
+     * @param s
+     * @return
+     */
+    private int getArgumentCount (String s) {
+        if (s.charAt(0) == ':') {
             return -1;
         }
         else{
-            BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
-            return base.getNumberOfArguments();
+            try {
+                BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
+                return base.getNumberOfArguments();
+            }
+            catch (IllegalInstructionException e) {
+                return -1;
+            }
         }
 
-    }
-
-    private boolean isNumber (String s) {
-        try {
-            Integer.parseInt(s);
-            return true;
-        }
-        catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     private List<String> createRestOfList (List<String> wordsList, int index) {

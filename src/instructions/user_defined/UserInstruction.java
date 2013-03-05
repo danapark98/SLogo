@@ -2,6 +2,8 @@ package instructions.user_defined;
 
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import instructions.CompoundInstruction;
+import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
 
@@ -18,6 +20,7 @@ public class UserInstruction extends BaseInstruction {
      */
     private static final long serialVersionUID = 1776254460831303292L;
     private int myNumberOfArguments;
+    private CompoundInstruction myVariables;
     private Instruction myInstruction;
 
     /**
@@ -27,20 +30,42 @@ public class UserInstruction extends BaseInstruction {
      * @param numberOfArgs is the number of arguments this instruction takes.
      * @param instruction - the instruction that executes based on these arguments.
      */
-    public UserInstruction(int numberOfArgs, Instruction instruction) {
-        myNumberOfArguments = numberOfArgs;
-        myInstruction = instruction;
+    public UserInstruction(Instruction variables, Instruction commands) {
+        myVariables = (CompoundInstruction) variables;
+        myNumberOfArguments = myVariables.getSize();
+        myInstruction = commands;
     }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO: need a way of loading in arguments.
-        return myInstruction.execute(model);
+        addVariablesToEnvironment(model);
+        int result = myInstruction.execute(model);
+        removeVariablesFromEnvironment(model);
+        return result;        
+    }
+
+    private void addVariablesToEnvironment (Model model) throws IllegalInstructionException {
+        for (int i = 0; i < myNumberOfArguments; i++) {
+            VariableInstruction currentVariable = 
+                    (VariableInstruction) myVariables.getInstruction(i);
+            String variableName = currentVariable.getName();
+            int variableValue = nextOperand().execute(model);
+            model.addInstruction(variableName, new ConstantInstruction(variableValue));
+        }
+    }
+
+    private void removeVariablesFromEnvironment (Model model) {
+        for (int i = 0; i < myNumberOfArguments; i++) {
+            VariableInstruction currentVariable = 
+                    (VariableInstruction) myVariables.getInstruction(i);
+            String variableName = currentVariable.getName();
+            model.removeInstruction(variableName);
+        }
     }
 
     @Override
     public BaseInstruction newCopy() {
-        return new UserInstruction(myNumberOfArguments, myInstruction.newCopy());
+        return new UserInstruction(myVariables, myInstruction);
     }
 
     @Override

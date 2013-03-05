@@ -3,6 +3,7 @@ package instructions.user_defined;
 import control.Parser;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import instructions.Instruction;
 import java.util.Scanner;
 import simulation.Model;
 
@@ -38,18 +39,21 @@ public class MakeUserInstruction extends BaseInstruction {
     private static final long serialVersionUID = 4760595117209610147L;
     private static final int NUMBER_OF_ARGUMENTS = 3;
     private String myCommandName;
+    private Instruction myVariables;
+    private Instruction myCommands;
 
     @Override
-    public void load(Scanner line, Parser parser)
-        throws IllegalInstructionException {
+    public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myCommandName = line.next();
-
-        super.load(line, parser);
+        myVariables = parser.nextInstruction(line);
+        myCommands = parser.nextInstruction(line);
     }
 
     @Override
     public int execute(Model model) {
-
+        BaseInstruction instruction = new UserInstruction(myVariables, myCommands);
+        model.addInstruction(myCommandName, instruction);
+        return 1;
     }
 
     @Override

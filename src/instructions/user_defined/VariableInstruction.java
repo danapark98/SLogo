@@ -32,5 +32,9 @@ public class VariableInstruction implements Instruction {
             throw new IllegalInstructionException(ERROR_MESSAGE);
         }
     }
+    
+    public String getName() {
+        return myName;
+    }
 
 }

@@ -86,26 +86,4 @@ public abstract class BaseInstruction implements Instruction {
 
     public abstract int getNumberOfArguments();
 
-    // // the number of catch blocks suggests this might be a bad solution.
-    // public int getNumberOfArguments() {
-    // try {
-    // Field number = this.getClass().getDeclaredField("NUMBER_OF_ARGUMENTS");
-    // number.setAccessible(true);
-    // return number.getInt(this);
-    // }
-    // catch (NoSuchFieldException e) {
-    // e.printStackTrace();
-    // }
-    // catch (SecurityException e) {
-    // e.printStackTrace();
-    // }
-    // catch (IllegalArgumentException e) {
-    // e.printStackTrace();
-    // }
-    // catch (IllegalAccessException e) {
-    // e.printStackTrace();
-    // }
-    // return -1;
-    // }
-
 }

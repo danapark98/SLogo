@@ -68,4 +68,15 @@ public class Model implements DisplayEditor {
     public BaseInstruction getVariableInstruction(String name) throws IllegalInstructionException {
         return myEnvironment.systemInstructionSkeleton(name);
     }
+
+    /**
+     * Removes a variable from the environment.  This is done in the context
+     * of local variables, in which they should only be visible during a 
+     * function call.
+     * 
+     * @param variableName
+     */
+    public void removeInstruction (String variableName) {
+        myEnvironment.remove(variableName);
+    }
 }
