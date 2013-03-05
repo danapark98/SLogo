@@ -349,9 +349,12 @@ public class SLogoView extends View {
         return button;
     }
     /**
-     * Creates the String of final variables in the language resource package.
+     * Returns a string with the text from the language resource file.
+     * 
+     * @param name of the element
+     * @return name in the desired language specified in Main.
      */
-    private String getName(String name){
+    private String getName(String name) {
         return super.getResources().getString(name);
     }
 }
