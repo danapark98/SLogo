@@ -17,10 +17,6 @@ import exceptions.IllegalInstructionException;
  * 
  */
 public class Preparser {
-    
-    //TODO: put somewhere else
-    private static final String BRACKET_ERROR_MESSAGE = "] format";
-    
     private Environment myEnvironment;
 
     public Preparser (Environment environment) {
@@ -164,15 +160,10 @@ public class Preparser {
         return sb.toString();
     }
 
-    private int findRightBracket (List<String> wordsList, int counter) throws IllegalInstructionException {
+    private int findRightBracket (List<String> wordsList, int counter) {
         String str;
         int counterBracket = 1;
         while (counterBracket != 0) {
-            
-            if(counter >= wordsList.size()){
-              throw new IllegalInstructionException(BRACKET_ERROR_MESSAGE);
-            }
-            
             str = wordsList.get(counter);
             if (str.equals("[")) {
                 counterBracket++;
@@ -197,7 +188,7 @@ public class Preparser {
      * @return
      */
     private int getArgumentCount (String s) {
-        if (s.charAt(0) == ':')
+        if (s.startsWith(":"))
             return -1;
         else {
             try {

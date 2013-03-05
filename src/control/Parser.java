@@ -120,7 +120,7 @@ public class Parser {
      * @return an instruction that is made from the list.
      * @throws IllegalInstructionException if list not constructed properly
      */
-    private String parseList (Scanner line) throws IllegalInstructionException {
+    public String parseList (Scanner line) throws IllegalInstructionException {
         StringBuilder sb = new StringBuilder();
         String str = "";
         int counterBracket = 1;
