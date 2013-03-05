@@ -103,8 +103,9 @@ public class Parser {
      * @throws IllegalInstructionException if instruction not recognized
      */
     public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
-        if (!line.hasNext())
+        if (!line.hasNext()) {
             throw new IllegalInstructionException("");
+        }
         String next = line.next();
         if (next.equals("[")) {
             next = parseList(line);

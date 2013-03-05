@@ -79,8 +79,9 @@ public class Environment {
     public BaseInstruction systemInstructionSkeleton (String commandName)
                                                                          throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName))
+        if (!myInstructionMap.containsKey(commandName)) {
             throw new IllegalInstructionException(commandName);
+        }
         return myInstructionMap.get(commandName).newCopy();
     }
 

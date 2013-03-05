@@ -7,6 +7,7 @@ import util.Location;
 import util.Pixmap;
 import util.Sprite;
 
+
 /**
  * Represents a 2d line as a sprite.
  * 

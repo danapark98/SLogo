@@ -60,7 +60,7 @@ public class Preparser {
      * @return string without printed messages
      */
     private String removeResultIndicators (String s) {
-        String lines[] = s.split("\\r?\\n");
+        String[] lines = s.split("\\r?\\n");
         StringBuilder sb = new StringBuilder();
         for (String line : lines) {
             if (!line.startsWith(Controller.PRINT_INDICATOR)) {
@@ -80,8 +80,9 @@ public class Preparser {
      */
     private String addBrackets (String s) throws IllegalInstructionException {
         List<String> wordsList = createListFromString(s);
-        if (wordsList.size() < 3)
+        if (wordsList.size() < 3) {
             return s;
+        }
 
         ReturnValues rv = recurse(wordsList, Integer.MAX_VALUE);
         wordsList = rv.list;

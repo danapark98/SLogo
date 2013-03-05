@@ -8,7 +8,7 @@ package simulation;
  * @author Ellango Jothimurugesan
  */
 public interface DisplayEditor {
-    
+
     /**
      * Adds a line to this DisplayEditor
      * 
