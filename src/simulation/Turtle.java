@@ -21,7 +21,7 @@ import view.View;
  * @author Ellango Jothimurugesan
  */
 public class Turtle extends Sprite {
-    /**The picture of that represents the turtle on the screen. */
+    /** The picture of that represents the turtle on the screen. */
     public static final Pixmap DEFAULT_IMAGE = new Pixmap("turtle_art.png");
     /** The picture that represents the invisible turtle. */
     public static final Pixmap NO_IMAGE = new Pixmap("blank.png");
@@ -62,7 +62,7 @@ public class Turtle extends Sprite {
         int x = (int) current.getX();
         int y = (int) current.getY();
         int angle = (int) getAngle();
-        int[] currentStatus = {x, y, angle };
+        int[] currentStatus = {x, y, angle};
 
         for (int i = 0; i < myStatus.size(); i++) {
             ValueText vt = myStatus.get(i);
@@ -133,6 +133,10 @@ public class Turtle extends Sprite {
         return new Location(x, y);
     }
 
+    /**
+     * Moves the turtle by the provided magnitude, and also draws the lines for
+     * the turtle's path.
+     */
     @Override
     public void translate (Vector v) {
         drawLines(v.getMagnitude());
@@ -143,8 +147,7 @@ public class Turtle extends Sprite {
     }
 
     /**
-     * Calculates the next position of the turtle and draws all necessary lines between the last and
-     * next positions.
+     * Draws all necessary lines between the start and end positions.
      * 
      * @param distance is the distance between the last point and the next point.
      */
@@ -152,16 +155,23 @@ public class Turtle extends Sprite {
         Location start = new Location(getX(), getY());
         double angle = getAngle();
         if (distance < 0) {
-            // We are ignoring checkstyle here since the following operation only 'flips' the distance
+            // We are ignoring checkstyle here since the following operation only 'flips' the
+            // distance
             distance = -1 * distance;
             angle += REVERSE_ANGLE_VALUE;
         }
         recursiveLineCreation(distance, start, angle);
     }
 
-
+    /**
+     * Draws lines for the turtle one pixel at a time.
+     * 
+     * @param distanceRemaining
+     * @param start is the current position
+     * @param angle is the direction to draw the lines in
+     */
     private void recursiveLineCreation (double distanceRemaining, Location start, double angle) {
-        if (distanceRemaining < 0) { return; }
+        if (distanceRemaining < 0) return;
         Location end = new Location(start);
         end.translate(new Vector(angle, 1));
         if (!end.tryCorrectingBounds(View.PREFERRED_CANVAS_SIZE)) {

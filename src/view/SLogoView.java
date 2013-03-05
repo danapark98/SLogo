@@ -73,11 +73,11 @@ public class SLogoView extends View {
     /**
      * Initial size of the console area.
      */
-    private static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(250, 100);
+    private static final Dimension PREFERRED_CONSOLE_SIZE = new Dimension(350, 100);
     /**
      * Initial size of the history area.
      */
-    private static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 200);
+    private static final Dimension PREFERRED_HISTORY_SIZE = new Dimension(350, 180);
     /**
      * Serial value.
      */
@@ -159,7 +159,7 @@ public class SLogoView extends View {
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
         JPanel contentPanel = new JPanel();
-        workspace.addTab(WORKSPACE_NAME, null, contentPanel, SLOGO_NAME);
+        workspace.addTab(getName(WORKSPACE_NAME), null, contentPanel, SLOGO_NAME);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_OFFSET,
                                                                BORDER_OFFSET, BORDER_OFFSET,
@@ -255,7 +255,7 @@ public class SLogoView extends View {
      */
     private JButton makeLeftButton () {
         final String COMMAND = LEFT_COMMAND + DEFAULT_TURN_MAG;
-        return makeTurtleMoveButton(super.getResources().getString(LEFT_LABEL), COMMAND);
+        return makeTurtleMoveButton(getName(LEFT_LABEL), COMMAND);
     }
     /**
      * Creates a button that turns the turtle right.
@@ -264,7 +264,7 @@ public class SLogoView extends View {
      */
     private JButton makeRightButton () {
         final String COMMAND = RIGHT_COMMAND + DEFAULT_TURN_MAG;
-        return makeTurtleMoveButton(super.getResources().getString(RIGHT_LABEL), COMMAND);
+        return makeTurtleMoveButton(getName(RIGHT_LABEL), COMMAND);
     }
     /**
      * Creates a button that moves the turtle forward.
@@ -273,7 +273,7 @@ public class SLogoView extends View {
      */
     private JButton makeForwardButton () {
         final String COMMAND = FD_COMMAND + DEFAULT_FD_MAG;
-        return makeTurtleMoveButton(super.getResources().getString(FORWARD_LABEL), COMMAND);
+        return makeTurtleMoveButton(getName(FORWARD_LABEL), COMMAND);
     }
     /**
      * Creates a button that moves the turtle backward.
@@ -282,7 +282,7 @@ public class SLogoView extends View {
      */
     private JButton makeBackwardButton () {
         final String COMMAND = FD_COMMAND + -DEFAULT_FD_MAG;
-        return makeTurtleMoveButton(super.getResources().getString(BACKWARD_LABEL), COMMAND);
+        return makeTurtleMoveButton(getName(BACKWARD_LABEL), COMMAND);
     }
     /**
      * Creates a button that moves the turtle forward.
@@ -304,7 +304,7 @@ public class SLogoView extends View {
      * @return submit button
      */
     private JButton makeSubmitButton () {
-        JButton button = new JButton(super.getResources().getString(SUBMIT_LABEL));
+        JButton button = new JButton(getName(SUBMIT_LABEL));
         final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
@@ -324,7 +324,7 @@ public class SLogoView extends View {
     private Border makeBorder (String panelName) {
         Border border;
         border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
-                       super.getResources().getString(panelName)),
+                       getName(panelName)),
                        BorderFactory.createEmptyBorder(BORDER_OFFSET, BORDER_OFFSET, 
                                                        BORDER_OFFSET, BORDER_OFFSET));
         
@@ -347,5 +347,14 @@ public class SLogoView extends View {
             }
         });
         return button;
+    }
+    /**
+     * Returns a string with the text from the language resource file.
+     * 
+     * @param name of the element
+     * @return name in the desired language specified in Main.
+     */
+    private String getName(String name) {
+        return super.getResources().getString(name);
     }
 }
