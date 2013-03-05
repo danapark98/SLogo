@@ -69,7 +69,7 @@ public class Parser {
 
             Instruction result;
             if (commandName.equals("[")) {
-                result = generateInstruction(new Scanner(parseList(line)));
+            	result = generateInstruction(new Scanner(parseList(line)));
             }
             else if (commandName.charAt(0) == ':') {
                 result = new VariableInstruction(commandName);
