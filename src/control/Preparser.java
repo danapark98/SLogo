@@ -92,7 +92,6 @@ public class Preparser {
 
     private ReturnValues recurse (List<String> wordsList, int argCount)
                                                                        throws IllegalInstructionException {
-        List<String> restOfList = new ArrayList<String>();
         int counter = 0;
         for (int i = 0; i < argCount; i++) {
             if (counter >= wordsList.size()) {
@@ -114,10 +113,10 @@ public class Preparser {
             else {
                 wordsList.add(counter, "[");
                 counter++;
-                restOfList = createRestOfList(wordsList, counter);
+                List<String> restOfList = createRestOfList(wordsList, counter);
                 ReturnValues rv = recurse(restOfList, getArgumentCount(command));
                 counter += rv.counterChange;
-                merge(wordsList, rv.list);
+                wordsList.addAll(rv.list);
                 counter++;
                 wordsList.add(counter, "]");
                 counter++;
@@ -126,12 +125,14 @@ public class Preparser {
         return new ReturnValues(wordsList, counter);
     }
 
+    /**
+     * Inserts insideList into wordsList at the index counter.
+     * 
+     * Returns the new counter after insertion.
+     */
     private int insertList (List<String> insideList, List<String> wordsList, int counter) {
-        for (String str : insideList) {
-            wordsList.add(counter, str);
-            counter++;
-        }
-        return counter;
+        wordsList.addAll(counter, insideList);
+        return counter + insideList.size();
     }
 
     private List<String> createListFromString (String s) {
@@ -143,19 +144,22 @@ public class Preparser {
         return wordsList;
     }
 
-    // removes entries between counter (inclusive) and indexOfRightBracket (exclusive)
-    // in wordsList
+    /**
+     * Creates a string from the entries in wordsList starting at startIndex 
+     * (inclusive) and ending at endIndex (exclusive) and removes those entries
+     * from the wordsList
+     */
     private String createStringFromList (List<String> wordsList,
-                                         int counter,
-                                         int indexOfRightBracket) {
+                                         int startIndex,
+                                         int endIndex) {
         StringBuilder sb = new StringBuilder();
-        for (int i = counter; i < indexOfRightBracket; i++) {
+        for (int i = startIndex; i < endIndex; i++) {
             String str = wordsList.get(i);
             sb.append(str);
             sb.append(" ");
         }
-        for (int i = counter; i < indexOfRightBracket; i++) {
-            wordsList.remove(counter);
+        for (int i = startIndex; i < endIndex; i++) {
+            wordsList.remove(startIndex);
         }
         return sb.toString();
     }
@@ -183,9 +187,6 @@ public class Preparser {
      * Does not throw an exception because could be a user defined thing,
      * like after a TO command. if there is an error, it will get caught
      * at a later point in regular parsing.
-     * 
-     * @param s
-     * @return
      */
     private int getArgumentCount (String s) {
         if (s.startsWith(":"))
@@ -202,6 +203,10 @@ public class Preparser {
 
     }
 
+    /**
+     * adds everything from wordsList after the provided index into a new
+     * list and removes those entries from wordsList
+     */
     private List<String> createRestOfList (List<String> wordsList, int index) {
         List<String> result = new ArrayList<String>();
         for (int i = index + 1; i < wordsList.size(); i++) {
@@ -212,11 +217,5 @@ public class Preparser {
             wordsList.remove(index + 1);
         }
         return result;
-    }
-
-    private void merge (List<String> wordsList, List<String> restOfList) {
-        for (String s : restOfList) {
-            wordsList.add(s);
-        }
     }
 }

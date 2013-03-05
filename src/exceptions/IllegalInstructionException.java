@@ -1,8 +1,8 @@
 package exceptions;
 
 /**
- * Exception for instructions that are not defined in the current environment.
- * used by the Parser.
+ * Exception for instructions and variables that are not defined in the current 
+ * environment.
  * 
  * @author Scott Valentine
  * 
