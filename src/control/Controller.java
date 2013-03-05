@@ -22,6 +22,7 @@ import exceptions.IncorrectFileFormatException;
  */
 public class Controller {
 
+    /** Indicates a non-command string in the console history.*/
     public static final String PRINT_INDICATOR = ">> ";
     private Model myModel;
     private View myView;
