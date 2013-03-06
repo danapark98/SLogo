@@ -50,9 +50,6 @@ public class ViewFileMenu {
     }
     private AbstractAction makeMenuBarNew() {
         return new AbstractAction(myView.getResources().getString(NEW)) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = -686883125108316843L;
 
             @Override
@@ -63,7 +60,7 @@ public class ViewFileMenu {
             }
         };
     }
-    
+    //TODO: refactor the menubar operator methods.
     private AbstractAction makeMenuBarOpen() {
         return new AbstractAction(myView.getResources().getString(OPEN)) {
             /**
@@ -90,9 +87,6 @@ public class ViewFileMenu {
     
     private AbstractAction makeMenuBarSave() {
         return new AbstractAction(myView.getResources().getString(SAVE)) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = -686883125108316843L;
 
             @Override
