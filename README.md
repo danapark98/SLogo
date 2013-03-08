@@ -1,14 +1,15 @@
 SLogo
 
 Team 2:
-�Ryan Fishel (ref13@duke.edu) 
-�Ellango Jothimurugesan (ej48@duke.edu) 
-�Scott Valentine (sdv4@duke.edu)
-�Sean Wareham (srw22@duke.edu) 
-�Elder Yoshida (emy2@duke.edu)
-�Mentor: Volodymyr Zavidovych (vz4@duke.edu)
-�Repository: https://github.com/srwareham/SLogo
-
+<ul>
+<li> Ryan Fishel (ref13@duke.edu) 
+<li> Ellango Jothimurugesan (ej48@duke.edu) 
+<li> Scott Valentine (sdv4@duke.edu)
+<li> Sean Wareham (srw22@duke.edu) 
+<li> Elder Yoshida (emy2@duke.edu)
+<li> Mentor: Volodymyr Zavidovych (vz4@duke.edu)
+<li> Repository: https://github.com/srwareham/SLogo
+</ul>
 Start date: February 15, 2013
 
 <hr>
