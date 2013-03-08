@@ -154,7 +154,7 @@ public class SLogoView extends View {
     private JTabbedPane makeMainPanel () {
         JTabbedPane workspace = new JTabbedPane();
         JPanel contentPanel = new JPanel();
-        workspace.addTab(getName(WORKSPACE_NAME), null, contentPanel, SLOGO_NAME);
+        workspace.addTab(getResourceName(WORKSPACE_NAME), null, contentPanel, SLOGO_NAME);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.LINE_AXIS));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_OFFSET,
                                                                BORDER_OFFSET, BORDER_OFFSET,
@@ -255,7 +255,7 @@ public class SLogoView extends View {
      */
     private JButton makeLeftButton () {
         final String COMMAND = LEFT_COMMAND + DEFAULT_TURN_MAG;
-        return makeTurtleMoveButton(getName(LEFT_LABEL), COMMAND);
+        return makeTurtleMoveButton(getResourceName(LEFT_LABEL), COMMAND);
     }
 
     /**
@@ -265,7 +265,7 @@ public class SLogoView extends View {
      */
     private JButton makeRightButton () {
         final String COMMAND = RIGHT_COMMAND + DEFAULT_TURN_MAG;
-        return makeTurtleMoveButton(getName(RIGHT_LABEL), COMMAND);
+        return makeTurtleMoveButton(getResourceName(RIGHT_LABEL), COMMAND);
     }
 
     /**
@@ -275,7 +275,7 @@ public class SLogoView extends View {
      */
     private JButton makeForwardButton () {
         final String COMMAND = FD_COMMAND + DEFAULT_FD_MAG;
-        return makeTurtleMoveButton(getName(FORWARD_LABEL), COMMAND);
+        return makeTurtleMoveButton(getResourceName(FORWARD_LABEL), COMMAND);
     }
 
     /**
@@ -285,7 +285,7 @@ public class SLogoView extends View {
      */
     private JButton makeBackwardButton () {
         final String COMMAND = FD_COMMAND + -DEFAULT_FD_MAG;
-        return makeTurtleMoveButton(getName(BACKWARD_LABEL), COMMAND);
+        return makeTurtleMoveButton(getResourceName(BACKWARD_LABEL), COMMAND);
     }
 
     /**
@@ -309,7 +309,7 @@ public class SLogoView extends View {
      * @return submit button
      */
     private JButton makeSubmitButton () {
-        JButton button = new JButton(getName(SUBMIT_LABEL));
+        JButton button = new JButton(getResourceName(SUBMIT_LABEL));
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -355,7 +355,7 @@ public class SLogoView extends View {
         Border border;
         border =
                 BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
-                        getName(panelName)),
+                        getResourceName(panelName)),
                                                    BorderFactory.createEmptyBorder(BORDER_OFFSET,
                                                                                    BORDER_OFFSET,
                                                                                    BORDER_OFFSET,
@@ -370,7 +370,7 @@ public class SLogoView extends View {
      * @param name of the element
      * @return name in the desired language specified in Main.
      */
-    private String getName (String name) {
+    private String getResourceName (String name) {
         return super.getResources().getString(name);
     }
 }

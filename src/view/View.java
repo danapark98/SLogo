@@ -18,7 +18,7 @@ import javax.swing.JMenuBar;
  * 
  */
 public abstract class View extends JFrame {
-    
+
     /**
      * Preferred Dimensions of the Canvas.
      */
@@ -27,10 +27,10 @@ public abstract class View extends JFrame {
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String ENGLISH = "English";
     private static final String USER_DIR = "user.dir";
-    
+
     private ResourceBundle myResources;
     private Canvas myCanvas;
-    private Controller myController; 
+    private Controller myController;
     private String myLanguage;
     private JFileChooser myChooser;
 
@@ -68,7 +68,7 @@ public abstract class View extends JFrame {
      * @return
      */
     protected abstract JComponent makeCanvasPanel ();
-    
+
     /**
      * Create a menu to appear at the top of the frame,
      * usually File, Edit, App Specific Actions, Help
@@ -79,8 +79,6 @@ public abstract class View extends JFrame {
         result.add(menu.makeFileMenu());
         return result;
     }
-    
-    
 
     /**
      * Method to display a text to the user in a display Box.
@@ -110,33 +108,39 @@ public abstract class View extends JFrame {
         myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
         myCanvas.start(this);
     }
-    
-    protected Controller getController() {
+
+    protected Controller getController () {
         return myController;
     }
-    
-    protected Canvas getCanvas() {
+
+    protected Canvas getCanvas () {
         return myCanvas;
     }
+
     /**
      * Returns the Resources from the View.
-     * @return 
+     * 
+     * @return
      */
-    public ResourceBundle getResources() {
+    public ResourceBundle getResources () {
         return myResources;
     }
+
     /**
      * returns the JFileChooser for the View.
+     * 
      * @return
      */
-    public JFileChooser getChooser() {
+    public JFileChooser getChooser () {
         return myChooser;
     }
+
     /**
      * Returns the current language of the View.
+     * 
      * @return
      */
-    public String getLanguage() {
+    public String getLanguage () {
         return myLanguage;
     }
 }
