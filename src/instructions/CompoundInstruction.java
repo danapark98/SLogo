@@ -1,9 +1,9 @@
 package instructions;
 
-import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -30,12 +30,12 @@ public class CompoundInstruction implements Instruction {
     /**
      * Creates a new empty CompoundInstruction.
      */
-    public CompoundInstruction() {
+    public CompoundInstruction () {
         myInstructions = new ArrayList<Instruction>();
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int lastReturn = 0;
         for (Instruction i : myInstructions) {
             lastReturn = i.execute(model);
@@ -48,14 +48,14 @@ public class CompoundInstruction implements Instruction {
      * 
      * @param instruction to be added to this compound instruction.
      */
-    public void add(Instruction instruction) {
+    public void add (Instruction instruction) {
         myInstructions.add(instruction);
     }
-    
-    public int getSize() {
+
+    public int getSize () {
         return myInstructions.size();
     }
-    
+
     public Instruction getInstruction (int index) {
         return myInstructions.get(index);
     }

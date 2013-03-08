@@ -1,12 +1,12 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.util.Scanner;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -21,7 +21,7 @@ public class Parser {
 
     public static final String BEGINNING_OF_LIST = "[";
     public static final String END_OF_LIST = "]";
-    public static final String START_OF_VARIABLE = ":"; 
+    public static final String START_OF_VARIABLE = ":";
     private static final String ARGUMENT_ERROR_MESSAGE = "Incorrect number of arguments";
     private static final String LIST_ERROR_MESSAGE = "Incorrect bracket formatting";
     /** Environment contains the system functions and user defined variables/functions. */
@@ -108,9 +108,7 @@ public class Parser {
      * @throws IllegalInstructionException if instruction not recognized
      */
     public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
-        if (!line.hasNext()) {
-            throw new IllegalInstructionException(ARGUMENT_ERROR_MESSAGE);
-        }
+        if (!line.hasNext()) throw new IllegalInstructionException(ARGUMENT_ERROR_MESSAGE);
         String next = line.next();
         if (next.equals(BEGINNING_OF_LIST)) {
             next = unpackList(line);
@@ -140,15 +138,21 @@ public class Parser {
         return sb.toString();
     }
 
-    public static int updateCounterBracket(String str, int counterBracket) {
-        if (str.equals(BEGINNING_OF_LIST)) {
+    /**
+     * A helper method used for traversing lists.
+     * It is used in the context of a loop to keep track of how many brackets
+     * have been seen so far (left brackets count as positive, right brackets
+     * are negative)
+     * 
+     * @param str is the current string being considered
+     * @param counterBracket is the current number of brackets
+     * @return the updated counterBracket
+     */
+    static int updateCounterBracket (String str, int counterBracket) {
+        if (str.equals(BEGINNING_OF_LIST))
             return counterBracket + 1;
-        }
-        else if (str.equals(END_OF_LIST)) {
+        else if (str.equals(END_OF_LIST))
             return counterBracket - 1;
-        }
-        else {
-            return counterBracket;
-        }
+        else return counterBracket;
     }
 }

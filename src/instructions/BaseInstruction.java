@@ -1,24 +1,24 @@
 package instructions;
 
-import control.Parser;
-import exceptions.CorruptedEnvironmentException;
-import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
+import control.Parser;
+import exceptions.CorruptedEnvironmentException;
+import exceptions.IllegalInstructionException;
 
 
 /**
  * Represents an instruction definition in the predefined instruction set. These
  * include: <br>
  * <ul>
- *  <li>Turtle actions (forward, left, etc.)
- *  <li>Boolean operations (and, or, equal, etc.)
- *  <li>Math operations (sum, difference, product, quotient, etc.)
- *  <li>User-defined instruction (if, repeat, make instruction, make variable, etc.)
- *  </ul>
- *  Note that any instruction to be added should in someway extend this class.
+ * <li>Turtle actions (forward, left, etc.)
+ * <li>Boolean operations (and, or, equal, etc.)
+ * <li>Math operations (sum, difference, product, quotient, etc.)
+ * <li>User-defined instruction (if, repeat, make instruction, make variable, etc.)
+ * </ul>
+ * Note that any instruction to be added should in someway extend this class.
  * 
  * @author Scott Valentine
  * @author Ryan Fishel
@@ -44,8 +44,8 @@ public abstract class BaseInstruction implements Instruction {
      *         instruction that does not exist or has not been defined
      */
 
-    public void load(Scanner line, Parser parser)
-        throws IllegalInstructionException {
+    public void load (Scanner line, Parser parser)
+                                                  throws IllegalInstructionException {
         List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
             operands.add(parser.nextInstruction(line));
@@ -53,7 +53,7 @@ public abstract class BaseInstruction implements Instruction {
         myOperands = operands.listIterator();
     }
 
-    public Instruction nextOperand() {
+    public Instruction nextOperand () {
         if (!myOperands.hasNext()) {
             resetOperands();
         }
@@ -63,7 +63,7 @@ public abstract class BaseInstruction implements Instruction {
     /**
      * used when the execute method is called more than once.
      */
-    private void resetOperands() {
+    private void resetOperands () {
         while (myOperands.hasPrevious()) {
             myOperands.previous();
         }
@@ -75,21 +75,22 @@ public abstract class BaseInstruction implements Instruction {
      * @return a copy of this instruction
      */
 
-    public BaseInstruction newCopy() {
+    public BaseInstruction newCopy () {
         BaseInstruction copy = null;
         try {
             copy = this.getClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+        }
+        catch (InstantiationException | IllegalAccessException e) {
             throw new CorruptedEnvironmentException();
         }
         return copy;
     }
 
-    public int getNumberOfArguments() {
+    public int getNumberOfArguments () {
         return myNumberOfArguments;
     }
-    
-    protected void setNumberOfArguments(int numberOfArguments) {
+
+    protected void setNumberOfArguments (int numberOfArguments) {
         myNumberOfArguments = numberOfArguments;
     }
 

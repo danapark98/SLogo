@@ -28,12 +28,12 @@ public class Pixmap {
     public Pixmap (String fileName) {
         setImage(fileName);
     }
-    
+
     /**
      * Returns the file name from which the image was created.
      */
     @Override
-    public String toString() {
+    public String toString () {
         return myFileName;
     }
 

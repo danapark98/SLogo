@@ -62,7 +62,7 @@ public class Turtle extends Sprite {
         int x = (int) current.getX();
         int y = (int) current.getY();
         int angle = (int) getAngle();
-        int[] currentStatus = {x, y, angle};
+        int[] currentStatus = { x, y, angle };
 
         for (int i = 0; i < myStatus.size(); i++) {
             ValueText vt = myStatus.get(i);

@@ -112,7 +112,7 @@ public class Model implements DisplayEditor {
      * 
      * @param variableName
      */
-    public void removeInstruction (String variableName) {
-        myEnvironment.remove(variableName);
+    public void removeVariable (String variableName) {
+        myEnvironment.removeInstruction(variableName);
     }
 }

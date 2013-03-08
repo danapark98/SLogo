@@ -27,7 +27,7 @@ public class UserInstruction extends BaseInstruction {
      * parameters it takes and how it acts on those parameters.
      * 
      * @param numberOfArgs is the number of arguments this instruction takes.
-     * @param instruction - the instruction that executes based on these arguments.
+     * @param commands - the instruction that executes based on these arguments.
      */
     public UserInstruction(Instruction variables, Instruction commands) {
         myVariables = (CompoundInstruction) variables;
@@ -58,7 +58,7 @@ public class UserInstruction extends BaseInstruction {
             VariableInstruction currentVariable = 
                     (VariableInstruction) myVariables.getInstruction(i);
             String variableName = currentVariable.getName();
-            model.removeInstruction(variableName);
+            model.removeVariable(variableName);
         }
     }
 

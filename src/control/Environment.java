@@ -1,8 +1,5 @@
 package control;
 
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +10,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 
 
 /**
@@ -66,11 +65,13 @@ public class Environment {
 
     /**
      * Deletes an instruction from the environment.
+     * Variable scope is implemented by removing the variableInstruction when
+     * it is no longer visible.
      * 
-     * @param variableName of the instuction to be deleted.
+     * @param instructionName of the instruction to be deleted.
      */
-    public void remove (String variableName) {
-        myInstructionMap.remove(variableName);
+    public void removeInstruction (String instructionName) {
+        myInstructionMap.remove(instructionName);
     }
 
     /**
@@ -82,11 +83,11 @@ public class Environment {
      *         found in the environment.
      */
     public BaseInstruction systemInstructionSkeleton (String commandName)
-        throws IllegalInstructionException {
+                                                                         throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName)) {
-            throw new IllegalInstructionException(commandName);
-        }
+        if (!myInstructionMap.containsKey(commandName))
+            throw new IllegalInstructionException(
+                                                  commandName);
         return myInstructionMap.get(commandName).newCopy();
     }
 
@@ -99,7 +100,6 @@ public class Environment {
      * 
      */
     @SuppressWarnings("unchecked")
-    // will only load from files saved by save()
     public void load (InputStream is) throws IncorrectFileFormatException {
         ObjectInput in;
         try {

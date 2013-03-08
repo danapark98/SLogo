@@ -1,8 +1,5 @@
 package control;
 
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import instructions.Instruction;
 import instructions.turtle.ClearScreen;
 import java.io.InputStream;
@@ -10,7 +7,9 @@ import java.io.OutputStream;
 import java.util.ResourceBundle;
 import simulation.Model;
 import view.View;
-
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 
 
 /**
@@ -24,7 +23,7 @@ import view.View;
  */
 public class Controller {
 
-    /** String that indicated a return result from a user input*/
+    /** String that indicated a return result from a user input */
     public static final String PRINT_INDICATOR = ">> ";
     private Model myModel;
     private View myView;

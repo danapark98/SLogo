@@ -17,6 +17,7 @@ import exceptions.IllegalInstructionException;
  * 
  */
 public class Preparser {
+    private static final int MIN_SIZE_WHEN_BRACKETS_NEEDED = 3;
     private Environment myEnvironment;
 
     /**
@@ -28,10 +29,9 @@ public class Preparser {
         myEnvironment = environment;
     }
 
-
     /**
      * Takes user input, converts to lower case so that case does not matter,
-     * removes lines starting with a print indicator message, and add brackets
+     * removes lines starting with a print indicator message, and adds brackets
      * so that the parser knows where arguments start and end.
      * 
      * @param s original user input
@@ -76,21 +76,29 @@ public class Preparser {
      */
     private String addBrackets (String s) throws IllegalInstructionException {
         List<String> wordsList = createListFromString(s);
-        if (wordsList.size() < 3) {
-            return s;
-        }
+        if (wordsList.size() < MIN_SIZE_WHEN_BRACKETS_NEEDED) return s;
 
-        // the second argument should just be arbitrarily large, so that it 
-        // can read every instruction provided.  the argument for the recursive
-        // method only has a context when called by itself
+        // the second argument should just be arbitrarily large, so that it
+        // can read every instruction provided. the second argument for the
+        // method only has a context when called by itself.
         ReturnValues rv = recurse(wordsList, Integer.MAX_VALUE);
-        wordsList = rv.list;
+        wordsList = rv.getList();
 
         return createStringFromList(wordsList, 0, wordsList.size());
     }
 
+    /**
+     * Helper method called by addBrackets
+     * Traverses through wordsList and adds brackets around every single instruction
+     * taking into account the number of arguments it takes.
+     * 
+     * @param wordsList is the current list of words to add brackets to
+     * @param argCount is the number of arguments an instruction asks for
+     * @return an object that contains the new list updated with brackets as
+     *         well as the counter in the list of words that is currently being operated on
+     */
     private ReturnValues recurse (List<String> wordsList, int argCount)
-        throws IllegalInstructionException {
+                                                                       throws IllegalInstructionException {
         int counter = 0;
         for (int i = 0; i < argCount; i++) {
             if (counter >= wordsList.size()) {
@@ -114,8 +122,8 @@ public class Preparser {
                 counter++;
                 List<String> restOfList = createRestOfList(wordsList, counter);
                 ReturnValues rv = recurse(restOfList, getArgumentCount(command));
-                counter += rv.counterChange;
-                wordsList.addAll(rv.list);
+                counter += rv.getCounterChange();
+                wordsList.addAll(rv.getList());
                 counter++;
                 wordsList.add(counter, Parser.END_OF_LIST);
                 counter++;
@@ -134,6 +142,9 @@ public class Preparser {
         return counter + insideList.size();
     }
 
+    /**
+     * Creates a list of each word in a string
+     */
     private List<String> createListFromString (String s) {
         String[] words = s.split("\\s+");
         List<String> wordsList = new ArrayList<String>();
@@ -144,7 +155,7 @@ public class Preparser {
     }
 
     /**
-     * Creates a string from the entries in wordsList starting at startIndex 
+     * Creates a string from the entries in wordsList starting at startIndex
      * (inclusive) and ending at endIndex (exclusive) and removes those entries
      * from the wordsList
      */
@@ -163,6 +174,15 @@ public class Preparser {
         return sb.toString();
     }
 
+    /**
+     * Finds the right bracket corresponding to the left bracket read in
+     * prior to calling the method
+     * 
+     * @param wordsList
+     * @param counter of where to start in the list (the index right after the
+     *        left bracket)
+     * @return the index of the right bracket
+     */
     private int findRightBracket (List<String> wordsList, int counter) {
         int counterBracket = 1;
         while (counterBracket != 0) {
@@ -176,14 +196,16 @@ public class Preparser {
     }
 
     /**
+     * Returns the number of arguments that an instruction requires.
+     * If the string is a variable or number, returns -1 to indicate special case
+     * 
      * Does not throw an exception because could be a user defined thing,
      * like after a TO command. if there is an error, it will get caught
      * at a later point in regular parsing.
      */
     private int getArgumentCount (String s) {
-        if (s.startsWith(Parser.START_OF_VARIABLE)) {
+        if (s.startsWith(Parser.START_OF_VARIABLE))
             return -1;
-        }
         else {
             try {
                 BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
@@ -211,15 +233,26 @@ public class Preparser {
         }
         return result;
     }
-    
 
+    /**
+     * A wrapper class that contains both a list and an integer so that both
+     * values can be returned by a method call.
+     */
     private class ReturnValues {
-        public List<String> list;
-        public int counterChange;
+        private List<String> myList;
+        private int myCounterChange;
 
         public ReturnValues (List<String> rest, int counter) {
-            list = rest;
-            counterChange = counter;
+            myList = rest;
+            myCounterChange = counter;
+        }
+
+        public List<String> getList () {
+            return myList;
+        }
+
+        public int getCounterChange () {
+            return myCounterChange;
         }
     }
 }

@@ -22,9 +22,15 @@ public abstract class BooleanInstruction extends BaseInstruction {
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         boolean b = executeBoolean(model);
-        return b? 1:0;
+        return b? 1 : 0;
     }
     
+    /**
+     * TODO: write comment.
+     * @param model
+     * @return
+     * @throws IllegalInstructionException
+     */
     public abstract boolean executeBoolean(Model model) throws IllegalInstructionException; 
 
 

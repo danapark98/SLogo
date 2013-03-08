@@ -1,19 +1,18 @@
 package instructions;
 
-import exceptions.IllegalInstructionException;
 import java.io.Serializable;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
- * Represents every user or otherwise generated instruction that acts on the model.
- * <br><br>
- * for instance, if the user types in:
- * fd 50 right 90 fd 90
+ * Represents every user or otherwise generated instruction that acts on the model. <br>
  * <br>
- * and a CompoundInstruction will be made consisting of the BaseInstructions 
- * (Forward, Rotate, Forward) that will act on the turtle.
- * <br><br>
+ * for instance, if the user types in:
+ * fd 50 right 90 fd 90 <br>
+ * and a CompoundInstruction will be made consisting of the BaseInstructions
+ * (Forward, Rotate, Forward) that will act on the turtle. <br>
+ * <br>
  * Instruction extends <i>Serializable</i> so that all classes that implement this can
  * be saved and restored.
  * 
@@ -32,10 +31,9 @@ public interface Instruction extends Serializable {
      * 
      * @param model is the model on which this Instruction will execute
      * @throws IllegalInstructionException if instruction cannot be performed
-     * (i.e. dividing by zero) or if the parameter do not match the specified format
-     * (i.e.  <i>fd</i> , where no parameter can be read).
+     *         (i.e. dividing by zero) or if the parameter do not match the specified format
+     *         (i.e. <i>fd</i> , where no parameter can be read).
      */
     public int execute (Model model) throws IllegalInstructionException;
-
 
 }

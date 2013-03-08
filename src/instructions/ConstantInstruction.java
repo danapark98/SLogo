@@ -29,18 +29,18 @@ public class ConstantInstruction extends BaseInstruction {
      * 
      * @param value is the integer this instruction will represent.
      */
-    public ConstantInstruction(int value) {
+    public ConstantInstruction (int value) {
         myValue = value;
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         return myValue;
     }
 
     @Override
-    public BaseInstruction newCopy() {
+    public BaseInstruction newCopy () {
         return new ConstantInstruction(myValue);
     }
 

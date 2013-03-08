@@ -1,6 +1,5 @@
 package control;
 
-import exceptions.CorruptedEnvironmentException;
 import instructions.BaseInstruction;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,6 +8,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import exceptions.CorruptedEnvironmentException;
+
 
 /**
  * Creates a map for all of the instructions in the user defined text file of
@@ -26,7 +27,7 @@ public class InstructionMapFactory {
 
     /** Default Language */
     // TODO: make one of these (currently one here and one in view)
-    public static final String ENGLISH_LANGUAGE = "English";
+    private static final String ENGLISH_LANGUAGE = "English";
 
     /** Location of all instruction classpath data. */
     private static final String INSTRUCTION_INDEX_FILE =
@@ -34,6 +35,7 @@ public class InstructionMapFactory {
 
     /** Default location of the resources package. */
     // TODO: make one of these (currently one here and one in view)
+    private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String PROPERTIES_SEPERATOR = "[,]";
 
@@ -44,9 +46,9 @@ public class InstructionMapFactory {
     private static final char COMMENT_CHARACTER = '#';
 
     /** Resources for SLogo */
-    // TODO: we currently have two of these (one for view and one here), want
-    // only one
     private ResourceBundle myResources;
+
+    private static final String ERROR_MESSAGE = "Missing instruction class names";
 
     /**
      * Instantiates the factory based on the language to be used for the
@@ -85,14 +87,14 @@ public class InstructionMapFactory {
      */
     public Map<String, BaseInstruction> buildInstructionMap () {
 
-        String currentDirectory = System.getProperty("user.dir");
+        String currentDirectory = System.getProperty(USER_DIR);
 
         FileReader fileToBeRead = null;
         try {
             fileToBeRead = new FileReader(currentDirectory + INSTRUCTION_INDEX_FILE);
         }
         catch (FileNotFoundException e) {
-            throw new MissingResourceException("Missing instruction class names", "", "");
+            throw new MissingResourceException(ERROR_MESSAGE, "", "");
         }
         Scanner line = new Scanner(fileToBeRead);
 
@@ -127,9 +129,9 @@ public class InstructionMapFactory {
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
                 throw new CorruptedEnvironmentException();
-                // TODO:  add meaning full exception message
+                // TODO: add meaning full exception message
             }
-            
+
             // gets parameters from line
             String className = getClassName(line);
 

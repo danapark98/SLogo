@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Exception for instructions and variables that are not defined in the current 
+ * Exception for instructions and variables that are not defined in the current
  * environment.
  * 
  * @author Scott Valentine
@@ -9,7 +9,7 @@ package exceptions;
  */
 @SuppressWarnings("serial")
 public class IllegalInstructionException extends Exception {
-    
+
     /** String that resulted in the exception. */
     private String myCommand;
 
