@@ -1,10 +1,25 @@
 package instructions.turtle;
 
-import simulation.Model;
-import simulation.Turtle;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+import simulation.Turtle;
 
+/**
+ * Represents any instruction that changes the heading of the turtle. 
+ * These include the instructions:
+ * <ul>
+ * <li> Left
+ * <li> Right
+ * <li> SetHeading
+ * <li> etc.
+ * </ul>
+ * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ * 
+ */
 public abstract class Rotate extends BaseInstruction {
 
     /**

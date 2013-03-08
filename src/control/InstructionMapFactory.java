@@ -1,5 +1,6 @@
 package control;
 
+import exceptions.CorruptedEnvironmentException;
 import instructions.BaseInstruction;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,7 +9,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
 
 /**
  * Creates a map for all of the instructions in the user defined text file of
@@ -126,9 +126,10 @@ public class InstructionMapFactory {
                 instruct = (BaseInstruction) instructionClass.newInstance();
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
-                // if not possible, skip
-                return;
+                throw new CorruptedEnvironmentException();
+                // TODO:  add meaning full exception message
             }
+            
             // gets parameters from line
             String className = getClassName(line);
 
@@ -137,7 +138,9 @@ public class InstructionMapFactory {
             String[] keywords = entry.split(PROPERTIES_SEPERATOR);
 
             for (String keyword : keywords) {
-                instructionMap.put(keyword, instruct);
+                if (keyword.length() > 0) {
+                    instructionMap.put(keyword, instruct);
+                }
             }
         }
     }

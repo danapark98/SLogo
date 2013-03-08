@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import java.util.ResourceBundle;
 import instructions.Instruction;
 import org.junit.Test;
 import simulation.Model;
@@ -14,7 +15,7 @@ public class InstructionTests {
     @Test
     public void testSum() throws IllegalInstructionException{
         
-        Environment e = new Environment();
+        Environment e = new Environment(ResourceBundle.getBundle("resources.English"));
         Parser p = new Parser(e);
         
         //String command = " SUM [ SUM 10 10 ] 10";
@@ -30,7 +31,7 @@ public class InstructionTests {
     @Test
     public void testPreParse() throws IllegalInstructionException {
         String userInput = "repeat 4 [ fd 100 rt 90 ]";
-        Preparser preparser = new Preparser(new Environment());
+        Preparser preparser = new Preparser(new Environment(ResourceBundle.getBundle("resources.English")));
         String s = preparser.preParse(userInput);
         assertEquals("[ repeat 4 [ [ fd 100 ] [ rt 90 ] ] ] ", s);
     }

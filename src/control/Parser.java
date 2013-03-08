@@ -1,12 +1,12 @@
 package control;
 
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.util.Scanner;
-import exceptions.IllegalInstructionException;
 
 
 /**
