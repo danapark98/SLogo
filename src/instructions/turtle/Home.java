@@ -27,6 +27,10 @@ public class Home extends BaseInstruction {
      */
     private static final long serialVersionUID = 7834890056016622585L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    public Home () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) {
@@ -37,10 +41,4 @@ public class Home extends BaseInstruction {
         Location endLocation = new Location(turtle.getX(), turtle.getY());
         return (int) startLocation.difference(endLocation).getMagnitude();
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

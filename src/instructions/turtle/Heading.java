@@ -25,16 +25,14 @@ public class Heading extends BaseInstruction {
      */
     private static final long serialVersionUID = -1343102259227622948L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    public Heading () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getAngle();
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

@@ -20,16 +20,14 @@ public class And extends BooleanInstruction {
      */
     private static final long serialVersionUID = 3595351121913558476L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public And() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean (Model model) throws IllegalInstructionException {
         return nextOperand().execute(model) == 1 &&
                nextOperand().execute(model) == 1;
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

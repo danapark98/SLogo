@@ -9,12 +9,9 @@ import simulation.Model;
 
 
 /**
- * Represents a user defined Instruction. 
- * Contains an instruction that represents the action performed by this instruction.
+ * Represents a user defined Instruction. TODO: complete this java doc
  * 
  * @author Scott Valentine
- * @author Ryan Fishel
- * @author Ellango Jothimurugesan
  * 
  */
 public class UserInstruction extends BaseInstruction {
@@ -22,7 +19,6 @@ public class UserInstruction extends BaseInstruction {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 1776254460831303292L;
-    private int myNumberOfArguments;
     private CompoundInstruction myVariables;
     private Instruction myInstruction;
 
@@ -35,8 +31,8 @@ public class UserInstruction extends BaseInstruction {
      */
     public UserInstruction(Instruction variables, Instruction commands) {
         myVariables = (CompoundInstruction) variables;
-        myNumberOfArguments = myVariables.getSize();
         myInstruction = commands;
+        setNumberOfArguments(myVariables.getSize());
     }
 
     @Override
@@ -48,7 +44,7 @@ public class UserInstruction extends BaseInstruction {
     }
 
     private void addVariablesToEnvironment (Model model) throws IllegalInstructionException {
-        for (int i = 0; i < myNumberOfArguments; i++) {
+        for (int i = 0; i < getNumberOfArguments(); i++) {
             VariableInstruction currentVariable = 
                     (VariableInstruction) myVariables.getInstruction(i);
             String variableName = currentVariable.getName();
@@ -58,7 +54,7 @@ public class UserInstruction extends BaseInstruction {
     }
 
     private void removeVariablesFromEnvironment (Model model) {
-        for (int i = 0; i < myNumberOfArguments; i++) {
+        for (int i = 0; i < getNumberOfArguments(); i++) {
             VariableInstruction currentVariable = 
                     (VariableInstruction) myVariables.getInstruction(i);
             String variableName = currentVariable.getName();
@@ -69,11 +65,6 @@ public class UserInstruction extends BaseInstruction {
     @Override
     public BaseInstruction newCopy() {
         return new UserInstruction(myVariables, myInstruction);
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return myNumberOfArguments;
     }
 
 }

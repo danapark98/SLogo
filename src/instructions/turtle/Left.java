@@ -26,6 +26,11 @@ public class Left extends Rotate {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = -6371140632719070106L;
+    private static final int NUMBER_OF_ARGUMENTS = 1;
+    
+    public Left () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     protected int getRotation (Model model) throws IllegalInstructionException {

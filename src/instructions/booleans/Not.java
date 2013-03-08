@@ -23,14 +23,13 @@ public class Not extends BooleanInstruction {
      */
     private static final long serialVersionUID = 1645427597906420824L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
+    
+    public Not() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean (Model model) throws IllegalInstructionException {
         return nextOperand().execute(model) == 0;
-    }
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
     }
 }

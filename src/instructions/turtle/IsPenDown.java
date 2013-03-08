@@ -26,14 +26,12 @@ public class IsPenDown extends BooleanInstruction {
     private static final long serialVersionUID = 5215411259109944598L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
+    public IsPenDown() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
+    
     @Override
     public boolean executeBoolean(Model model) {
         return model.getTurtle().getPenColor().getAlpha() != 0;
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

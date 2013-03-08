@@ -33,6 +33,10 @@ public class If extends BaseInstruction {
      */
     private static final long serialVersionUID = 845349488293601623L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public If () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
@@ -41,10 +45,4 @@ public class If extends BaseInstruction {
         if (condition != 0) { return trueInstruction.execute(model); }
         return 0;
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

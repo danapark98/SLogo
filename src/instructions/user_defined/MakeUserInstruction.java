@@ -14,7 +14,10 @@ import simulation.Model;
  * arguments: what to name the custom instruction, the variables, if any, that
  * are parameters of the custom instruction,
  * and the instruction it will
- * represent. This instruction will always return.<br>
+ * represent. This instruction will always return TODO .Note that the second and
+ * third arguments (the variables the instruction) must be contained
+ * in
+ * brackets.<br>
  * <br>
  * <u> Examples:</u> <br>
  * <i>to sample [ x y ] [ fd x rt y ]</i> ---> The instruction <i> sample </i>
@@ -38,6 +41,10 @@ public class MakeUserInstruction extends BaseInstruction {
     private String myCommandName;
     private Instruction myVariables;
     private Instruction myCommands;
+    
+    public MakeUserInstruction () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public void load(Scanner line, Parser parser) throws IllegalInstructionException {
@@ -55,10 +62,4 @@ public class MakeUserInstruction extends BaseInstruction {
         model.addInstruction(myCommandName, instruction);
         return 1;
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

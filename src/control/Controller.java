@@ -4,7 +4,6 @@ import instructions.Instruction;
 import instructions.turtle.ClearScreen;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ResourceBundle;
 import simulation.Model;
 import view.View;
 import exceptions.FileSavingException;
@@ -23,13 +22,11 @@ import exceptions.IncorrectFileFormatException;
  */
 public class Controller {
 
-    /** Indicates a non-command string in the console history.*/
     public static final String PRINT_INDICATOR = ">> ";
     private Model myModel;
     private View myView;
     private Parser myParser;
     private Environment myEnvironment;
-    private ResourceBundle myResources;
 
     /**
      * This creates a new controller with a model, a view, an environment,
@@ -41,11 +38,9 @@ public class Controller {
     public Controller (Model model, View view) {
         myModel = model;
         myView = view;
-        myResources = view.getResources();
-        myEnvironment = new Environment(myResources);
+        myEnvironment = new Environment();
         model.setEnvironment(myEnvironment);
         myParser = new Parser(myEnvironment);
-        
     }
 
     /**

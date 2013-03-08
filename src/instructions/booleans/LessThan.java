@@ -23,15 +23,13 @@ public class LessThan extends BooleanInstruction {
      */
     private static final long serialVersionUID = -7617375173556456877L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public LessThan() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean (Model model) throws IllegalInstructionException {
         return nextOperand().execute(model) < nextOperand().execute(model);
     }
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

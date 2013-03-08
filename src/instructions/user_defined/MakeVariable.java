@@ -36,7 +36,11 @@ public class MakeVariable extends BaseInstruction {
     private String myName;
     private Instruction myArgument;
     
-
+    public MakeVariable () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
+    
+    
     @Override
     public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myName = line.next();
@@ -50,10 +54,4 @@ public class MakeVariable extends BaseInstruction {
         model.addInstruction(myName, variable);
         return variableValue;
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

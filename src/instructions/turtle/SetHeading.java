@@ -29,6 +29,10 @@ public class SetHeading extends BaseInstruction {
      */
     private static final long serialVersionUID = 1L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
+    
+    public SetHeading () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
@@ -37,11 +41,6 @@ public class SetHeading extends BaseInstruction {
         int absoluteHeading = nextOperand().execute(model);
         turtle.setAngle(absoluteHeading);
         return Math.abs(absoluteHeading - originalAngle);
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

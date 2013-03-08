@@ -31,6 +31,10 @@ public class ForLoop extends BaseInstruction {
      */
     private static final long serialVersionUID = -6196556606163979681L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public ForLoop () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
@@ -41,10 +45,5 @@ public class ForLoop extends BaseInstruction {
             last = commandsToLoop.execute(model);
         }
         return last;
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 }

@@ -31,16 +31,12 @@ public class ConstantInstruction extends BaseInstruction {
      */
     public ConstantInstruction(int value) {
         myValue = value;
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
     public int execute(Model model) {
         return myValue;
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
     @Override

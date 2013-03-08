@@ -22,15 +22,13 @@ public class NotEqual extends BooleanInstruction {
      */
     private static final long serialVersionUID = -3010226380769115508L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public NotEqual() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean (Model model) throws IllegalInstructionException {
         return nextOperand().execute(model) != nextOperand().execute(model);
     }
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

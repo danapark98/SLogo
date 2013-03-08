@@ -23,16 +23,14 @@ public class Equal extends BooleanInstruction {
      */
     private static final long serialVersionUID = -9085755361792996511L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public Equal() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean(Model model)
                                               throws IllegalInstructionException {
         return nextOperand().execute(model) == nextOperand().execute(model);
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }
