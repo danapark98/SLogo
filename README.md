@@ -28,7 +28,8 @@ Start date: February 15, 2013
 6.5 hours Sunday 3/3, 2 hours Monday 3/4, 2 hour Thursday 3/7
 <li>Scott: 
 </ul>
-
+<hr>
+<b>Resources</b>
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <hr>
 
