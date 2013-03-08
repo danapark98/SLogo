@@ -167,22 +167,14 @@ public class Preparser {
         return sb.toString();
     }
 
-    //TODO: refactor repetitive code here and the Parser's parseList()
     private int findRightBracket (List<String> wordsList, int counter) {
-        String str;
         int counterBracket = 1;
         while (counterBracket != 0) {
-            str = wordsList.get(counter);
-            if (str.equals(Parser.BEGINNING_OF_LIST)) {
-                counterBracket++;
+            String str = wordsList.get(counter);
+            counterBracket = Parser.updateCounterBracket(str, counterBracket);
+            if (counterBracket != 0) {
+                counter++;
             }
-            if (str.equals(Parser.END_OF_LIST)) {
-                counterBracket--;
-                if (counterBracket == 0) {
-                    break;
-                }
-            }
-            counter++;
         }
         return counter;
     }

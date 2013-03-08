@@ -14,7 +14,7 @@ import simulation.Model;
  * arguments: what to name the custom instruction, the variables, if any, that
  * are parameters of the custom instruction,
  * and the instruction it will
- * represent. This instruction will always return TODO .Note that the second and
+ * represent. Note that the second and
  * third arguments (the variables the instruction) must be contained
  * in
  * brackets.<br>
@@ -50,7 +50,7 @@ public class MakeUserInstruction extends BaseInstruction {
     public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myCommandName = line.next();
         if (myCommandName.equals("[")) {
-            myCommandName = parser.parseList(line);
+            myCommandName = parser.unpackList(line);
         }
         myVariables = parser.nextInstruction(line);
         myCommands = parser.nextInstruction(line);

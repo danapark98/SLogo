@@ -14,7 +14,7 @@ import simulation.Model;
  * two
  * arguments: what to name the custom variable and the value the variable will
  * take.
- * This instruction will always return TODO. <br>
+ * This instruction will always return the value of the variable. <br>
  * <br>
  * <u> Examples:</u> <br>
  * <i>make var1 10 </i> ---> The variable <i> var1 </i> now contains the value

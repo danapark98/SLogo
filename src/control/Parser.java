@@ -19,7 +19,6 @@ import exceptions.IllegalInstructionException;
  */
 public class Parser {
 
-    // TODO: use resources to define the brackets
     public static final String BEGINNING_OF_LIST = "[";
     public static final String END_OF_LIST = "]";
     public static final String START_OF_VARIABLE = ":"; 
@@ -75,7 +74,7 @@ public class Parser {
 
             Instruction result;
             if (commandName.equals(BEGINNING_OF_LIST)) {
-                result = generateInstruction(new Scanner(parseList(line)));
+                result = generateInstruction(new Scanner(unpackList(line)));
             }
             else if (commandName.startsWith(START_OF_VARIABLE)) {
                 result = new VariableInstruction(commandName);
@@ -114,37 +113,42 @@ public class Parser {
         }
         String next = line.next();
         if (next.equals(BEGINNING_OF_LIST)) {
-            next = parseList(line);
+            next = unpackList(line);
         }
         return generateInstruction(new Scanner(next));
     }
 
     /**
-     * Parses a list into an instruction that represents the contents of the list.
+     * Removes the outermost brackets from a list.
      * 
      * @param line is a scanner that iterates through the list.
-     * @return an instruction that is made from the list.
+     * @return String of the contents within the list
      * @throws IllegalInstructionException if list not constructed properly
      */
-    public String parseList (Scanner line) throws IllegalInstructionException {
+    public String unpackList (Scanner line) throws IllegalInstructionException {
         StringBuilder sb = new StringBuilder();
-        String str = "";
         int counterBracket = 1;
         while (counterBracket != 0) {
             if (!line.hasNext()) throw new IllegalInstructionException(LIST_ERROR_MESSAGE);
-            str = line.next();
-            if (str.equals(BEGINNING_OF_LIST)) {
-                counterBracket++;
+            String str = line.next();
+            counterBracket = updateCounterBracket(str, counterBracket);
+            if (counterBracket != 0) {
+                sb.append(str);
+                sb.append(" ");
             }
-            if (str.equals(END_OF_LIST)) {
-                counterBracket--;
-                if (counterBracket == 0) {
-                    break;
-                }
-            }
-            sb.append(str);
-            sb.append(" ");
         }
         return sb.toString();
+    }
+
+    public static int updateCounterBracket(String str, int counterBracket) {
+        if (str.equals(BEGINNING_OF_LIST)) {
+            return counterBracket + 1;
+        }
+        else if (str.equals(END_OF_LIST)) {
+            return counterBracket - 1;
+        }
+        else {
+            return counterBracket;
+        }
     }
 }
