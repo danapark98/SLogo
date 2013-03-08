@@ -1,4 +1,16 @@
-<b>SLogo</b>
+SLogo
+
+Team 2:
+•Ryan Fishel (ref13@duke.edu) 
+•Ellango Jothimurugesan (ej48@duke.edu) 
+•Scott Valentine (sdv4@duke.edu)
+•Sean Wareham (srw22@duke.edu) 
+•Elder Yoshida (emy2@duke.edu)
+•Mentor: Volodymyr Zavidovych (vz4@duke.edu)
+•Repository: https://github.com/srwareham/SLogo
+
+Start date: February 15, 2013
+
 <hr>
 
 <b>View Team:</b>
@@ -20,17 +32,15 @@ Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 
 <b>How to add a new instruction:</b>
 
-<ol>
-<li> Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction </li>
-<li> Add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop </li>
-<li> Add keywords to each of the properties files: 
-example for keywords "loop" and "loopdeloop": 
-<br>
-<i>Loop = loop,loopdeloop</i> </li>
-  
-<li> Run and use your new instruction. </li>
-</ol>
-<hr>
+How to add a new instruction:
+<br>1. Write class that extends BaseInstruction: i.e. Class Loop extends BaseInstruction
+<br>2. add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
+<br>3. add keywords to each of the properties files 
+<br>  example for keywords "loop" and "loopdeloop":
+<br>	
+<br>	Loop = loop,loopdeloop
+<br>	
+<br> 4. Run and use your new instruction
 
 <b>View Heirarchy:</b>
   The View class is an abstract class that serves to define what all Views will need to implement to work with out framework.

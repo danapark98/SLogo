@@ -7,9 +7,8 @@ package exceptions;
  * loading only from sources that were saved previously by the same program.
  *
  */
+@SuppressWarnings("serial")
 public class IncorrectFileFormatException extends Exception {
-
-    private static final long serialVersionUID = 1L;
 
     @Override
     public String toString () {
