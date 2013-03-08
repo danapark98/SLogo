@@ -14,10 +14,7 @@ import simulation.Model;
  * arguments: what to name the custom instruction, the variables, if any, that
  * are parameters of the custom instruction,
  * and the instruction it will
- * represent. This instruction will always return TODO .Note that the second and
- * third arguments (the variables the instruction) must be contained
- * in
- * brackets.<br>
+ * represent. This instruction will always return.<br>
  * <br>
  * <u> Examples:</u> <br>
  * <i>to sample [ x y ] [ fd x rt y ]</i> ---> The instruction <i> sample </i>
