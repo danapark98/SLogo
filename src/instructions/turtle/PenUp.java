@@ -27,6 +27,10 @@ public class PenUp extends BaseInstruction {
      */
     private static final long serialVersionUID = -45623041636717507L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    public PenUp() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) {
@@ -34,11 +38,6 @@ public class PenUp extends BaseInstruction {
         // set 0 for alpha value so that it is invisible.
         turtle.changePen(new Color(0, 0, 0, 0));
         return 0;
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

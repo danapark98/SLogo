@@ -28,6 +28,10 @@ public class Remainder extends BaseInstruction {
     private static final long serialVersionUID = -4013823908746631449L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     private static final String ERROR_MESSAGE = "Dividing by zero";
+    
+    public Remainder () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
@@ -37,10 +41,4 @@ public class Remainder extends BaseInstruction {
         if (arg1 == 0) { throw new IllegalInstructionException(ERROR_MESSAGE); }
         return arg0 % arg1;
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

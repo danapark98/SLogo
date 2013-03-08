@@ -28,17 +28,16 @@ public class IsShowing extends BooleanInstruction {
     private static final long serialVersionUID = -3384186474769687332L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
+    public IsShowing() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
+    
     @Override
     public boolean executeBoolean (Model model) {
         Turtle turtle = model.getTurtle();
         Pixmap visible = Turtle.DEFAULT_IMAGE;
         Pixmap current = turtle.getView();
         return visible.toString().equals(current.toString());
-    }
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

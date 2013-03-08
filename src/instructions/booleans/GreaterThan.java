@@ -23,16 +23,15 @@ public class GreaterThan extends BooleanInstruction {
      */
     private static final long serialVersionUID = -5228113262586227488L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public GreaterThan() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean(Model model)
                                               throws IllegalInstructionException {
         return nextOperand().execute(model) > nextOperand().execute(model);
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

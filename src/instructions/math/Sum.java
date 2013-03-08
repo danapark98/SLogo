@@ -24,15 +24,13 @@ public class Sum extends BaseInstruction {
      */
     private static final long serialVersionUID = -191594058546524267L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public Sum () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         return nextOperand().execute(model) + nextOperand().execute(model);
     }
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
-    }
-    
 }

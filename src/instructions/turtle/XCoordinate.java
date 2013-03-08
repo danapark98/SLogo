@@ -27,16 +27,15 @@ public class XCoordinate extends BaseInstruction {
      */
     private static final long serialVersionUID = -1625057934983841840L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    public XCoordinate () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getLocationOnCanvas().getX();
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

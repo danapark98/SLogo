@@ -26,7 +26,6 @@ public abstract class Rotate extends BaseInstruction {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = -8001794506937082081L;
-    private static final int NUMBER_OF_ARGUMENTS = 1;
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
@@ -37,10 +36,4 @@ public abstract class Rotate extends BaseInstruction {
     }
 
     protected abstract int getRotation (Model model) throws IllegalInstructionException;
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

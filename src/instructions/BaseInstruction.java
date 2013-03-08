@@ -31,6 +31,7 @@ public abstract class BaseInstruction implements Instruction {
      */
     private static final long serialVersionUID = 2028940084662626878L;
     private ListIterator<Instruction> myOperands;
+    private int myNumberOfArguments;
 
     /**
      * Loads this instruction from a scanner of user input.
@@ -83,11 +84,13 @@ public abstract class BaseInstruction implements Instruction {
         }
         return copy;
     }
+
+    public int getNumberOfArguments() {
+        return myNumberOfArguments;
+    }
     
-    /**
-     * 
-     * @return the number of arguments in an instruction
-     */
-    public abstract int getNumberOfArguments();
+    protected void setNumberOfArguments(int numberOfArguments) {
+        myNumberOfArguments = numberOfArguments;
+    }
 
 }

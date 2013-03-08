@@ -23,15 +23,14 @@ public class Product extends BaseInstruction {
      */
     private static final long serialVersionUID = 5361665342647235501L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public Product () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         return nextOperand().execute(model) * nextOperand().execute(model);
-    }
-
-    @Override
-    public int getNumberOfArguments () {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

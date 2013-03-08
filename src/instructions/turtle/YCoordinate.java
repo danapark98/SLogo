@@ -27,16 +27,14 @@ public class YCoordinate extends BaseInstruction {
      */
     private static final long serialVersionUID = -2404496602465804576L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    public YCoordinate () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getLocationOnCanvas().getY();
     }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
-    }
-
 }

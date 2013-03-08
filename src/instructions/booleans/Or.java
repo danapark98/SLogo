@@ -24,17 +24,16 @@ public class Or extends BooleanInstruction {
      */
     private static final long serialVersionUID = 6607652502391503222L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    
+    public Or () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public boolean executeBoolean(Model model)
                                               throws IllegalInstructionException {
         return nextOperand().execute(model) == 1 ||
                nextOperand().execute(model) == 1;
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }

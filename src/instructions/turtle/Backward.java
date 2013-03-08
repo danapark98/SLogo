@@ -24,6 +24,11 @@ public class Backward extends Translate {
      * Eclipse auto-generated ID to implement Serializable interface.
      */
     private static final long serialVersionUID = 7749994394524662088L;
+    private static final int NUMBER_OF_ARGUMENTS = 1;
+    
+    public Backward () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     protected int getMagnitude (Model model) throws IllegalInstructionException {

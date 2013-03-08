@@ -26,10 +26,10 @@ public class Turtle extends Sprite {
     /** The picture that represents the invisible turtle. */
     public static final Pixmap NO_IMAGE = new Pixmap("blank.png");
     private static final Dimension DEFAULT_SIZE = new Dimension(70, 70);
-    private static final String X_LABEL = "X-coordinate:";
-    private static final String Y_LABEL = "Y-coordinate:";
-    private static final String ANGLE_LABEL = "Angle:";
-    private static final double X_OFFSET = 65;
+    private static final String X_LABEL = "X:";
+    private static final String Y_LABEL = "Y:";
+    private static final String ANGLE_LABEL = "\u03f4" + ":";
+    private static final double X_OFFSET = 25;
     private static final double Y_OFFSET = 15;
     private static final int REVERSE_ANGLE_VALUE = 180;
     private DisplayEditor myDisplayEditor;

@@ -36,6 +36,10 @@ public class SetTowards extends BaseInstruction {
      * measured clockwise.
      */
     private static final double ANGLE_OFFSET = 270;
+    
+    public SetTowards () {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
@@ -51,11 +55,6 @@ public class SetTowards extends BaseInstruction {
                                 .getDirection();
         turtle.setAngle(endAngle);
         return (int) Math.abs(endAngle - startAngle);
-    }
-
-    @Override
-    public int getNumberOfArguments() {
-        return NUMBER_OF_ARGUMENTS;
     }
 
 }
