@@ -14,7 +14,8 @@ import simulation.Model;
  * 
  * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class GreaterThan extends BooleanInstruction {
 
@@ -24,13 +25,16 @@ public class GreaterThan extends BooleanInstruction {
     private static final long serialVersionUID = -5228113262586227488L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes an '>' instruction.
+     */
     public GreaterThan() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
     public boolean executeBoolean(Model model)
-                                              throws IllegalInstructionException {
+        throws IllegalInstructionException {
         return nextOperand().execute(model) > nextOperand().execute(model);
     }
 

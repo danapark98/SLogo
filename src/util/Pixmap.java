@@ -48,7 +48,8 @@ public class Pixmap {
      * Set this image to the image referred to by the given filename.
      */
     public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+
+        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION+ fileName)).getImage();
         myFileName = fileName;
     }
 

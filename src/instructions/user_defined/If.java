@@ -34,6 +34,9 @@ public class If extends BaseInstruction {
     private static final long serialVersionUID = 845349488293601623L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes user defined if instruction.
+     */
     public If () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

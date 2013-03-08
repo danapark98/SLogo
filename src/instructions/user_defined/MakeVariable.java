@@ -36,6 +36,9 @@ public class MakeVariable extends BaseInstruction {
     private String myName;
     private Instruction myArgument;
     
+    /**
+     * Initializes the definition of a custom variable.
+     */
     public MakeVariable () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

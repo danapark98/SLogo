@@ -12,7 +12,8 @@ import simulation.Model;
  * <br> minus -4 ---> 4
  * 
  * @author Scott Valentine
- *
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class Minus extends BaseInstruction {
 
@@ -22,12 +23,15 @@ public class Minus extends BaseInstruction {
     private static final long serialVersionUID = 2286830618398845175L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
     
+    /**
+     * Initializes a '-' operation instruction.
+     */
     public Minus () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
-        return -1*nextOperand().execute(model);
+        return -1 * nextOperand().execute(model);
     }
 }

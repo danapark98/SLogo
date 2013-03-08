@@ -1,9 +1,9 @@
 package instructions;
 
+import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
 import simulation.Model;
-import exceptions.IllegalInstructionException;
 
 
 /**
@@ -52,10 +52,21 @@ public class CompoundInstruction implements Instruction {
         myInstructions.add(instruction);
     }
 
+    /**
+     * Gives the number of instruction in this CompoundInstruction.
+     * 
+     * @return The size of this instruction.
+     */
     public int getSize () {
         return myInstructions.size();
     }
 
+    /**
+     * Gives the instruction from the passed index.
+     * 
+     * @param index of the instruction to return.
+     * @return The Instruction at the passed index.
+     */
     public Instruction getInstruction (int index) {
         return myInstructions.get(index);
     }

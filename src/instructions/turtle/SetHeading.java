@@ -30,6 +30,9 @@ public class SetHeading extends BaseInstruction {
     private static final long serialVersionUID = 1L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
     
+    /**
+     * Initializes a rotation to given heading rotation instruction.
+     */
     public SetHeading () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

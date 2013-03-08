@@ -26,7 +26,8 @@ public class UserInstruction extends BaseInstruction {
      * Creates a new UserInstruction from the number of 
      * parameters it takes and how it acts on those parameters.
      * 
-     * @param numberOfArgs is the number of arguments this instruction takes.
+     * @param variables is an instruction representing all of the variables in this 
+     * custom instruction.
      * @param commands - the instruction that executes based on these arguments.
      */
     public UserInstruction(Instruction variables, Instruction commands) {

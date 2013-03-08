@@ -25,6 +25,9 @@ public class ClearScreen extends BaseInstruction {
     private static final long serialVersionUID = 7588143312248358069L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
     
+    /**
+     * Initializes a return to default status instruction.
+     */
     public ClearScreen() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

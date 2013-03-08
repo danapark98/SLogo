@@ -13,7 +13,8 @@ import simulation.Model;
  * 
  * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class NotEqual extends BooleanInstruction {
 
@@ -23,6 +24,9 @@ public class NotEqual extends BooleanInstruction {
     private static final long serialVersionUID = -3010226380769115508L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes an '!=' instruction.
+     */
     public NotEqual() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

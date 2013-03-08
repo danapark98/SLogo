@@ -1,5 +1,8 @@
 package control;
 
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,9 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.ResourceBundle;
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
+
 
 
 /**
@@ -83,11 +84,12 @@ public class Environment {
      *         found in the environment.
      */
     public BaseInstruction systemInstructionSkeleton (String commandName)
-                                                                         throws IllegalInstructionException {
+        throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName))
+        if (!myInstructionMap.containsKey(commandName)) {
             throw new IllegalInstructionException(
                                                   commandName);
+        }
         return myInstructionMap.get(commandName).newCopy();
     }
 

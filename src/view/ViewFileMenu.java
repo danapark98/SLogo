@@ -86,6 +86,7 @@ public class ViewFileMenu {
                     // This should never occur because the picks a file
                     viewDisplayText(io.toString());
                 }
+                
             }
         };
     }

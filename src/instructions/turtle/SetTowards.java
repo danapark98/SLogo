@@ -37,6 +37,9 @@ public class SetTowards extends BaseInstruction {
      */
     private static final double ANGLE_OFFSET = 270;
     
+    /**
+     * Initializes a rotation to face a given position rotation-instruction.
+     */
     public SetTowards () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
@@ -46,13 +49,12 @@ public class SetTowards extends BaseInstruction {
         Turtle turtle = model.getTurtle();
         Location currentLocation = turtle.getLocationOnCanvas();
         Location givenLocation =
-                new Location(nextOperand().execute(model), nextOperand()
-                        .execute(model));
+                new Location(nextOperand().execute(model), 
+                             nextOperand().execute(model));
         double startAngle = turtle.getAngle();
         double endAngle =
                 ANGLE_OFFSET -
-                        givenLocation.difference(currentLocation)
-                                .getDirection();
+                    givenLocation.difference(currentLocation).getDirection();
         turtle.setAngle(endAngle);
         return (int) Math.abs(endAngle - startAngle);
     }

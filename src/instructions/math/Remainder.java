@@ -29,6 +29,9 @@ public class Remainder extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 2;
     private static final String ERROR_MESSAGE = "Dividing by zero";
     
+    /**
+     * Initializes a remainder operation instruction (i.e. x = input1 mod input2).
+     */
     public Remainder () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

@@ -1,5 +1,6 @@
 package control;
 
+import exceptions.CorruptedEnvironmentException;
 import instructions.BaseInstruction;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,7 +9,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import exceptions.CorruptedEnvironmentException;
 
 
 /**
@@ -25,8 +25,10 @@ import exceptions.CorruptedEnvironmentException;
  */
 public class InstructionMapFactory {
 
+    /** Error Message to display when a class can not be instantiated from file*/
+    private static final String ERROR_MESSAGE = "Missing instruction class names";
+    
     /** Default Language */
-    // TODO: make one of these (currently one here and one in view)
     private static final String ENGLISH_LANGUAGE = "English";
 
     /** Location of all instruction classpath data. */
@@ -34,7 +36,6 @@ public class InstructionMapFactory {
             "/src/resources/instruction_index.txt";
 
     /** Default location of the resources package. */
-    // TODO: make one of these (currently one here and one in view)
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String PROPERTIES_SEPERATOR = "[,]";
@@ -47,8 +48,6 @@ public class InstructionMapFactory {
 
     /** Resources for SLogo */
     private ResourceBundle myResources;
-
-    private static final String ERROR_MESSAGE = "Missing instruction class names";
 
     /**
      * Instantiates the factory based on the language to be used for the

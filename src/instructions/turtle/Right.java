@@ -29,6 +29,9 @@ public class Right extends Rotate {
     private static final long serialVersionUID = -592793134932727653L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
     
+    /**
+     * Initializes a left rotation instruction.
+     */
     public Right () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

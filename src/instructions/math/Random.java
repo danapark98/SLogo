@@ -23,6 +23,9 @@ public class Random extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 1;
     private static final String ERROR_MESSAGE = "Using a negative argument";
     
+    /**
+     * Initializes a random number instruction.
+     */
     public Random () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

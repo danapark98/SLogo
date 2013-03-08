@@ -11,7 +11,8 @@ import simulation.Model;
  * and 1 1 --> 1
  * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class And extends BooleanInstruction {
 
@@ -21,6 +22,9 @@ public class And extends BooleanInstruction {
     private static final long serialVersionUID = 3595351121913558476L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes an 'and' instruction.
+     */
     public And() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

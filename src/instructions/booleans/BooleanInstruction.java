@@ -10,7 +10,8 @@ import simulation.Model;
  * ex: and, or, greater, less, equal, notequal
  * 
  * @author Scott Valentine
- *
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public abstract class BooleanInstruction extends BaseInstruction {
 
@@ -22,14 +23,15 @@ public abstract class BooleanInstruction extends BaseInstruction {
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         boolean b = executeBoolean(model);
-        return b? 1 : 0;
+        return b ? 1 : 0;
     }
     
     /**
-     * TODO: write comment.
-     * @param model
-     * @return
-     * @throws IllegalInstructionException
+     * Executes a boolean instruction on the model.
+     * 
+     * @param model the model on which the boolean operates.
+     * @return a boolean that represents the value of this evaluation.
+     * @throws IllegalInstructionException when the parameters do not match the expected.
      */
     public abstract boolean executeBoolean(Model model) throws IllegalInstructionException; 
 

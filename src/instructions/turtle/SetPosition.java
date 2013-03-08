@@ -32,6 +32,9 @@ public class SetPosition extends BaseInstruction {
     private static final long serialVersionUID = -7480055529053641527L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes a movement to given position translation instruction.
+     */
     public SetPosition() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

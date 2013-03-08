@@ -26,6 +26,9 @@ public class HideTurtle extends BaseInstruction {
     private static final long serialVersionUID = 7797738746693384437L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
+    /**
+     * Initializes a hide turtle instruction.
+     */
     public HideTurtle() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

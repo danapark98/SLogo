@@ -1,12 +1,13 @@
 package simulation;
 
+import control.Environment;
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import control.Environment;
-import exceptions.IllegalInstructionException;
+
 
 
 /**
@@ -96,7 +97,7 @@ public class Model implements DisplayEditor {
     /**
      * Gives the Instruction associated with the passed keyword.
      * 
-     * @param commandName - the keyword for the instruction
+     * @param name - the keyword for the instruction
      * @return The Instruction associated with the keyword
      * @throws IllegalInstructionException This occurs when the keyword is not
      *         found in the environment.
@@ -110,7 +111,7 @@ public class Model implements DisplayEditor {
      * of local variables, in which they should only be visible during a
      * function call.
      * 
-     * @param variableName
+     * @param variableName is the name of the variable to be removed.
      */
     public void removeVariable (String variableName) {
         myEnvironment.removeInstruction(variableName);

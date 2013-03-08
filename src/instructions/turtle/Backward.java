@@ -26,13 +26,16 @@ public class Backward extends Translate {
     private static final long serialVersionUID = 7749994394524662088L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
     
+    /**
+     * Initializes a backwards translation instruction.
+     */
     public Backward () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
     protected int getMagnitude (Model model) throws IllegalInstructionException {
-        return -1*nextOperand().execute(model);
+        return -1 * nextOperand().execute(model);
     }
 }
 

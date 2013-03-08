@@ -33,6 +33,9 @@ public class IfElse extends BaseInstruction {
     private static final long serialVersionUID = -2767016588772946054L;
     private static final int NUMBER_OF_ARGUMENTS = 3;
     
+    /**
+     * Initializes user defined ifelse instruction.
+     */
     public IfElse () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

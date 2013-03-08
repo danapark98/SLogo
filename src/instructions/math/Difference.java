@@ -1,8 +1,8 @@
 package instructions.math;
 
 import exceptions.IllegalInstructionException;
-import simulation.Model;
 import instructions.BaseInstruction;
+import simulation.Model;
 
 /**
  * Represents a subtraction math operation as an instruction.
@@ -12,7 +12,8 @@ import instructions.BaseInstruction;
  * <br> difference -4 -8 ---> -12
  * 
  * @author Scott Valentine
- *
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class Difference extends BaseInstruction {
 
@@ -22,6 +23,9 @@ public class Difference extends BaseInstruction {
     private static final long serialVersionUID = 2086351414691071818L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes a subtraction operation instruction.
+     */
     public Difference () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

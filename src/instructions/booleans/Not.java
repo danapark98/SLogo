@@ -14,7 +14,8 @@ import simulation.Model;
  * 
  * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class Not extends BooleanInstruction {
 
@@ -24,6 +25,9 @@ public class Not extends BooleanInstruction {
     private static final long serialVersionUID = 1645427597906420824L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
     
+    /**
+     * Initializes an 'not',  '~' instruction.
+     */
     public Not() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

@@ -35,5 +35,12 @@ public abstract class Rotate extends BaseInstruction {
         return nextOperand().execute(model);
     }
 
+    /**
+     * Returns the angle of rotation for this instruction to rotate the turtle.
+     * 
+     * @param model is the model on which this instruction acts.
+     * @return The magnitude of the angle of rotation.
+     * @throws IllegalInstructionException This occurs when the parameters do not match expected.
+     */
     protected abstract int getRotation (Model model) throws IllegalInstructionException;
 }

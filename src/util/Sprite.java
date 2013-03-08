@@ -16,9 +16,13 @@ import java.awt.geom.Point2D;
  */
 public abstract class Sprite {
     // canonical directions for a collision
+    /** Angle of East*/
     public static final int RIGHT_DIRECTION = 0;
+    /** Angle of South*/
     public static final int DOWN_DIRECTION = 90;
+    /** Angle of West*/
     public static final int LEFT_DIRECTION = 180;
+    /** Angle of NOrth*/
     public static final int UP_DIRECTION = 270;
 
     // state

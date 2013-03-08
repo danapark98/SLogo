@@ -1,8 +1,8 @@
 package instructions;
 
+import exceptions.IllegalInstructionException;
 import java.io.Serializable;
 import simulation.Model;
-import exceptions.IllegalInstructionException;
 
 
 /**

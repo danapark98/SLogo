@@ -25,6 +25,9 @@ public class Sum extends BaseInstruction {
     private static final long serialVersionUID = -191594058546524267L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes an addition operation instruction.
+     */
     public Sum () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

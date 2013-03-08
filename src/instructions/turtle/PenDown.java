@@ -28,6 +28,9 @@ public class PenDown extends BaseInstruction {
     private static final long serialVersionUID = 4039119828110366434L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
     
+    /**
+     * Initializes a put pen down instruction.
+     */
     public PenDown() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

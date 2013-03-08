@@ -13,9 +13,9 @@ import simulation.Model;
  * or 1 1 ---> 1 <br>
  * or 10 1 ---> 0
  * 
- * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 public class Or extends BooleanInstruction {
 
@@ -25,13 +25,16 @@ public class Or extends BooleanInstruction {
     private static final long serialVersionUID = 6607652502391503222L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes an 'or' instruction.
+     */
     public Or () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
     public boolean executeBoolean(Model model)
-                                              throws IllegalInstructionException {
+        throws IllegalInstructionException {
         return nextOperand().execute(model) == 1 ||
                nextOperand().execute(model) == 1;
     }

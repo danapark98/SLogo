@@ -24,6 +24,9 @@ public class Product extends BaseInstruction {
     private static final long serialVersionUID = 5361665342647235501L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes a '*' operation instruction.
+     */
     public Product () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

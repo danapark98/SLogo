@@ -37,5 +37,12 @@ public abstract class Translate extends BaseInstruction {
         return nextOperand().execute(model);
     }
 
+    /**
+     * Returns the magnitude of this translation instruction (the distance the turtle moves)
+     * 
+     * @param model is the model this instruction operates on
+     * @return The magnitude of this instruction.
+     * @throws IllegalInstructionException This occurs when parameters do not match expected.
+     */
     protected abstract int getMagnitude (Model model) throws IllegalInstructionException;
 }

@@ -7,6 +7,9 @@ package exceptions;
  * saving the state depending on the channel he or she wants to save to.
  * (e.g. picking a different file)
  * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 @SuppressWarnings("serial")
 public class FileSavingException extends Exception {

@@ -5,13 +5,14 @@ package exceptions;
  * environment.
  * 
  * @author Scott Valentine
- * 
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  */
 @SuppressWarnings("serial")
 public class IllegalInstructionException extends Exception {
 
     /** String that resulted in the exception. */
-    private String myCommand;
+    private final String myCommand;
 
     /**
      * Creates new instance from the string that resulted in this exception.

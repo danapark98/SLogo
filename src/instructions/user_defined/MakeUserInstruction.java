@@ -42,6 +42,9 @@ public class MakeUserInstruction extends BaseInstruction {
     private Instruction myVariables;
     private Instruction myCommands;
     
+    /**
+     * Initializes user the definition of a custom instruction.
+     */
     public MakeUserInstruction () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

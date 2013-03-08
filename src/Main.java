@@ -14,6 +14,8 @@ public class Main {
 
     /**
      * Creates the SLogo simulation.
+     * 
+     * @param args are the command line arguments. This main does not take any arguments.
      */
     public static void main (String[] args) {
         @SuppressWarnings("unused")

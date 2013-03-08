@@ -28,6 +28,9 @@ public class IsShowing extends BooleanInstruction {
     private static final long serialVersionUID = -3384186474769687332L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
+    /**
+     * Initializes a "Is the Turtle Showing?" boolean instruction.
+     */
     public IsShowing() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

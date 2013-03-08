@@ -32,6 +32,9 @@ public class ForLoop extends BaseInstruction {
     private static final long serialVersionUID = -6196556606163979681L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
+    /**
+     * Initializes user defined for-loop instruction.
+     */
     public ForLoop () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

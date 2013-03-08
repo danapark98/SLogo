@@ -27,6 +27,9 @@ public class Quotient extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 2;
     private static final String ERROR_MESSAGE = "Dividing by zero";
     
+    /**
+     * Initializes a division operation instruction.
+     */
     public Quotient () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

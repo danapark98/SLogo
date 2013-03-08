@@ -300,7 +300,7 @@ public class SLogoView extends View {
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
     }
-
+    
     /**
      * Creates a button that submits the text in the console to the controller.
      * The code for this button is very similar to the code of the makeTurtleMoveButton method

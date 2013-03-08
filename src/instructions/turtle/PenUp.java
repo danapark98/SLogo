@@ -28,6 +28,9 @@ public class PenUp extends BaseInstruction {
     private static final long serialVersionUID = -45623041636717507L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
     
+    /**
+     * Initializes a 'put pen up' a.k.a 'do not draw' instruction.
+     */
     public PenUp() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

@@ -26,6 +26,9 @@ public class IsPenDown extends BooleanInstruction {
     private static final long serialVersionUID = 5215411259109944598L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
+    /**
+     * Initializes a "Is the Turtle's pen down?" boolean instruction.
+     */
     public IsPenDown() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

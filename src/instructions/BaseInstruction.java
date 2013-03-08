@@ -1,12 +1,13 @@
 package instructions;
 
+import control.Parser;
+import exceptions.CorruptedEnvironmentException;
+import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
-import control.Parser;
-import exceptions.CorruptedEnvironmentException;
-import exceptions.IllegalInstructionException;
+
 
 
 /**
@@ -45,7 +46,7 @@ public abstract class BaseInstruction implements Instruction {
      */
 
     public void load (Scanner line, Parser parser)
-                                                  throws IllegalInstructionException {
+        throws IllegalInstructionException {
         List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
             operands.add(parser.nextInstruction(line));
@@ -53,6 +54,11 @@ public abstract class BaseInstruction implements Instruction {
         myOperands = operands.listIterator();
     }
 
+    /**
+     * Gives the next operand in the instruction.
+     * 
+     * @return The next instruction in this instructions operands.
+     */
     public Instruction nextOperand () {
         if (!myOperands.hasNext()) {
             resetOperands();
@@ -86,6 +92,11 @@ public abstract class BaseInstruction implements Instruction {
         return copy;
     }
 
+    /**
+     * Gives the number of arguments a BaseInstruction takes.
+     * 
+     * @return The number of arguments needed for this instruction.
+     */
     public int getNumberOfArguments () {
         return myNumberOfArguments;
     }

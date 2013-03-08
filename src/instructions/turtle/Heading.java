@@ -26,6 +26,9 @@ public class Heading extends BaseInstruction {
     private static final long serialVersionUID = -1343102259227622948L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
     
+    /**
+     * Initializes a change of heading rotation instruction.
+     */
     public Heading () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
