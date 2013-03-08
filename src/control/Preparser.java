@@ -19,19 +19,15 @@ import exceptions.IllegalInstructionException;
 public class Preparser {
     private Environment myEnvironment;
 
+    /**
+     * Initiates a preparser based on the environment in which it works.
+     * 
+     * @param environment is used for instruction references.
+     */
     public Preparser (Environment environment) {
         myEnvironment = environment;
     }
 
-    private class ReturnValues {
-        public List<String> list;
-        public int counterChange;
-
-        public ReturnValues (List<String> rest, int counter) {
-            list = rest;
-            counterChange = counter;
-        }
-    }
 
     /**
      * Takes user input, converts to lower case so that case does not matter,
@@ -94,7 +90,7 @@ public class Preparser {
     }
 
     private ReturnValues recurse (List<String> wordsList, int argCount)
-                                                                       throws IllegalInstructionException {
+        throws IllegalInstructionException {
         int counter = 0;
         for (int i = 0; i < argCount; i++) {
             if (counter >= wordsList.size()) {
@@ -193,8 +189,9 @@ public class Preparser {
      * at a later point in regular parsing.
      */
     private int getArgumentCount (String s) {
-        if (s.startsWith(Parser.START_OF_VARIABLE))
+        if (s.startsWith(Parser.START_OF_VARIABLE)) {
             return -1;
+        }
         else {
             try {
                 BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
@@ -221,5 +218,16 @@ public class Preparser {
             wordsList.remove(index + 1);
         }
         return result;
+    }
+    
+
+    private class ReturnValues {
+        public List<String> list;
+        public int counterChange;
+
+        public ReturnValues (List<String> rest, int counter) {
+            list = rest;
+            counterChange = counter;
+        }
     }
 }

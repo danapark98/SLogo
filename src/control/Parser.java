@@ -1,12 +1,12 @@
 package control;
 
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.util.Scanner;
-import exceptions.IllegalInstructionException;
 
 
 /**
@@ -131,7 +131,9 @@ public class Parser {
         String str = "";
         int counterBracket = 1;
         while (counterBracket != 0) {
-            if (!line.hasNext()) throw new IllegalInstructionException(LIST_ERROR_MESSAGE);
+            if (!line.hasNext()) {
+                throw new IllegalInstructionException(LIST_ERROR_MESSAGE);
+            }
             str = line.next();
             if (str.equals(BEGINNING_OF_LIST)) {
                 counterBracket++;
