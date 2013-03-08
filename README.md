@@ -10,7 +10,7 @@ SLogo
 <li> Mentor: Volodymyr Zavidovych (vz4@duke.edu)
 <li> Repository: https://github.com/srwareham/SLogo
 </ul>
-<b>Start date:<b> February 15, 2013
+<b>Start date:</b> February 15, 2013
 
 <hr>
 
