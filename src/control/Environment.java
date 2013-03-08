@@ -1,5 +1,8 @@
 package control;
 
+import exceptions.FileSavingException;
+import exceptions.IllegalInstructionException;
+import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,9 +12,8 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
-import exceptions.FileSavingException;
-import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
+import java.util.ResourceBundle;
+
 
 
 /**
@@ -31,26 +33,24 @@ public class Environment {
     /**
      * Creates a new Environment with the default instructions located
      * .\resources\instruction_index.txt
+     * 
+     * @param resources is the resource bundle that contains all instruction strings
      */
-    public Environment () {
-        initiateInstructionMap();
+    public Environment (ResourceBundle resources) {
+        initiateInstructionMap(resources);
     }
 
     /**
      * Populates myInstructionMap with relevant instructions
      * from the instruction_index.txt file and their keywords from a .properties
      * file
+     * 
+     * @param resources is the resource bundle that contains all instruction strings
      */
-    private void initiateInstructionMap () {
-
-        // TODO: would much rather have the constructor take a ResourceBundle
-        // instead of a
-        // string that indicates where to find the ResourceBundle
+    private void initiateInstructionMap (ResourceBundle resources) {
         InstructionMapFactory imf =
-                new InstructionMapFactory(
-                                          InstructionMapFactory.ENGLISH_LANGUAGE);
+                new InstructionMapFactory(resources);
         myInstructionMap = imf.buildInstructionMap();
-
     }
 
     /**
@@ -64,6 +64,11 @@ public class Environment {
         myInstructionMap.put(keyword, userInstruction);
     }
 
+    /**
+     * Deletes the specified instruction from the Environment.
+     * 
+     * @param variableName is the name of the instruction to be deleted.
+     */
     public void remove (String variableName) {
         myInstructionMap.remove(variableName);
     }
@@ -77,10 +82,10 @@ public class Environment {
      *         found in the environment.
      */
     public BaseInstruction systemInstructionSkeleton (String commandName)
-                                                                         throws IllegalInstructionException {
+        throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName)) {
-            throw new IllegalInstructionException(commandName);
+        if (!myInstructionMap.containsKey(commandName)) { 
+            throw new IllegalInstructionException(commandName); 
         }
         return myInstructionMap.get(commandName).newCopy();
     }
