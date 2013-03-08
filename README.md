@@ -34,14 +34,15 @@ Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <b>How to add a new instruction:</b>
 
 How to add a new instruction:
-<br>1. Write class that extends BaseInstruction: i.e. Class Loop extends BaseInstruction
-<br>2. add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
-<br>3. add keywords to each of the properties files 
-<br>  example for keywords "loop" and "loopdeloop":
-<br>	
-<br>	Loop = loop,loopdeloop
-<br>	
-<br> 4. Run and use your new instruction
+<ol>
+<li> Write class that extends BaseInstruction: i.e. Class Loop extends BaseInstruction
+<li> Add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
+<li> Add keywords to each of the properties files 
+<br>  example for keywords "loop" and "loopdeloop":	
+<br>	Loop = loop,loopdeloop	
+<br>
+<li> 4. Run and use your new instruction
+</ol>
 
 <b>View Hierarchy:</b>
   The View class is an abstract class that serves to define what all Views will need to implement to work with out framework.
