@@ -18,6 +18,8 @@ import simulation.Model;
  * be saved and restored.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public interface Instruction extends Serializable {
@@ -30,7 +32,8 @@ public interface Instruction extends Serializable {
      * 
      * @param model is the model on which this Instruction will execute
      * @throws IllegalInstructionException if instruction cannot be performed
-     * (i.e. dividing by zero)
+     * (i.e. dividing by zero) or if the parameter do not match the specified format
+     * (i.e.  <i>fd</i> , where no parameter can be read).
      */
     public int execute (Model model) throws IllegalInstructionException;
 
