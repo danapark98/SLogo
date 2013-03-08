@@ -1,6 +1,6 @@
 SLogo
 
-Team 2:
+<b>Team 2:<b>
 <ul>
 <li> Ryan Fishel (ref13@duke.edu) 
 <li> Ellango Jothimurugesan (ej48@duke.edu) 
@@ -10,7 +10,7 @@ Team 2:
 <li> Mentor: Volodymyr Zavidovych (vz4@duke.edu)
 <li> Repository: https://github.com/srwareham/SLogo
 </ul>
-Start date: February 15, 2013
+<b>Start date:<b> February 15, 2013
 
 <hr>
 
@@ -30,6 +30,7 @@ Start date: February 15, 2013
 </ul>
 <hr>
 <b>Resources</b>
+<br>
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <hr>
 
