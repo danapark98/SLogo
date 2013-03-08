@@ -66,7 +66,6 @@ public class ViewFileMenu {
         };
     }
 
-    // TODO: refactor the menubar operator methods.
     private AbstractAction makeMenuBarOpen () {
         return new AbstractAction(getResourceLocalization(OPEN)) {
             /**
