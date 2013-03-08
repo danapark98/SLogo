@@ -7,6 +7,7 @@ package exceptions;
  * appropriate instantiation method for a instruction in the library.
  *
  */
+@SuppressWarnings("serial")
 public class CorruptedEnvironmentException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
+    
 }

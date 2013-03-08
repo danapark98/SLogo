@@ -1,4 +1,16 @@
-<b>SLogo</b>
+SLogo
+
+Team 2:
+•Ryan Fishel (ref13@duke.edu) 
+•Ellango Jothimurugesan (ej48@duke.edu) 
+•Scott Valentine (sdv4@duke.edu)
+•Sean Wareham (srw22@duke.edu) 
+•Elder Yoshida (emy2@duke.edu)
+•Mentor: Volodymyr Zavidovych (vz4@duke.edu)
+•Repository: https://github.com/srwareham/SLogo
+
+Start date: February 15, 2013
+
 <hr>
 
 <b>View Team:</b>
@@ -8,23 +20,27 @@ Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Mond
 <br>
 <b>Model/Controller Team:</b>
 <br>
+Ellango:
+Ryan: 1.5 hours Sunday 2/24, 4 hours Monday 2/25, 3 hours Tuesday 2/26, 
+1 hour Wednesday 2/27, 3 hours Thursday 2/28, 4 hours Saturday 3/2,
+6.5 hours Sunday 3/3, 2 hours Monday 3/4, 2 hour Thursday 3/7
+Scott: 
+
 
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <hr>
 
 <b>How to add a new instruction:</b>
 
-<ol>
-<li> Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction </li>
-<li> Add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop </li>
-<li> Add keywords to each of the properties files: 
-example for keywords "loop" and "loopdeloop": 
-<br>
-<i>Loop = loop,loopdeloop</i> </li>
-  
-<li> Run and use your new instruction. </li>
-</ol>
-<hr>
+How to add a new instruction:
+<br>1. Write class that extends BaseInstruction: i.e. Class Loop extends BaseInstruction
+<br>2. add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
+<br>3. add keywords to each of the properties files 
+<br>  example for keywords "loop" and "loopdeloop":
+<br>	
+<br>	Loop = loop,loopdeloop
+<br>	
+<br> 4. Run and use your new instruction
 
 <b>View Heirarchy:</b>
   The View class is an abstract class that serves to define what all Views will need to implement to work with out framework.
@@ -62,3 +78,15 @@ added View.setCanvas() to allow the view to make a canvas that can subsequently 
   Workspace that openes a new window is closed, all of its child windows will be termindated
   There are several TODO:'s that have yet to be implemented.
     Some of which have had intermediate implementations put in place, but the TODO:'s remain for the reminder that we need to fix them
+
+Explanations:
+	Constant Instruction: This class makes instructions that are just constants.  When we parse, everything has a list of instructions
+	so we need to make our constants instructions in order to parse them.
+	Copy:
+	nextOperand loops:
+	BaseInstruction.ListIterator:
+	BaseInstruction.getNumberOfArguments: This gets the number of arguments for a certain instruction.  This is used so that we know
+    how many arguments to read given the instruction that we just read when we are parsing.
+	Turtle.recursiveLineCreation: This solves the issue of how to draw lines when the turtle wraps around the screen.
+	InstructionMapFactory: This class loads all of the instructions into the map in the Environment using reflection.
+	

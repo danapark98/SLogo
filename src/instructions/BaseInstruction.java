@@ -83,7 +83,11 @@ public abstract class BaseInstruction implements Instruction {
         }
         return copy;
     }
-
+    
+    /**
+     * 
+     * @return the number of arguments in an instruction
+     */
     public abstract int getNumberOfArguments();
 
 }

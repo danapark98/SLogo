@@ -7,9 +7,8 @@ package exceptions;
  * @author Scott Valentine
  * 
  */
+@SuppressWarnings("serial")
 public class IllegalInstructionException extends Exception {
-
-    private static final long serialVersionUID = 1L;
     
     /** String that resulted in the exception. */
     private String myCommand;
