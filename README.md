@@ -7,15 +7,17 @@ Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Mond
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 
 
-How to add a new instruction:
-<br>1. Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction
-<br>2. add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
-<br>3. add keywords to each of the properties files 
-<br>  example for keywords "loop" and "loopdeloop":
-<br>	
-<br>	Loop = loop,loopdeloop
-<br>	
-<br> 4. Run and use your new instruction
+<b>How to add a new instruction:</b>
+
+<li> Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction </li>
+<li> add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop </li>
+<li>. add keywords to each of the properties files 
+example for keywords "loop" and "loopdeloop": 
+<br>
+<i>Loop = loop,loopdeloop</i> </li>
+  
+<li> Run and use your new instruction </li>
+</ol>
 
 View Heirarchy:
   The View class is an abstract class that serves to define what all Views will need to implement to work with out framework.
