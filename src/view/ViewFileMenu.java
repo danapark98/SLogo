@@ -1,5 +1,6 @@
 package view;
 
+import control.Controller;
 import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,8 +11,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JSeparator;
-import control.Controller;
-
 
 /**
  * An object to a create a FileMenuBar
@@ -46,7 +45,7 @@ public class ViewFileMenu {
      * separate file for one line of actual code.
      */
     protected JMenu makeFileMenu () {
-        JMenu result = new JMenu(myView.getResources().getString(FILE));
+        JMenu result = new JMenu(getResourceLocalization(FILE));
         result.add(makeMenuBarNew());
         result.add(makeMenuBarOpen());
         result.add(makeMenuBarSave());
@@ -56,7 +55,7 @@ public class ViewFileMenu {
     }
 
     private AbstractAction makeMenuBarNew () {
-        return new AbstractAction(myView.getResources().getString(NEW)) {
+        return new AbstractAction(getResourceLocalization(NEW)) {
             private static final long serialVersionUID = -6868831251083168422L;
 
             @Override
@@ -69,7 +68,7 @@ public class ViewFileMenu {
 
     // TODO: refactor the menubar operator methods.
     private AbstractAction makeMenuBarOpen () {
-        return new AbstractAction(myView.getResources().getString(OPEN)) {
+        return new AbstractAction(getResourceLocalization(OPEN)) {
             /**
              * 
              */
@@ -78,9 +77,9 @@ public class ViewFileMenu {
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
-                    int response = myView.getChooser().showOpenDialog(null);
+                    int response = getViewChooser().showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                        InputStream in = new FileInputStream(myView.getChooser().getSelectedFile());
+                        InputStream in = new FileInputStream(getViewChooser().getSelectedFile());
                         getViewController().loadState(in);
                     }
                 }
@@ -93,16 +92,16 @@ public class ViewFileMenu {
     }
 
     private AbstractAction makeMenuBarSave () {
-        return new AbstractAction(myView.getResources().getString(SAVE)) {
+        return new AbstractAction(getResourceLocalization(SAVE)) {
             private static final long serialVersionUID = -686883125108316843L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
-                    int response = myView.getChooser().showSaveDialog(null);
+                    int response = getViewChooser().showSaveDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
                         OutputStream o =
-                                new FileOutputStream(myView.getChooser().getSelectedFile());
+                                new FileOutputStream(getViewChooser().getSelectedFile());
                         getViewController().saveState(o);
                     }
                 }
@@ -115,6 +114,15 @@ public class ViewFileMenu {
         };
     }
     
+    private JFileChooser getViewChooser() {
+        return myView.getChooser();
+    }
+    
+    private String getResourceLocalization (String input) {
+        return myView.getResources().getString(input);
+        
+    }
+    
     private Controller getViewController() {
         return myView.getController();
     }
@@ -124,7 +132,7 @@ public class ViewFileMenu {
     }
 
     private AbstractAction makeMenuBarQuit () {
-        return new AbstractAction(myView.getResources().getString(QUIT)) {
+        return new AbstractAction(getResourceLocalization(QUIT)) {
             /**
              * 
              */
