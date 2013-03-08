@@ -8,6 +8,12 @@ Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Mond
 <br>
 <b>Model/Controller Team:</b>
 <br>
+Ellango:
+Ryan: 1.5 hours Sunday 2/24, 4 hours Monday 2/25, 3 hours Tuesday 2/26, 
+1 hour Wednesday 2/27, 3 hours Thursday 2/28, 4 hours Saturday 3/2,
+6.5 hours Sunday 3/3, 2 hours Monday 3/4, 2 hour Thursday 3/7
+Scott: 
+
 
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <hr>
@@ -62,3 +68,15 @@ added View.setCanvas() to allow the view to make a canvas that can subsequently 
   Workspace that openes a new window is closed, all of its child windows will be termindated
   There are several TODO:'s that have yet to be implemented.
     Some of which have had intermediate implementations put in place, but the TODO:'s remain for the reminder that we need to fix them
+
+Explanations:
+	Constant Instruction: This class makes instructions that are just constants.  When we parse, everything has a list of instructions
+	so we need to make our constants instructions in order to parse them.
+	Copy:
+	nextOperand loops:
+	BaseInstruction.ListIterator:
+	BaseInstruction.getNumberOfArguments: This gets the number of arguments for a certain instruction.  This is used so that we know
+    how many arguments to read given the instruction that we just read when we are parsing.
+	Turtle.recursiveLineCreation: This solves the issue of how to draw lines when the turtle wraps around the screen.
+	InstructionMapFactory: This class loads all of the instructions into the map in the Environment using reflection.
+	
