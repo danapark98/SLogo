@@ -50,7 +50,6 @@ public abstract class View extends JFrame {
         }
 
         setTitle(title);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         setCanvas();
         getContentPane().add(makeMenus(), BorderLayout.NORTH);
