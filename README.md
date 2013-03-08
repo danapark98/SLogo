@@ -1,10 +1,14 @@
 <center>SLogo</center>
 <hr>
 
-<br>View Team:</br>
+<b>View Team:</b>
+<br>
 Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
 Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 4<br>
 <br>
+<b>Model/Controller Team:</b>
+<br>
+
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <hr>
 
