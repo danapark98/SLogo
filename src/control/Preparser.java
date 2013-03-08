@@ -93,6 +93,15 @@ public class Preparser {
         return createStringFromList(wordsList, 0, wordsList.size());
     }
 
+    /**
+     * Recursively adds brackets in the correct place in a list of instructions
+     * @param wordsList is a current list of the instructions
+     * @param argCount is the number of arguments that the current instruction 
+     * takes
+     * @return a ReturnValues object which has a list of instructions and a 
+     * counter.
+     * @throws IllegalInstructionException
+     */
     private ReturnValues recurse (List<String> wordsList, int argCount)
                                                                        throws IllegalInstructionException {
         int counter = 0;

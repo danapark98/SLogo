@@ -74,6 +74,7 @@ public class Parser {
             String commandName = line.next();
 
             Instruction result;
+
             if (commandName.equals(BEGINNING_OF_LIST)) {
                 result = generateInstruction(new Scanner(parseList(line)));
             }

@@ -51,11 +51,20 @@ public class CompoundInstruction implements Instruction {
     public void add(Instruction instruction) {
         myInstructions.add(instruction);
     }
-    
+    /**
+     * Gets the size of the compound instruction
+     * @return the number of instructions in the coumpound instruction
+     */
     public int getSize() {
         return myInstructions.size();
     }
-    
+    /**
+     * Returns the instruction at a specified index in the compound 
+     * instruction.
+     * 
+     * @param index is the index of the instruction that will be returned
+     * @return the instruction at the index specified
+     */
     public Instruction getInstruction (int index) {
         return myInstructions.get(index);
     }
