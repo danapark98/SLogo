@@ -1,4 +1,16 @@
 SLogo
+
+Team 2:
+•Ryan Fishel (ref13@duke.edu) 
+•Ellango Jothimurugesan (ej48@duke.edu) 
+•Scott Valentine (sdv4@duke.edu)
+•Sean Wareham (srw22@duke.edu) 
+•Elder Yoshida (emy2@duke.edu)
+•Mentor: Volodymyr Zavidovych (vz4@duke.edu)
+•Repository: https://github.com/srwareham/SLogo
+
+Start date: February 15, 2013
+
 <hr>
 View Team:<br>
 Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
@@ -8,7 +20,7 @@ Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 
 
 How to add a new instruction:
-<br>1. Write class that extends Instruction (probably want to extend BaseInstruction): i.e. Class Loop extends BaseInstruction
+<br>1. Write class that extends BaseInstruction: i.e. Class Loop extends BaseInstruction
 <br>2. add the ClassPath to instruction_index.txt in the resources package: i.e. instructions.Loop
 <br>3. add keywords to each of the properties files 
 <br>  example for keywords "loop" and "loopdeloop":

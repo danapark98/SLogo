@@ -8,9 +8,8 @@ package exceptions;
  * (e.g. picking a different file)
  *
  */
+@SuppressWarnings("serial")
 public class FileSavingException extends Exception {
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * The message provided to the user when exception is thrown.
