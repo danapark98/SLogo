@@ -84,15 +84,16 @@ added View.getResources() so that all classes can access the language versioning
 
 <hr>
 <b>Explanations:</b>
-	<u>Constant Instruction:</u> <br>
+<ul>
+	<li> Constant Instruction:<br>
 	This class makes instructions that are just constants.  When we parse, everything has a list of instructions
 	so we need to make our constants instructions in order to parse them.
-	<u>Copy:</u> <br>
-	<u>nextOperand loops:</u> <br>
-	<u>BaseInstruction.ListIterator:</u> <br>
-	<u>BaseInstruction.getNumberOfArguments:</u><br>
+	<li>Copy: <br>
+	<li>nextOperand loops: <br>
+	<li>BaseInstruction.ListIterator: <br>
+	<li>BaseInstruction.getNumberOfArguments:<br>
 	This gets the number of arguments for a certain instruction.  This is used so that we know
 	 how many arguments to read given the instruction that we just read when we are parsing.
 	Turtle.recursiveLineCreation: This solves the issue of how to draw lines when the turtle wraps around the screen.
 	InstructionMapFactory: This class loads all of the instructions into the map in the Environment using reflection.
-	
+</ul>	
