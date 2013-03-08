@@ -18,7 +18,7 @@ Start date: February 15, 2013
 <ul>
 <li>Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
 <li>Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 4<br>
-</>ul
+</ul>
 <b>Model/Controller Team:</b>
 <br>
 <ul>
