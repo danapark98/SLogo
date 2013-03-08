@@ -15,18 +15,19 @@ Start date: February 15, 2013
 <hr>
 
 <b>View Team:</b>
-<br>
-Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
-Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 4<br>
-<br>
+<ul>
+<li>Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
+<li>Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 4<br>
+</>ul
 <b>Model/Controller Team:</b>
 <br>
-Ellango:
-Ryan: 1.5 hours Sunday 2/24, 4 hours Monday 2/25, 3 hours Tuesday 2/26, 
+<ul>
+<li>Ellango:
+<li>Ryan: 1.5 hours Sunday 2/24, 4 hours Monday 2/25, 3 hours Tuesday 2/26, 
 1 hour Wednesday 2/27, 3 hours Thursday 2/28, 4 hours Saturday 3/2,
 6.5 hours Sunday 3/3, 2 hours Monday 3/4, 2 hour Thursday 3/7
-Scott: 
-
+<li>Scott: 
+</ul>
 
 Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
 <hr>
