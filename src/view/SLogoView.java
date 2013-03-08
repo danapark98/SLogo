@@ -1,6 +1,5 @@
 package view;
 
-import control.Controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -119,12 +118,7 @@ public class SLogoView extends View {
      * the controller messages
      */
     private JTextArea myHistory;
-    
-    /*
-     * TODO: Implement CLEAR?
-     * TODO: Implement the NEW workspace command
-     */
-    
+
     /**
      * Creates an instance of the View with personalized layout.
      * 
@@ -137,7 +131,7 @@ public class SLogoView extends View {
         pack();
         setVisible(true);
     }
-    
+
     /**
      * Displays the text in the History panel and appends any text to it
      * 
@@ -151,6 +145,7 @@ public class SLogoView extends View {
             myHistory.append(s);
         }
     }
+
     /**
      * Creates the main panel with a Canvas, a History and an Input panels.
      * 
@@ -167,8 +162,9 @@ public class SLogoView extends View {
         contentPanel.add(makeCanvasPanel());
         contentPanel.add(makeHistAndInputPanel());
         return workspace;
-        
+
     }
+
     /**
      * Creates a panel with the Canvas.
      * 
@@ -181,6 +177,7 @@ public class SLogoView extends View {
         canvasPanel.setBorder(makeBorder(CANVAS_NAME));
         return canvasPanel;
     }
+
     /**
      * Creates a panel with the History and Input Panels in a vertical box.
      * 
@@ -193,6 +190,7 @@ public class SLogoView extends View {
         hstInpPanel.add(makeHistoryPane());
         return hstInpPanel;
     }
+
     /**
      * Creates a panel with the History, where the commands and results from the user are recorded.
      * 
@@ -204,14 +202,14 @@ public class SLogoView extends View {
         myHistory = textArea;
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
-        
+
         scrollPane.setPreferredSize(PREFERRED_HISTORY_SIZE);
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
         histPane.add(scrollPane);
         histPane.setBorder(makeBorder(HISTORY_NAME));
         return histPane;
     }
-    
+
     /**
      * Creates the input panel with buttons for the user to interact with the turtle
      * and the console in which the user writes the SLogo code.
@@ -228,6 +226,7 @@ public class SLogoView extends View {
         result.add(makeSubmitButton(), BorderLayout.SOUTH);
         return result;
     }
+
     /**
      * Creates the buttons for moving the turtle.
      * The layout is not very nice, right now and are going to be improved in the following version.
@@ -236,7 +235,7 @@ public class SLogoView extends View {
      */
     private JComponent makeTurtleMoveButtons () {
         JPanel turtleMovePane = new JPanel();
-        ImageIcon icon = 
+        ImageIcon icon =
                 new ImageIcon(getClass().getResource(RESOURCE_LOCATION + TURTLE_IMG_FILENAME));
         JLabel label = new JLabel(icon);
         turtleMovePane.setLayout(new BorderLayout());
@@ -245,9 +244,10 @@ public class SLogoView extends View {
         turtleMovePane.add(makeRightButton(), BorderLayout.LINE_END);
         turtleMovePane.add(makeBackwardButton(), BorderLayout.SOUTH);
         turtleMovePane.add(label, BorderLayout.CENTER);
-        
+
         return turtleMovePane;
     }
+
     /**
      * Creates a button that turns the turtle left.
      * 
@@ -257,6 +257,7 @@ public class SLogoView extends View {
         final String COMMAND = LEFT_COMMAND + DEFAULT_TURN_MAG;
         return makeTurtleMoveButton(getName(LEFT_LABEL), COMMAND);
     }
+
     /**
      * Creates a button that turns the turtle right.
      * 
@@ -266,6 +267,7 @@ public class SLogoView extends View {
         final String COMMAND = RIGHT_COMMAND + DEFAULT_TURN_MAG;
         return makeTurtleMoveButton(getName(RIGHT_LABEL), COMMAND);
     }
+
     /**
      * Creates a button that moves the turtle forward.
      * 
@@ -275,6 +277,7 @@ public class SLogoView extends View {
         final String COMMAND = FD_COMMAND + DEFAULT_FD_MAG;
         return makeTurtleMoveButton(getName(FORWARD_LABEL), COMMAND);
     }
+
     /**
      * Creates a button that moves the turtle backward.
      * 
@@ -284,6 +287,7 @@ public class SLogoView extends View {
         final String COMMAND = FD_COMMAND + -DEFAULT_FD_MAG;
         return makeTurtleMoveButton(getName(BACKWARD_LABEL), COMMAND);
     }
+
     /**
      * Creates a button that moves the turtle forward.
      * 
@@ -295,7 +299,8 @@ public class SLogoView extends View {
         JScrollPane pane = new JScrollPane(myConsole);
         pane.setPreferredSize(PREFERRED_CONSOLE_SIZE);
         return pane;
-    }    
+    }
+
     /**
      * Creates a button that submits the text in the console to the controller.
      * The code for this button is very similar to the code of the makeTurtleMoveButton method
@@ -305,32 +310,16 @@ public class SLogoView extends View {
      */
     private JButton makeSubmitButton () {
         JButton button = new JButton(getName(SUBMIT_LABEL));
-        final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                String command = myConsole.getText();
-                CONTROLLER.createRunInstruction(command);
+                submitControllCommand(myConsole.getText());
                 myConsole.setText("");
             }
         });
         return button;
-    }    
-    /**
-     * Creates a default border for most of the panels.
-     * 
-     * @return border for panels
-     */
-    private Border makeBorder (String panelName) {
-        Border border;
-        border = BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
-                       getName(panelName)),
-                       BorderFactory.createEmptyBorder(BORDER_OFFSET, BORDER_OFFSET, 
-                                                       BORDER_OFFSET, BORDER_OFFSET));
-        
-        return border;
     }
-    
+
     /**
      * Creates a button that takes in a final command.
      * Used to create the turtle movement buttons.
@@ -339,22 +328,49 @@ public class SLogoView extends View {
      */
     private JButton makeTurtleMoveButton (String name, final String command) {
         JButton button = new JButton(name);
-        final Controller CONTROLLER = super.getController();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                CONTROLLER.createRunInstruction(command);
+                submitControllCommand(command);
             }
         });
         return button;
     }
+
+    /**
+     * Sends the string command for the controller to parse/ process/
+     * 
+     * @param command
+     */
+    private void submitControllCommand (String command) {
+        super.getController().createRunInstruction(command);
+    }
+
+    /**
+     * Creates a default border for most of the panels.
+     * 
+     * @return border for panels
+     */
+    private Border makeBorder (String panelName) {
+        Border border;
+        border =
+                BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(
+                        getName(panelName)),
+                                                   BorderFactory.createEmptyBorder(BORDER_OFFSET,
+                                                                                   BORDER_OFFSET,
+                                                                                   BORDER_OFFSET,
+                                                                                   BORDER_OFFSET));
+
+        return border;
+    }
+
     /**
      * Returns a string with the text from the language resource file.
      * 
      * @param name of the element
      * @return name in the desired language specified in Main.
      */
-    private String getName(String name) {
+    private String getName (String name) {
         return super.getResources().getString(name);
     }
 }

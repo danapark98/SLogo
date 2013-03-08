@@ -50,11 +50,10 @@ public class ViewFileMenu {
     }
     private AbstractAction makeMenuBarNew() {
         return new AbstractAction(myView.getResources().getString(NEW)) {
-            private static final long serialVersionUID = -686883125108316843L;
+            private static final long serialVersionUID = -6868831251083168422L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                //TODO: how do we want a new workspace??  currently this will cascade down.
                 @SuppressWarnings("unused")
                 View newView = new SLogoView(myView.getTitle(), myView.getLanguage());
             }
@@ -79,7 +78,7 @@ public class ViewFileMenu {
                 }
                 catch (IOException io) {
                     //This should never occur because the picks a file
-                    myView.displayText(io.toString());
+                    viewDisplayText(io.toString());
                 }
             }
         };
@@ -101,10 +100,14 @@ public class ViewFileMenu {
                 
                 catch (IOException io) {
                     //This should never occur because the makes a file
-                    myView.displayText(io.toString());
+                    viewDisplayText(io.toString());
                 }
             }
         };
+    }
+    
+    private void viewDisplayText(String input) {
+        myView.displayText(input);
     }
     
     private AbstractAction makeMenuBarQuit() {

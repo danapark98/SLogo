@@ -79,6 +79,8 @@ public abstract class View extends JFrame {
         result.add(menu.makeFileMenu());
         return result;
     }
+    
+    
 
     /**
      * Method to display a text to the user in a display Box.
