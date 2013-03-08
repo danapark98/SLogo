@@ -9,9 +9,12 @@ import simulation.Model;
 
 
 /**
- * Represents a user defined Instruction. TODO: complete this java doc
+ * Represents a user defined Instruction. 
+ * Contains an instruction that represents the action performed by this instruction.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
 public class UserInstruction extends BaseInstruction {

@@ -24,17 +24,9 @@ import java.util.Scanner;
  */
 public class InstructionMapFactory {
 
-    /** Default Language */
-    // TODO: make one of these (currently one here and one in view)
-    public static final String ENGLISH_LANGUAGE = "English";
-
     /** Location of all instruction classpath data. */
     private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/instruction_index.txt";
-
-    /** Default location of the resources package. */
-    // TODO: make one of these (currently one here and one in view)
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String PROPERTIES_SEPERATOR = "[,]";
 
     /**
@@ -43,28 +35,8 @@ public class InstructionMapFactory {
      */
     private static final char COMMENT_CHARACTER = '#';
 
-    /** Resources for SLogo */
-    // TODO: we currently have two of these (one for view and one here), want
-    // only one
     private ResourceBundle myResources;
 
-    /**
-     * Instantiates the factory based on the language to be used for the
-     * commands.
-     * 
-     * @param language of the commands (must be file in resource
-     *        folder)
-     */
-    public InstructionMapFactory (String language) {
-        try {
-            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
-                                                   + language);
-        }
-        catch (MissingResourceException e) {
-            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
-                                                   + ENGLISH_LANGUAGE);
-        }
-    }
 
     /**
      * Constructor that creates new factory based on the resource bundle of
