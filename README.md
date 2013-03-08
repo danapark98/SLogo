@@ -41,7 +41,7 @@ How to add a new instruction:
 <br>  example for keywords "loop" and "loopdeloop":	
 <br>	Loop = loop,loopdeloop	
 <br>
-<li> 4. Run and use your new instruction
+<li> Run and use your new instruction
 </ol>
 
 <b>View Hierarchy:</b>
@@ -82,14 +82,17 @@ added View.getResources() so that all classes can access the language versioning
   There are several TODO:'s that have yet to be implemented.
     Some of which have had intermediate implementations put in place, but the TODO:'s remain for the reminder that we need to fix them
 
-Explanations:
-	Constant Instruction: This class makes instructions that are just constants.  When we parse, everything has a list of instructions
+<hr>
+<b>Explanations:</b>
+	<u>Constant Instruction:</u> <br>
+	This class makes instructions that are just constants.  When we parse, everything has a list of instructions
 	so we need to make our constants instructions in order to parse them.
-	Copy:
-	nextOperand loops:
-	BaseInstruction.ListIterator:
-	BaseInstruction.getNumberOfArguments: This gets the number of arguments for a certain instruction.  This is used so that we know
-    how many arguments to read given the instruction that we just read when we are parsing.
+	<u>Copy:</u> <br>
+	<u>nextOperand loops:</u> <br>
+	<u>BaseInstruction.ListIterator:</u> <br>
+	<u>BaseInstruction.getNumberOfArguments:</u><br>
+	This gets the number of arguments for a certain instruction.  This is used so that we know
+	 how many arguments to read given the instruction that we just read when we are parsing.
 	Turtle.recursiveLineCreation: This solves the issue of how to draw lines when the turtle wraps around the screen.
 	InstructionMapFactory: This class loads all of the instructions into the map in the Environment using reflection.
 	
