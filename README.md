@@ -1,7 +1,7 @@
-<center> <font size="4">SLogo</font> </center>
+<center>SLogo</center>
 <hr>
 
-View Team:<br>
+<br>View Team:</br>
 Sean: 7.3 Hours spent Mon Feb 25, Tuesday: 2.9, Monday 4 <br>
 Yoshi: 5.2 Hours spent Mon Feb 25, Tuesday: 2.9, Saturday: 3.5h, Sunday 2h, Monday 4<br>
 <br>
