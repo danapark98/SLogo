@@ -9,7 +9,7 @@ import simulation.Model;
 
 
 /**
- * Represents a user defined Instruction. TODO: complete this java doc
+ * Represents a user defined Instruction.
  * 
  * @author Scott Valentine
  * 

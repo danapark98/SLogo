@@ -128,7 +128,6 @@ public class InstructionMapFactory {
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
                 throw new CorruptedEnvironmentException();
-                // TODO: add meaning full exception message
             }
 
             // gets parameters from line
