@@ -22,11 +22,17 @@ SLogo
 <b>Model/Controller Team:</b>
 <br>
 <ul>
-<li>Ellango:
+<li>Ellango: (This time only includes the time spent pair programming) 
+4 hours Monday 2/25, 3 hours Tuesday 2/26, 3 hours Wednesday 2/27, 
+3 hours Thursday 2/28, 4 hours Saturday 3/2, 6.5 hours Sunday 3/3, 
+2 hours Monday 3/4, 3 hours Thursday 3/7 
 <li>Ryan: 1.5 hours Sunday 2/24, 4 hours Monday 2/25, 3 hours Tuesday 2/26, 
 1 hour Wednesday 2/27, 3 hours Thursday 2/28, 4 hours Saturday 3/2,
-6.5 hours Sunday 3/3, 2 hours Monday 3/4, 2 hour Thursday 3/7
-<li>Scott: 
+6.5 hours Sunday 3/3, 2 hours Monday 3/4, 3 hours Thursday 3/7
+<li>Scott: (This time only includes the time spent pair programming)
+4 hours Monday 2/25, 3 hours Thursday 2/28, 2 hours Monday 3/4,
+3 hours Thursday 3/7, Also wrote the initial draft of the Parser and many
+of the instructions individually.
 </ul>
 <hr>
 <b>Resources</b>
@@ -92,8 +98,10 @@ added View.getResources() so that all classes can access the language versioning
 	This class makes instructions that are just constants.  When we parse, everything has a list of instructions
 	so we need to make our constants instructions in order to parse them.
 	<li>Copy: <br>
+	This method is used so that the instruction can be saved in the map without having to save the exact parameter that
+	was entered.
 	<li>nextOperand loops: <br>
-	<li>BaseInstruction.ListIterator: <br>
+	These loops are used to loop through the arguments for an instruction.
 	<li>BaseInstruction.getNumberOfArguments:<br>
 	This gets the number of arguments for a certain instruction.  This is used so that we know
 	 how many arguments to read given the instruction that we just read when we are parsing.
