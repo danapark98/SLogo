@@ -189,7 +189,7 @@ public class Preparser {
         int count = start;
         int counterBracket = 1;
         while (counterBracket != 0) {
-            String str = wordsList.get(start);
+            String str = wordsList.get(count);
             counterBracket = Parser.updateCounterBracket(str, counterBracket);
             if (counterBracket != 0) {
                 count++;
