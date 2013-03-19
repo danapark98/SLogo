@@ -34,6 +34,13 @@ instructions.turtle.Heading
 instructions.turtle.IsPenDown
 instructions.turtle.IsShowing
 instructions.turtle.ClearScreen
+instructions.turtle.SetBackground
+instructions.turtle.SetPenColor
+instructions.turtle.SetShape
+instructions.turtle.SetPalette
+instructions.turtle.PenColor
+instructions.turtle.Stamp
+instructions.turtle.ClearStamps
 #
 # -- boolean instructions -- #
 #
