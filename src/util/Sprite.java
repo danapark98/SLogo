@@ -259,6 +259,15 @@ public abstract class Sprite {
         myVelocity = new Vector(myOriginalVelocity);
         myView = new Pixmap(myOriginalView);
     }
+    
+    /**
+     * Gives the size of the sprite.
+     * 
+     * @return The size of the sprite.
+     */
+    public Dimension getSize() {
+        return mySize;
+    }
 
     /**
      * Display this shape on the screen.

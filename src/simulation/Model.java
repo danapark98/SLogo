@@ -2,6 +2,7 @@ package simulation;
 
 import control.Environment;
 import drawing.Palette;
+import drawing.StampSprite;
 import drawing.lines.Point;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
@@ -24,6 +25,7 @@ import java.util.Collection;
 public class Model implements DisplayEditor {
     private Turtle myTurtle;
     private Collection<Point> myLines;
+    private Collection<StampSprite> myStamps;
     private Environment myEnvironment;
 
     /**
@@ -32,7 +34,8 @@ public class Model implements DisplayEditor {
     public Model () {
         myEnvironment = new Environment();
         myTurtle = new Turtle(this);
-        myLines = new ArrayList<Point>();       
+        myLines = new ArrayList<Point>();
+        myStamps = new ArrayList<StampSprite>();
     }
 
     /**
@@ -56,11 +59,38 @@ public class Model implements DisplayEditor {
         for (Point line : myLines) {
             line.paint(pen);
         }
+        for (StampSprite st : myStamps) {
+            st.paint(pen);
+        }
     }
 
+    /**
+     * Clears stamps and lines from model.
+     */
+    public void clear() {
+        clearLines();
+        clearStamps();
+    }
+    
     @Override
     public void addLine (Point line) {
         myLines.add(line);
+    }
+    
+    /** 
+     * Adds a stamp of the turtle.
+     * 
+     * @param st Stamp to be added.
+     */
+    public void addStamp (StampSprite st) {
+        myStamps.add(st);
+    }
+    
+    /**
+     * Clears all stamps in the current workspace.
+     */
+    public void clearStamps () {
+        myStamps.clear();
     }
 
     /**

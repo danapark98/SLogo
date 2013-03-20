@@ -1,8 +1,8 @@
 package instructions.turtle;
 
-import java.awt.Color;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import java.awt.Color;
 import simulation.Model;
 
 /**

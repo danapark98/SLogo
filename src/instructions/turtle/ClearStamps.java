@@ -1,8 +1,8 @@
 package instructions.turtle;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
 
 /**
  * Represents an instruction which clears any stamps present in the current workspace.<br>
@@ -17,12 +17,24 @@ import instructions.BaseInstruction;
  */
 public class ClearStamps extends BaseInstruction {
 
+    /**
+     * Auto-generated ID
+     */
+    private static final long serialVersionUID = -2967947234478531694L;
+    
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    /**
+     * Default constructor for Base Instruction types
+     */
+    public ClearStamps() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-        return 0;
+        model.clearStamps();
+        return 1;
     }
 
 }

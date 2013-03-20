@@ -1,8 +1,11 @@
 package instructions.turtle;
 
-import simulation.Model;
+import drawing.StampSprite;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+import simulation.Turtle;
+import util.Location;
 
 /**
  * Represents an instruction which makes a stamp of the current shape on the workspace<br>
@@ -18,15 +21,31 @@ import instructions.BaseInstruction;
  */
 public class Stamp extends BaseInstruction {
 
+    /**
+     * Auto-generated ID
+     */
+    private static final long serialVersionUID = -1752745552642834353L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
 
+    /**
+     * Default constructor for baseInstruction type
+     */
+    public Stamp() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
+    
     @Override
     public int execute(Model model) throws IllegalInstructionException {
         // model.addStamp() --> this does it through the model
-        model.addShape(model.currentShape());
+        Turtle t = model.getTurtle();
+
+        StampSprite st = new StampSprite(t.getView(), new Location(t.getX(), 
+            t.getY()), t.getSize());
+        st.setAngle(t.getAngle());
+        model.addStamp(st);
         
         // default return values
-        return 0;
+        return 1;
     }
 
 }

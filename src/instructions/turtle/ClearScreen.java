@@ -34,7 +34,7 @@ public class ClearScreen extends BaseInstruction {
 
     @Override
     public int execute(Model model) {
-        model.clearLines();
+        model.clear();
         return new Home().execute(model);
     }
 

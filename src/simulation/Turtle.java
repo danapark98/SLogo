@@ -82,7 +82,7 @@ public class Turtle extends Sprite {
             vt.updateValue(currentStatus[i]);
         }
     }
-
+    
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
