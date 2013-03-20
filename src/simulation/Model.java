@@ -1,12 +1,14 @@
 package simulation;
 
 import control.Environment;
+import control.Palette;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import simulation.LineDrawing.Line;
 
 
 
@@ -107,6 +109,15 @@ public class Model implements DisplayEditor {
     }
 
     /**
+     * Gives the current Palette is use in the current environment
+     * 
+     * @return
+     */
+    public Palette getPalette() {
+        return myEnvironment.getPalette();
+    }
+    
+    /**
      * Removes a variable from the environment. This is done in the context
      * of local variables, in which they should only be visible during a
      * function call.
@@ -116,4 +127,6 @@ public class Model implements DisplayEditor {
     public void removeVariable (String variableName) {
         myEnvironment.removeInstruction(variableName);
     }
+    
+    
 }

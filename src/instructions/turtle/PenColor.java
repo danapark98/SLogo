@@ -1,8 +1,9 @@
 package instructions.turtle;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+
 
 /**
  * Queries the turtle for the index of the current color of the pen. <br>
@@ -18,12 +19,22 @@ import instructions.BaseInstruction;
  */
 public class PenColor extends BaseInstruction {
 
+    /**
+     * Auto-generated ID.
+     */
+    private static final long serialVersionUID = -6331249525599036720L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
+    
+    /** 
+     * Default constructor for Base Instruction types.
+     */
+    public PenColor() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-        return 0;
+        return model.getPalette().currentColorIndex();
     }
 
 }

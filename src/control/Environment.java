@@ -29,6 +29,8 @@ public class Environment {
 
     /** Mapping of Instruction keywords to Instruction */
     private Map<String, BaseInstruction> myInstructionMap;
+    
+    private Palette myPalette;
 
     /**
      * Creates a new Environment with the default instructions located
@@ -38,6 +40,7 @@ public class Environment {
      */
     public Environment (ResourceBundle resource) {
         initiateInstructionMap(resource);
+        myPalette = new Palette();
     }
 
     /**
@@ -53,6 +56,15 @@ public class Environment {
 
     }
 
+    /**
+     * Gives the palette currently in use by this environment.
+     * 
+     * @return The current palette in use.
+     */
+    public Palette getPalette() {
+        return myPalette;
+    }
+    
     /**
      * Adds a new user defined instruction to the environment.
      * 
@@ -127,6 +139,7 @@ public class Environment {
         try {
             out = new ObjectOutputStream(os);
             out.writeObject(myInstructionMap);
+            out.writeObject(myPalette);
         }
         catch (IOException e) {
             throw new FileSavingException();

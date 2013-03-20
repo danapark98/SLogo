@@ -1,9 +1,9 @@
 package instructions.turtle;
 
+import control.Palette;
 import instructions.BaseInstruction;
-import java.awt.Color;
 import simulation.Model;
-import simulation.Turtle;
+
 
 
 /**
@@ -36,10 +36,8 @@ public class PenUp extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) {
-        Turtle turtle = model.getTurtle();
-        // set 0 for alpha value so that it is invisible.
-        turtle.changePen(new Color(0, 0, 0, 0));
+    public int execute(Model model) {     
+        model.getPalette().changeColor(Palette.DEFAULT_CLEAR_INDEX);
         return 0;
     }
 

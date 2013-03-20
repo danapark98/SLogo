@@ -1,9 +1,7 @@
 package instructions.turtle;
 
 import instructions.BaseInstruction;
-import java.awt.Color;
 import simulation.Model;
-import simulation.Turtle;
 
 
 /**
@@ -37,8 +35,7 @@ public class PenDown extends BaseInstruction {
 
     @Override
     public int execute(Model model) {
-        Turtle turtle = model.getTurtle();
-        turtle.changePen(Color.BLACK);
+        model.getPalette().lastColor();
         return 1;
     }
 }

@@ -1,8 +1,8 @@
 package instructions.turtle;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
 
 /**
  * Sets the color at a given indexed to a custom value.
@@ -17,12 +17,27 @@ import instructions.BaseInstruction;
  */
 public class SetPalette extends BaseInstruction {
 
+    /**
+     * Auto-generated ID
+     */
+    private static final long serialVersionUID = -4016715369982980312L;
     private static final int NUMBER_OF_ARGUMENTS = 4;
 
+    /**
+     * Default Constructor for base instruction types
+     */
+    public SetPalette() {
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
+    
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-        return 0;
+        int index = this.nextOperand().execute(model);
+        int r = this.nextOperand().execute(model);
+        int g = this.nextOperand().execute(model);
+        int b = this.nextOperand().execute(model);
+        model.getPalette().setColorAt(index, r, g, b);
+        return index;
     }
 
 }

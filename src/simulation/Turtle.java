@@ -31,10 +31,12 @@ public class Turtle extends Sprite {
     private static final String ANGLE_LABEL = "\u03f4" + ":";
     private static final double X_OFFSET = 25;
     private static final double Y_OFFSET = 15;
-    private static final int REVERSE_ANGLE_VALUE = 180;
-    private DisplayEditor myDisplayEditor;
+    //private static final int REVERSE_ANGLE_VALUE = 180;
+    //private DisplayEditor myDisplayEditor;
     private List<ValueText> myStatus;
-    private Color myPenColor;
+    
+    private Pen myPen;
+
 
     /**
      * Creates a new instance of turtle by passing it a DisplayEditor to draw lines with.
@@ -43,9 +45,9 @@ public class Turtle extends Sprite {
      */
     public Turtle (DisplayEditor la) {
         super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
-        myDisplayEditor = la;
+        //myDisplayEditor = la;
         initStatus();
-        myPenColor = Color.BLACK;
+        myPen = new Pen(this,la);
     }
 
     @Override
@@ -91,24 +93,6 @@ public class Turtle extends Sprite {
     }
 
     /**
-     * Changes the color of the turtle's lines.
-     * 
-     * @param color is the new color of the turtle's lines.
-     */
-    public void changePen (Color color) {
-        myPenColor = color;
-    }
-
-    /**
-     * Gives the current color of the turtle's lines
-     * 
-     * @return the current color of the turtle's lines.
-     */
-    public Color getPenColor () {
-        return myPenColor;
-    }
-
-    /**
      * Calculates the location of the center of the screen (the starting location) based on the size
      * of the canvas
      * 
@@ -141,48 +125,11 @@ public class Turtle extends Sprite {
      */
     @Override
     public void translate (Vector v) {
-        drawLines(v.getMagnitude());
+        myPen.draw(v.getMagnitude(), View.PREFERRED_CANVAS_SIZE);
         super.translate(v);
         Location location = new Location(getX(), getY());
         location.tryCorrectingBounds(View.PREFERRED_CANVAS_SIZE);
         super.setCenter(location);
-    }
-
-    /**
-     * Draws all necessary lines between the start and end positions.
-     * 
-     * @param mag is the distance between the last point and the next point.
-     */
-    private void drawLines (double mag) {
-        double distance = mag;
-        Location start = new Location(getX(), getY());
-        double angle = getAngle();
-        if (distance < 0) {
-            // We are ignoring checkstyle here since the following operation only 'flips' the
-            // distance
-            distance = -1 * distance;
-            angle += REVERSE_ANGLE_VALUE;
-        }
-        recursiveLineCreation(distance, start, angle);
-    }
-
-    /**
-     * Draws lines for the turtle one pixel at a time.
-     * 
-     * @param distanceRemaining
-     * @param start is the current position
-     * @param angle is the direction to draw the lines in
-     */
-    private void recursiveLineCreation (double distanceRemaining, Location start, double angle) {
-        if (distanceRemaining < 0) {
-            return;
-        }
-        Location end = new Location(start);
-        end.translate(new Vector(angle, 1));
-        if (!end.tryCorrectingBounds(View.PREFERRED_CANVAS_SIZE)) {
-            myDisplayEditor.addLine(new Line(start, end, myPenColor));
-        }
-        recursiveLineCreation(distanceRemaining - 1, end, angle);
     }
 
     /**

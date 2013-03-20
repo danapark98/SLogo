@@ -9,6 +9,7 @@ import instructions.BaseInstruction;
  * <br>
  * <u> Examples:</u> <br>
  * stamp ---> makes a triangle shape when the turtle is a triangle shape <br>
+ * right now this default returns 0
  * 
  * @author Scott Valentine
  * @author Ryan Fishel
@@ -21,7 +22,10 @@ public class Stamp extends BaseInstruction {
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
+        // model.addStamp() --> this does it through the model
+        model.addShape(model.currentShape());
+        
+        // default return values
         return 0;
     }
 
