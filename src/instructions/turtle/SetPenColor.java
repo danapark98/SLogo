@@ -1,5 +1,6 @@
 package instructions.turtle;
 
+import java.awt.Color;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
@@ -31,7 +32,8 @@ public class SetPenColor extends BaseInstruction {
     @Override
     public int execute(Model model) throws IllegalInstructionException {
         int index = this.nextOperand().execute(model);
-        model.getPalette().changeColor(index);
+        Color c = model.getPalette().getColor(index);
+        model.getTurtle().turtlePen().changeColor(c);
         return index;
     }
 

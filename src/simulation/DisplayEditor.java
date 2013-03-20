@@ -1,7 +1,7 @@
 package simulation;
 
-import simulation.LineDrawing.Line;
-import control.Palette;
+import drawing.Palette;
+import drawing.lines.Point;
 
 /**
  * Interface for objects that can have lines added.
@@ -17,7 +17,7 @@ public interface DisplayEditor {
      * 
      * @param line is the line to be added.
      */
-    public void addLine (Line line);
+    public void addLine (Point line);
     
     /**
      * Gives a palette of colors used for drawing.

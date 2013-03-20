@@ -36,7 +36,7 @@ public class SetPalette extends BaseInstruction {
         int r = this.nextOperand().execute(model);
         int g = this.nextOperand().execute(model);
         int b = this.nextOperand().execute(model);
-        model.getPalette().setColorAt(index, r, g, b);
+        model.getPalette().addColor(index, r, g, b);
         return index;
     }
 

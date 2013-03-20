@@ -1,6 +1,5 @@
 package instructions.turtle;
 
-import control.Palette;
 import instructions.BaseInstruction;
 import simulation.Model;
 
@@ -37,7 +36,7 @@ public class PenUp extends BaseInstruction {
 
     @Override
     public int execute(Model model) {     
-        model.getPalette().changeColor(Palette.DEFAULT_CLEAR_INDEX);
+        model.getTurtle().turtlePen().penOff();
         return 0;
     }
 

@@ -1,5 +1,6 @@
 package simulation;
 
+import drawing.Pen;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -47,13 +48,22 @@ public class Turtle extends Sprite {
         super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
         //myDisplayEditor = la;
         initStatus();
-        myPen = new Pen(this,la);
+        myPen = new Pen(this, la);
     }
 
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         super.update(elapsedTime, bounds);
         updateStatus();
+    }
+    
+    /**
+     * The current pen being used by the turtle.
+     * 
+     * @return The pen used by the turtle.
+     */
+    public Pen turtlePen() {
+        return myPen;
     }
 
     /**

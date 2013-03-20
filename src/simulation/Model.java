@@ -1,14 +1,15 @@
 package simulation;
 
 import control.Environment;
-import control.Palette;
+import drawing.Palette;
+import drawing.lines.Point;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import simulation.LineDrawing.Line;
+
 
 
 
@@ -22,15 +23,16 @@ import simulation.LineDrawing.Line;
  */
 public class Model implements DisplayEditor {
     private Turtle myTurtle;
-    private Collection<Line> myLines;
+    private Collection<Point> myLines;
     private Environment myEnvironment;
 
     /**
      * Instantiates a model with a turtle and a collection of lines.
      */
     public Model () {
+        myEnvironment = new Environment();
         myTurtle = new Turtle(this);
-        myLines = new ArrayList<Line>();
+        myLines = new ArrayList<Point>();       
     }
 
     /**
@@ -51,13 +53,13 @@ public class Model implements DisplayEditor {
      */
     public void paint (Graphics2D pen) {
         myTurtle.paint(pen);
-        for (Line line : myLines) {
+        for (Point line : myLines) {
             line.paint(pen);
         }
     }
 
     @Override
-    public void addLine (Line line) {
+    public void addLine (Point line) {
         myLines.add(line);
     }
 

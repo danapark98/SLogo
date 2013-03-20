@@ -35,7 +35,7 @@ public class PenDown extends BaseInstruction {
 
     @Override
     public int execute(Model model) {
-        model.getPalette().lastColor();
+        model.getTurtle().turtlePen().penOn();
         return 1;
     }
 }

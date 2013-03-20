@@ -1,5 +1,6 @@
 package control;
 
+import drawing.Palette;
 import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
@@ -40,6 +41,11 @@ public class Environment {
      */
     public Environment (ResourceBundle resource) {
         initiateInstructionMap(resource);
+        myPalette = new Palette();
+    }
+
+    /** Creates an useless environment without instructions */
+    public Environment() {  
         myPalette = new Palette();
     }
 
