@@ -108,3 +108,13 @@ added View.getResources() so that all classes can access the language versioning
 	Turtle.recursiveLineCreation: This solves the issue of how to draw lines when the turtle wraps around the screen.
 	InstructionMapFactory: This class loads all of the instructions into the map in the Environment using reflection.
 </ul>	
+
+<hr>
+<b> Project Notes:</b>
+<ul>
+	multiple commands submitted at once returns the value of the last command performed
+	large memory leak?
+	when submit a very large number for a command, the heap size is not large enough
+
+
+
