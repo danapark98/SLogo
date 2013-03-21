@@ -25,6 +25,7 @@ import java.util.Collection;
 public class Model implements DisplayEditor {
     
     private Collection<Turtle> myTurtles;
+    private Collection<Turtle> myActiveTurtles;
     private Turtle myTurtle;
     private Collection<Point> myLines;
     private Collection<StampSprite> myStamps;
@@ -39,6 +40,9 @@ public class Model implements DisplayEditor {
         
         myEnvironment = new Environment();
         myTurtle = new Turtle(this);
+        
+        myTurtles.add(myTurtle);
+
         myLines = new ArrayList<Point>();
         myStamps = new ArrayList<StampSprite>();
     }
@@ -51,7 +55,10 @@ public class Model implements DisplayEditor {
      *        lines and turtle are displayed).
      */
     public void update (double elapsedTime, Dimension bounds) {
-        myTurtle.update(elapsedTime, bounds);
+        
+        for (Turtle turt : myTurtles) {
+            turt.update(elapsedTime, bounds);
+        }
     }
 
     /**
@@ -60,7 +67,12 @@ public class Model implements DisplayEditor {
      * @param pen is the graphic that is used to paint lins and turtles.
      */
     public void paint (Graphics2D pen) {
-        myTurtle.paint(pen);
+        // myTurtle.paint(pen);
+
+        for (Turtle t : myTurtles) {
+            t.paint(pen);
+        }
+        
         for (Point line : myLines) {
             line.paint(pen);
         }
@@ -111,6 +123,7 @@ public class Model implements DisplayEditor {
      * @return The active turtle in the model.
      */
     public Turtle getTurtle () {
+        // TODO: update so that this returns active turtles or first turtle or something
         return myTurtle;
     }
 
