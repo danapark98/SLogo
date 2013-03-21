@@ -16,6 +16,7 @@ import java.util.Map;
  */
 public class LinePalette {
 
+    
     /** This is the default style to build lines with */
     //public static final LineBuilder DEFAULT_LINE_STYLE = new DashedLine();
     

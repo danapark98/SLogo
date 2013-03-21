@@ -42,6 +42,7 @@ instructions.turtle.PenColor
 instructions.turtle.Stamp
 instructions.turtle.ClearStamps
 instructions.turtle.SetPenSize
+instructions.turtle.DrawDashed
 #
 # -- boolean instructions -- #
 #
