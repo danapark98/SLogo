@@ -30,6 +30,7 @@ public class Environment {
 
     /** Mapping of Instruction keywords to Instruction */
     private Map<String, BaseInstruction> myInstructionMap;
+    private Map<String, Integer> myTurtleShapeMap;
     
     private Palette myPalette;
 
@@ -41,7 +42,8 @@ public class Environment {
      */
     public Environment (ResourceBundle resource) {
         initiateInstructionMap(resource);
-        myPalette = new Palette();
+        initiateTurtleShapeMap(resource);
+        myPalette = new Palette(); 
     }
 
     /** Creates an useless environment without instructions */
@@ -61,7 +63,18 @@ public class Environment {
         myInstructionMap = imf.buildInstructionMap();
 
     }
+    
+    private void initiateTurtleShapeMap (ResourceBundle resource) {
 
+        InstructionMapFactory imf =
+                new InstructionMapFactory(resource);
+        myTurtleShapeMap = imf.buildTurtleShapeMap();
+
+    }
+    
+    public Map<String, Integer> getTurtleShapeMap() {
+    	return myTurtleShapeMap;
+    }
     /**
      * Gives the palette currently in use by this environment.
      * 
