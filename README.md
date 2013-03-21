@@ -1,4 +1,4 @@
-<p style="text-align: center;">SLogo</p>
+<center>SLogo</center>
 <hr>
 
 <b>Team 2:<b>
