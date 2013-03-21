@@ -2,6 +2,7 @@ package drawing;
 
 import drawing.lines.DashedLine;
 import drawing.lines.LineBuilder;
+import drawing.lines.RainbowLine;
 import drawing.lines.SolidLine;
 import exceptions.IllegalInstructionException;
 import java.util.HashMap;
@@ -48,6 +49,8 @@ public class LinePalette {
         
         myLineStyles.put(SolidLine.PALETTE_INDEX, new SolidLine());
         myLineStyles.put(DashedLine.PALETTE_INDEX, new DashedLine());
+        
+        myLineStyles.put(RainbowLine.RAINBOW_INDEX, new RainbowLine());
         
         // TODO: don't hardcode here (this is hard to find)
     }

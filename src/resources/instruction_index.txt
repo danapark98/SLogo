@@ -72,3 +72,7 @@ instructions.user_defined.Repeat
 instructions.user_defined.IfElse
 instructions.user_defined.If
 instructions.user_defined.For
+#
+# -- extra instructions -- #
+#
+instructions.extra.Rainbow
