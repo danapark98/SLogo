@@ -1,5 +1,4 @@
 <h2>SLogo
-<hr>
 
 <b>Team 2:<b>
 <ul>
