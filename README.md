@@ -112,9 +112,9 @@ added View.getResources() so that all classes can access the language versioning
 <hr>
 <b> Project Notes:</b>
 <ul>
-	multiple commands submitted at once returns the value of the last command performed
-	large memory leak?
-	when submit a very large number for a command, the heap size is not large enough
+	<li> multiple commands submitted at once returns the value of the last command performed
+	<li> large memory leak?
+	<li> when submit a very large number for a command, the heap size is not large enough
 </ul>
 <hr>
 <b> Instruction Help File </b> 
