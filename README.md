@@ -1,4 +1,5 @@
-SLogo
+<h1> <p style="text-align: center;">SLogo</p></h1>
+<hr>
 
 <b>Team 2:<b>
 <ul>
