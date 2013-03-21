@@ -145,5 +145,8 @@ public class Pen {
         myThickness = size;
     }
 
+    public void changeLineStyle(LineBuilder lb){
+        myLineBuilder = lb;
+    }
 
 }
