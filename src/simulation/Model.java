@@ -23,6 +23,8 @@ import java.util.Collection;
  * @author Ellango Jothimurugesan
  */
 public class Model implements DisplayEditor {
+    
+    private Collection<Turtle> myTurtles;
     private Turtle myTurtle;
     private Collection<Point> myLines;
     private Collection<StampSprite> myStamps;
@@ -32,6 +34,9 @@ public class Model implements DisplayEditor {
      * Instantiates a model with a turtle and a collection of lines.
      */
     public Model () {
+        
+        myTurtles = new ArrayList<Turtle>();
+        
         myEnvironment = new Environment();
         myTurtle = new Turtle(this);
         myLines = new ArrayList<Point>();

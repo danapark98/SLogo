@@ -135,6 +135,15 @@ public class Pen {
     public void changeColor(Color c) {
         myColor = c;
     }
+    
+    /**
+     * Changes the size of the pen.
+     * 
+     * @param size The diameter of points drawn by the pen.
+     */
+    public void changeSize(int size) {
+        myThickness = size;
+    }
 
 
 }

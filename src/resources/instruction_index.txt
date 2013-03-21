@@ -41,6 +41,7 @@ instructions.turtle.SetPalette
 instructions.turtle.PenColor
 instructions.turtle.Stamp
 instructions.turtle.ClearStamps
+instructions.turtle.SetPenSize
 #
 # -- boolean instructions -- #
 #
