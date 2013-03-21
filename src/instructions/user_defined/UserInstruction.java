@@ -1,9 +1,10 @@
 package instructions.user_defined;
 
+
+import control.Environment;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
-import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
 
@@ -38,31 +39,21 @@ public class UserInstruction extends BaseInstruction {
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        addVariablesToEnvironment(model);
+        Environment environment = model.getEnvironment();
+        environment.addVariables(myVariables, variableValuesToArray(model));
         int result = myInstruction.execute(model);
-        removeVariablesFromEnvironment(model);
+        environment.removeVariables(myVariables);
         return result;        
     }
 
-    private void addVariablesToEnvironment (Model model) throws IllegalInstructionException {
+    private int[] variableValuesToArray (Model model) throws IllegalInstructionException {
+        int[] values = new int[getNumberOfArguments()];
         for (int i = 0; i < getNumberOfArguments(); i++) {
-            VariableInstruction currentVariable = 
-                    (VariableInstruction) myVariables.getInstruction(i);
-            String variableName = currentVariable.getName();
-            int variableValue = nextOperand().execute(model);
-            model.addInstruction(variableName, new ConstantInstruction(variableValue));
+            values[i] = nextOperand().execute(model);
         }
+        return values;
     }
-
-    private void removeVariablesFromEnvironment (Model model) {
-        for (int i = 0; i < getNumberOfArguments(); i++) {
-            VariableInstruction currentVariable = 
-                    (VariableInstruction) myVariables.getInstruction(i);
-            String variableName = currentVariable.getName();
-            model.removeVariable(variableName);
-        }
-    }
-
+    
     @Override
     public BaseInstruction newCopy() {
         return new UserInstruction(myVariables, myInstruction);

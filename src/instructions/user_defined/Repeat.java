@@ -24,7 +24,7 @@ import simulation.Model;
  * @author Ellango Jothimurugesan
  * 
  */
-public class ForLoop extends BaseInstruction {
+public class Repeat extends BaseInstruction {
 
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
@@ -35,7 +35,7 @@ public class ForLoop extends BaseInstruction {
     /**
      * Initializes user defined for-loop instruction.
      */
-    public ForLoop () {
+    public Repeat () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 

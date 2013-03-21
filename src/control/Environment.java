@@ -5,6 +5,9 @@ import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
+import instructions.CompoundInstruction;
+import instructions.ConstantInstruction;
+import instructions.user_defined.VariableInstruction;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -14,7 +17,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 
 
 /**
@@ -30,7 +32,7 @@ public class Environment {
 
     /** Mapping of Instruction keywords to Instruction */
     private Map<String, BaseInstruction> myInstructionMap;
-    
+
     private Palette myPalette;
 
     /**
@@ -45,7 +47,7 @@ public class Environment {
     }
 
     /** Creates an useless environment without instructions */
-    public Environment() {  
+    public Environment () {
         myPalette = new Palette();
     }
 
@@ -67,10 +69,10 @@ public class Environment {
      * 
      * @return The current palette in use.
      */
-    public Palette getPalette() {
+    public Palette getPalette () {
         return myPalette;
     }
-    
+
     /**
      * Adds a new user defined instruction to the environment.
      * 
@@ -94,6 +96,41 @@ public class Environment {
     }
 
     /**
+     * TODO: comment
+     * @param variables
+     */
+    public void addVariables (CompoundInstruction variables, int[] variableValues) {
+        for (int i = 0; i < variables.getSize(); i++) {
+            VariableInstruction currentVariable = 
+                    (VariableInstruction) variables.getInstruction(i);
+            addVariable(currentVariable, variableValues[i]);
+        }
+    }
+    
+    /**
+     * TODO: comment
+     * @param variable
+     * @param value
+     */
+    public void addVariable(VariableInstruction variable, int value) {
+        String variableName = variable.getName();
+        BaseInstruction variableValue = new ConstantInstruction(value);
+        addUserDefinedInstruction(variableName, variableValue);
+    }
+
+    /**
+     * TODO: Comment
+     */
+    public void removeVariables (CompoundInstruction variables) {
+        for (int i = 0; i < variables.getSize(); i++) {
+            VariableInstruction currentVariable = 
+                    (VariableInstruction) variables.getInstruction(i);
+            String variableName = currentVariable.getName();
+            removeInstruction(variableName);
+        }
+    }
+
+    /**
      * Gives the Instruction associated with the passed keyword.
      * 
      * @param commandName - the keyword for the instruction
@@ -102,12 +139,10 @@ public class Environment {
      *         found in the environment.
      */
     public BaseInstruction systemInstructionSkeleton (String commandName)
-        throws IllegalInstructionException {
+                                                                         throws IllegalInstructionException {
 
-        if (!myInstructionMap.containsKey(commandName)) {
-            throw new IllegalInstructionException(
-                                                  commandName);
-        }
+        if (!myInstructionMap.containsKey(commandName)) { throw new IllegalInstructionException(
+                                                                                                commandName); }
         return myInstructionMap.get(commandName).newCopy();
     }
 

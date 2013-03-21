@@ -4,14 +4,10 @@ import control.Environment;
 import drawing.Palette;
 import drawing.StampSprite;
 import drawing.lines.Point;
-import exceptions.IllegalInstructionException;
-import instructions.BaseInstruction;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
-
-
 
 
 /**
@@ -23,7 +19,7 @@ import java.util.Collection;
  * @author Ellango Jothimurugesan
  */
 public class Model implements DisplayEditor {
-    
+
     private Collection<Turtle> myTurtles;
     private Collection<Turtle> myActiveTurtles;
     private Turtle myTurtle;
@@ -35,12 +31,12 @@ public class Model implements DisplayEditor {
      * Instantiates a model with a turtle and a collection of lines.
      */
     public Model () {
-        
+
         myTurtles = new ArrayList<Turtle>();
-        
+
         myEnvironment = new Environment();
         myTurtle = new Turtle(this);
-        
+
         myTurtles.add(myTurtle);
 
         myLines = new ArrayList<Point>();
@@ -55,7 +51,7 @@ public class Model implements DisplayEditor {
      *        lines and turtle are displayed).
      */
     public void update (double elapsedTime, Dimension bounds) {
-        
+
         for (Turtle turt : myTurtles) {
             turt.update(elapsedTime, bounds);
         }
@@ -72,7 +68,7 @@ public class Model implements DisplayEditor {
         for (Turtle t : myTurtles) {
             t.paint(pen);
         }
-        
+
         for (Point line : myLines) {
             line.paint(pen);
         }
@@ -84,17 +80,17 @@ public class Model implements DisplayEditor {
     /**
      * Clears stamps and lines from model.
      */
-    public void clear() {
+    public void clear () {
         clearLines();
         clearStamps();
     }
-    
+
     @Override
     public void addLine (Point line) {
         myLines.add(line);
     }
-    
-    /** 
+
+    /**
      * Adds a stamp of the turtle.
      * 
      * @param st Stamp to be added.
@@ -102,7 +98,7 @@ public class Model implements DisplayEditor {
     public void addStamp (StampSprite st) {
         myStamps.add(st);
     }
-    
+
     /**
      * Clears all stamps in the current workspace.
      */
@@ -137,25 +133,12 @@ public class Model implements DisplayEditor {
     }
 
     /**
-     * Adds a new user defined instruction to the environment.
+     * Returns the environment containing instructions, variables, Palette.
      * 
-     * @param keyword associated with the instruction for future calls
-     * @param instruction to be added to the environment.
+     * @return environment
      */
-    public void addInstruction (String keyword, BaseInstruction instruction) {
-        myEnvironment.addUserDefinedInstruction(keyword, instruction);
-    }
-
-    /**
-     * Gives the Instruction associated with the passed keyword.
-     * 
-     * @param name - the keyword for the instruction
-     * @return The Instruction associated with the keyword
-     * @throws IllegalInstructionException This occurs when the keyword is not
-     *         found in the environment.
-     */
-    public BaseInstruction getVariableInstruction (String name) throws IllegalInstructionException {
-        return myEnvironment.systemInstructionSkeleton(name);
+    public Environment getEnvironment () {
+        return myEnvironment;
     }
 
     /**
@@ -163,20 +146,8 @@ public class Model implements DisplayEditor {
      * 
      * @return
      */
-    public Palette getPalette() {
+    public Palette getPalette () {
         return myEnvironment.getPalette();
     }
-    
-    /**
-     * Removes a variable from the environment. This is done in the context
-     * of local variables, in which they should only be visible during a
-     * function call.
-     * 
-     * @param variableName is the name of the variable to be removed.
-     */
-    public void removeVariable (String variableName) {
-        myEnvironment.removeInstruction(variableName);
-    }
-    
-    
+
 }
