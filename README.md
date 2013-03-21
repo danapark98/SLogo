@@ -115,6 +115,9 @@ added View.getResources() so that all classes can access the language versioning
 	multiple commands submitted at once returns the value of the last command performed
 	large memory leak?
 	when submit a very large number for a command, the heap size is not large enough
-
+<hr>
+<b> Instruction Help File </b> 
+<br>
+A lot of the html syntax for this file cam directly off the Duke CS 308  website for the Slogo assingment. 
 
 
