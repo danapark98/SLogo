@@ -1,4 +1,4 @@
-SLogo
+<h2>SLogo
 
 <b>Team 2:<b>
 <ul>

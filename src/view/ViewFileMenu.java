@@ -1,7 +1,9 @@
 package view;
 
 import control.Controller;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +21,10 @@ import javax.swing.JSeparator;
  * 
  */
 public class ViewFileMenu {
+    private static final String INSTRUCTION_HELP_HTML = "instruction_help.html";
+    private static final String RESOURCE_DIR = "/src/resources/";
+    private static final String USER_DIR = "user.dir";
+    private static final String HELP = "Help";
     private static final String OPEN = "OpenCommand";
     private static final String FILE = "FileMenu";
     private static final String QUIT = "QuitCommand";
@@ -49,6 +55,8 @@ public class ViewFileMenu {
         result.add(makeMenuBarNew());
         result.add(makeMenuBarOpen());
         result.add(makeMenuBarSave());
+        result.add(new JSeparator());
+        result.add(makeMenuBarHelp());
         result.add(new JSeparator());
         result.add(makeMenuBarQuit());
         return result;
@@ -109,6 +117,27 @@ public class ViewFileMenu {
                 catch (IOException io) {
                     // This should never occur because the makes a file
                     viewDisplayText(io.toString());
+                }
+            }
+        };
+    }
+    
+    
+    private AbstractAction makeMenuBarHelp () {
+        return new AbstractAction(getResourceLocalization(HELP)) {
+            private static final long serialVersionUID = -6868831251083168422L;
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                Desktop hi = Desktop.getDesktop();
+                String here = System.getProperty(USER_DIR);
+                
+                try {
+                    File file = new File(here + RESOURCE_DIR + INSTRUCTION_HELP_HTML);
+                    hi.open(file);
+                }
+                catch (IOException e1) {
+                    viewDisplayText(e1.toString());
                 }
             }
         };
