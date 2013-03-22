@@ -7,6 +7,7 @@ import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
+import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +32,9 @@ import java.util.ResourceBundle;
 public class Environment {
 
     /** Mapping of Instruction keywords to Instruction */
-    private Map<String, BaseInstruction> myInstructionMap;
+    //private Map<String, BaseInstruction> myInstructionMap;
+    
+    private InstructionMap myInstructionMap;
 
     private Palette myPalette;
 
@@ -42,26 +45,10 @@ public class Environment {
      * @param resource is the ResourceBundle where all of the instruction keywords are stored.
      */
     public Environment (ResourceBundle resource) {
-        initiateInstructionMap(resource);
+        
+        myInstructionMap = new InstructionMap(resource);
+
         myPalette = new Palette();
-    }
-
-    /** Creates an useless environment without instructions */
-    public Environment () {
-        myPalette = new Palette();
-    }
-
-    /**
-     * Populates myInstructionMap with relevant instructions
-     * from the instruction_index.txt file and their keywords from a .properties
-     * file
-     */
-    private void initiateInstructionMap (ResourceBundle resource) {
-
-        InstructionMapFactory imf =
-                new InstructionMapFactory(resource);
-        myInstructionMap = imf.buildInstructionMap();
-
     }
 
     /**
@@ -79,7 +66,7 @@ public class Environment {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction is the instruction to be added to the environment.
      */
-    public void addUserDefinedInstruction (String keyword,
+    public void addInstruction (String keyword,
                                            BaseInstruction userInstruction) {
         myInstructionMap.put(keyword, userInstruction);
     }
@@ -94,41 +81,23 @@ public class Environment {
     public void removeInstruction (String instructionName) {
         myInstructionMap.remove(instructionName);
     }
-
-    /**
-     * TODO: comment
-     * @param variables
-     */
-    public void addVariables (CompoundInstruction variables, int[] variableValues) {
-        for (int i = 0; i < variables.getSize(); i++) {
-            VariableInstruction currentVariable = 
-                    (VariableInstruction) variables.getInstruction(i);
-            addVariable(currentVariable, variableValues[i]);
-        }
+    
+    public void addLocalVar(VariableInstruction instruct, int value){
+        String name = instruct.getName();
+        myInstructionMap.remove(name);
+        BaseInstruction constant = new ConstantInstruction(value);
+        myInstructionMap.addInstruction(name, constant);
     }
     
-    /**
-     * TODO: comment
-     * @param variable
-     * @param value
-     */
-    public void addVariable(VariableInstruction variable, int value) {
-        String variableName = variable.getName();
-        BaseInstruction variableValue = new ConstantInstruction(value);
-        addUserDefinedInstruction(variableName, variableValue);
+    public void removeLocalVar(String key) {
+        myInstructionMap.remove(key);
+    }
+    
+    public String customValuesToString() {
+        // TODO:
+        return null;
     }
 
-    /**
-     * TODO: Comment
-     */
-    public void removeVariables (CompoundInstruction variables) {
-        for (int i = 0; i < variables.getSize(); i++) {
-            VariableInstruction currentVariable = 
-                    (VariableInstruction) variables.getInstruction(i);
-            String variableName = currentVariable.getName();
-            removeInstruction(variableName);
-        }
-    }
 
     /**
      * Gives the Instruction associated with the passed keyword.
@@ -138,11 +107,7 @@ public class Environment {
      * @throws IllegalInstructionException This occurs when the keyword is not
      *         found in the environment.
      */
-    public BaseInstruction systemInstructionSkeleton (String commandName)
-                                                                         throws IllegalInstructionException {
-
-        if (!myInstructionMap.containsKey(commandName)) { throw new IllegalInstructionException(
-                                                                                                commandName); }
+    public BaseInstruction getInstruction (String commandName) throws IllegalInstructionException {
         return myInstructionMap.get(commandName).newCopy();
     }
 
@@ -159,7 +124,8 @@ public class Environment {
         ObjectInput in;
         try {
             in = new ObjectInputStream(is);
-            myInstructionMap = (Map<String, BaseInstruction>) in.readObject();
+            
+            myInstructionMap = (InstructionMap) in.readObject();
             myPalette = (Palette) in.readObject();
         }
         catch (ClassNotFoundException | IOException e) {
@@ -187,7 +153,5 @@ public class Environment {
         catch (IOException e) {
             throw new FileSavingException();
         }
-
     }
-
 }

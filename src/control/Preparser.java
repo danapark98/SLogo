@@ -212,7 +212,7 @@ public class Preparser {
         }
         else {
             try {
-                BaseInstruction base = myEnvironment.systemInstructionSkeleton(s);
+                BaseInstruction base = myEnvironment.getInstruction(s);
                 return base.getNumberOfArguments();
             }
             catch (IllegalInstructionException e) {
