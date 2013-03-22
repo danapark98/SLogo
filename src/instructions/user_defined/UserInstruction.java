@@ -40,9 +40,19 @@ public class UserInstruction extends BaseInstruction {
     @Override
     public int execute(Model model) throws IllegalInstructionException {
         Environment environment = model.getEnvironment();
-        environment.addVariables(myVariables, variableValuesToArray(model));
+        int[] localVarValues = variableValuesToArray(model);
+        for (int i = 0; i < myVariables.getSize(); ++i) {
+            VariableInstruction instruct = (VariableInstruction)myVariables.getInstruction(i);
+            environment.addLocalVar(instruct, localVarValues[i]);
+            
+        }
         int result = myInstruction.execute(model);
-        environment.removeVariables(myVariables);
+        
+        for (int i = 0; i < myVariables.getSize(); ++i) {
+            VariableInstruction vi = (VariableInstruction)myVariables.getInstruction(i);
+            String name = vi.getName();
+            environment.removeLocalVar(name);
+        }
         return result;        
     }
 

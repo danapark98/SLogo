@@ -37,7 +37,7 @@ public class For extends BaseInstruction {
         
         int last = 0;
         for (int i = start; i < end; i+= increment) {
-            environment.addVariable(variable,i);
+            environment.addLocalVar(variable,i);
             last = commandsToExecute.execute(model);
         }
         environment.removeInstruction(variable.getName());

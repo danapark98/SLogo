@@ -65,7 +65,9 @@ public class InstructionMap implements Serializable{
      */
     public void addInstruction (String keyword, BaseInstruction userInstruction) {
         
+        // TODO determine if global variable, user def function, or default
         
+        // We could always just keep a list of names? -- not the best
         
         myInstructionMap.put(keyword, userInstruction);
     }
@@ -87,22 +89,16 @@ public class InstructionMap implements Serializable{
      * @param variable
      * @param value
      */
-    private void addLocalVariable(VariableInstruction variable, int value) {
-        String variableName = variable.getName();
-        BaseInstruction variableValue = new ConstantInstruction(value);
-        addInstruction(variableName, variableValue);
+    public void addLocal(String key, int value) {
+        BaseInstruction bi = new ConstantInstruction(value);
+        myLocalVariables.put(key, bi);
     }
 
     /**
      * TODO: Comment
      */
-    public void removeLocalVariables (CompoundInstruction variables) {
-        for (int i = 0; i < variables.getSize(); i++) {
-            VariableInstruction currentVariable = 
-                    (VariableInstruction) variables.getInstruction(i);
-            String variableName = currentVariable.getName();
-            remove(variableName);
-        }
+    public void removeLocal (String name) {
+        myLocalVariables.remove(name);
     }
     
     public String variablesToString(){
