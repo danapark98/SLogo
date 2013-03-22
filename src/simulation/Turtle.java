@@ -32,8 +32,6 @@ public class Turtle extends Sprite {
     private static final String ANGLE_LABEL = "\u03f4" + ":";
     private static final double X_OFFSET = 25;
     private static final double Y_OFFSET = 15;
-    //private static final int REVERSE_ANGLE_VALUE = 180;
-    //private DisplayEditor myDisplayEditor;
     private List<ValueText> myStatus;
     
     private Pen myPen;
@@ -44,11 +42,10 @@ public class Turtle extends Sprite {
      * 
      * @param la is a DisplayEditor that draws lines.
      */
-    public Turtle (DisplayEditor la) {
+    public Turtle (DisplayEditor de) {
         super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
-        //myDisplayEditor = la;
         initStatus();
-        myPen = new Pen(this, la);
+        myPen = new Pen(this, de);
     }
 
     @Override
