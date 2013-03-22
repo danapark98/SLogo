@@ -160,6 +160,7 @@ public class Environment {
         try {
             in = new ObjectInputStream(is);
             myInstructionMap = (Map<String, BaseInstruction>) in.readObject();
+            myPalette = (Palette) in.readObject();
         }
         catch (ClassNotFoundException | IOException e) {
             throw new IncorrectFileFormatException();
@@ -180,6 +181,7 @@ public class Environment {
         try {
             out = new ObjectOutputStream(os);
             out.writeObject(myInstructionMap);
+            //TODO: make Palette and its variables serializable, and test saving/loading
             out.writeObject(myPalette);
         }
         catch (IOException e) {
