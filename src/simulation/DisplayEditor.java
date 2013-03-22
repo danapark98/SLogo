@@ -1,6 +1,7 @@
 package simulation;
 
 import drawing.Palette;
+import drawing.StampSprite;
 import drawing.lines.Point;
 
 /**
@@ -25,6 +26,13 @@ public interface DisplayEditor {
      * @return The Palette of colors that can be used in editing.
      */
     public Palette getPalette();
+    
+    /**
+     * Adds a stamp of the turtle.
+     * 
+     * @param st Stamp to be added.
+     */
+    public void addStamp (StampSprite st);
         
     
 }
