@@ -1,5 +1,6 @@
 package simulation;
 
+import control.Controller;
 import control.Environment;
 import drawing.Palette;
 import drawing.StampSprite;
@@ -8,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import view.View;
 
 
 /**
@@ -26,21 +28,38 @@ public class Model implements DisplayEditor {
     private Collection<Point> myLines;
     private Collection<StampSprite> myStamps;
     private Environment myEnvironment;
+    
+    private View myView;
+    
 
     /**
      * Instantiates a model with a turtle and a collection of lines.
      */
     public Model () {
-
         myTurtles = new ArrayList<Turtle>();
-
-        myEnvironment = new Environment();
-        myTurtle = new Turtle(this);
-
-        myTurtles.add(myTurtle);
-
         myLines = new ArrayList<Point>();
         myStamps = new ArrayList<StampSprite>();
+    }
+    
+    /**
+     * Initializes the model with an environment and at least one active turtle.
+     * 
+     * @return The environment that is initialized in the model.
+     */
+    public Environment initialize() {
+        myEnvironment = new Environment(myView.getResources());
+        myTurtle = new Turtle(this);
+        myTurtles.add(myTurtle);
+        return myEnvironment;
+    }
+    
+    /**
+     * Sets the view used by the model for painting.
+     * 
+     * @param view on which the model paints.
+     */
+    public void setView(View view) {
+        myView = view;
     }
 
     /**
@@ -124,15 +143,6 @@ public class Model implements DisplayEditor {
     }
 
     /**
-     * Sets the environment that contains necessary instruction information.
-     * 
-     * @param environment is environment that contains all relevant instruction information.
-     */
-    public void setEnvironment (Environment environment) {
-        myEnvironment = environment;
-    }
-
-    /**
      * Returns the environment containing instructions, variables, Palette.
      * 
      * @return environment
@@ -148,6 +158,17 @@ public class Model implements DisplayEditor {
      */
     public Palette getPalette () {
         return myEnvironment.getPalette();
+    }
+    
+    /**
+     * Calls the view method to display the result of the command, or an error
+     * message back to the user. Appends an indicator string to the beginning
+     * to differentiate the result from commands issued by the user.
+     * 
+     * @param s return message
+     */
+    public void informView (String s) {
+        myView.displayText(Controller.PRINT_INDICATOR + s);
     }
 
 }
