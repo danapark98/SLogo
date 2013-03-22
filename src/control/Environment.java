@@ -68,7 +68,7 @@ public class Environment {
      */
     public void addInstruction (String keyword,
                                            BaseInstruction userInstruction) {
-        myInstructionMap.put(keyword, userInstruction);
+        myInstructionMap.addInstruction(keyword, userInstruction);
     }
 
     /**

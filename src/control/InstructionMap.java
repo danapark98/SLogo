@@ -22,23 +22,23 @@ public class InstructionMap implements Serializable{
     
     private Collection<Map<String, BaseInstruction>> myInstructionMaps;
     
-    private Map<String, BaseInstruction> myDefaultInstructions;
-    private Map<String, BaseInstruction> myUserDefinedVariables;
-    private Map<String, BaseInstruction> myUserDefinedFunctions;
+    private Map<String, BaseInstruction> myInstructions;
+    //private Map<String, BaseInstruction> myUserDefinedVariables;
+    //private Map<String, BaseInstruction> myUserDefinedFunctions;
     
     private Map<String, BaseInstruction> myLocalVariables;
     
     public InstructionMap(ResourceBundle resource) {
         
-        myInstructionMaps = new ArrayList<Map<String,BaseInstruction>>();
+        myInstructionMaps = new ArrayList<Map<String, BaseInstruction>>();
         
         
-        myDefaultInstructions = new HashMap<String, BaseInstruction>();
-        myInstructionMaps.add(myDefaultInstructions);
-        myUserDefinedVariables = new HashMap<String, BaseInstruction>();
-        myInstructionMaps.add(myUserDefinedVariables);
-        myUserDefinedFunctions = new HashMap<String, BaseInstruction>();
-        myInstructionMaps.add(myUserDefinedFunctions);
+        myInstructions = new HashMap<String, BaseInstruction>();
+        myInstructionMaps.add(myInstructions);
+        //myUserDefinedVariables = new HashMap<String, BaseInstruction>();
+        //myInstructionMaps.add(myUserDefinedVariables);
+        //myUserDefinedFunctions = new HashMap<String, BaseInstruction>();
+        //myInstructionMaps.add(myUserDefinedFunctions);
         myLocalVariables = new HashMap<String, BaseInstruction>();
         myInstructionMaps.add(myLocalVariables);
          
@@ -54,7 +54,7 @@ public class InstructionMap implements Serializable{
 
         InstructionMapFactory imf =
                 new InstructionMapFactory(resource);
-        myDefaultInstructions = imf.buildInstructionMap();
+        myInstructions = imf.buildInstructionMap();
 
     }
     /**
@@ -69,24 +69,12 @@ public class InstructionMap implements Serializable{
         
         // We could always just keep a list of names? -- not the best
         
-        myInstructionMap.put(keyword, userInstruction);
-    }
-
-    /**
-     * TODO: comment
-     * @param variables
-     */
-    public void addLocalVariables (CompoundInstruction variables, int[] variableValues) {
-        for (int i = 0; i < variables.getSize(); i++) {
-            VariableInstruction currentVariable = 
-                    (VariableInstruction) variables.getInstruction(i);
-            addVariable(currentVariable, variableValues[i]);
-        }
+        myInstructions.put(keyword, userInstruction);
     }
     
     /**
      * TODO: comment
-     * @param variable
+     * @param key
      * @param value
      */
     public void addLocal(String key, int value) {
@@ -110,8 +98,7 @@ public class InstructionMap implements Serializable{
     }
     
     public boolean containsKey(String key) {
-        return false;
-        // TODO
+        return myInstructions.containsKey(key) || myLocalVariables.containsKey(key);
     }
     
     public BaseInstruction get(String key) throws IllegalInstructionException {
@@ -122,12 +109,7 @@ public class InstructionMap implements Serializable{
         }
         throw new IllegalInstructionException(key);
     }
-    
-    
-    public void put (String key, Instruction instruction) {
         
-    }
-    
     /**
      * Deletes an instruction from the environment.
      * Variable scope is implemented by removing the variableInstruction when
