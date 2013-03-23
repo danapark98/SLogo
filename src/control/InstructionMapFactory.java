@@ -130,7 +130,7 @@ public class InstructionMapFactory {
                 instruct = (BaseInstruction) instructionClass.newInstance();
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
-               throw new CorruptedEnvironmentException();
+                throw new CorruptedEnvironmentException();
             }
 
             // gets parameters from line
