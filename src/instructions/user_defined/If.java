@@ -45,7 +45,15 @@ public class If extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
         int condition = nextOperand().execute(model);
         Instruction trueInstruction = nextOperand();
-        if (condition != 0) { return trueInstruction.execute(model); }
+        if (condition != 0) { 
+            model.getEnvironment().inScope();
+            
+            int res = trueInstruction.execute(model);
+            
+            model.getEnvironment().outScope();
+            
+            return res; 
+        }
         return 0;
     }
 }

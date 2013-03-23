@@ -15,7 +15,7 @@ import simulation.Model;
  * 
  */
 public class ConstantInstruction extends BaseInstruction {
-
+    
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
      */

@@ -46,10 +46,20 @@ public class IfElse extends BaseInstruction {
         Instruction trueInstruction = nextOperand();
         Instruction falseInstruction = nextOperand();
         if (condition != 0) {
-            return trueInstruction.execute(model);
+            model.getEnvironment().inScope();
+            
+            int res = trueInstruction.execute(model);
+            model.getEnvironment().outScope();
+
+            return res;
         }
         else {
-            return falseInstruction.execute(model);
+            model.getEnvironment().inScope();
+            
+            int res = falseInstruction.execute(model);
+            model.getEnvironment().outScope();
+
+            return res;
         }
     }
 }
