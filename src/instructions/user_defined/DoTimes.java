@@ -7,28 +7,24 @@ import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.Instruction;
 
-/**
- * Represents the for loop instruction
- * 
- * @author Ellango
- *
- */
-public class For extends BaseInstruction {
-    
+public class DoTimes extends BaseInstruction {
+
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
      */
-    private static final long serialVersionUID = -7289643996059819573L;
+    private static final long serialVersionUID = 7665168144376932102L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     
     private static final int VARIABLE_NAME_INDEX = 0;
-    private static final int START_INDEX = 1;
-    private static final int END_INDEX = 2;
-    private static final int INCREMENT_INDEX = 3;
+    private static final int END_INDEX = 1;
     
-    public For() {
+    /**
+     * Initializes user defined do-times instruction.
+     */
+    public DoTimes () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
+
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
@@ -36,13 +32,11 @@ public class For extends BaseInstruction {
         Instruction commandsToExecute = nextOperand();
         Instruction var = initialization.getInstruction(VARIABLE_NAME_INDEX);
         String variableName = ((VariableInstruction) var).getName();
-        int start = initialization.getInstruction(START_INDEX).execute(model);
         int end = initialization.getInstruction(END_INDEX).execute(model);
-        int increment = initialization.getInstruction(INCREMENT_INDEX).execute(model);
-        
+
         Environment environment = model.getEnvironment();
         int last = 0;
-        for (int i = start; i < end; i+= increment) {
+        for (int i = 0; i < end ; i++) {
             environment.addVariable(variableName,i);
             last = commandsToExecute.execute(model);
         }

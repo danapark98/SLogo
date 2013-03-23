@@ -73,6 +73,7 @@ instructions.user_defined.Repeat
 instructions.user_defined.IfElse
 instructions.user_defined.If
 instructions.user_defined.For
+instructions.user_defined.DoTimes
 #
 # -- extra instructions -- #
 #
