@@ -50,6 +50,8 @@ public abstract class View extends JFrame {
         }
 
         setTitle(title);
+//        this.setDefaultCloseOperation(EXIT_ON_CLOSE); this will make the close button
+//        close all view windows when clicked we choose this not to be desired behavior
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         setCanvas();
         getContentPane().add(makeMenus(), BorderLayout.NORTH);

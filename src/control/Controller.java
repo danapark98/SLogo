@@ -29,7 +29,7 @@ public class Controller {
     private View myView;
     private Parser myParser;
     private Environment myEnvironment;
-    private ResourceBundle myResource;
+    //private ResourceBundle myResource;
 
     /**
      * This creates a new controller with a model, a view, an environment,
@@ -39,11 +39,10 @@ public class Controller {
      * @param view is a View that represents what will be displayed
      */
     public Controller (Model model, View view) {
-        myModel = model;
         myView = view;
-        myResource = view.getResources();
-        myEnvironment = new Environment(myResource);
-        model.setEnvironment(myEnvironment);
+        myModel = model;
+        myModel.setView(view);
+        myEnvironment = myModel.initialize();
         myParser = new Parser(myEnvironment);
     }
 
@@ -59,10 +58,10 @@ public class Controller {
         myView.displayText(s);
         try {
             Instruction instruction = myParser.generateInstruction(s);
-            informView(instruction.execute(myModel) + "");
+            myModel.informView(instruction.execute(myModel) + "");
         }
         catch (IllegalInstructionException e) {
-            informView(e.toString());
+            myModel.informView(e.toString());
         }
     }
 
@@ -77,7 +76,7 @@ public class Controller {
             myEnvironment.load(is);
         }
         catch (IncorrectFileFormatException e) {
-            informView(e.toString());
+            myModel.informView(e.toString());
         }
     }
 
@@ -92,7 +91,7 @@ public class Controller {
             myEnvironment.save(os);
         }
         catch (FileSavingException e) {
-            informView(e.toString());
+            myModel.informView(e.toString());
         }
     }
 
@@ -104,14 +103,4 @@ public class Controller {
         new ClearScreen().execute(myModel);
     }
 
-    /**
-     * Calls the view method to display the result of the command, or an error
-     * message back to the user. Appends an indicator string to the beginning
-     * to differentiate the result from commands issued by the user.
-     * 
-     * @param s return message
-     */
-    private void informView (String s) {
-        myView.displayText(PRINT_INDICATOR + s);
-    }
 }

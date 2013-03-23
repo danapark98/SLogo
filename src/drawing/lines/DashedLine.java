@@ -20,7 +20,6 @@ public class DashedLine extends LineBuilder {
 
     private static final Color CLEAR = new Color(0, 0, 0, 0);
 
-
     private int myCount;
     private Location myLast;
 

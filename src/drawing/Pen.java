@@ -153,7 +153,12 @@ public class Pen {
         myThickness = size;
     }
 
-    public void changeLineStyle(LineBuilder lb){
+    /** 
+     * Changes the line style to the passed lineBuilder
+     * 
+     * @param lb is the LineBuilder to be used to draw lines.
+     */
+    public void changeLineStyle(LineBuilder lb) {
         myLineBuilder = lb;
     }
     

@@ -29,23 +29,19 @@ public class Turtle extends Sprite {
     private static final String ANGLE_LABEL = "\u03f4" + ":";
     private static final double X_OFFSET = 25;
     private static final double Y_OFFSET = 15;
-    //private static final int REVERSE_ANGLE_VALUE = 180;
-    //private DisplayEditor myDisplayEditor;
     private List<ValueText> myStatus;
-    
     private Pen myPen;
 
 
     /**
      * Creates a new instance of turtle by passing it a DisplayEditor to draw lines with.
      * 
-     * @param la is a DisplayEditor that draws lines.
-     */
-    public Turtle (DisplayEditor la) {
+     * @param de is a DisplayEditor that draws lines.
+     */ 
+    public Turtle (DisplayEditor de) {
         super(ImagePalette.DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
-        //myDisplayEditor = la;
         initStatus();
-        myPen = new Pen(this, la);
+        myPen = new Pen(this, de);
     }
 
     @Override
@@ -53,16 +49,7 @@ public class Turtle extends Sprite {
         super.update(elapsedTime, bounds);
         updateStatus();
     }
-    
-    /**
-     * The current pen being used by the turtle.
-     * 
-     * @return The pen used by the turtle.
-     */
-    public Pen turtlePen() {
-        return myPen;
-    }
-
+ 
     /**
      * Updates the Value text which displays information about the turtle's current position.
      */
@@ -151,5 +138,15 @@ public class Turtle extends Sprite {
         myStatus.add(new ValueText(Y_LABEL, 0));
         myStatus.add(new ValueText(ANGLE_LABEL, 0));
     }
+    
+    /**
+     * The current pen being used by the turtle.
+     * 
+     * @return The pen used by the turtle.
+     */
+    public Pen turtlePen() {
+        return myPen;
+    }
+
 
 }

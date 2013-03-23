@@ -1,7 +1,12 @@
 package view;
 
 import control.Controller;
+import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,32 +15,39 @@ import java.io.OutputStream;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
+
 
 /**
  * An object to a create a FileMenuBar
  * 
  * @author srwareham
+ * @author Yoshi
  * 
  */
 public class ViewFileMenu {
+    private static final String INSTRUCTION_HELP_HTML = "instruction_help.html";
+    private static final String RESOURCE_DIR = "/src/resources/";
+    private static final String USER_DIR = "user.dir";
+    private static final String HELP = "Help";
     private static final String OPEN = "OpenCommand";
     private static final String FILE = "FileMenu";
     private static final String QUIT = "QuitCommand";
     private static final String NEW = "NewCommand";
     private static final String SAVE = "SaveCommand";
     private View myView;
-
+    
     /**
      * Creates a new object to create a FileMenuBar for the View
      * 
-     * @param view 
+     * @param view The standard View.
      */
     public ViewFileMenu (View view) {
         myView = view;
-
     }
-
+    
     /**
      * Create a menu that will pop up when the menu button is pressed in the
      * frame. File menu usually contains Open, Save, and Exit
@@ -50,29 +62,33 @@ public class ViewFileMenu {
         result.add(makeMenuBarOpen());
         result.add(makeMenuBarSave());
         result.add(new JSeparator());
+        result.add(makeMenuBarHelp());
+        result.add(new JSeparator());
         result.add(makeMenuBarQuit());
         return result;
     }
-
-    private AbstractAction makeMenuBarNew () {
-        return new AbstractAction(getResourceLocalization(NEW)) {
-            private static final long serialVersionUID = -6868831251083168422L;
-
-            @Override
+    
+    private JMenuItem makeMenuBarNew () {
+        JMenuItem newItem = new JMenuItem(getResourceLocalization(NEW));
+        newItem.setAccelerator(
+                KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                                       Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        newItem.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 @SuppressWarnings("unused")
                 View newView = new SLogoView(myView.getTitle(), myView.getLanguage());
             }
-        };
+        });
+        return newItem;
     }
-
+    
     private AbstractAction makeMenuBarOpen () {
         return new AbstractAction(getResourceLocalization(OPEN)) {
             /**
              * 
              */
             private static final long serialVersionUID = -3471532304609267535L;
-
+            
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
@@ -85,16 +101,15 @@ public class ViewFileMenu {
                 catch (IOException io) {
                     // This should never occur because the picks a file
                     viewDisplayText(io.toString());
-                }
-                
+                }              
             }
         };
     }
-
+    
     private AbstractAction makeMenuBarSave () {
         return new AbstractAction(getResourceLocalization(SAVE)) {
             private static final long serialVersionUID = -686883125108316843L;
-
+            
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
@@ -105,7 +120,7 @@ public class ViewFileMenu {
                         getViewController().saveState(o);
                     }
                 }
-
+                
                 catch (IOException io) {
                     // This should never occur because the makes a file
                     viewDisplayText(io.toString());
@@ -114,7 +129,27 @@ public class ViewFileMenu {
         };
     }
     
-    private JFileChooser getViewChooser() {
+    private AbstractAction makeMenuBarHelp () {
+        return new AbstractAction(getResourceLocalization(HELP)) {
+            private static final long serialVersionUID = -6868831251083168422L;
+            
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                Desktop hi = Desktop.getDesktop();
+                String here = System.getProperty(USER_DIR);
+                
+                try {
+                    File file = new File(here + RESOURCE_DIR + INSTRUCTION_HELP_HTML);
+                    hi.open(file);
+                }
+                catch (IOException e1) {
+                    viewDisplayText(e1.toString());
+                }
+            }
+        };
+    }
+    
+    private JFileChooser getViewChooser () {
         return myView.getChooser();
     }
     
@@ -123,21 +158,21 @@ public class ViewFileMenu {
         
     }
     
-    private Controller getViewController() {
+    private Controller getViewController () {
         return myView.getController();
     }
     
     private void viewDisplayText (String input) {
         myView.displayText(input);
     }
-
+    
     private AbstractAction makeMenuBarQuit () {
         return new AbstractAction(getResourceLocalization(QUIT)) {
             /**
              * 
              */
             private static final long serialVersionUID = 1514963101036925921L;
-
+            
             @Override
             public void actionPerformed (ActionEvent e) {
                 System.exit(0);
