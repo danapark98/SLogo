@@ -5,6 +5,7 @@ import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
+import instructions.ConstantInstruction;
 import instructions.Instruction;
 
 /**
@@ -34,7 +35,8 @@ public class For extends BaseInstruction {
     public int execute (Model model) throws IllegalInstructionException {
         CompoundInstruction initialization = (CompoundInstruction) nextOperand();
         Instruction commandsToExecute = nextOperand();
-        VariableInstruction variable = (VariableInstruction) initialization.getInstruction(VARIABLE_NAME_INDEX);
+        VariableInstruction variable = (VariableInstruction) initialization.getInstruction(
+            VARIABLE_NAME_INDEX);
         int start = initialization.getInstruction(START_INDEX).execute(model);
         int end = initialization.getInstruction(END_INDEX).execute(model);
         int increment = initialization.getInstruction(INCREMENT_INDEX).execute(model);
@@ -42,10 +44,12 @@ public class For extends BaseInstruction {
         Environment environment = model.getEnvironment();
         int last = 0;
         for (int i = start; i < end; i += increment) {
-            environment.addLocalVar(variable, i);
+            environment.inScope();            
+            Instruction constInstruct = new ConstantInstruction(i);            
+            environment.addInstruction(variable.toString(), constInstruct);
             last = commandsToExecute.execute(model);
+            environment.outScope();
         }
-        environment.removeInstruction(variable.toString());
         return last;
     }
 

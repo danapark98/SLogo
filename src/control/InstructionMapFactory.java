@@ -2,6 +2,7 @@ package control;
 
 import exceptions.CorruptedEnvironmentException;
 import instructions.BaseInstruction;
+import instructions.Instruction;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public class InstructionMapFactory {
      * 
      * @return Map of keywords to instructions.
      */
-    public Map<String, BaseInstruction> buildInstructionMap () {
+    public Map<String, Instruction> buildInstructionMap () {
 
         String currentDirectory = System.getProperty(USER_DIR);
 
@@ -100,8 +101,8 @@ public class InstructionMapFactory {
         }
         Scanner line = new Scanner(fileToBeRead);
 
-        Map<String, BaseInstruction> instructionMap =
-                new HashMap<String, BaseInstruction>();
+        Map<String, Instruction> instructionMap =
+                new HashMap<String, Instruction>();
 
         while (line.hasNextLine()) {
             String nextLine = line.nextLine();
@@ -121,7 +122,7 @@ public class InstructionMapFactory {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    private void parseLine (Map<String, BaseInstruction> instructionMap, String line) {
+    private void parseLine (Map<String, Instruction> instructionMap, String line) {
         if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
 
             BaseInstruction instruct;

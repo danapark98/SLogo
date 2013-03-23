@@ -6,6 +6,7 @@ import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
+import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -28,14 +31,24 @@ import java.util.ResourceBundle;
  */
 public class Environment {
 
+    private static final int GLOBAL_SCOPE = 0;
+
+    private static final String UNDEFINED_INSTRUCTION = " is undefined and";
+
+    private static final String SCOPE_LEVEL_HEADER = "AT SCOPE LEVEL ";
+    
     /** Mapping of Instruction keywords to Instruction */
 
     //private Map<String, BaseInstruction> myInstructionMap;
     
-    private InstructionMap myInstructionMap;
+    //private InstructionMap myInstructionMap;
+    
+    private List<InstructionMap> myInstructions;
 
 
     private Palette myPalette;
+    
+    private int myScope;
 
     /**
      * Creates a new Environment with the default instructions located
@@ -45,8 +58,13 @@ public class Environment {
      */
     public Environment (ResourceBundle resource) {
         
-        myInstructionMap = new InstructionMap(resource);
+        myInstructions = new ArrayList<InstructionMap>();
+        
+        myScope = GLOBAL_SCOPE;
+        
+        InstructionMap iMap = new InstructionMap(resource);
 
+        myInstructions.add(iMap);
 
         myPalette = new Palette();
     }
@@ -67,8 +85,19 @@ public class Environment {
      * @param userInstruction is the instruction to be added to the environment.
      */
     public void addInstruction (String keyword,
-                                           BaseInstruction userInstruction) {
-        myInstructionMap.addInstruction(keyword, userInstruction);
+                                           Instruction userInstruction) {
+        
+        InstructionMap currentScope = myInstructions.get(myScope);
+        
+        currentScope.addInstruction(keyword, userInstruction);
+    }
+    
+    public void defineFunction(String keyword, Instruction instruction) {
+        myInstructions.get(myScope).addUserDefFunct(keyword, instruction);
+    }
+    
+    public void defineVariable(String keyword, Instruction value) {
+        myInstructions.get(myScope).addUserDefVar(keyword, value);
     }
 
     /**
@@ -78,31 +107,32 @@ public class Environment {
      * 
      * @param instructionName of the instruction to be deleted.
      */
-    public void removeInstruction (String instructionName) {
-        myInstructionMap.remove(instructionName);
+    public void removeInstruction (String instructionName) {       
+        InstructionMap currentScope = myInstructions.get(myScope);       
+        currentScope.remove(instructionName);
     }
     
-    /**
-     * Adds a local variable to the environment.
-     * 
-     * @param instruct is the variable to be added.
-     * @param value is the value of the variable to be added.
-     */
-    public void addLocalVar(VariableInstruction instruct, int value) {
-        String name = instruct.toString();
-        myInstructionMap.remove(name);
-        BaseInstruction constant = new ConstantInstruction(value);
-        myInstructionMap.addInstruction(name, constant);
-    }
-    
-    /**
-     * Removes a local variable from the environment.
-     * 
-     * @param key is the key for the local variable to be removed.
-     */
-    public void removeLocalVar(String key) {
-        myInstructionMap.remove(key);
-    }
+//    /**
+//     * Adds a local variable to the environment.
+//     * 
+//     * @param instruct is the variable to be added.
+//     * @param value is the value of the variable to be added.
+//     */
+//    public void addLocalVar(VariableInstruction instruct, int value) {
+//        String name = instruct.toString();
+//        myInstructionMap.remove(name);
+//        BaseInstruction constant = new ConstantInstruction(value);
+//        myInstructionMap.addInstruction(name, constant);
+//    }
+//    
+//    /**
+//     * Removes a local variable from the environment.
+//     * 
+//     * @param key is the key for the local variable to be removed.
+//     */
+//    public void removeLocalVar(String key) {
+//        myInstructionMap.remove(key);
+//    }
     
     /**
      * Gives all user defined functions and variables as a string.
@@ -110,8 +140,14 @@ public class Environment {
      * @return A String that contains all information on user defined functions.
      */
     public String customValuesToString() {
-        return myInstructionMap.userDefinedInstructionstoString() + 
-                myInstructionMap.variablesToString();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < myScope; ++i){
+            sb.append(SCOPE_LEVEL_HEADER + i + "\n");
+            sb.append(myInstructions.get(i).userDefinedInstructionstoString());
+            sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString());
+        }
+        
+        return sb.toString();
     }
 
 
@@ -124,9 +160,39 @@ public class Environment {
      *         found in the environment.
      */
     public BaseInstruction getInstruction (String commandName) throws IllegalInstructionException {
-        return myInstructionMap.get(commandName).newCopy();
+        //BaseInstruction res = null;
+        for (int i = 0; i <= myScope; ++i) {
+            if (myInstructions.get(i).containsKey(commandName)) {
+                return myInstructions.get(i).get(commandName);
+            }
+        }
+//        // TODO: get rid of if statments
+//        if (res == null) {
+        throw new IllegalInstructionException(commandName + UNDEFINED_INSTRUCTION);
+//        }
+//        else {
+//            return res;
+//        }
     }
 
+    /**
+     * Increase the current scope of variables.
+     */
+    public void inScope() {
+        myScope += 1;
+        
+        myInstructions.add(new InstructionMap());
+    }
+    
+    /**
+     * Decrease the scope of the current variables.
+     */
+    public void outScope() {
+        myInstructions.remove(myInstructions.size() - 1);
+        myScope -= 1;
+    }
+    
+    
     /**
      * Loads in instructions and variables for the Environment from an
      * InputStream. The source must be something saved by the save() method.
@@ -141,7 +207,7 @@ public class Environment {
         try {
             in = new ObjectInputStream(is);
             
-            myInstructionMap = (InstructionMap) in.readObject();
+            myInstructions = (List<InstructionMap>) in.readObject();
             myPalette = (Palette) in.readObject();
         }
         catch (ClassNotFoundException | IOException e) {
@@ -162,7 +228,7 @@ public class Environment {
         ObjectOutput out;
         try {
             out = new ObjectOutputStream(os);
-            out.writeObject(myInstructionMap);
+            out.writeObject(myInstructions);
             //TODO: make Palette and its variables serializable, and test saving/loading
             out.writeObject(myPalette);
         }

@@ -38,11 +38,12 @@ public class DoTimes extends BaseInstruction {
         Environment environment = model.getEnvironment();
         int last = 0;
         for (int i = 0; i < end; i++) {
+            environment.inScope();
             BaseInstruction instruct = new ConstantInstruction(i);
             environment.addInstruction(variableName, instruct);
             last = commandsToExecute.execute(model);
+            environment.outScope();
         }
-        environment.removeInstruction(variableName);
         return last;
     }
 

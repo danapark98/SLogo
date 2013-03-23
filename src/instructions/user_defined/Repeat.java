@@ -45,13 +45,15 @@ public class Repeat extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
         int numberOfIterations = nextOperand().execute(model);
         Instruction commandsToLoop = nextOperand();
-        int last = 0;
+        int last = 0;        
         for (int i = 1; i <= numberOfIterations; ++i) {
+            model.getEnvironment().inScope();
+
             BaseInstruction instruct = new ConstantInstruction(i);
             model.getEnvironment().addInstruction(VARIABLE_NAME, instruct);
             last = commandsToLoop.execute(model);
+            model.getEnvironment().outScope();
         }
-        model.getEnvironment().removeInstruction(VARIABLE_NAME);
         return last;
     }
 }

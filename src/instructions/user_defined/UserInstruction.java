@@ -5,6 +5,7 @@ import control.Environment;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
+import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
 
@@ -41,18 +42,25 @@ public class UserInstruction extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
         Environment environment = model.getEnvironment();
         int[] localVarValues = variableValuesToArray(model);
+        
+        environment.inScope();
+        
         for (int i = 0; i < myVariables.getSize(); ++i) {
             VariableInstruction instruct = (VariableInstruction)myVariables.getInstruction(i);
-            environment.addLocalVar(instruct, localVarValues[i]);
+            Instruction value = new ConstantInstruction(localVarValues[i]);
+            environment.addInstruction(instruct.toString(), value);
             
         }
         int result = myInstruction.execute(model);
+//        
+//        for (int i = 0; i < myVariables.getSize(); ++i) {
+//            VariableInstruction vi = (VariableInstruction)myVariables.getInstruction(i);
+//            String name = vi.toString();
+//            environment.removeLocalVar(name);
+//        }
         
-        for (int i = 0; i < myVariables.getSize(); ++i) {
-            VariableInstruction vi = (VariableInstruction)myVariables.getInstruction(i);
-            String name = vi.toString();
-            environment.removeLocalVar(name);
-        }
+        environment.outScope();
+        
         return result;        
     }
 
