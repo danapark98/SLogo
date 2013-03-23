@@ -38,6 +38,7 @@ public class ImagePalette {
         myImages.put(DEFAULT_CLEAR_INDEX, new Pixmap("blank.png"));
         myImages.put(DOG_IMAGE_INDEX, new Pixmap("dog.jpg"));
         myImages.put(SQUIRREL_IMAGE_INDEX, new Pixmap("squirrel.png"));
+        myImages.put(UNICORN_IMAGE_INDEX, new Pixmap("Unicorn.jpg"));
     }
 
     public Pixmap getImage (int index) throws IllegalInstructionException {
