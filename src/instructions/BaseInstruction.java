@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
+import simulation.Model;
 
 
 
@@ -66,6 +67,42 @@ public abstract class BaseInstruction implements Instruction {
         return myOperands.next();
     }
 
+    
+    
+    
+    /**
+     * Uses Reflections.
+     * 
+     * @return The name of this Instruction Class.
+     */
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        String fullName = this.getClass().getName();
+        String[] nameParts = fullName.split("[.]");
+        String className = nameParts[nameParts.length-1];
+        sb.append(className + " ");
+        
+        sb.append(operandsToString());
+        
+        return sb.toString();
+    }
+    
+    private String operandsToString() {
+        StringBuilder sb = new StringBuilder();
+
+        if(myOperands != null){
+            while(myOperands.hasNext()){
+                sb.append(" " + nextOperand().toString());
+            }
+        }
+        //sb.append(myInstruction.toString());
+        //sb.append("\n");
+        
+        return sb.toString();
+    }
+
     /**
      * used when the execute method is called more than once.
      */
@@ -74,7 +111,7 @@ public abstract class BaseInstruction implements Instruction {
             myOperands.previous();
         }
     }
-
+       
     /**
      * copies this instruction.
      * 

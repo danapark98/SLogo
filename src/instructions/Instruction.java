@@ -35,5 +35,7 @@ public interface Instruction extends Serializable {
      *         (i.e. <i>fd</i> , where no parameter can be read).
      */
     public int execute (Model model) throws IllegalInstructionException;
+    
+    public String toString();
 
 }

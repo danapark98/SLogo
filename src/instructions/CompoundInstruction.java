@@ -70,4 +70,12 @@ public class CompoundInstruction implements Instruction {
     public Instruction getInstruction (int index) {
         return myInstructions.get(index);
     }
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(Instruction i: myInstructions){
+            sb.append(i.toString() + " ");
+        }
+        return sb.toString();
+    }
 }

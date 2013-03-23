@@ -4,6 +4,7 @@ import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
+import instructions.user_defined.UserInstruction;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,12 +14,21 @@ import java.util.ResourceBundle;
 import simulation.Model;
 
 
+/**
+ * Represents all instructions (which includes all variables, local and global).
+ * 
+ * 
+ * @author Scott Valentine
+ * 
+ */
 public class InstructionMap implements Serializable {
 
     private static final String VARIABLE_HEADER =
             "Current User Variables\n*************************\n";
     private static final String FUNCTIONS_HEADER =
-            "Current User Functions\n**************************\n";
+            "Current User Functions\n" +
+            "**************************\n" +
+            "NAME \tVARIABLES \tINSTRUCTION \n";
     private static final String UNABLE_TO_COMPUTE = "Not currently computable";
 
     /**
@@ -29,14 +39,22 @@ public class InstructionMap implements Serializable {
     private Collection<Map<String, BaseInstruction>> myInstructionMaps;
 
     private Map<String, BaseInstruction> myInstructions;
+    
+    private Map<String, BaseInstruction> myUserInstructions;
+    
+    private Map<String, BaseInstruction> myGlobalVariables;
 
     private Map<String, BaseInstruction> myLocalVariables;
+    
+    private ResourceBundle myResource;
 
-    private Collection<String> myUserDefinedInstructionKeys;
-
+    /**
+     * Creates an Instruction Map based on the bass resource bundle.
+     * 
+     * @param resource is the ResourceBundle that contains all of the instruction keywords.
+     */
     public InstructionMap(ResourceBundle resource) {
 
-        myUserDefinedInstructionKeys = new ArrayList<String>();
 
         myInstructionMaps = new ArrayList<Map<String, BaseInstruction>>();
 
@@ -44,6 +62,13 @@ public class InstructionMap implements Serializable {
         myInstructionMaps.add(myInstructions);
         myLocalVariables = new HashMap<String, BaseInstruction>();
         myInstructionMaps.add(myLocalVariables);
+        
+        myUserInstructions = new HashMap<String, BaseInstruction>();
+        
+        myInstructionMaps.add(myUserInstructions);
+        
+        myGlobalVariables = new HashMap<String, BaseInstruction>();
+        myInstructionMaps.add(myGlobalVariables);
     }
 
     /**
@@ -52,11 +77,10 @@ public class InstructionMap implements Serializable {
      * file
      */
     private void initiateInstructionMap(ResourceBundle resource) {
-
         InstructionMapFactory imf =
                 new InstructionMapFactory(resource);
         myInstructions = imf.buildInstructionMap();
-
+        myResource = resource;
     }
 
     /**
@@ -67,18 +91,20 @@ public class InstructionMap implements Serializable {
      */
     public void addInstruction(String keyword, BaseInstruction userInstruction) {
 
-        // TODO determine if global variable, user def function, or default
-
-        // We could always just keep a list of names? -- not the best
-        myUserDefinedInstructionKeys.add(keyword);
-        myInstructions.put(keyword, userInstruction);
+        if (userInstruction instanceof ConstantInstruction) {
+            myGlobalVariables.put(keyword, userInstruction);
+        }
+        else {
+        
+        myUserInstructions.put(keyword, userInstruction);
+        }
     }
 
     /**
-     * TODO: comment
+     * Adds a local variable to the InstructionMap.
      * 
-     * @param key
-     * @param value
+     * @param key is the keyword for the local instruction
+     * @param value is the value of the local instruction
      */
     public void addLocal(String key, int value) {
         BaseInstruction bi = new ConstantInstruction(value);
@@ -86,12 +112,19 @@ public class InstructionMap implements Serializable {
     }
 
     /**
-     * TODO: Comment
+     * Removes a local variable from this.
+     * 
+     * @param name is the keyword of the instruction (the local variable) to be removed.
      */
     public void removeLocal(String name) {
         myLocalVariables.remove(name);
     }
 
+    /**
+     * Makes a string containing info for all user defined variables.
+     * 
+     * @return String containing info on user defined values.
+     */
     public String variablesToString() {
         StringBuilder sb = new StringBuilder();
 
@@ -105,35 +138,54 @@ public class InstructionMap implements Serializable {
         return sb.toString();
     }
 
+    /**
+     * Makes a string containing information of user-defined functions.
+     * 
+     * @param model is the Model on which instructions execute.
+     * @return A String with user-defined function info. 
+     */
     public String userDefinedInstructionstoString(Model model) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(FUNCTIONS_HEADER + "\n");
+        sb.append(FUNCTIONS_HEADER);
 
-        for (String key : myUserDefinedInstructionKeys) {
-            Instruction instruct = myInstructions.get(key);
+        for (String key : myUserInstructions.keySet()) {
+            UserInstruction instruct = (UserInstruction) myUserInstructions.get(key);
 
-            // TODO: I hate this
-            if (instruct instanceof ConstantInstruction) {
-                try {
-                    sb.append(key + "\t" + instruct.execute(model) + "\n");
-                }
-                catch (IllegalInstructionException e) {
-                    sb.append(UNABLE_TO_COMPUTE + "\n");
-                }
-            }
-            else {
-                sb.append(key + "\t" + UNABLE_TO_COMPUTE + "\n");
-            }
+           
+            
+            String i = instruct.toString();
 
+            sb.append(key + "\t");
+            
+            sb.append(i  + "\n");
         }
         return sb.toString();
     }
 
-    public boolean containsKey(String key) {
-        return myInstructions.containsKey(key) || myLocalVariables.containsKey(key);
+    /**
+     * Whether the key is corresponds to an instruction in this.
+     * 
+     * @param key to check in the InstructionMap
+     * @return Whether the key is used in this InstructionMap.
+     */
+    public boolean containsKey(String key) {      
+        for (Map<String, BaseInstruction> map: myInstructionMaps) {
+            if (map.containsKey(key)) {
+                return true;
+            }
+        }
+        return false;
     }
-
+    
+    /**
+     * 
+     * Returns the instruction corresponding to the passed keyword.
+     * 
+     * @param key is the keyword to lookup.
+     * @return The instruction with the key.
+     * @throws IllegalInstructionException Occurs when the key is not in this.
+     */
     public BaseInstruction get(String key) throws IllegalInstructionException {
         for (Map<String, BaseInstruction> map : myInstructionMaps) {
             if (map.containsKey(key)) { return map.get(key); }

@@ -36,5 +36,10 @@ public class VariableInstruction implements Instruction {
     public String getName() {
         return myName;
     }
+    
+    @Override
+    public String toString() {
+        return myName; 
+    }
 
 }

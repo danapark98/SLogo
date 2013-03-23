@@ -65,6 +65,11 @@ public class UserInstruction extends BaseInstruction {
     }
     
     @Override
+    public String toString() {
+        return myVariables.toString() + "\t" + myInstruction.toString();
+    }
+    
+    @Override
     public BaseInstruction newCopy() {
         return new UserInstruction(myVariables, myInstruction);
     }
