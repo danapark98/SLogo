@@ -168,8 +168,4 @@ public class Parser {
             return counterBracket;
         }
     }
-
-    public void makeAvailable(String key) {
-        myEnvironment.removeInstruction(key);        
-    }
 }

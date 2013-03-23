@@ -5,9 +5,7 @@ import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
-import instructions.ConstantInstruction;
 import instructions.Instruction;
-import instructions.user_defined.VariableInstruction;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -92,10 +90,22 @@ public class Environment {
         currentScope.addInstruction(keyword, userInstruction);
     }
     
+    /**
+     * Defines a new user function.
+     * 
+     * @param keyword is the name of the new user function.
+     * @param instruction is the instruction for the new function.
+     */
     public void defineFunction(String keyword, Instruction instruction) {
         myInstructions.get(myScope).addUserDefFunct(keyword, instruction);
     }
     
+    /**
+     * Defines a new user variable.
+     * 
+     * @param keyword is the name of the variable.
+     * @param value is the value of the variable.
+     */
     public void defineVariable(String keyword, Instruction value) {
         myInstructions.get(myScope).addUserDefVar(keyword, value);
     }
@@ -141,7 +151,7 @@ public class Environment {
      */
     public String customValuesToString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < myScope; ++i){
+        for (int i = 0; i <= myScope; ++i) {
             sb.append(SCOPE_LEVEL_HEADER + i + "\n");
             sb.append(myInstructions.get(i).userDefinedInstructionstoString());
             sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString());

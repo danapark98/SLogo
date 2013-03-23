@@ -1,12 +1,13 @@
 package instructions.user_defined;
 
 import control.Environment;
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
+import simulation.Model;
+
 
 public class DoTimes extends BaseInstruction {
 

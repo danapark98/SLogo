@@ -1,8 +1,6 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
-import instructions.Instruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.UserInstruction;
@@ -107,10 +105,22 @@ public class InstructionMap implements Serializable {
         }
     }
     
-    public void addUserDefVar(String keyword, Instruction value){
+    /**
+     * Adds a new user defined variable.
+     * 
+     * @param keyword is the name of the variable.
+     * @param value is the value of the variable.
+     */
+    public void addUserDefVar(String keyword, Instruction value) {
         myGlobalVariables.put(keyword, value);
     }
     
+    /**
+     * Adds a new user defined function.
+     * 
+     * @param keyword is the name of the function.
+     * @param instruction is the function.
+     */
     public void addUserDefFunct(String keyword, Instruction instruction) {
         myUserInstructions.put(keyword, instruction);
     }
