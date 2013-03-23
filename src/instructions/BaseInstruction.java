@@ -66,6 +66,16 @@ public abstract class BaseInstruction implements Instruction {
     }
 
     /**
+     * used when the execute method is called more than once.
+     */
+    private void resetOperands() {
+        while (myOperands.hasPrevious()) {
+            myOperands.previous();
+        }
+    }
+
+
+    /**
      * Gives a string representing this instruction.
      * 
      * @return The name of this Instruction Class.
@@ -93,15 +103,6 @@ public abstract class BaseInstruction implements Instruction {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * used when the execute method is called more than once.
-     */
-    private void resetOperands() {
-        while (myOperands.hasPrevious()) {
-            myOperands.previous();
-        }
     }
 
     /**
