@@ -37,7 +37,9 @@ of the instructions individually.
 <hr>
 <b>Resources</b>
 <br>
-Turtle picture: http://sweetclipart.com/cute-colorable-turtle-697
+pictures: 
+http://sweetclipart.com/cute-colorable-turtle-697
+http://www.123rf.com/photo_3290636_unicorn-pegasus-vector-illustration.html
 <hr>
 
 <b>How to add a new instruction:</b>
