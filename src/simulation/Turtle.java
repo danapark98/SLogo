@@ -72,7 +72,6 @@ public class Turtle extends Sprite {
     	Pixmap image = myPen.getImage();
     	this.setView(image);
         super.paint(pen);
-        paintStatus(pen);
     }
 
     /**
@@ -80,7 +79,7 @@ public class Turtle extends Sprite {
      * 
      * @param pen is the graphic that the value text paints with.
      */
-    private void paintStatus (Graphics2D pen) {
+    public void paintStatus (Graphics2D pen) {
         Location textLoc = new Location(X_OFFSET, 0);
         for (ValueText vt : myStatus) {
             textLoc.setLocation(X_OFFSET, textLoc.getY() + Y_OFFSET);
