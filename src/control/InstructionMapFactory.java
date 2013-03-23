@@ -148,6 +148,11 @@ public class InstructionMapFactory {
         }
     }
     
+    /**
+     * Unused right now.  Could be used to load in turtle pictures using reflection
+     * @return
+     * @throws CorruptedEnvironmentException
+     */
     public Map<Integer, String> buildTurtleShapeMap() throws CorruptedEnvironmentException{
     	FileReader fileToBeRead = null;
     	String currentDirectory = System.getProperty(USER_DIR);

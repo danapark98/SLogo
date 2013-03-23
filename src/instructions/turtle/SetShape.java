@@ -30,7 +30,7 @@ public class SetShape extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
     	int index = nextOperand().execute(model);
     	Pixmap picture = model.getPalette().getImage(index);
-    	model.getTurtle().turtlePen().changeImage(picture);
+    	model.getTurtle().getPen().changeImage(picture);
     	return index;
      }
 

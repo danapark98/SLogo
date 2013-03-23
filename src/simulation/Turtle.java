@@ -144,7 +144,7 @@ public class Turtle extends Sprite {
      * 
      * @return The pen used by the turtle.
      */
-    public Pen turtlePen() {
+    public Pen getPen() {
         return myPen;
     }
 
