@@ -12,37 +12,40 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import simulation.Model;
 
 public class InstructionMap implements Serializable{
 
+    private static final String VARIABLE_HEADER = "Current User Variables\n*************************\n";
+    private static final String FUNCTIONS_HEADER = "Current User Functions\n**************************\n"; 
+    private static final String UNABLE_TO_COMPUTE = "Not currently computable";
+    
     /**
      * Auto-generated ID for I/O
      */
     private static final long serialVersionUID = -5723192296795370586L;
     
+
+       
+    
     private Collection<Map<String, BaseInstruction>> myInstructionMaps;
     
     private Map<String, BaseInstruction> myInstructions;
-    //private Map<String, BaseInstruction> myUserDefinedVariables;
-    //private Map<String, BaseInstruction> myUserDefinedFunctions;
     
     private Map<String, BaseInstruction> myLocalVariables;
     
+    private Collection<String> myUserDefinedInstructionKeys;
+    
     public InstructionMap(ResourceBundle resource) {
         
+        myUserDefinedInstructionKeys = new ArrayList<String>();
+        
         myInstructionMaps = new ArrayList<Map<String, BaseInstruction>>();
-        
-        
-        myInstructions = new HashMap<String, BaseInstruction>();
+
+        initiateInstructionMap(resource);
         myInstructionMaps.add(myInstructions);
-        //myUserDefinedVariables = new HashMap<String, BaseInstruction>();
-        //myInstructionMaps.add(myUserDefinedVariables);
-        //myUserDefinedFunctions = new HashMap<String, BaseInstruction>();
-        //myInstructionMaps.add(myUserDefinedFunctions);
         myLocalVariables = new HashMap<String, BaseInstruction>();
         myInstructionMaps.add(myLocalVariables);
-         
-        initiateInstructionMap(resource);
     }
 
     /**
@@ -68,7 +71,7 @@ public class InstructionMap implements Serializable{
         // TODO determine if global variable, user def function, or default
         
         // We could always just keep a list of names? -- not the best
-        
+        myUserDefinedInstructionKeys.add(keyword);
         myInstructions.put(keyword, userInstruction);
     }
     
@@ -90,11 +93,38 @@ public class InstructionMap implements Serializable{
     }
     
     public String variablesToString(){
-        return null;
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(VARIABLE_HEADER + "\n");
+        
+        for(String key: myInstructions.keySet()){
+            if(key.startsWith(":")){          
+                sb.append( key+ "\n");
+            }   
+        }
+        return sb.toString();
     }
     
-    public String userDefinedInstructionstoString() {
-        return null;
+    public String userDefinedInstructionstoString(Model model) {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(FUNCTIONS_HEADER+ "\n");
+        
+        for(String key: myUserDefinedInstructionKeys){
+            Instruction instruct = myInstructions.get(key);
+            
+            // TODO: I hate this
+            if(instruct instanceof ConstantInstruction) try {
+                sb.append(key+"\t" + instruct.execute(model)+"\n");
+            }
+            catch (IllegalInstructionException e) {
+                sb.append(UNABLE_TO_COMPUTE + "\n");
+            }else{
+                sb.append(key + "\t"+ UNABLE_TO_COMPUTE + "\n");
+            }
+            
+        }
+        return sb.toString();
     }
     
     public boolean containsKey(String key) {

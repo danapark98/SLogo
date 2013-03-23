@@ -16,8 +16,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.util.Map;
 import java.util.ResourceBundle;
+import simulation.Model;
 
 
 /**
@@ -93,9 +93,8 @@ public class Environment {
         myInstructionMap.remove(key);
     }
     
-    public String customValuesToString() {
-        // TODO:
-        return null;
+    public String customValuesToString(Model model) {
+        return myInstructionMap.userDefinedInstructionstoString(model);
     }
 
 

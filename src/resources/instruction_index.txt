@@ -77,3 +77,4 @@ instructions.user_defined.For
 # -- extra instructions -- #
 #
 instructions.extra.Rainbow
+instructions.extra.GetUserVariables
