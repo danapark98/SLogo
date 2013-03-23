@@ -44,6 +44,7 @@ instructions.turtle.ClearStamps
 instructions.turtle.SetPenSize
 instructions.turtle.DrawDashed
 instructions.turtle.DrawSolidLine
+instructions.turtle.Shape
 #
 # -- boolean instructions -- #
 #
@@ -78,3 +79,4 @@ instructions.user_defined.DoTimes
 # -- extra instructions -- #
 #
 instructions.extra.Rainbow
+instructions.extra.GetUserVariables

@@ -25,7 +25,7 @@ public class VariableInstruction implements Instruction {
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         try {
-            Instruction variable = model.getEnvironment().systemInstructionSkeleton(myName);
+            Instruction variable = model.getEnvironment().getInstruction(myName);
             return variable.execute(model);
         }
         catch (IllegalInstructionException e){
@@ -33,8 +33,9 @@ public class VariableInstruction implements Instruction {
         }
     }
     
-    public String getName() {
-        return myName;
+    @Override
+    public String toString() {
+        return myName; 
     }
 
 }

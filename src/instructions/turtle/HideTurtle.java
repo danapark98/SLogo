@@ -39,7 +39,7 @@ public class HideTurtle extends BaseInstruction {
     @Override
     public int execute(Model model) throws IllegalInstructionException {
         Pixmap invisible = model.getPalette().getImage(ImagePalette.DEFAULT_CLEAR_INDEX);
-        model.getTurtle().turtlePen().changeImage(invisible);
+        model.getTurtle().getPen().changeImage(invisible);
         return 0;
     }
 }

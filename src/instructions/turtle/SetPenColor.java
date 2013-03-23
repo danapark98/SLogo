@@ -33,7 +33,7 @@ public class SetPenColor extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
         int index = this.nextOperand().execute(model);
         Color c = model.getPalette().getColor(index);
-        model.getTurtle().turtlePen().changeColor(c);
+        model.getTurtle().getPen().changeColor(c);
         return index;
     }
 

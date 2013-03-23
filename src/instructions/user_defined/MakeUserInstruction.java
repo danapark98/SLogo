@@ -52,9 +52,11 @@ public class MakeUserInstruction extends BaseInstruction {
     @Override
     public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myCommandName = line.next();
+
         if (myCommandName.equals("[")) {
             myCommandName = parser.unpackList(line);
         }
+
         myVariables = parser.nextInstruction(line);
         myCommands = parser.nextInstruction(line);
     }
@@ -62,7 +64,7 @@ public class MakeUserInstruction extends BaseInstruction {
     @Override
     public int execute(Model model) {
         BaseInstruction instruction = new UserInstruction(myVariables, myCommands);
-        model.getEnvironment().addUserDefinedInstruction(myCommandName, instruction);
+        model.getEnvironment().addInstruction(myCommandName, instruction);
         return 1;
     }
 }

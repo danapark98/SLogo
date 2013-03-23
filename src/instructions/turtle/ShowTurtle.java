@@ -39,7 +39,7 @@ public class ShowTurtle extends BaseInstruction {
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         Pixmap visible = model.getPalette().getImage(ImagePalette.DEFAULT_IMAGE_INDEX);
-        model.getTurtle().turtlePen().changeImage(visible);
+        model.getTurtle().getPen().changeImage(visible);
         return 1;
     }
 }

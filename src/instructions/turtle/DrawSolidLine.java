@@ -38,7 +38,7 @@ public class DrawSolidLine extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
         LineBuilder lb = model.getPalette().getLineStyle(SolidLine.PALETTE_INDEX);
         
-        model.getTurtle().turtlePen().changeLineStyle(lb);
+        model.getTurtle().getPen().changeLineStyle(lb);
         return SolidLine.PALETTE_INDEX;
     }
 

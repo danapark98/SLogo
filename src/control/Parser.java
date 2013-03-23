@@ -89,7 +89,7 @@ public class Parser {
                     result = new ConstantInstruction(Integer.parseInt(commandName));
                 }
                 catch (NumberFormatException e) {
-                    BaseInstruction base = myEnvironment.systemInstructionSkeleton(commandName);
+                    BaseInstruction base = myEnvironment.getInstruction(commandName);
                     base.load(line, this);
                     result = base;
                 }
@@ -167,5 +167,9 @@ public class Parser {
         else {
             return counterBracket;
         }
+    }
+
+    public void makeAvailable(String key) {
+        myEnvironment.removeInstruction(key);        
     }
 }
