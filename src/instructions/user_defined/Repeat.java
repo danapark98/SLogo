@@ -2,6 +2,7 @@ package instructions.user_defined;
 
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
 
@@ -46,7 +47,8 @@ public class Repeat extends BaseInstruction {
         Instruction commandsToLoop = nextOperand();
         int last = 0;
         for (int i = 1; i <= numberOfIterations; ++i) {
-            model.getEnvironment().addVariable(VARIABLE_NAME, i);
+            BaseInstruction instruct = new ConstantInstruction(i);
+            model.getEnvironment().addInstruction(VARIABLE_NAME, instruct);
             last = commandsToLoop.execute(model);
         }
         model.getEnvironment().removeInstruction(VARIABLE_NAME);
