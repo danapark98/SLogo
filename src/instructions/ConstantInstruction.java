@@ -43,5 +43,10 @@ public class ConstantInstruction extends BaseInstruction {
     public BaseInstruction newCopy () {
         return new ConstantInstruction(myValue);
     }
+    
+    @Override
+    public String toString() {
+        return "" + myValue;
+    }
 
 }

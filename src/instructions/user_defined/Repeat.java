@@ -31,6 +31,7 @@ public class Repeat extends BaseInstruction {
      */
     private static final long serialVersionUID = -6196556606163979681L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
+    private static final String VARIABLE_NAME = ":repcount";
     
     /**
      * Initializes user defined for-loop instruction.
@@ -44,9 +45,11 @@ public class Repeat extends BaseInstruction {
         int numberOfIterations = nextOperand().execute(model);
         Instruction commandsToLoop = nextOperand();
         int last = 0;
-        for (int i = 0; i < numberOfIterations; ++i) {
+        for (int i = 1; i <= numberOfIterations; ++i) {
+            model.getEnvironment().addVariable(VARIABLE_NAME, i);
             last = commandsToLoop.execute(model);
         }
+        model.getEnvironment().removeInstruction(VARIABLE_NAME);
         return last;
     }
 }
