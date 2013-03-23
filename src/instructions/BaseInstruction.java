@@ -3,13 +3,10 @@ package instructions;
 import control.Parser;
 import exceptions.CorruptedEnvironmentException;
 import exceptions.IllegalInstructionException;
-import instructions.user_defined.VariableInstruction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
-import simulation.Model;
-
 
 
 /**
@@ -47,7 +44,7 @@ public abstract class BaseInstruction implements Instruction {
      *         instruction that does not exist or has not been defined
      */
 
-    public void load (Scanner line, Parser parser)
+    public void load(Scanner line, Parser parser)
         throws IllegalInstructionException {
         List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
@@ -61,18 +58,15 @@ public abstract class BaseInstruction implements Instruction {
      * 
      * @return The next instruction in this instructions operands.
      */
-    public Instruction nextOperand () {
+    public Instruction nextOperand() {
         if (!myOperands.hasNext()) {
             resetOperands();
         }
         return myOperands.next();
     }
 
-    
-    
-    
     /**
-     * Uses Reflections.
+     * Gives a string representing this instruction.
      * 
      * @return The name of this Instruction Class.
      */
@@ -80,29 +74,23 @@ public abstract class BaseInstruction implements Instruction {
 
         StringBuilder sb = new StringBuilder();
 
+        // USES REFLECTION
         String fullName = this.getClass().getName();
         String[] nameParts = fullName.split("[.]");
-        String className = nameParts[nameParts.length-1];
+        String className = nameParts[nameParts.length - 1];
         sb.append(className + " ");
-        
+
         sb.append(operandsToString());
-        
+
         return sb.toString();
     }
-    
+
     private String operandsToString() {
         StringBuilder sb = new StringBuilder();
-        
-            
-            
-            resetOperands();
-            
-            while(myOperands.hasNext()){
-                
-                sb.append(" [ " + nextOperand().toString() + " ] ");             
-            }
-            
-            
+        resetOperands();
+        while (myOperands.hasNext()) {
+            sb.append(" [ " + nextOperand().toString() + " ] ");
+        }
 
         return sb.toString();
     }
@@ -110,19 +98,19 @@ public abstract class BaseInstruction implements Instruction {
     /**
      * used when the execute method is called more than once.
      */
-    private void resetOperands () {
+    private void resetOperands() {
         while (myOperands.hasPrevious()) {
             myOperands.previous();
         }
     }
-       
+
     /**
      * copies this instruction.
      * 
      * @return a copy of this instruction
      */
 
-    public BaseInstruction newCopy () {
+    public BaseInstruction newCopy() {
         BaseInstruction copy = null;
         try {
             copy = this.getClass().newInstance();
@@ -138,11 +126,11 @@ public abstract class BaseInstruction implements Instruction {
      * 
      * @return The number of arguments needed for this instruction.
      */
-    public int getNumberOfArguments () {
+    public int getNumberOfArguments() {
         return myNumberOfArguments;
     }
 
-    protected void setNumberOfArguments (int numberOfArguments) {
+    protected void setNumberOfArguments(int numberOfArguments) {
         myNumberOfArguments = numberOfArguments;
     }
 

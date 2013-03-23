@@ -36,6 +36,11 @@ public interface Instruction extends Serializable {
      */
     public int execute (Model model) throws IllegalInstructionException;
     
+    /**
+     * Gives a string representation of this instruction.
+     * 
+     * @return String representing this instruction.
+     */
     public String toString();
 
 }

@@ -5,9 +5,7 @@ import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
 import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
-import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
-import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +15,6 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ResourceBundle;
-import simulation.Model;
 
 
 /**
@@ -85,19 +82,36 @@ public class Environment {
         myInstructionMap.remove(instructionName);
     }
     
-    public void addLocalVar(VariableInstruction instruct, int value){
+    /**
+     * Adds a local variable to the environment.
+     * 
+     * @param instruct is the variable to be added.
+     * @param value is the value of the variable to be added.
+     */
+    public void addLocalVar(VariableInstruction instruct, int value) {
         String name = instruct.toString();
         myInstructionMap.remove(name);
         BaseInstruction constant = new ConstantInstruction(value);
         myInstructionMap.addInstruction(name, constant);
     }
     
+    /**
+     * Removes a local variable from the environment.
+     * 
+     * @param key is the key for the local variable to be removed.
+     */
     public void removeLocalVar(String key) {
         myInstructionMap.remove(key);
     }
     
+    /**
+     * Gives all user defined functions and variables as a string.
+     * 
+     * @return A String that contains all information on user defined functions.
+     */
     public String customValuesToString() {
-        return myInstructionMap.userDefinedInstructionstoString() + myInstructionMap.variablesToString();
+        return myInstructionMap.userDefinedInstructionstoString() + 
+                myInstructionMap.variablesToString();
     }
 
 

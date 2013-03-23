@@ -7,7 +7,6 @@ import instructions.Instruction;
 import instructions.turtle.ClearScreen;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ResourceBundle;
 import simulation.Model;
 import view.View;
 
@@ -29,7 +28,6 @@ public class Controller {
     private View myView;
     private Parser myParser;
     private Environment myEnvironment;
-    //private ResourceBundle myResource;
 
     /**
      * This creates a new controller with a model, a view, an environment,

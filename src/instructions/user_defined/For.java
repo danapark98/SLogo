@@ -36,8 +36,8 @@ public class For extends BaseInstruction {
         int increment = initialization.getInstruction(3).execute(model);
         
         int last = 0;
-        for (int i = start; i < end; i+= increment) {
-            environment.addLocalVar(variable,i);
+        for (int i = start; i < end; i += increment) {
+            environment.addLocalVar(variable, i);
             last = commandsToExecute.execute(model);
         }
         environment.removeInstruction(variable.toString());

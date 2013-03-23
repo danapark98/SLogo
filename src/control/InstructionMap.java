@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import simulation.Model;
 
 
 /**
@@ -22,15 +21,17 @@ import simulation.Model;
  */
 public class InstructionMap implements Serializable {
 
+    private static final String LINE_BREAK = "*************************\n";
+    
     private static final String VARIABLE_HEADER =
-            "*************************\n" +
+            LINE_BREAK +
             "Current User Variables\n" +
-            "*************************\n" +
+            LINE_BREAK +
             "NAME \tVALUE \n";
     private static final String FUNCTIONS_HEADER =
-            "**************************\n" +
+            LINE_BREAK +
             "Current User Functions\n" +
-            "**************************\n" +
+            LINE_BREAK +
             "NAME \tVARIABLES \tINSTRUCTION \n";
     /**
      * Auto-generated ID for I/O

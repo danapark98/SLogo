@@ -52,9 +52,11 @@ public class MakeUserInstruction extends BaseInstruction {
     @Override
     public void load(Scanner line, Parser parser) throws IllegalInstructionException {
         myCommandName = line.next();
+
         if (myCommandName.equals("[")) {
             myCommandName = parser.unpackList(line);
         }
+
         myVariables = parser.nextInstruction(line);
         myCommands = parser.nextInstruction(line);
     }
