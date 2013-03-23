@@ -3,7 +3,6 @@ package control;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
-import instructions.Instruction;
 import instructions.user_defined.UserInstruction;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,13 +23,15 @@ import simulation.Model;
 public class InstructionMap implements Serializable {
 
     private static final String VARIABLE_HEADER =
-            "Current User Variables\n*************************\n";
+            "*************************\n" +
+            "Current User Variables\n" +
+            "*************************\n" +
+            "NAME \tVALUE \n";
     private static final String FUNCTIONS_HEADER =
+            "**************************\n" +
             "Current User Functions\n" +
             "**************************\n" +
             "NAME \tVARIABLES \tINSTRUCTION \n";
-    private static final String UNABLE_TO_COMPUTE = "Not currently computable";
-
     /**
      * Auto-generated ID for I/O
      */
@@ -46,8 +47,6 @@ public class InstructionMap implements Serializable {
 
     private Map<String, BaseInstruction> myLocalVariables;
     
-    private ResourceBundle myResource;
-
     /**
      * Creates an Instruction Map based on the bass resource bundle.
      * 
@@ -80,7 +79,6 @@ public class InstructionMap implements Serializable {
         InstructionMapFactory imf =
                 new InstructionMapFactory(resource);
         myInstructions = imf.buildInstructionMap();
-        myResource = resource;
     }
 
     /**
@@ -91,12 +89,12 @@ public class InstructionMap implements Serializable {
      */
     public void addInstruction(String keyword, BaseInstruction userInstruction) {
 
+        // TODO: uggles
         if (userInstruction instanceof ConstantInstruction) {
             myGlobalVariables.put(keyword, userInstruction);
         }
-        else {
-        
-        myUserInstructions.put(keyword, userInstruction);
+        else {     
+            myUserInstructions.put(keyword, userInstruction);
         }
     }
 
@@ -128,12 +126,12 @@ public class InstructionMap implements Serializable {
     public String variablesToString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(VARIABLE_HEADER + "\n");
+        sb.append(VARIABLE_HEADER);
 
-        for (String key : myInstructions.keySet()) {
-            if (key.startsWith(":")) {
-                sb.append(key + "\n");
-            }
+        for (String key : myGlobalVariables.keySet()) {
+            BaseInstruction bi = myGlobalVariables.get(key);
+            sb.append(key + "\t" + bi.toString());
+            
         }
         return sb.toString();
     }
@@ -141,10 +139,9 @@ public class InstructionMap implements Serializable {
     /**
      * Makes a string containing information of user-defined functions.
      * 
-     * @param model is the Model on which instructions execute.
      * @return A String with user-defined function info. 
      */
-    public String userDefinedInstructionstoString(Model model) {
+    public String userDefinedInstructionstoString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append(FUNCTIONS_HEADER);

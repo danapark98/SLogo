@@ -93,8 +93,8 @@ public class Environment {
         myInstructionMap.remove(key);
     }
     
-    public String customValuesToString(Model model) {
-        return myInstructionMap.userDefinedInstructionstoString(model);
+    public String customValuesToString() {
+        return myInstructionMap.userDefinedInstructionstoString() + myInstructionMap.variablesToString();
     }
 
 

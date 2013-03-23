@@ -34,7 +34,7 @@ public class VariableInstruction implements Instruction {
     }
     
     public String getName() {
-        return myName;
+        return "[ "+myName+" ]";
     }
     
     @Override

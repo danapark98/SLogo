@@ -18,7 +18,7 @@ public class GetUserVariables extends BaseInstruction {
     
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        String info = model.getEnvironment().customValuesToString(model);
+        String info = model.getEnvironment().customValuesToString();
         model.informView(info);
         return 1;
     }

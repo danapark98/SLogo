@@ -73,9 +73,11 @@ public class CompoundInstruction implements Instruction {
     
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
         for(Instruction i: myInstructions){
             sb.append(i.toString() + " ");
         }
+
         return sb.toString();
     }
 }

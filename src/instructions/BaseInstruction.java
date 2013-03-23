@@ -93,9 +93,16 @@ public abstract class BaseInstruction implements Instruction {
         StringBuilder sb = new StringBuilder();
 
         if(myOperands != null){
+            
+            
+            sb.append(" [ ");
             while(myOperands.hasNext()){
-                sb.append(" " + nextOperand().toString());
+                
+                sb.append(" [ " + nextOperand().toString() + " ] ");
+                
             }
+            sb.append(" ] ");
+            
         }
         //sb.append(myInstruction.toString());
         //sb.append("\n");
