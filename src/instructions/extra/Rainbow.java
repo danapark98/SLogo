@@ -36,7 +36,7 @@ public class Rainbow extends BaseInstruction {
     public int execute(Model model) throws IllegalInstructionException {
         LineBuilder lb = model.getPalette().getLineStyle(RainbowLine.RAINBOW_INDEX);
 
-        model.getTurtle().turtlePen().changeLineStyle(lb);
+        model.getTurtle().getPen().changeLineStyle(lb);
         return RainbowLine.RAINBOW_INDEX;
     }
 

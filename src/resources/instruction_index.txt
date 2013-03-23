@@ -44,6 +44,7 @@ instructions.turtle.ClearStamps
 instructions.turtle.SetPenSize
 instructions.turtle.DrawDashed
 instructions.turtle.DrawSolidLine
+instructions.turtle.Shape
 #
 # -- boolean instructions -- #
 #

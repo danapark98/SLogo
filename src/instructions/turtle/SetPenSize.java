@@ -39,7 +39,7 @@ public class SetPenSize extends BaseInstruction {
 
         if (size <= 0) { throw new IllegalInstructionException("size out of bounds"); }
 
-        model.getTurtle().turtlePen().changeSize(size);
+        model.getTurtle().getPen().changeSize(size);
         return size;
     }
 
