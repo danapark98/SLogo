@@ -1,8 +1,12 @@
 package instructions.turtle;
 
+import drawing.ImagePalette;
+import drawing.Pen;
+import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
+import util.Pixmap;
 
 /**
  * Represents making the turtle visible as an instruction. Takes zero
@@ -33,9 +37,9 @@ public class ShowTurtle extends BaseInstruction {
     }
 
     @Override
-    public int execute (Model model) {
-        Turtle turtle = model.getTurtle();
-        turtle.setView(Turtle.DEFAULT_IMAGE);
+    public int execute (Model model) throws IllegalInstructionException {
+        Pixmap visible = model.getPalette().getImage(ImagePalette.DEFAULT_IMAGE_INDEX);
+        model.getTurtle().turtlePen().changeImage(visible);
         return 1;
     }
 }

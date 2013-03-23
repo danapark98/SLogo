@@ -30,14 +30,6 @@ public class Pixmap {
     }
 
     /**
-     * Returns the file name from which the image was created.
-     */
-    @Override
-    public String toString () {
-        return myFileName;
-    }
-
-    /**
      * Create a copy of image from the given other image.
      */
     public Pixmap (Pixmap other) {
