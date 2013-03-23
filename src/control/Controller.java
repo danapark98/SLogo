@@ -21,7 +21,7 @@ import view.View;
  * 
  */
 public class Controller {
-
+    
     /** String that indicated a return result from a user input */
     public static final String PRINT_INDICATOR = ">> ";
     private Model myModel;

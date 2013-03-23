@@ -54,7 +54,7 @@ public class MakeVariable extends BaseInstruction {
     public int execute (Model model) throws IllegalInstructionException {
         int variableValue = myArgument.execute(model);
         BaseInstruction variable = new ConstantInstruction(variableValue);
-        model.getEnvironment().addInstruction(myName, variable);
+        model.getEnvironment().defineVariable(myName, variable);
         return variableValue;
     }
 }

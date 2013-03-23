@@ -19,7 +19,7 @@ import java.util.List;
 public class Preparser {
     private static final int MIN_SIZE_WHEN_BRACKETS_NEEDED = 3;
     private Environment myEnvironment;
-
+    
     /**
      * Initiates a preparser based on the environment in which it works.
      * 

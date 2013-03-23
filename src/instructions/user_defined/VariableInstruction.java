@@ -1,13 +1,18 @@
 package instructions.user_defined;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.Instruction;
+import simulation.Model;
+
 
 /**
  * Used for variables so that they can be loaded by the parser, and then looked
  * up at a later point during the execution step.
- *
+ * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ * 
  */
 public class VariableInstruction implements Instruction {
 
@@ -18,6 +23,11 @@ public class VariableInstruction implements Instruction {
     private static final String ERROR_MESSAGE = "Using an undefined variable";
     private String myName;
     
+    /**
+     * Makes a new variable instruction with a given name.
+     * 
+     * @param name of this variable.
+     */
     public VariableInstruction (String name) {
         myName = name;
     }
@@ -28,7 +38,7 @@ public class VariableInstruction implements Instruction {
             Instruction variable = model.getEnvironment().getInstruction(myName);
             return variable.execute(model);
         }
-        catch (IllegalInstructionException e){
+        catch (IllegalInstructionException e) {
             throw new IllegalInstructionException(ERROR_MESSAGE);
         }
     }
@@ -37,5 +47,6 @@ public class VariableInstruction implements Instruction {
     public String toString() {
         return myName; 
     }
+
 
 }

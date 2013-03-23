@@ -1,8 +1,8 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
+import instructions.Instruction;
 import instructions.user_defined.UserInstruction;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,15 +38,15 @@ public class InstructionMap implements Serializable {
      */
     private static final long serialVersionUID = -5723192296795370586L;
 
-    private Collection<Map<String, BaseInstruction>> myInstructionMaps;
+    private Collection<Map<String, Instruction>> myInstructionMaps;
 
-    private Map<String, BaseInstruction> myInstructions;
+    private Map<String, Instruction> myInstructions;
     
-    private Map<String, BaseInstruction> myUserInstructions;
+    private Map<String, Instruction> myUserInstructions;
     
-    private Map<String, BaseInstruction> myGlobalVariables;
+    private Map<String, Instruction> myGlobalVariables;
 
-    private Map<String, BaseInstruction> myLocalVariables;
+    private Map<String, Instruction> myLocalVariables;
     
     /**
      * Creates an Instruction Map based on the bass resource bundle.
@@ -54,20 +54,27 @@ public class InstructionMap implements Serializable {
      * @param resource is the ResourceBundle that contains all of the instruction keywords.
      */
     public InstructionMap(ResourceBundle resource) {
-
-
-        myInstructionMaps = new ArrayList<Map<String, BaseInstruction>>();
+        
+        this();        
 
         initiateInstructionMap(resource);
         myInstructionMaps.add(myInstructions);
-        myLocalVariables = new HashMap<String, BaseInstruction>();
+
+    }
+
+    /**
+     * Creates a new instruction map with local, global variable maps for this scope.
+     */
+    public InstructionMap() {
+        myInstructionMaps = new ArrayList<Map<String, Instruction>>();
+        myLocalVariables = new HashMap<String, Instruction>();
         myInstructionMaps.add(myLocalVariables);
         
-        myUserInstructions = new HashMap<String, BaseInstruction>();
+        myUserInstructions = new HashMap<String, Instruction>();
         
         myInstructionMaps.add(myUserInstructions);
         
-        myGlobalVariables = new HashMap<String, BaseInstruction>();
+        myGlobalVariables = new HashMap<String, Instruction>();
         myInstructionMaps.add(myGlobalVariables);
     }
 
@@ -88,7 +95,7 @@ public class InstructionMap implements Serializable {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction is the instruction to be added to the environment.
      */
-    public void addInstruction(String keyword, BaseInstruction userInstruction) {
+    public void addInstruction(String keyword, Instruction userInstruction) {
 
         if (userInstruction instanceof ConstantInstruction) {
             myGlobalVariables.put(keyword, userInstruction);
@@ -97,6 +104,27 @@ public class InstructionMap implements Serializable {
             myUserInstructions.put(keyword, userInstruction);
         }
     }
+    
+    /**
+     * Adds a new user defined variable.
+     * 
+     * @param keyword is the name of the variable.
+     * @param value is the value of the variable.
+     */
+    public void addUserDefVar(String keyword, Instruction value) {
+        myGlobalVariables.put(keyword, value);
+    }
+    
+    /**
+     * Adds a new user defined function.
+     * 
+     * @param keyword is the name of the function.
+     * @param instruction is the function.
+     */
+    public void addUserDefFunct(String keyword, Instruction instruction) {
+        myUserInstructions.put(keyword, instruction);
+    }
+    
 
     /**
      * Adds a local variable to the InstructionMap.
@@ -105,7 +133,7 @@ public class InstructionMap implements Serializable {
      * @param value is the value of the local instruction
      */
     public void addLocal(String key, int value) {
-        BaseInstruction bi = new ConstantInstruction(value);
+        Instruction bi = new ConstantInstruction(value);
         myLocalVariables.put(key, bi);
     }
 
@@ -129,7 +157,7 @@ public class InstructionMap implements Serializable {
         sb.append(VARIABLE_HEADER);
 
         for (String key : myGlobalVariables.keySet()) {
-            BaseInstruction bi = myGlobalVariables.get(key);
+            Instruction bi = myGlobalVariables.get(key);
             sb.append(key + "\t" + bi.toString());
             
         }
@@ -167,7 +195,7 @@ public class InstructionMap implements Serializable {
      * @return Whether the key is used in this InstructionMap.
      */
     public boolean containsKey(String key) {      
-        for (Map<String, BaseInstruction> map: myInstructionMaps) {
+        for (Map<String, Instruction> map: myInstructionMaps) {
             if (map.containsKey(key)) {
                 return true;
             }
@@ -181,13 +209,17 @@ public class InstructionMap implements Serializable {
      * 
      * @param key is the keyword to lookup.
      * @return The instruction with the key.
-     * @throws IllegalInstructionException Occurs when the key is not in this.
      */
-    public BaseInstruction get(String key) throws IllegalInstructionException {
-        for (Map<String, BaseInstruction> map : myInstructionMaps) {
-            if (map.containsKey(key)) { return map.get(key); }
+    public BaseInstruction get(String key) {
+        for (Map<String, Instruction> map : myInstructionMaps) {
+            if (map.containsKey(key)) { 
+                
+                BaseInstruction original = (BaseInstruction)map.get(key);
+                
+                return original.newCopy(); 
+            }
         }
-        throw new IllegalInstructionException(key);
+        return null;
     }
 
     /**
@@ -198,7 +230,7 @@ public class InstructionMap implements Serializable {
      * @param key of the instruction to be deleted.
      */
     public void remove(String key) {
-        for (Map<String, BaseInstruction> map : myInstructionMaps) {
+        for (Map<String, Instruction> map : myInstructionMaps) {
             if (map.containsKey(key)) {
                 map.remove(key);
             }
