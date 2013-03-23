@@ -89,7 +89,6 @@ public class InstructionMap implements Serializable {
      */
     public void addInstruction(String keyword, BaseInstruction userInstruction) {
 
-        // TODO: uggles
         if (userInstruction instanceof ConstantInstruction) {
             myGlobalVariables.put(keyword, userInstruction);
         }

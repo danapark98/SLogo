@@ -40,7 +40,7 @@ public class For extends BaseInstruction {
             environment.addLocalVar(variable,i);
             last = commandsToExecute.execute(model);
         }
-        environment.removeInstruction(variable.getName());
+        environment.removeInstruction(variable.toString());
         return last;
     }
 

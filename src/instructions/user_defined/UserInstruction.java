@@ -50,7 +50,7 @@ public class UserInstruction extends BaseInstruction {
         
         for (int i = 0; i < myVariables.getSize(); ++i) {
             VariableInstruction vi = (VariableInstruction)myVariables.getInstruction(i);
-            String name = vi.getName();
+            String name = vi.toString();
             environment.removeLocalVar(name);
         }
         return result;        

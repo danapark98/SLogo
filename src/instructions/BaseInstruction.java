@@ -3,6 +3,7 @@ package instructions;
 import control.Parser;
 import exceptions.CorruptedEnvironmentException;
 import exceptions.IllegalInstructionException;
+import instructions.user_defined.VariableInstruction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -91,22 +92,18 @@ public abstract class BaseInstruction implements Instruction {
     
     private String operandsToString() {
         StringBuilder sb = new StringBuilder();
-
-        if(myOperands != null){
+        
             
             
-            sb.append(" [ ");
+            resetOperands();
+            
             while(myOperands.hasNext()){
                 
-                sb.append(" [ " + nextOperand().toString() + " ] ");
-                
+                sb.append(" [ " + nextOperand().toString() + " ] ");             
             }
-            sb.append(" ] ");
             
-        }
-        //sb.append(myInstruction.toString());
-        //sb.append("\n");
-        
+            
+
         return sb.toString();
     }
 

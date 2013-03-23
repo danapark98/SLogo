@@ -86,7 +86,7 @@ public class Environment {
     }
     
     public void addLocalVar(VariableInstruction instruct, int value){
-        String name = instruct.getName();
+        String name = instruct.toString();
         myInstructionMap.remove(name);
         BaseInstruction constant = new ConstantInstruction(value);
         myInstructionMap.addInstruction(name, constant);

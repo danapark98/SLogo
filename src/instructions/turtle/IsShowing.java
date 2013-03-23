@@ -1,5 +1,7 @@
 package instructions.turtle;
 
+import drawing.ColorPalette;
+import drawing.ImagePalette;
 import instructions.booleans.BooleanInstruction;
 import simulation.Model;
 import simulation.Turtle;
@@ -37,10 +39,7 @@ public class IsShowing extends BooleanInstruction {
     
     @Override
     public boolean executeBoolean (Model model) {
-        Turtle turtle = model.getTurtle();
-        Pixmap visible = Turtle.DEFAULT_IMAGE;
-        Pixmap current = turtle.getView();
-        return visible.toString().equals(current.toString());
+        return model.getPalette().getCurrentImageIndex() != ColorPalette.DEFAULT_CLEAR_INDEX;
     }
 
 }
