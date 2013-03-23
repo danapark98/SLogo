@@ -33,7 +33,6 @@ public class Turtle extends Sprite {
     private static final double X_OFFSET = 25;
     private static final double Y_OFFSET = 15;
     private List<ValueText> myStatus;
-    
     private Pen myPen;
 
 
@@ -53,16 +52,7 @@ public class Turtle extends Sprite {
         super.update(elapsedTime, bounds);
         updateStatus();
     }
-    
-    /**
-     * The current pen being used by the turtle.
-     * 
-     * @return The pen used by the turtle.
-     */
-    public Pen turtlePen() {
-        return myPen;
-    }
-
+ 
     /**
      * Updates the Value text which displays information about the turtle's current position.
      */
@@ -149,5 +139,15 @@ public class Turtle extends Sprite {
         myStatus.add(new ValueText(Y_LABEL, 0));
         myStatus.add(new ValueText(ANGLE_LABEL, 0));
     }
+    
+    /**
+     * The current pen being used by the turtle.
+     * 
+     * @return The pen used by the turtle.
+     */
+    public Pen turtlePen() {
+        return myPen;
+    }
+
 
 }

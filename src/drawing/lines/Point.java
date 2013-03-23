@@ -31,6 +31,7 @@ public class Point {
         myColor = color;
         myThickness = thickness;
         initializeCircle();
+        
     }
 
     /**

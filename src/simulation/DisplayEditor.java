@@ -21,18 +21,18 @@ public interface DisplayEditor {
     public void addLine (Point line);
     
     /**
-     * Gives a palette of colors used for drawing.
-     * 
-     * @return The Palette of colors that can be used in editing.
-     */
-    public Palette getPalette();
-    
-    /**
      * Adds a stamp of the turtle.
      * 
      * @param st Stamp to be added.
      */
     public void addStamp (StampSprite st);
+    
+    /**
+     * Gives a palette of colors used for drawing.
+     * 
+     * @return The Palette of colors that can be used in editing.
+     */
+    public Palette getPalette();
         
     
 }
