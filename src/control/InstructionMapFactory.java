@@ -37,7 +37,7 @@ public class InstructionMapFactory {
     
     private static final String SHAPE_INDEX_FILE = 
     		"/src/resources/images/TurtleShapes";
-
+    
     /** Default location of the resources package. */
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
@@ -130,7 +130,7 @@ public class InstructionMapFactory {
                 instruct = (BaseInstruction) instructionClass.newInstance();
             }
             catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
-                throw new CorruptedEnvironmentException();
+               throw new CorruptedEnvironmentException();
             }
 
             // gets parameters from line
@@ -147,20 +147,8 @@ public class InstructionMapFactory {
             }
         }
     }
-
-    /**
-     * Determines the name of the class from the class path.
-     * 
-     * @param classPath is the classPath to determine the class name.
-     * @return The name of the class at the given classPath.
-     */
-    private String getClassName (String classPath) {
-        String[] path = classPath.split("[.]");
-        String str = path[path.length - 1];
-        return str;
-    }
     
-    public Map<String, Integer> buildTurtleShapeMap() throws CorruptedEnvironmentException{
+    public Map<Integer, String> buildTurtleShapeMap() throws CorruptedEnvironmentException{
     	FileReader fileToBeRead = null;
     	String currentDirectory = System.getProperty(USER_DIR);
     	
@@ -172,19 +160,31 @@ public class InstructionMapFactory {
          }
          Scanner line = new Scanner(fileToBeRead);
          
-         Map<String, Integer> shapeMap = new HashMap<String, Integer>();
+         Map<Integer, String> shapeMap = new HashMap<Integer, String>();
          while(line.hasNext()) {
-        	 String pooface = line.nextLine();
-        	 String [] shapes = pooface.split("=");
+        	 String str = line.nextLine();
+        	 String [] shapes = str.split("=");
         	 try{
-        		 shapeMap.put(shapes[1].trim(), Integer.parseInt(shapes[0].trim()));
+        		 shapeMap.put(Integer.parseInt(shapes[0].trim()),shapes[1].trim());
         	 }
         	 catch(NumberFormatException e) {
-        		// throw new CorruptedEnvironmentException();
+        		throw new CorruptedEnvironmentException();
         	 }
          }
          line.close();
          return shapeMap;
 
+    }
+
+    /**
+     * Determines the name of the class from the class path.
+     * 
+     * @param classPath is the classPath to determine the class name.
+     * @return The name of the class at the given classPath.
+     */
+    private String getClassName (String classPath) {
+        String[] path = classPath.split("[.]");
+        String str = path[path.length - 1];
+        return str;
     }
 }

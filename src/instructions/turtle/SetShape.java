@@ -27,8 +27,8 @@ public class SetShape extends BaseInstruction {
     
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-        return 0;
+        model.setShape(index);
+        return model.getShape();
     }
 
 }

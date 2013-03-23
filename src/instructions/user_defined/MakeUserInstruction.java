@@ -62,7 +62,7 @@ public class MakeUserInstruction extends BaseInstruction {
     @Override
     public int execute(Model model) {
         BaseInstruction instruction = new UserInstruction(myVariables, myCommands);
-        model.addInstruction(myCommandName, instruction);
+        model.getEnvironment().addUserDefinedInstruction(myCommandName, instruction);
         return 1;
     }
 }

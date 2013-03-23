@@ -23,160 +23,162 @@ import java.util.Collection;
  * @author Ellango Jothimurugesan
  */
 public class Model implements DisplayEditor {
-    
-    private Collection<Turtle> myTurtles;
-    private Collection<Turtle> myActiveTurtles;
-    private Turtle myTurtle;
-    private Collection<Point> myLines;
-    private Collection<StampSprite> myStamps;
-    private Environment myEnvironment;
 
-    /**
-     * Instantiates a model with a turtle and a collection of lines.
-     */
-    public Model () {
-        
-        myTurtles = new ArrayList<Turtle>();
-        
-        myEnvironment = new Environment();
-        myTurtle = new Turtle(this);
-        
-        myTurtles.add(myTurtle);
+	private Collection<Turtle> myTurtles;
+	private Collection<Turtle> myActiveTurtles;
+	private Turtle myTurtle;
+	private Collection<Point> myLines;
+	private Collection<StampSprite> myStamps;
+	private Environment myEnvironment;
+	/**
+	 * Instantiates a model with a turtle and a collection of lines.
+	 */
+	public Model () {
 
-        myLines = new ArrayList<Point>();
-        myStamps = new ArrayList<StampSprite>();
-    }
+		myTurtles = new ArrayList<Turtle>();
 
-    /**
-     * Updates all of the elements of model.
-     * 
-     * @param elapsedTime is the time since the last update.
-     * @param bounds is the current bounds of the canvas in the view. (This is the area where the
-     *        lines and turtle are displayed).
-     */
-    public void update (double elapsedTime, Dimension bounds) {
-        
-        for (Turtle turt : myTurtles) {
-            turt.update(elapsedTime, bounds);
-        }
-    }
+		myEnvironment = new Environment();
+		myTurtle = new Turtle(this);
+		myTurtles.add(myTurtle);
 
-    /**
-     * Paints all current elements (turtles and lines) of the model.
-     * 
-     * @param pen is the graphic that is used to paint lins and turtles.
-     */
-    public void paint (Graphics2D pen) {
-        // myTurtle.paint(pen);
+		myLines = new ArrayList<Point>();
+		myStamps = new ArrayList<StampSprite>();
+	}
 
-        for (Turtle t : myTurtles) {
-            t.paint(pen);
-        }
-        
-        for (Point line : myLines) {
-            line.paint(pen);
-        }
-        for (StampSprite st : myStamps) {
-            st.paint(pen);
-        }
-    }
+	/**
+	 * Updates all of the elements of model.
+	 * 
+	 * @param elapsedTime is the time since the last update.
+	 * @param bounds is the current bounds of the canvas in the view. (This is the area where the
+	 *        lines and turtle are displayed).
+	 */
+	public void update (double elapsedTime, Dimension bounds) {
 
-    /**
-     * Clears stamps and lines from model.
-     */
-    public void clear() {
-        clearLines();
-        clearStamps();
-    }
-    
-    @Override
-    public void addLine (Point line) {
-        myLines.add(line);
-    }
-    
-    /** 
-     * Adds a stamp of the turtle.
-     * 
-     * @param st Stamp to be added.
-     */
-    public void addStamp (StampSprite st) {
-        myStamps.add(st);
-    }
-    
-    /**
-     * Clears all stamps in the current workspace.
-     */
-    public void clearStamps () {
-        myStamps.clear();
-    }
+		for (Turtle turt : myTurtles) {
+			turt.update(elapsedTime, bounds);
+		}
+	}
 
-    /**
-     * Clears all lines from the model.
-     */
-    public void clearLines () {
-        myLines.clear();
-    }
+	/**
+	 * Paints all current elements (turtles and lines) of the model.
+	 * 
+	 * @param pen is the graphic that is used to paint lines and turtles.
+	 */
+	public void paint (Graphics2D pen) {
+		// myTurtle.paint(pen);
 
-    /**
-     * Gives the current active turtle in the model.
-     * 
-     * @return The active turtle in the model.
-     */
-    public Turtle getTurtle () {
-        // TODO: update so that this returns active turtles or first turtle or something
-        return myTurtle;
-    }
+		for (Turtle t : myTurtles) {
+			t.paint(pen);
+		}
 
-    /**
-     * Sets the environment that contains necessary instruction information.
-     * 
-     * @param environment is environment that contains all relevant instruction information.
-     */
-    public void setEnvironment (Environment environment) {
-        myEnvironment = environment;
-    }
+		for (Point line : myLines) {
+			line.paint(pen);
+		}
+		for (StampSprite st : myStamps) {
+			st.paint(pen);
+		}
+	}
 
-    /**
-     * Adds a new user defined instruction to the environment.
-     * 
-     * @param keyword associated with the instruction for future calls
-     * @param instruction to be added to the environment.
-     */
-    public void addInstruction (String keyword, BaseInstruction instruction) {
-        myEnvironment.addUserDefinedInstruction(keyword, instruction);
-    }
+	/**
+	 * Clears stamps and lines from model.
+	 */
+	public void clear() {
+		clearLines();
+		clearStamps();
+	}
 
-    /**
-     * Gives the Instruction associated with the passed keyword.
-     * 
-     * @param name - the keyword for the instruction
-     * @return The Instruction associated with the keyword
-     * @throws IllegalInstructionException This occurs when the keyword is not
-     *         found in the environment.
-     */
-    public BaseInstruction getVariableInstruction (String name) throws IllegalInstructionException {
-        return myEnvironment.systemInstructionSkeleton(name);
-    }
+	@Override
+	public void addLine (Point line) {
+		myLines.add(line);
+	}
 
-    /**
-     * Gives the current Palette is use in the current environment
-     * 
-     * @return
-     */
-    public Palette getPalette() {
-        return myEnvironment.getPalette();
-    }
-    
-    /**
-     * Removes a variable from the environment. This is done in the context
-     * of local variables, in which they should only be visible during a
-     * function call.
-     * 
-     * @param variableName is the name of the variable to be removed.
-     */
-    public void removeVariable (String variableName) {
-        myEnvironment.removeInstruction(variableName);
-    }
-    
-    
+	/** 
+	 * Adds a stamp of the turtle.
+	 * 
+	 * @param st Stamp to be added.
+	 */
+	public void addStamp (StampSprite st) {
+		myStamps.add(st);
+	}
+
+	/**
+	 * Clears all stamps in the current workspace.
+	 */
+	public void clearStamps () {
+		myStamps.clear();
+	}
+
+	/**
+	 * Clears all lines from the model.
+	 */
+	public void clearLines () {
+		myLines.clear();
+	}
+
+	/**
+	 * Gives the current active turtle in the model.
+	 * 
+	 * @return The active turtle in the model.
+	 */
+	public Turtle getTurtle () {
+		// TODO: update so that this returns active turtles or first turtle or something
+		return myTurtle;
+	}
+
+	/**
+	 * Sets the environment that contains necessary instruction information.
+	 * 
+	 * @param environment is environment that contains all relevant instruction information.
+	 */
+	public void setEnvironment (Environment environment) {
+		myEnvironment = environment;
+	}
+
+	/**
+	 * Adds a new user defined instruction to the environment.
+	 * 
+	 * @param keyword associated with the instruction for future calls
+	 * @param instruction to be added to the environment.
+	 */
+	public void addInstruction (String keyword, BaseInstruction instruction) {
+		myEnvironment.addUserDefinedInstruction(keyword, instruction);
+	}
+
+	/**
+	 * Gives the Instruction associated with the passed keyword.
+	 * 
+	 * @param name - the keyword for the instruction
+	 * @return The Instruction associated with the keyword
+	 * @throws IllegalInstructionException This occurs when the keyword is not
+	 *         found in the environment.
+	 */
+	public BaseInstruction getVariableInstruction (String name) throws IllegalInstructionException {
+		return myEnvironment.systemInstructionSkeleton(name);
+	}
+
+	/**
+	 * Gives the current Palette is use in the current environment
+	 * 
+	 * @return
+	 */
+	public Palette getPalette() {
+		return myEnvironment.getPalette();
+	}
+
+	/**
+	 * Removes a variable from the environment. This is done in the context
+	 * of local variables, in which they should only be visible during a
+	 * function call.
+	 * 
+	 * @param variableName is the name of the variable to be removed.
+	 */
+	public void removeVariable (String variableName) {
+		myEnvironment.removeInstruction(variableName);
+	}
+
+	public Environment getEnvironment() {
+		return myEnvironment;
+	}
+
+
 }
