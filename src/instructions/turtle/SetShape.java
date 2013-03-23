@@ -17,11 +17,18 @@ public class SetShape extends BaseInstruction {
      */
     private static final long serialVersionUID = -5120713375977061810L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-
+    
+    /**
+     * Initializes a set shape instruction
+     */
+    public SetShape() {
+    	setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+    }
+    
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-        return 0;
+        model.setShape(index);
+        return model.getShape();
     }
 
 }

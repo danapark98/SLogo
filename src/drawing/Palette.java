@@ -4,6 +4,8 @@ import drawing.lines.LineBuilder;
 import exceptions.IllegalInstructionException;
 import java.awt.Color;
 
+import util.Pixmap;
+
 
 /**
  * Represents all of the available colors in the active environment.
@@ -20,13 +22,16 @@ public class Palette {
 
     private ColorPalette myColorPalette;
     private LinePalette myLinePalette;
+    private ImagePalette myImagePalette;
     
+    private int myCurrentImageIndex;
     private int myCurrentColorIndex;
 
     /**
      * Constructs a Palette with the two default colors: clear and black
      */
     public Palette() {
+    	myImagePalette = new ImagePalette();
         myColorPalette = new ColorPalette();
         myLinePalette = new LinePalette();
     }
@@ -41,6 +46,11 @@ public class Palette {
     public Color getColor(int index) throws IllegalInstructionException {
         myCurrentColorIndex = index;
         return myColorPalette.getColor(index);
+    }
+    
+    public Pixmap getImage(int index) throws IllegalInstructionException {
+    	myCurrentImageIndex = index;
+    	return myImagePalette.getImage(index);
     }
 
     /**
@@ -79,5 +89,13 @@ public class Palette {
      */
     public int currentColorIndex() {
         return myCurrentColorIndex;
+    }
+    /**
+     * Gives the current index of the image being used.
+     * 
+     * @return The index of the current image.
+     */   
+    public int getCurrentImageIndex() {
+    	return myCurrentImageIndex;
     }
 }

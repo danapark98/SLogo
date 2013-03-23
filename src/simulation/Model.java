@@ -95,14 +95,35 @@ public class Model implements DisplayEditor {
             st.paint(pen);
         }
     }
-
+    
     /**
-     * Clears stamps and lines from model.
+     * Gives the current active turtle in the model.
+     * 
+     * @return The active turtle in the model.
      */
-    public void clear () {
-        clearLines();
-        clearStamps();
+    public Turtle getTurtle () {
+        // TODO: update so that this returns active turtles or first turtle or something
+        return myTurtle;
     }
+    
+    /**
+     * Returns the environment containing instructions, variables, Palette.
+     * 
+     * @return environment
+     */
+    public Environment getEnvironment () {
+        return myEnvironment;
+    }
+    
+    /**
+     * Gives the current Palette is use in the current environment
+     * 
+     * @return
+     */
+    public Palette getPalette () {
+        return myEnvironment.getPalette();
+    }
+    
 
     @Override
     public void addLine (Point line) {
@@ -117,47 +138,27 @@ public class Model implements DisplayEditor {
     public void addStamp (StampSprite st) {
         myStamps.add(st);
     }
-
+    
     /**
-     * Clears all stamps in the current workspace.
+     * Clears stamps and lines from model.
      */
-    public void clearStamps () {
-        myStamps.clear();
+    public void clear () {
+        clearLines();
+        clearStamps();
     }
-
+    
     /**
      * Clears all lines from the model.
      */
     public void clearLines () {
         myLines.clear();
     }
-
+    
     /**
-     * Gives the current active turtle in the model.
-     * 
-     * @return The active turtle in the model.
+     * Clears all stamps in the current workspace.
      */
-    public Turtle getTurtle () {
-        // TODO: update so that this returns active turtles or first turtle or something
-        return myTurtle;
-    }
-
-    /**
-     * Returns the environment containing instructions, variables, Palette.
-     * 
-     * @return environment
-     */
-    public Environment getEnvironment () {
-        return myEnvironment;
-    }
-
-    /**
-     * Gives the current Palette is use in the current environment
-     * 
-     * @return
-     */
-    public Palette getPalette () {
-        return myEnvironment.getPalette();
+    public void clearStamps () {
+        myStamps.clear();
     }
     
     /**

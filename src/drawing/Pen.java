@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import simulation.DisplayEditor;
 import simulation.Turtle;
 import util.Location;
+import util.Pixmap;
 import util.Vector;
 
 /**
@@ -32,6 +33,7 @@ public class Pen {
     private Color myColor;
     private LineBuilder myLineBuilder;
     private double myThickness;
+    private Pixmap myImage;
     
     /**
      * Creates a pen centered around a turtle and which can edit a displayEditor.
@@ -55,6 +57,12 @@ public class Pen {
         }
         catch (IllegalInstructionException e) {
             myLineBuilder = new SolidLine();
+        }
+        try {
+        	myImage = displayEditor.getPalette().getImage(ImagePalette.DEFAULT_IMAGE_INDEX);
+        }
+        catch (IllegalInstructionException e) {
+        	myImage = ImagePalette.DEFAULT_IMAGE;
         }
     }
     
@@ -152,6 +160,14 @@ public class Pen {
      */
     public void changeLineStyle(LineBuilder lb) {
         myLineBuilder = lb;
+    }
+    
+    public void changeImage(Pixmap picture) {
+    	myImage = picture;
+    }
+    
+    public Pixmap getImage() {
+    	return myImage;
     }
 
 }

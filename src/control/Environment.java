@@ -32,9 +32,11 @@ import simulation.Model;
 public class Environment {
 
     /** Mapping of Instruction keywords to Instruction */
+
     //private Map<String, BaseInstruction> myInstructionMap;
     
     private InstructionMap myInstructionMap;
+
 
     private Palette myPalette;
 
@@ -47,6 +49,7 @@ public class Environment {
     public Environment (ResourceBundle resource) {
         
         myInstructionMap = new InstructionMap(resource);
+
 
         myPalette = new Palette();
     }
