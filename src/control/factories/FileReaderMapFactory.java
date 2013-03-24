@@ -1,4 +1,4 @@
-package control;
+package control.factories;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

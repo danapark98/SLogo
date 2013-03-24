@@ -1,4 +1,4 @@
-package control;
+package control.factories;
 
 import exceptions.CorruptedEnvironmentException;
 import java.util.HashMap;
@@ -45,9 +45,7 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      * 
      * @param language of the commands (must be file in resource
      *        folder)
-     * 
-     * @param indexFile is the location of the text file that contains prototyping class info.
-     * 
+     * @param indexFile is the location of the text file that contains prototyping class info. 
      * @param packageLoc is the location of the package where all the classes to be
      *        prototyped are located
      */

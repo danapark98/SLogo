@@ -1,4 +1,4 @@
-package control;
+package control.factories;
 
 import java.util.HashMap;
 import java.util.Map;
