@@ -9,7 +9,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import view.View;
 
 
@@ -26,6 +29,7 @@ import view.View;
  */
 public class Model implements DisplayEditor {
 
+    private static final int DEFAULT_TURTLE_ID = 1;
     private static final int MAXIMUM_STATES_REMEMBERED = 10;
     /**
      * Represents all of the state of the simulation.  It contains all of the 
@@ -37,8 +41,9 @@ public class Model implements DisplayEditor {
      * Class is private so that only Model has access.
      */
     private class State {
-        Collection<Turtle> turtles;
+        Map<Integer, Turtle> turtles;
         Turtle activeTurtle;
+        int turtleID;
         Collection<Point> lines;
         Collection<StampSprite> stamps;
         Environment environment;
@@ -58,7 +63,7 @@ public class Model implements DisplayEditor {
         myPreviousStates = new LinkedList<State>();
         myUndoneStates = new LinkedList<State>();
 
-        myState.turtles = new ArrayList<Turtle>();
+        myState.turtles = new HashMap<Integer, Turtle>();
         myState.lines = new ArrayList<Point>();
         myState.stamps = new ArrayList<StampSprite>();
     }
@@ -71,7 +76,8 @@ public class Model implements DisplayEditor {
     public Environment initialize () {
         myState.environment = new Environment(myView.getResources());
         myState.activeTurtle = new Turtle(this);
-        myState.turtles.add(myState.activeTurtle);
+        myState.turtleID = DEFAULT_TURTLE_ID;
+        myState.turtles.put(DEFAULT_TURTLE_ID, myState.activeTurtle);
         return myState.environment;
     }
 
@@ -92,8 +98,7 @@ public class Model implements DisplayEditor {
      *        lines and turtle are displayed).
      */
     public void update (double elapsedTime, Dimension bounds) {
-
-        for (Turtle turt : myState.turtles) {
+        for (Turtle turt : myState.turtles.values()) {
             turt.update(elapsedTime, bounds);
         }
     }
@@ -107,7 +112,7 @@ public class Model implements DisplayEditor {
         for (StampSprite st : myState.stamps) {
             st.paint(pen);
         }
-        for (Turtle t : myState.turtles) {
+        for (Turtle t : myState.turtles.values()) {
             t.paint(pen);
         }
         for (Point line : myState.lines) {
@@ -123,6 +128,23 @@ public class Model implements DisplayEditor {
      */
     public Turtle getTurtle () {
         return myState.activeTurtle;
+    }
+    
+    /**
+     * Returns ID of current active turtle
+     */
+    public int getTurtleID() {
+        return myState.turtleID;
+    }
+    
+    /**
+     * Switches the active turtle to turtle with the provided ID.
+     */
+    public void switchTurtle(int index) {
+        if (!myState.turtles.containsKey(index)) {
+            myState.turtles.put(index, new Turtle(this));
+        }
+        myState.activeTurtle = myState.turtles.get(index);
     }
 
     /**

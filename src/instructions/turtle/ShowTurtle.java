@@ -4,6 +4,7 @@ import drawing.PaletteFactory;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import util.Pixmap;
 
 /**
  * Represents making the turtle visible as an instruction. Takes zero
@@ -35,7 +36,8 @@ public class ShowTurtle extends BaseInstruction {
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
-        model.getPalette().setImage(PaletteFactory.DEFAULT_IMAGE_INDEX);
+        Pixmap visible = model.getPalette().getImage(PaletteFactory.DEFAULT_IMAGE_INDEX);
+        model.getTurtle().setView(visible);
         return 1;
     }
 }

@@ -1,7 +1,6 @@
 package drawing;
 
 import drawing.lines.LineBuilder;
-import exceptions.CorruptedEnvironmentException;
 import exceptions.IllegalInstructionException;
 import java.awt.Color;
 
@@ -43,8 +42,9 @@ public class Palette {
      * @throws IllegalInstructionException occurs when the index has not yet been defined.
      */
     public Color getColor(int index) throws IllegalInstructionException {
+        Color color = myColors.get(index);
         myCurrentColorIndex = index;
-        return myColors.get(index);
+        return color;
     }
 
     /**
@@ -78,28 +78,12 @@ public class Palette {
      * 
      * @param index of the turtle image
      * @return Pixmap that represents Turtle's view
+     * @throws IllegalInstructionException 
      */
-    public Pixmap getImage() {
-        try {
-            return myImages.get(myCurrentImageIndex);
-        }
-        catch (IllegalInstructionException e) {
-            // can't happen because myCurrentImageIndex was prechecked to be 
-            // legal when setImage() called.
-            throw new CorruptedEnvironmentException();
-        }
-    }
-
-    /**
-     * Sets the image of the Turtle to paint at the given index 
-     * 
-     * @param index of the turtle image
-     * @throws IllegalInstructionException if an image not defined for that index
-     */
-    public void setImage (int index) throws IllegalInstructionException {
-        // need to first make sure provided index is legal, otherwise throw exception
-        myImages.get(index);
+    public Pixmap getImage(int index) throws IllegalInstructionException {
+        Pixmap image = myImages.get(myCurrentImageIndex);
         myCurrentImageIndex = index;
+        return image;
     }
     
     /**
