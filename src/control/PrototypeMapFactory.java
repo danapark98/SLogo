@@ -34,6 +34,7 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      */
 
     private String myIndexFile;
+    private String myPackageLocation;
 
     /** Resources for SLogo */
     private ResourceBundle myResources;
@@ -46,8 +47,11 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      *        folder)
      * 
      * @param indexFile is the location of the text file that contains prototyping class info.
+     * 
+     * @param packageLoc is the location of the package where all the classes to be
+     *        prototyped are located
      */
-    public PrototypeMapFactory(String language, String indexFile) {
+    public PrototypeMapFactory(String language, String indexFile, String packageLoc) {
         try {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
                                                    + language);
@@ -57,6 +61,7 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
                                                    + ENGLISH_LANGUAGE);
         }
         myIndexFile = indexFile;
+        myPackageLocation = packageLoc;
     }
 
     /**
@@ -67,10 +72,14 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      *        instructions
      * 
      * @param indexFile is the location of the text file that contains prototyping class info.
+     * 
+     * @param packageLoc is the location of the package where all the classes to be 
+     *        prototyped are located
      */
-    public PrototypeMapFactory(ResourceBundle resources, String indexFile) {
+    public PrototypeMapFactory(ResourceBundle resources, String indexFile, String packageLoc) {
         myIndexFile = indexFile;
         myResources = resources;
+        myPackageLocation = packageLoc;
     }
 
     /**
@@ -102,31 +111,37 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    @SuppressWarnings("unchecked")
-    private void parseLine(Map<String, V> protoMap, String line) {
+    private void parseLine(Map<String, V> protoMap, String line) {      
+        String classPath = myPackageLocation + "." + line;       
         if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
 
-            V generic;
-            try {
-                Class<?> genericClass = Class.forName(line);
-                generic = (V) genericClass.newInstance();
-            }
-            catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
-                throw new CorruptedEnvironmentException();
-            }
+            V generic = getValue(classPath);
 
+            String[] keyWords = getKeys(line);
             // gets parameters from line
-            String className = getClassName(line);
 
-            String entry = myResources.getString(className);
-
-            String[] keywords = entry.split(PROPERTIES_SEPERATOR);
-
-            for (String keyword : keywords) {
+            for (String keyword : keyWords) {
                 if (keyword.length() > 0) {
                     protoMap.put(keyword, generic);
                 }
             }
+        }
+    }
+    
+    private String[] getKeys(String line) {
+        String className = getClassName(line);
+        String entry = myResources.getString(className);
+        return entry.split(PROPERTIES_SEPERATOR);
+    }
+
+    @SuppressWarnings("unchecked")
+    private V getValue(String classPath) {
+        try {
+            Class<?> genericClass = Class.forName(classPath);
+            return (V) genericClass.newInstance();
+        }
+        catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
+            throw new CorruptedEnvironmentException();
         }
     }
 

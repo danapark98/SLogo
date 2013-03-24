@@ -24,6 +24,8 @@ public class InstructionMap implements Serializable {
     private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/instruction_index.txt";
     
+    private static final String INSTRUCTION_PACKAGE_LOCATION = "instructions";
+    
     private static final String VARIABLE_HEADER = "variableHeader";
     private static final String FUNCTIONS_HEADER = "functionsHeader";
     /**
@@ -82,7 +84,8 @@ public class InstructionMap implements Serializable {
      */
     private void initiateInstructionMap() {
         PrototypeMapFactory<Instruction> imf =
-                new PrototypeMapFactory<Instruction>(myResources, INSTRUCTION_INDEX_FILE);
+                new PrototypeMapFactory<Instruction>(myResources, 
+                        INSTRUCTION_INDEX_FILE, INSTRUCTION_PACKAGE_LOCATION);
         myInstructions = imf.buildMap();
     }
 
