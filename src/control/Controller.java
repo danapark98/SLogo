@@ -58,7 +58,7 @@ public class Controller {
         myModel.setView(view);
         myEnvironment = myModel.initialize();
         myParser = new Parser(myEnvironment);
-        saveOption = SaveOption.AUTO;
+        saveOption = SaveOption.NON_AUTO;
     }
 
     /**
