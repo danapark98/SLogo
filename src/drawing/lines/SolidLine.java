@@ -10,7 +10,6 @@ import util.Location;
  *
  */
 public class SolidLine implements LineBuilder {
-    
     /** Index of this line builder in the line palette */
     public static final int PALETTE_INDEX = 0;
     

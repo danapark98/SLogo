@@ -12,7 +12,6 @@ import util.Location;
  */
 public class DashedLine implements LineBuilder {
 
-
     /** Index of this line builder in the line palette */
     public static final Integer PALETTE_INDEX = 1;
     
