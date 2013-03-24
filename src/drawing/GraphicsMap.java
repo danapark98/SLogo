@@ -1,5 +1,6 @@
 package drawing;
 
+import java.io.Serializable;
 import java.util.Map;
 import exceptions.IllegalInstructionException;
 
@@ -15,7 +16,9 @@ import exceptions.IllegalInstructionException;
  *
  * @param <E> is graphical element this GraphicsMap is storing
  */
-public class GraphicsMap<E> {
+public class GraphicsMap<E> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /** Error message for undefined indices in palettes */
     private static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Not defined at index: ";
     private static final String ILLEGAL_INDEX_MESSAGE = "Index of ";

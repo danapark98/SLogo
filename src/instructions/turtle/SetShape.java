@@ -1,8 +1,10 @@
 package instructions.turtle;
 
-import simulation.Model;
+
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+
 
 /**
  * Sets the shape of turtle to one of several predefined values.
@@ -24,14 +26,15 @@ public class SetShape extends BaseInstruction {
      * Initializes a set shape instruction
      */
     public SetShape() {
-    	setNumberOfArguments(NUMBER_OF_ARGUMENTS);
+        setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
     
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-    	int index = nextOperand().execute(model);
-    	model.getTurtle().changeImage(index);
-    	return index;
-     }
+
+        int index = nextOperand().execute(model);
+        model.getTurtle().changeImage(index);
+        return index;
+    }
 
 }

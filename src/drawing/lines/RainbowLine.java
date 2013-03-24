@@ -11,7 +11,6 @@ import util.Location;
  */
 public class RainbowLine implements LineBuilder {
 
-
     /** Index of the rainbow line builder in the LinePalette*/
     public static final int RAINBOW_INDEX = 2;
     

@@ -1,0 +1,10 @@
+#
+# Turtle Shape Resources
+#
+#-----------------
+# image name, turtle index
+#
+resources.images.blank.png, 0
+resources.images.dog.jpg, 1
+resources.images.squirrel.png, 2
+resources.images.Unicorn.jpg, 3

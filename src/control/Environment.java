@@ -4,6 +4,10 @@ import drawing.Palette;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,22 +22,19 @@ import java.util.ResourceBundle;
  * @author Ellango Jothimurugesan
  * 
  */
-public class Environment {
+public class Environment implements Serializable {
+
+    private static final long serialVersionUID = 4319876122154622698L;
 
     private static final int GLOBAL_SCOPE = 0;
 
     private static final String UNDEFINED_INSTRUCTION = " is undefined and";
 
     private static final String SCOPE_LEVEL_HEADER = "AT SCOPE LEVEL ";
-    
-    /** Mapping of Instruction keywords to Instruction */
 
-    //private Map<String, BaseInstruction> myInstructionMap;
-    
-    //private InstructionMap myInstructionMap;
-    
     private int myScope;
     private List<InstructionMap> myInstructions;
+
     private Palette myPalette;
 
     /**
@@ -71,10 +72,8 @@ public class Environment {
      * @param userInstruction is the instruction to be added to the environment.
      */
     public void addInstruction (String keyword,
-                                           Instruction userInstruction) {
-        
-        InstructionMap currentScope = myInstructions.get(myScope);
-        
+                                           Instruction userInstruction) {        
+        InstructionMap currentScope = myInstructions.get(myScope);        
         currentScope.addInstruction(keyword, userInstruction);
     }
     
@@ -110,28 +109,6 @@ public class Environment {
         currentScope.remove(instructionName);
     }
     
-//    /**
-//     * Adds a local variable to the environment.
-//     * 
-//     * @param instruct is the variable to be added.
-//     * @param value is the value of the variable to be added.
-//     */
-//    public void addLocalVar(VariableInstruction instruct, int value) {
-//        String name = instruct.toString();
-//        myInstructionMap.remove(name);
-//        BaseInstruction constant = new ConstantInstruction(value);
-//        myInstructionMap.addInstruction(name, constant);
-//    }
-//    
-//    /**
-//     * Removes a local variable from the environment.
-//     * 
-//     * @param key is the key for the local variable to be removed.
-//     */
-//    public void removeLocalVar(String key) {
-//        myInstructionMap.remove(key);
-//    }
-    
     /**
      * Gives all user defined functions and variables as a string.
      * 
@@ -139,7 +116,7 @@ public class Environment {
      */
     public String customValuesToString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= myScope; ++i) {
+        for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
             sb.append(SCOPE_LEVEL_HEADER + i + "\n");
             sb.append(myInstructions.get(i).userDefinedInstructionstoString());
             sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString());
@@ -158,19 +135,12 @@ public class Environment {
      *         found in the environment.
      */
     public BaseInstruction getInstruction (String commandName) throws IllegalInstructionException {
-        //BaseInstruction res = null;
-        for (int i = 0; i <= myScope; ++i) {
+        for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
             if (myInstructions.get(i).containsKey(commandName)) {
                 return myInstructions.get(i).get(commandName);
             }
         }
-//        // TODO: get rid of if statments
-//        if (res == null) {
         throw new IllegalInstructionException(commandName + UNDEFINED_INSTRUCTION);
-//        }
-//        else {
-//            return res;
-//        }
     }
 
     /**
@@ -188,5 +158,33 @@ public class Environment {
     public void outScope() {
         myInstructions.remove(myInstructions.size() - 1);
         myScope -= 1;
+    } 
+    
+    /**
+     * Called by the controller to save the state of the environment to be 
+     * loaded in later
+     * 
+     * @param out to write objects needed later
+     * @throws IOException if objects can't be written
+     */
+    public void save(ObjectOutput out) throws IOException {
+        out.writeObject(myInstructions);
+        myPalette.save(out);
+    }
+    
+    /**
+     * Called by the controller to load in the state of the environment
+     * 
+     * Objects must be loaded in the same order they were saved.
+     * 
+     * @param in to read objects in 
+     * @throws ClassNotFoundException if file not saved properly or objects read
+     * in wrong order
+     * @throws IOException if objects can't be read
+     */
+    @SuppressWarnings("unchecked")
+    public void load(ObjectInput in) throws ClassNotFoundException, IOException {
+        myInstructions = (List<InstructionMap>) in.readObject();
+        myPalette.load(in);
     }
 }

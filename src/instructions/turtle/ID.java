@@ -1,14 +1,19 @@
 package instructions.turtle;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
 
 /**
  * Represents ID instruction, which returns a Turtle's ID number
+ * <br>
+ * <u> Examples:</u> <br>
+ * id ---> returns the id of current active turtles. <br>
  * 
- * @author Ellango
- *
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ * 
  */
 public class ID extends BaseInstruction {
 
