@@ -25,87 +25,91 @@ import exceptions.CorruptedEnvironmentException;
  *
  */
 public class PaletteFactory {
-    /** Default index of the black color */
-    public static final int DEFAULT_BLACK_INDEX = 0;
+	/** Default index of the black color */
+	public static final int DEFAULT_BLACK_INDEX = 0;
 
-    /** Default index of the clear color */
-    public static final int DEFAULT_CLEAR_INDEX = -1;
+	/** Default index of the clear color */
+	public static final int DEFAULT_CLEAR_INDEX = -1;
 
-    /** Default Clear color value */
-    private static final Color CLEAR = new Color(0, 0, 0, 0);
+	/** Default Clear color value */
+	private static final Color CLEAR = new Color(0, 0, 0, 0);
 
-    private static final String SHAPE_INDEX_FILE = 
-            "/src/resources/TurtleShapes";
-    
-    private static final String LINE_STYLE_LOCATION = "drawing.lines.";
-    private static final String LINE_STYLE_INDEX_LOCATION = "/src/resources/line_styles_index.txt";
+	private static final char COMMENT_CHARACTER = '#';
 
-    /** Error Message to display when a class can not be instantiated from file*/
-    private static final String ERROR_MESSAGE = "Missing instruction class names";
+	private static final String SHAPE_INDEX_FILE = 
+			"/src/resources/TurtleShapes";
 
-    /** Constants for shape indices. */
-    public static final int DEFAULT_INVISIBLE_INDEX = -1;
-    public static final int DEFAULT_IMAGE_INDEX = 0;
-    public static final int DOG_IMAGE_INDEX = 1;
-    public static final int SQUIRREL_IMAGE_INDEX = 2;
-    public static final int UNICORN_IMAGE_INDEX = 3;
+	private static final String LINE_STYLE_LOCATION = "drawing.lines.";
+	private static final String LINE_STYLE_INDEX_LOCATION = "/src/resources/line_styles_index.txt";
+
+	/** Error Message to display when a class can not be instantiated from file*/
+	private static final String ERROR_MESSAGE = "Missing instruction class names";
+
+	/** Constants for shape indices. */
+	public static final int DEFAULT_INVISIBLE_INDEX = -1;
+	public static final int DEFAULT_IMAGE_INDEX = 0;
+	public static final int DOG_IMAGE_INDEX = 1;
+	public static final int SQUIRREL_IMAGE_INDEX = 2;
+	public static final int UNICORN_IMAGE_INDEX = 3;
 
 
-    /**
-     * Unused right now.  Could be used to load in turtle pictures using reflection
-     * @return
-     * @throws CorruptedEnvironmentException
-     */
-    public static GraphicsMap<Pixmap> initializeImages() throws CorruptedEnvironmentException{
-        FileReader fileToBeRead = null;
-        String currentDirectory = System.getProperty(Controller.USER_DIR);
+	/**
+	 * Unused right now.  Could be used to load in turtle pictures using reflection
+	 * @return
+	 * @throws CorruptedEnvironmentException
+	 */
+	public static GraphicsMap<Pixmap> initializeImages() throws CorruptedEnvironmentException{
+		FileReader fileToBeRead = null;
+		String currentDirectory = System.getProperty(Controller.USER_DIR);
 
-        try {
-            fileToBeRead = new FileReader(currentDirectory + SHAPE_INDEX_FILE);
-        }
-        catch (FileNotFoundException e) {
-            throw new MissingResourceException(ERROR_MESSAGE, "", "");
-        }
-        Scanner line = new Scanner(fileToBeRead);
+		try {
+			fileToBeRead = new FileReader(currentDirectory + SHAPE_INDEX_FILE);
+		}
+		catch (FileNotFoundException e) {
+			throw new MissingResourceException(ERROR_MESSAGE, "", "");
+		}
+		Scanner line = new Scanner(fileToBeRead);
 
-        Map<Integer, Pixmap> shapeMap = new HashMap<Integer, Pixmap>();
-        while(line.hasNext()) {
-            String str = line.nextLine();
-            String [] shapes = str.split("=");
-            try{
-                shapeMap.put(Integer.parseInt(shapes[0].trim()), new Pixmap(shapes[1].trim()));
-            }
-            catch(NumberFormatException e) {
-                line.close();
-                throw new CorruptedEnvironmentException();
-            }
-        }
-        line.close();
-        return new GraphicsMap<>(shapeMap);
+		Map<Integer, Pixmap> shapeMap = new HashMap<Integer, Pixmap>();
+		while(line.hasNext()) {
+			String str = line.nextLine();
+			if(!(str.charAt(0) == COMMENT_CHARACTER || str.length() <= 0)) {
+				String [] shapes = str.split("=");
+				try{
+					shapeMap.put(Integer.parseInt(shapes[0].trim()), new Pixmap(shapes[1].trim()));
+				}
+				catch(NumberFormatException e) {
+					line.close();
+					throw new CorruptedEnvironmentException();
+				}
+			}
+		}
+		line.close();
+		return new GraphicsMap<>(shapeMap);
 
-    }
+	}
 
-    public static GraphicsMap<Color> initializeColors() {
-        Map<Integer, Color> colors = new HashMap<Integer, Color>();
-        colors.put(DEFAULT_CLEAR_INDEX, CLEAR);
-        colors.put(DEFAULT_BLACK_INDEX, Color.BLACK);
-        return new GraphicsMap<Color>(colors);
-    }
+	public static GraphicsMap<Color> initializeColors() {
+		Map<Integer, Color> colors = new HashMap<Integer, Color>();
+		colors.put(DEFAULT_CLEAR_INDEX, CLEAR);
+		colors.put(DEFAULT_BLACK_INDEX, Color.BLACK);
+		return new GraphicsMap<Color>(colors);
+	}
 
-    /**
-     * Initializes line styles from default location.
-     * 
-     * @return A GraphicsMap from indices to LineBuilders
-     */
-    public static GraphicsMap<LineBuilder> initializeLineStyles() {
+	/**
+	 * Initializes line styles from default location.
+	 * 
+	 * @return A GraphicsMap from indices to LineBuilders
+	 */
+	public static GraphicsMap<LineBuilder> initializeLineStyles() {
 
-        PrototypeMapFactory<LineBuilder> pt = new 
-                PrototypeMapFactory<LineBuilder>(LINE_STYLE_LOCATION, 
-                        LINE_STYLE_INDEX_LOCATION);
-        
-        Map<Integer, LineBuilder> lineStyles = pt.buildIndexMap();
+		PrototypeMapFactory<LineBuilder> pt = new 
+				PrototypeMapFactory<LineBuilder>(LINE_STYLE_INDEX_LOCATION, 
+						LINE_STYLE_LOCATION);
 
-        return new GraphicsMap<LineBuilder>(lineStyles);
-    }
+		Map<Integer, LineBuilder> lineStyles = pt.buildIndexMap();
+
+		return new GraphicsMap<LineBuilder>(lineStyles);
+	}
 
 }
