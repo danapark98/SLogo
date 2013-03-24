@@ -21,18 +21,9 @@ import java.util.ResourceBundle;
  */
 public class InstructionMap implements Serializable {
 
-    private static final String LINE_BREAK = "*************************\n";
     
-    private static final String VARIABLE_HEADER =
-            LINE_BREAK +
-            "Current User Variables\n" +
-            LINE_BREAK +
-            "NAME \tVALUE \n";
-    private static final String FUNCTIONS_HEADER =
-            LINE_BREAK +
-            "Current User Functions\n" +
-            LINE_BREAK +
-            "NAME \tVARIABLES \tINSTRUCTION \n";
+    private static final String VARIABLE_HEADER = "variableHeader";
+    private static final String FUNCTIONS_HEADER = "functionsHeader";
     /**
      * Auto-generated ID for I/O
      */
@@ -48,6 +39,8 @@ public class InstructionMap implements Serializable {
 
     private Map<String, Instruction> myLocalVariables;
     
+    private ResourceBundle myResources; 
+    
     /**
      * Creates an Instruction Map based on the bass resource bundle.
      * 
@@ -57,7 +50,9 @@ public class InstructionMap implements Serializable {
         
         this();        
 
-        initiateInstructionMap(resource);
+        myResources = resource;
+        
+        initiateInstructionMap();
         myInstructionMaps.add(myInstructions);
 
     }
@@ -83,9 +78,9 @@ public class InstructionMap implements Serializable {
      * from the instruction_index.txt file and their keywords from a .properties
      * file
      */
-    private void initiateInstructionMap(ResourceBundle resource) {
+    private void initiateInstructionMap() {
         InstructionMapFactory imf =
-                new InstructionMapFactory(resource);
+                new InstructionMapFactory(myResources);
         myInstructions = imf.buildInstructionMap();
     }
 
@@ -154,7 +149,7 @@ public class InstructionMap implements Serializable {
     public String variablesToString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(VARIABLE_HEADER);
+        sb.append(myResources.getString(VARIABLE_HEADER));
 
         for (String key : myGlobalVariables.keySet()) {
             Instruction bi = myGlobalVariables.get(key);
@@ -172,18 +167,16 @@ public class InstructionMap implements Serializable {
     public String userDefinedInstructionstoString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(FUNCTIONS_HEADER);
+        sb.append(myResources.getString(FUNCTIONS_HEADER));
 
         for (String key : myUserInstructions.keySet()) {
             UserInstruction instruct = (UserInstruction) myUserInstructions.get(key);
 
-           
-            
             String i = instruct.toString();
 
             sb.append(key + "\t");
-            
-            sb.append(i  + "\n");
+
+            sb.append(i + "\n");
         }
         return sb.toString();
     }
