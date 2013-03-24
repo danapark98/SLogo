@@ -36,7 +36,7 @@ public class Palette implements Serializable {
         myColors = PaletteFactory.initializeColors();
         myLineStyles = PaletteFactory.initializeLineStyles();
         myImages = PaletteFactory.initializeImages();
-        myBackgroundColorImages = PaletteFactory.initializeBackgroundColorImages();
+      //  myBackgroundColorImages = PaletteFactory.initializeBackgroundColorImages();
     }
     
     
