@@ -152,7 +152,6 @@ public class Turtle extends Sprite {
         return myPen;
     }
     
-
     /**
      * Changes the image
      * 

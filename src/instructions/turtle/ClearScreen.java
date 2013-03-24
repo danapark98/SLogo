@@ -37,5 +37,4 @@ public class ClearScreen extends BaseInstruction {
         model.clear();
         return new Home().execute(model);
     }
-
 }
