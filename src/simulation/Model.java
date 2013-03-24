@@ -51,7 +51,7 @@ public class Model implements DisplayEditor {
      * Instantiates a model with a turtle and a collection of lines.
      */
     public Model () {
-        State myState = new State();
+        myState = new State();
         myPreviousStates = new LinkedList<State>();
         myUndoneStates = new LinkedList<State>();
 
