@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
  */
 public class InstructionMap implements Serializable {
 
+    private static final String INSTRUCTION_INDEX_FILE =
+            "/src/resources/instruction_index.txt";
     
     private static final String VARIABLE_HEADER = "variableHeader";
     private static final String FUNCTIONS_HEADER = "functionsHeader";
@@ -79,9 +81,9 @@ public class InstructionMap implements Serializable {
      * file
      */
     private void initiateInstructionMap() {
-        InstructionMapFactory imf =
-                new InstructionMapFactory(myResources);
-        myInstructions = imf.buildInstructionMap();
+        PrototypeMapFactory<Instruction> imf =
+                new PrototypeMapFactory<Instruction>(myResources, INSTRUCTION_INDEX_FILE);
+        myInstructions = imf.buildMap();
     }
 
     /**
