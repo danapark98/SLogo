@@ -1,10 +1,9 @@
 package instructions.turtle;
 
-import drawing.ImagePalette;
+import drawing.PaletteFactory;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
-import simulation.Turtle;
 import util.Pixmap;
 
 
@@ -38,7 +37,7 @@ public class HideTurtle extends BaseInstruction {
     
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        Pixmap invisible = model.getPalette().getImage(ImagePalette.DEFAULT_CLEAR_INDEX);
+        Pixmap invisible = model.getPalette().getImage(PaletteFactory.DEFAULT_CLEAR_INDEX);
         model.getTurtle().getPen().changeImage(invisible);
         return 0;
     }

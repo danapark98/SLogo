@@ -31,7 +31,6 @@ public class DrawDashed extends BaseInstruction {
     @Override
     public int execute(Model model) throws IllegalInstructionException {
         LineBuilder lb = model.getPalette().getLineStyle(DashedLine.PALETTE_INDEX);
-        
         model.getTurtle().getPen().changeLineStyle(lb);
         return DashedLine.PALETTE_INDEX;
     }

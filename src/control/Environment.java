@@ -41,12 +41,9 @@ public class Environment {
     
     //private InstructionMap myInstructionMap;
     
-    private List<InstructionMap> myInstructions;
-
-
-    private Palette myPalette;
-    
     private int myScope;
+    private List<InstructionMap> myInstructions;
+    private Palette myPalette;
 
     /**
      * Creates a new Environment with the default instructions located

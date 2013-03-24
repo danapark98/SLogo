@@ -9,7 +9,7 @@ import util.Location;
  * @author Scott Valentine
  *
  */
-public class SolidLine extends LineBuilder {
+public class SolidLine implements LineBuilder {
     
     /** Index of this line builder in the line palette */
     public static final int PALETTE_INDEX = 0;

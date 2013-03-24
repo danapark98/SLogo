@@ -1,11 +1,9 @@
 package instructions.turtle;
 
-import drawing.ImagePalette;
-import drawing.Pen;
+import drawing.PaletteFactory;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
-import simulation.Turtle;
 import util.Pixmap;
 
 /**
@@ -38,7 +36,7 @@ public class ShowTurtle extends BaseInstruction {
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
-        Pixmap visible = model.getPalette().getImage(ImagePalette.DEFAULT_IMAGE_INDEX);
+        Pixmap visible = model.getPalette().getImage(PaletteFactory.DEFAULT_IMAGE_INDEX);
         model.getTurtle().getPen().changeImage(visible);
         return 1;
     }

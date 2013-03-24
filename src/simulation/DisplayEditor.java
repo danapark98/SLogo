@@ -28,9 +28,9 @@ public interface DisplayEditor {
     public void addStamp (StampSprite st);
     
     /**
-     * Gives a palette of colors used for drawing.
+     * Gives a palette of graphical options used for drawing.
      * 
-     * @return The Palette of colors that can be used in editing.
+     * @return The Palette that can be used in editing.
      */
     public Palette getPalette();
         

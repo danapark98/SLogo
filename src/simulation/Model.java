@@ -131,11 +131,7 @@ public class Model implements DisplayEditor {
         return myState.environment;
     }
 
-    /**
-     * Gives the current Palette is use in the current environment
-     * 
-     * @return
-     */
+    @Override
     public Palette getPalette () {
         return myState.environment.getPalette();
     }
@@ -145,11 +141,7 @@ public class Model implements DisplayEditor {
         myState.lines.add(line);
     }
 
-    /**
-     * Adds a stamp of the turtle.
-     * 
-     * @param st Stamp to be added.
-     */
+    @Override
     public void addStamp (StampSprite st) {
         myState.stamps.add(st);
     }
@@ -233,6 +225,5 @@ public class Model implements DisplayEditor {
 //            informView(e.toString());
 //        }
 //    }
-
 
 }

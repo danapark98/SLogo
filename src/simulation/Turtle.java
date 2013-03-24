@@ -1,6 +1,5 @@
 package simulation;
 
-import drawing.ImagePalette;
 import drawing.Pen;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,6 +22,8 @@ import view.View;
  * @author Ellango Jothimurugesan
  */
 public class Turtle extends Sprite {
+    /** The picture of that represents the turtle on the screen. */
+    public static final Pixmap DEFAULT_IMAGE = new Pixmap("turtle_art.png");
     private static final Dimension DEFAULT_SIZE = new Dimension(70, 70);
     private static final String X_LABEL = "X:";
     private static final String Y_LABEL = "Y:";
@@ -39,7 +40,7 @@ public class Turtle extends Sprite {
      * @param de is a DisplayEditor that draws lines.
      */ 
     public Turtle (DisplayEditor de) {
-        super(ImagePalette.DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
+        super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
         initStatus();
         myPen = new Pen(this, de);
     }

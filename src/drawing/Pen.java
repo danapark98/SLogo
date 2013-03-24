@@ -20,13 +20,8 @@ import util.Vector;
 public class Pen {
     
     private static final double REVERSE_ANGLE_VALUE = 180;
-
-
     private static final int OPAQUE_COLOR = 255;
     private static final double DEFAULT_PEN_THICKNESS = 4.0;
-
-    private static final int DEFAULT_LINE_STYLE = 0;
-    
     
     private DisplayEditor myDisplayEditor;
     private Turtle myTurtle;
@@ -45,7 +40,7 @@ public class Pen {
         myTurtle = turtle;
         myDisplayEditor = displayEditor;
         try {
-            myColor = displayEditor.getPalette().getColor(ColorPalette.DEFAULT_BLACK_INDEX);
+            myColor = displayEditor.getPalette().getColor(PaletteFactory.DEFAULT_BLACK_INDEX);
         }
         catch (IllegalInstructionException e) {
             myColor = Color.BLACK;
@@ -53,16 +48,16 @@ public class Pen {
         myThickness = DEFAULT_PEN_THICKNESS;
         
         try {
-            myLineBuilder = displayEditor.getPalette().getLineStyle(DEFAULT_LINE_STYLE);
+            myLineBuilder = displayEditor.getPalette().getLineStyle(SolidLine.PALETTE_INDEX);
         }
         catch (IllegalInstructionException e) {
             myLineBuilder = new SolidLine();
         }
         try {
-        	myImage = displayEditor.getPalette().getImage(ImagePalette.DEFAULT_IMAGE_INDEX);
+        	myImage = displayEditor.getPalette().getImage(PaletteFactory.DEFAULT_IMAGE_INDEX);
         }
         catch (IllegalInstructionException e) {
-        	myImage = ImagePalette.DEFAULT_IMAGE;
+        	myImage = Turtle.DEFAULT_IMAGE;
         }
     }
     
@@ -162,12 +157,22 @@ public class Pen {
         myLineBuilder = lb;
     }
     
-    public void changeImage(Pixmap picture) {
-    	myImage = picture;
-    }
-    
+    /**
+     * Returns the Pixmap used to draw the Turtle
+     * 
+     * @return Pixmap is the Turtle's view.
+     */
     public Pixmap getImage() {
     	return myImage;
     }
-
+    
+    
+    /** 
+     * Changes the Turtle image to the passed Pixmap
+     * 
+     * @param picture is the Pixmap for the Turtle's image.
+     */
+    public void changeImage(Pixmap picture) {
+    	myImage = picture;
+    }
 }
