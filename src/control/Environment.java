@@ -31,15 +31,10 @@ public class Environment implements Serializable {
     private static final String UNDEFINED_INSTRUCTION = " is undefined and";
 
     private static final String SCOPE_LEVEL_HEADER = "AT SCOPE LEVEL ";
-    
-    /** Mapping of Instruction keywords to Instruction */
 
-    //private Map<String, BaseInstruction> myInstructionMap;
-    
-    //private InstructionMap myInstructionMap;
-    
     private int myScope;
     private List<InstructionMap> myInstructions;
+
     private Palette myPalette;
 
     /**
@@ -77,10 +72,8 @@ public class Environment implements Serializable {
      * @param userInstruction is the instruction to be added to the environment.
      */
     public void addInstruction (String keyword,
-                                           Instruction userInstruction) {
-        
-        InstructionMap currentScope = myInstructions.get(myScope);
-        
+                                           Instruction userInstruction) {        
+        InstructionMap currentScope = myInstructions.get(myScope);        
         currentScope.addInstruction(keyword, userInstruction);
     }
     
@@ -116,28 +109,6 @@ public class Environment implements Serializable {
         currentScope.remove(instructionName);
     }
     
-//    /**
-//     * Adds a local variable to the environment.
-//     * 
-//     * @param instruct is the variable to be added.
-//     * @param value is the value of the variable to be added.
-//     */
-//    public void addLocalVar(VariableInstruction instruct, int value) {
-//        String name = instruct.toString();
-//        myInstructionMap.remove(name);
-//        BaseInstruction constant = new ConstantInstruction(value);
-//        myInstructionMap.addInstruction(name, constant);
-//    }
-//    
-//    /**
-//     * Removes a local variable from the environment.
-//     * 
-//     * @param key is the key for the local variable to be removed.
-//     */
-//    public void removeLocalVar(String key) {
-//        myInstructionMap.remove(key);
-//    }
-    
     /**
      * Gives all user defined functions and variables as a string.
      * 
@@ -145,7 +116,7 @@ public class Environment implements Serializable {
      */
     public String customValuesToString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= myScope; ++i) {
+        for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
             sb.append(SCOPE_LEVEL_HEADER + i + "\n");
             sb.append(myInstructions.get(i).userDefinedInstructionstoString());
             sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString());
@@ -164,19 +135,12 @@ public class Environment implements Serializable {
      *         found in the environment.
      */
     public BaseInstruction getInstruction (String commandName) throws IllegalInstructionException {
-        //BaseInstruction res = null;
-        for (int i = 0; i <= myScope; ++i) {
+        for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
             if (myInstructions.get(i).containsKey(commandName)) {
                 return myInstructions.get(i).get(commandName);
             }
         }
-//        // TODO: get rid of if statments
-//        if (res == null) {
         throw new IllegalInstructionException(commandName + UNDEFINED_INSTRUCTION);
-//        }
-//        else {
-//            return res;
-//        }
     }
 
     /**
@@ -194,6 +158,50 @@ public class Environment implements Serializable {
     public void outScope() {
         myInstructions.remove(myInstructions.size() - 1);
         myScope -= 1;
+    } 
+    
+    /**
+     * Loads in instructions and variables for the Environment from an
+     * InputStream. The source must be something saved by the save() method.
+     * 
+     * @param is the source to read in from
+     * @throws IncorrectFileFormatException if not readable.
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    public void load (InputStream is) throws IncorrectFileFormatException {
+        ObjectInput in;
+        try {
+            in = new ObjectInputStream(is);
+            
+            myInstructions = (List<InstructionMap>) in.readObject();
+            myPalette = (Palette) in.readObject();
+        }
+        catch (ClassNotFoundException | IOException e) {
+            throw new IncorrectFileFormatException();
+        }
+
+    }
+
+    /**
+     * Saves instructions and variables to an OutputStream. Used only for
+     * reading in at a later point by the load() method.
+     * 
+     * @param os to write to
+     * @throws FileSavingException is an exception thrown if the OutputStream
+     *         provided cannot be written to successfully.
+     */
+    public void save (OutputStream os) throws FileSavingException {
+        ObjectOutput out;
+        try {
+            out = new ObjectOutputStream(os);
+            out.writeObject(myInstructions);
+            //TODO: make Palette and its variables serializable, and test saving/loading
+            out.writeObject(myPalette);
+        }
+        catch (IOException e) {
+            throw new FileSavingException();
+        }
     }
     
     /**
