@@ -1,5 +1,6 @@
 package control;
 
+import control.factories.PrototypeMapFactory;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
@@ -10,7 +11,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import control.factories.PrototypeMapFactory;
 
 
 /**
@@ -25,7 +25,8 @@ public class InstructionMap implements Serializable {
     private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/instruction_index.txt";
     
-    private static final String INSTRUCTION_PACKAGE_LOCATION = "instructions";
+    // Please note the . at the end of instructions
+    private static final String INSTRUCTION_PACKAGE_LOCATION = "instructions.";
     
     private static final String VARIABLE_HEADER = "variableHeader";
     private static final String FUNCTIONS_HEADER = "functionsHeader";
@@ -41,8 +42,6 @@ public class InstructionMap implements Serializable {
     private Map<String, Instruction> myUserInstructions;
     
     private Map<String, Instruction> myGlobalVariables;
-
-    private Map<String, Instruction> myLocalVariables;
     
     private ResourceBundle myResources; 
     
@@ -67,8 +66,6 @@ public class InstructionMap implements Serializable {
      */
     public InstructionMap() {
         myInstructionMaps = new ArrayList<Map<String, Instruction>>();
-        myLocalVariables = new HashMap<String, Instruction>();
-        myInstructionMaps.add(myLocalVariables);
         
         myUserInstructions = new HashMap<String, Instruction>();
         
@@ -87,7 +84,7 @@ public class InstructionMap implements Serializable {
         PrototypeMapFactory<Instruction> imf =
                 new PrototypeMapFactory<Instruction>(myResources, 
                         INSTRUCTION_INDEX_FILE, INSTRUCTION_PACKAGE_LOCATION);
-        myInstructions = imf.buildMap();
+        myInstructions = imf.buildStringMap();
     }
 
     /**
@@ -124,27 +121,6 @@ public class InstructionMap implements Serializable {
      */
     public void addUserDefFunct(String keyword, Instruction instruction) {
         myUserInstructions.put(keyword, instruction);
-    }
-    
-
-    /**
-     * Adds a local variable to the InstructionMap.
-     * 
-     * @param key is the keyword for the local instruction
-     * @param value is the value of the local instruction
-     */
-    public void addLocal(String key, int value) {
-        Instruction bi = new ConstantInstruction(value);
-        myLocalVariables.put(key, bi);
-    }
-
-    /**
-     * Removes a local variable from this.
-     * 
-     * @param name is the keyword of the instruction (the local variable) to be removed.
-     */
-    public void removeLocal(String name) {
-        myLocalVariables.remove(name);
     }
 
     /**

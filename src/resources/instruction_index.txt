@@ -82,3 +82,5 @@ user_defined.DoTimes
 #
 extra.Rainbow
 extra.GetUserVariables
+extra.GridOn
+extra.GridOff

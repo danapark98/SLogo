@@ -39,6 +39,7 @@ public class Controller {
 
     /** String that indicated a return result from a user input */
     public static final String PRINT_INDICATOR = ">> ";
+    /** String indicating the current user directory*/
     public static final String USER_DIR = "user.dir";
     private static final String FILE_SAVING_ERROR_MESSAGE = "Error: Could not save to file.";
     private static final String FILE_LOADING_ERROR_MESSAGE = "Error: File format is not compatible";

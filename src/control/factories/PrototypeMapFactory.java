@@ -1,6 +1,9 @@
 package control.factories;
 
+import control.Controller;
 import exceptions.CorruptedEnvironmentException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -18,15 +21,15 @@ import java.util.Scanner;
  * @author Scott Valentine
  * 
  */
-public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
+public class PrototypeMapFactory<V> {
+    
+    private static final String ERROR_MESSAGE = "Missing class names";
+
 
     private static final String PROPERTIES_SEPERATOR = "[,]";
     private static final char COMMENT_CHARACTER = '#';
 
-
-    /** Default Language */
-    private static final String ENGLISH_LANGUAGE = "English";
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final int DEFAULT_START_INDEX = 0;
 
     /**
      * Character that indicates a comment when places at beginning of line of
@@ -36,31 +39,7 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
     private String myIndexFile;
     private String myPackageLocation;
 
-    /** Resources for SLogo */
     private ResourceBundle myResources;
-
-    /**
-     * Instantiates the factory based on the language to be used for the
-     * commands.
-     * 
-     * @param language of the commands (must be file in resource
-     *        folder)
-     * @param indexFile is the location of the text file that contains prototyping class info. 
-     * @param packageLoc is the location of the package where all the classes to be
-     *        prototyped are located
-     */
-    public PrototypeMapFactory(String language, String indexFile, String packageLoc) {
-        try {
-            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
-                                                   + language);
-        }
-        catch (MissingResourceException e) {
-            myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
-                                                   + ENGLISH_LANGUAGE);
-        }
-        myIndexFile = indexFile;
-        myPackageLocation = packageLoc;
-    }
 
     /**
      * Constructor that creates new factory based on the resource bundle of
@@ -75,9 +54,20 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      *        prototyped are located
      */
     public PrototypeMapFactory(ResourceBundle resources, String indexFile, String packageLoc) {
-        myIndexFile = indexFile;
-        myResources = resources;
+        this(indexFile, packageLoc);
+        myResources = resources;    
+    }
+    
+    /**
+     * Constructs a new factory that can build Index Maps.
+     * 
+     * @param indexFile is the location of the text file that contains prototyping class info.
+     * @param packageLoc is the location of the package where all the classes to be 
+     *        prototyped are located
+     */
+    public PrototypeMapFactory(String indexFile, String packageLoc) {
         myPackageLocation = packageLoc;
+        myIndexFile = indexFile;
     }
 
     /**
@@ -86,44 +76,53 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
      * 
      * @return Map of keywords to instructions.
      */
-    public Map<String, V> buildMap() {
+    public Map<String, V> buildStringMap() {
         Scanner line = getScanner(myIndexFile);
         Map<String, V> protoMap =
                 new HashMap<String, V>();
 
         while (line.hasNextLine()) {
             String nextLine = line.nextLine();
-            parseLine(protoMap, nextLine);
+            if (!commentedLine(nextLine)) {
+                String classPath = myPackageLocation + nextLine;
+                V generic = getValue(classPath);
+
+                String[] keyWords = getKeys(nextLine);
+                
+                for (String keyword : keyWords) {
+                    if (keyword.length() > 0) {
+                        protoMap.put(keyword, generic);
+                    }
+                }           
+            }
         }
         line.close();
         return protoMap;
     }
-
+    
     /**
-     * Parses line of instruction and keyword and adds it to the instruction
-     * map.
+     * Builds a Map of prototypes based on index in text file.
      * 
-     * @param protoMap is a map of keywords to instructions.
-     * @param line is the current line being read.
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws ClassNotFoundException
+     * @return
      */
-    private void parseLine(Map<String, V> protoMap, String line) {      
-        String classPath = myPackageLocation + "." + line;       
-        if (line.charAt(0) != COMMENT_CHARACTER && line.length() > 0) {
-
-            V generic = getValue(classPath);
-
-            String[] keyWords = getKeys(line);
-            // gets parameters from line
-
-            for (String keyword : keyWords) {
-                if (keyword.length() > 0) {
-                    protoMap.put(keyword, generic);
-                }
-            }
+    public Map<Integer, V> buildIndexMap() {
+        Scanner line = getScanner(myIndexFile);
+        Map<Integer, V> protoMap =
+                new HashMap<Integer, V>();
+        
+        int index = DEFAULT_START_INDEX;
+        
+        while (line.hasNextLine()) {           
+            String currentLine = line.nextLine();            
+            if (!commentedLine(currentLine)) {
+                String classPath = myPackageLocation + currentLine;       
+                V val = getValue(classPath);
+                protoMap.put(index, val);
+                index += 1;
+            }        
         }
+        line.close();
+        return protoMap;
     }
     
     private String[] getKeys(String line) {
@@ -153,5 +152,22 @@ public class PrototypeMapFactory<V> extends FileReaderMapFactory<V> {
         String[] path = classPath.split("[.]");
         String str = path[path.length - 1];
         return str;
+    }
+
+    protected Scanner getScanner(String indexFile) {
+        FileReader fileToBeRead = null;
+        String currentDirectory = System.getProperty(Controller.USER_DIR);
+        try {
+            fileToBeRead = new FileReader(currentDirectory + indexFile);
+        }
+        catch (FileNotFoundException e) {
+            throw new MissingResourceException(ERROR_MESSAGE, "", "");
+        }
+        Scanner line = new Scanner(fileToBeRead);
+        return line;
+    }
+    
+    private boolean commentedLine(String line) {
+        return line.charAt(0) == COMMENT_CHARACTER || line.length() <= 0;
     }
 }
