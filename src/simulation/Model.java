@@ -2,6 +2,7 @@ package simulation;
 
 import control.Controller;
 import control.Environment;
+import drawing.Background;
 import drawing.Palette;
 import drawing.StampSprite;
 import drawing.lines.Point;
@@ -46,6 +47,7 @@ public class Model implements DisplayEditor {
         Collection<Point> lines;
         Collection<StampSprite> stamps;
         Environment environment;
+        Background background;
     }
 
     private State myState;
@@ -74,9 +76,13 @@ public class Model implements DisplayEditor {
      */
     public Environment initialize () {
         myState.environment = new Environment(myView.getResources());
+        
         myState.activeTurtle = new Turtle(this);
         myState.turtleID = DEFAULT_TURTLE_ID;
         myState.turtles.put(DEFAULT_TURTLE_ID, myState.activeTurtle);
+        
+        myState.background = new Background(getPalette());
+        
         return myState.environment;
     }
 
@@ -103,11 +109,13 @@ public class Model implements DisplayEditor {
     }
 
     /**
-     * Paints all current elements (turtles and lines) of the model.
+     * Paints all current elements (turtles and lines) of the model,
+     * and the background layer.
      * 
      * @param pen is the graphic that is used to paint lins and turtles.
      */
     public void paint (Graphics2D pen) {
+        myState.background.paint(pen);
         for (StampSprite st : myState.stamps) {
             st.paint(pen);
         }
@@ -190,6 +198,15 @@ public class Model implements DisplayEditor {
      */
     public void clearStamps () {
         myState.stamps.clear();
+    }
+    
+    /**
+     * Returns the background layer so that it can be edited.
+     * 
+     * @return Background
+     */
+    public Background getBackground() {
+        return myState.background;
     }
 
     /**

@@ -4,6 +4,12 @@ import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 
+/**
+ * Instruction to turn the grid on.
+ * 
+ * @author Ellango
+ *
+ */
 public class GridOn extends BaseInstruction {
 
     /**
@@ -21,8 +27,8 @@ public class GridOn extends BaseInstruction {
     
     @Override
     public int execute (Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
-        return 0;
+        model.getBackground().gridOn();
+        return 1;
     }
 
 }

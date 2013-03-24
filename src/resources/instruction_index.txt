@@ -34,7 +34,6 @@ turtle.Heading
 turtle.IsPenDown
 turtle.IsShowing
 turtle.ClearScreen
-turtle.SetBackground
 turtle.SetPenColor
 turtle.SetShape
 turtle.SetPalette
@@ -84,3 +83,4 @@ extra.Rainbow
 extra.GetUserVariables
 extra.GridOn
 extra.GridOff
+extra.SetBackground

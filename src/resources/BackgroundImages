@@ -1,7 +1,6 @@
 #The first number is the index the background will be in the map.
 #The text is the name of the pixmap that will be the background.
-#The final number is the priority of the background.  In other words, what the 
-priority to paint the background image is.
+#The final number is the priority of the background.  In other words, what the priority to paint the background image is.
 0 = white.png = 1
 1 = black.png = 1
 2 = brown.png = 1
@@ -14,4 +13,4 @@ priority to paint the background image is.
 9 = yellow.png = 1 
 10 = haloween.png = 1
 11 = rainbow.png = 1
-12 = underwater.png = 1
+12 = underwater.jpg = 1

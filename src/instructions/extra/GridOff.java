@@ -4,6 +4,12 @@ import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 
+/**
+ * Instruction to turn the grid off.
+ * 
+ * @author Ellango
+ *
+ */
 public class GridOff extends BaseInstruction {
     
     /**
@@ -21,7 +27,7 @@ public class GridOff extends BaseInstruction {
     
     @Override
     public int execute (Model model) throws IllegalInstructionException {
-        // TODO Auto-generated method stub
+        model.getBackground().gridOff();
         return 0;
     }
 
