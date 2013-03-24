@@ -55,7 +55,9 @@ public class GraphicsMap<E> {
      * @throws IllegalInstructionException if index not positive
      */
     public void put(int index, E element) throws IllegalInstructionException {
-        if (index <= 0) { throw new IllegalInstructionException(ILLEGAL_INDEX_MESSAGE + index); }
+        if (index <= 0) { 
+            throw new IllegalInstructionException(ILLEGAL_INDEX_MESSAGE + index); 
+        }
         myMap.put(index, element);
     }
     

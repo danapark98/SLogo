@@ -1,6 +1,7 @@
 package drawing;
 
 import drawing.lines.LineBuilder;
+import exceptions.CorruptedEnvironmentException;
 import exceptions.IllegalInstructionException;
 import java.awt.Color;
 
@@ -68,10 +69,48 @@ public class Palette {
      * 
      * @return The index of the current color.
      */
-    public int currentColorIndex() {
+    public int getColorIndex() {
         return myCurrentColorIndex;
     }
+    
+    /**
+     * Returns the image of the Turtle to paint at the given index 
+     * 
+     * @param index of the turtle image
+     * @return Pixmap that represents Turtle's view
+     */
+    public Pixmap getImage() {
+        try {
+            return myImages.get(myCurrentImageIndex);
+        }
+        catch (IllegalInstructionException e) {
+            // can't happen because myCurrentImageIndex was prechecked to be 
+            // legal when setImage() called.
+            throw new CorruptedEnvironmentException();
+        }
+    }
 
+    /**
+     * Sets the image of the Turtle to paint at the given index 
+     * 
+     * @param index of the turtle image
+     * @throws IllegalInstructionException if an image not defined for that index
+     */
+    public void setImage (int index) throws IllegalInstructionException {
+        // need to first make sure provided index is legal, otherwise throw exception
+        myImages.get(index);
+        myCurrentImageIndex = index;
+    }
+    
+    /**
+     * Gives the current index of the image being used.
+     * 
+     * @return The index of the current image.
+     */   
+    public int getImageIndex() {
+        return myCurrentImageIndex;
+    }
+    
     /**
      * Returns the line style at the given index.
      * 
@@ -83,24 +122,4 @@ public class Palette {
         return myLineStyles.get(index);
     }
     
-    /**
-     * Returns the image of the Turtle to paint at the given index 
-     * 
-     * @param index of the turtle image
-     * @return Pixmap that represents Turtle's view
-     * @throws IllegalInstructionException if an image not defined for that index
-     */
-    public Pixmap getImage(int index) throws IllegalInstructionException {
-        myCurrentImageIndex = index;
-        return myImages.get(index);
-    }
-    
-    /**
-     * Gives the current index of the image being used.
-     * 
-     * @return The index of the current image.
-     */   
-    public int getCurrentImageIndex() {
-        return myCurrentImageIndex;
-    }
 }

@@ -35,6 +35,6 @@ public class IsPenDown extends BooleanInstruction {
     
     @Override
     public boolean executeBoolean(Model model) {
-        return model.getTurtle().getPen().penColor().getAlpha() != 0;
+        return model.getTurtle().getPen().getColor().getAlpha() != 0;
     }
 }

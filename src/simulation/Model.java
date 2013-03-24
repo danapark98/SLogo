@@ -17,6 +17,9 @@ import view.View;
  * Represents the simulation of the drawings on the screen. The model holds the drawer (the turtle)
  * and all of the lines that have been drawn.
  * 
+ * For the model to be ready for use, both its constructor and initialize() 
+ * need to be called.
+ * 
  * @author Scott Valentine
  * @author Ryan Fishel
  * @author Ellango Jothimurugesan

@@ -27,7 +27,7 @@ public class StampSprite extends Sprite {
     
     /**
      * When painted, original parameters of location, size, and velocity are reset
-     * so that these fields are, in effect, immutable (at least graphically)
+     * so that these fields are, in effect, immutable
      */
     @Override
     public void paint (Graphics2D pen) {

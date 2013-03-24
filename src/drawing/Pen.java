@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import simulation.DisplayEditor;
 import simulation.Turtle;
 import util.Location;
-import util.Pixmap;
 import util.Vector;
 
 /**
@@ -28,7 +27,6 @@ public class Pen {
     private Color myColor;
     private LineBuilder myLineBuilder;
     private double myThickness;
-    private Pixmap myImage;
     
     /**
      * Creates a pen centered around a turtle and which can edit a displayEditor.
@@ -45,6 +43,7 @@ public class Pen {
         catch (IllegalInstructionException e) {
             myColor = Color.BLACK;
         }
+        
         myThickness = DEFAULT_PEN_THICKNESS;
         
         try {
@@ -52,12 +51,6 @@ public class Pen {
         }
         catch (IllegalInstructionException e) {
             myLineBuilder = new SolidLine();
-        }
-        try {
-        	myImage = displayEditor.getPalette().getImage(PaletteFactory.DEFAULT_IMAGE_INDEX);
-        }
-        catch (IllegalInstructionException e) {
-        	myImage = Turtle.DEFAULT_IMAGE;
         }
     }
     
@@ -72,8 +65,6 @@ public class Pen {
         Location start = new Location(myTurtle.getX(), myTurtle.getY());
         double angle = myTurtle.getAngle();
         if (distance < 0) {
-            // We are ignoring checkstyle here since the following operation only 'flips' the
-            // distance
             distance = -1 * distance;
             angle += REVERSE_ANGLE_VALUE;
         }
@@ -122,14 +113,6 @@ public class Pen {
         myColor = new Color(r, g, b, OPAQUE_COLOR);
     }
     
-    /**
-     * The current color of this pen.
-     * 
-     * @return The current color of this pen.
-     */
-    public Color penColor () {
-        return myColor;
-    }
     
     /**
      * Changes the color of the pen.
@@ -137,6 +120,15 @@ public class Pen {
      */
     public void changeColor(Color c) {
         myColor = c;
+    }
+    
+    /**
+     * Returns the color that the pen is drawing with 
+     * 
+     * @return Color of pen
+     */
+    public Color getColor() {
+        return myColor;
     }
     
     /**
@@ -157,22 +149,4 @@ public class Pen {
         myLineBuilder = lb;
     }
     
-    /**
-     * Returns the Pixmap used to draw the Turtle
-     * 
-     * @return Pixmap is the Turtle's view.
-     */
-    public Pixmap getImage() {
-    	return myImage;
-    }
-    
-    
-    /** 
-     * Changes the Turtle image to the passed Pixmap
-     * 
-     * @param picture is the Pixmap for the Turtle's image.
-     */
-    public void changeImage(Pixmap picture) {
-    	myImage = picture;
-    }
 }

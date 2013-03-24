@@ -31,6 +31,7 @@ public class Turtle extends Sprite {
     private static final double X_OFFSET = 25;
     private static final double Y_OFFSET = 15;
     private List<ValueText> myStatus;
+    private DisplayEditor myDisplayEditor;
     private Pen myPen;
 
 
@@ -41,8 +42,9 @@ public class Turtle extends Sprite {
      */ 
     public Turtle (DisplayEditor de) {
         super(DEFAULT_IMAGE, startingLocation(), DEFAULT_SIZE);
-        initStatus();
+        myDisplayEditor = de;
         myPen = new Pen(this, de);
+        initStatus();
     }
 
     @Override
@@ -70,7 +72,7 @@ public class Turtle extends Sprite {
     
     @Override
     public void paint (Graphics2D pen) {
-    	Pixmap image = myPen.getImage();
+    	Pixmap image = myDisplayEditor.getPalette().getImage();
     	this.setView(image);
         super.paint(pen);
     }
