@@ -16,37 +16,33 @@ import util.Location;
  * @author Ellango Jothimurugesan
  */
 public class Point {
-    private Location myStart;
     private Color myColor;
-    private double myThickness;
     private Collection<Ellipse2D> myPoints;
 
     /**
      * Creates a new Point based on coordinates, thickness, and a color.
      * 
-     * @param start is the coordinate of the point.
+     * @param pos is the coordinate of the point.
      * @param thickness is the thickness of the line.
      * @param color is the color of the line.
      */
-    public Point(Location start, double thickness, Color color) {
-        myStart = start;
+    public Point(Location pos, double thickness, Color color) {
         myColor = color;
-        myThickness = thickness;
         
         myPoints = new ArrayList<Ellipse2D>();
         
         
-        initializeCircle();
+        initializeCircle(pos, thickness);
         
     }
 
     /**
      * Initializes the circle shape based on the parameters of this point.
      */
-    private void initializeCircle() {
-        double x = myStart.getX() - myThickness / 2;
-        double y = myStart.getY() - myThickness / 2;
-        myPoints.add(new Ellipse2D.Double(x, y, myThickness, myThickness));
+    private void initializeCircle(Location pos, double thickness) {
+        double x = pos.getX() - thickness / 2;
+        double y = pos.getY() - thickness / 2;
+        myPoints.add(new Ellipse2D.Double(x, y, thickness, thickness));
     }
 
     /**
