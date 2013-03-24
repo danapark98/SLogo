@@ -36,8 +36,7 @@ public class InstructionMapFactory {
     private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/instruction_index.txt";
     
-    private static final String SHAPE_INDEX_FILE = 
-    		"/src/resources/images/TurtleShapes";
+
     
     /** Default location of the resources package. */
    
@@ -147,39 +146,6 @@ public class InstructionMapFactory {
                 }
             }
         }
-    }
-    
-    /**
-     * Unused right now.  Could be used to load in turtle pictures using reflection
-     * @return
-     * @throws CorruptedEnvironmentException
-     */
-    public Map<Integer, String> buildTurtleShapeMap() throws CorruptedEnvironmentException{
-    	FileReader fileToBeRead = null;
-    	String currentDirectory = System.getProperty(Controller.USER_DIR);
-    	
-    	 try {
-             fileToBeRead = new FileReader(currentDirectory + SHAPE_INDEX_FILE);
-         }
-         catch (FileNotFoundException e) {
-             throw new MissingResourceException(ERROR_MESSAGE, "", "");
-         }
-         Scanner line = new Scanner(fileToBeRead);
-         
-         Map<Integer, String> shapeMap = new HashMap<Integer, String>();
-         while(line.hasNext()) {
-        	 String str = line.nextLine();
-        	 String [] shapes = str.split("=");
-        	 try{
-        		 shapeMap.put(Integer.parseInt(shapes[0].trim()),shapes[1].trim());
-        	 }
-        	 catch(NumberFormatException e) {
-        		throw new CorruptedEnvironmentException();
-        	 }
-         }
-         line.close();
-         return shapeMap;
-
     }
 
     /**
