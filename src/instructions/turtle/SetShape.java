@@ -1,7 +1,6 @@
 package instructions.turtle;
 
 import simulation.Model;
-import util.Pixmap;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 
@@ -31,8 +30,7 @@ public class SetShape extends BaseInstruction {
     @Override
     public int execute(Model model) throws IllegalInstructionException {
     	int index = nextOperand().execute(model);
-    	Pixmap image = model.getPalette().getImage(index);
-    	model.getTurtle().setView(image);
+    	model.getTurtle().changeImage(index);
     	return index;
      }
 

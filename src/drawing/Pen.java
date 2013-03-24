@@ -27,6 +27,7 @@ public class Pen {
     private Color myColor;
     private LineBuilder myLineBuilder;
     private double myThickness;
+    private int myCurrentColorIndex;
     
     /**
      * Creates a pen centered around a turtle and which can edit a displayEditor.
@@ -116,10 +117,22 @@ public class Pen {
     
     /**
      * Changes the color of the pen.
-     * @param c is the new color of the pen.
+     * 
+     * @param index is the index of the color in the palette.
+     * @throws IllegalInstructionException if no color represented by the index
      */
-    public void changeColor(Color c) {
-        myColor = c;
+    public void changeColor(int index) throws IllegalInstructionException {
+        myColor = myDisplayEditor.getPalette().getColor(index);
+        myCurrentColorIndex = index;
+    }
+    
+    /**
+     * Gives the current index of the color being used.
+     * 
+     * @return The index of the current color.
+     */
+    public int getColorIndex() {
+        return myCurrentColorIndex;
     }
     
     /**
@@ -130,6 +143,17 @@ public class Pen {
     public Color getColor() {
         return myColor;
     }
+
+    /** 
+     * Changes the line style
+     * 
+     * @param index is of the linestyle in the palette.
+     * @throws IllegalInstructionException if no line builder represented by the
+     * index
+     */
+    public void changeLineStyle(int index) throws IllegalInstructionException {
+        myLineBuilder = myDisplayEditor.getPalette().getLineStyle(index);
+    }
     
     /**
      * Changes the size of the pen.
@@ -138,15 +162,6 @@ public class Pen {
      */
     public void changeSize(int size) {
         myThickness = size;
-    }
-
-    /** 
-     * Changes the line style to the passed lineBuilder
-     * 
-     * @param lb is the LineBuilder to be used to draw lines.
-     */
-    public void changeLineStyle(LineBuilder lb) {
-        myLineBuilder = lb;
     }
     
 }
