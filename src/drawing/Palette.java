@@ -8,32 +8,30 @@ import util.Pixmap;
 
 
 /**
- * Represents all of the available colors in the active environment.
+ * Represents all of the available colors, lines, and shapes in the active environment.
  * 
- * @author Scott Valentine
+ * @author Scott Valentine, Ellango
  * 
  */
 public class Palette {
-    /** Error message for undefined indices in palettes */
-    public static final String UNDEFINED_INDEX_MESSAGE = "Not defined at index: ";
-    
     private static final String COLOR_VALUE_OUT_OF_RANGE = "Not valid color value";
     private static final int MAX_COLOR_VALUE = 255;
-
-    private ColorPalette myColorPalette;
-    private LinePalette myLinePalette;
-    private ImagePalette myImagePalette;
     
-    private int myCurrentImageIndex;
+    private GraphicsMap<Color> myColors;
+    private GraphicsMap<LineBuilder> myLineStyles;
+    private GraphicsMap<Pixmap> myImages;
+    
     private int myCurrentColorIndex;
+    private int myCurrentImageIndex;
+
 
     /**
-     * Constructs a Palette with the two default colors: clear and black
+     * Constructs Palette with default colors, linestyles, and shapes
      */
     public Palette() {
-    	myImagePalette = new ImagePalette();
-        myColorPalette = new ColorPalette();
-        myLinePalette = new LinePalette();
+        myColors = PaletteFactory.initializeColors();
+        myLineStyles = PaletteFactory.initializeLineStyles();
+        myImages = PaletteFactory.initializeImages();
     }
 
     /**
@@ -41,16 +39,12 @@ public class Palette {
      * 
      * @param index of the color.
      * @return The color at the index.
-     * @throws IllegalInstructionException Occurs when the index has not yet been defined.
+     * @throws IllegalInstructionException occurs when the index has not yet been defined.
      */
     public Color getColor(int index) throws IllegalInstructionException {
+        Color color = myColors.get(index);
         myCurrentColorIndex = index;
-        return myColorPalette.getColor(index);
-    }
-    
-    public Pixmap getImage(int index) throws IllegalInstructionException {
-    	myCurrentImageIndex = index;
-    	return myImagePalette.getImage(index);
+        return color;
     }
 
     /**
@@ -67,35 +61,49 @@ public class Palette {
                 b < 0 || b > MAX_COLOR_VALUE) {
             throw new IllegalInstructionException(COLOR_VALUE_OUT_OF_RANGE);
         }
-        myColorPalette.setColorAt(index, r, g, b);
+        myColors.put(index, new Color(r, g, b));
     }
-
-    /**
-     * Returns the line style at the given index.
-     * 
-     * @param index of the line style
-     * @return a LineBuilder that builds lines of a certain style.
-     * @throws IllegalInstructionException This occurs when the index has not yet been defined for
-     *         the palette.
-     */
-    public LineBuilder getLineStyle(int index) throws IllegalInstructionException {
-        return myLinePalette.getLineStyle(index);
-    }
-
+    
     /**
      * Gives the current index of the color being used.
      * 
      * @return The index of the current color.
      */
-    public int currentColorIndex() {
+    public int getColorIndex() {
         return myCurrentColorIndex;
     }
+    
+    /**
+     * Returns the image of the Turtle to paint at the given index 
+     * 
+     * @param index of the turtle image
+     * @return Pixmap that represents Turtle's view
+     * @throws IllegalInstructionException 
+     */
+    public Pixmap getImage(int index) throws IllegalInstructionException {
+        Pixmap image = myImages.get(myCurrentImageIndex);
+        myCurrentImageIndex = index;
+        return image;
+    }
+    
     /**
      * Gives the current index of the image being used.
      * 
      * @return The index of the current image.
      */   
-    public int getCurrentImageIndex() {
-    	return myCurrentImageIndex;
+    public int getImageIndex() {
+        return myCurrentImageIndex;
     }
+    
+    /**
+     * Returns the line style at the given index.
+     * 
+     * @param index of the line style
+     * @return a LineBuilder that builds lines of a certain style.
+     * @throws IllegalInstructionException if a line style not defined for that index
+     */
+    public LineBuilder getLineStyle(int index) throws IllegalInstructionException {
+        return myLineStyles.get(index);
+    }
+    
 }

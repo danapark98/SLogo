@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import simulation.DisplayEditor;
 import simulation.Turtle;
 import util.Location;
-import util.Pixmap;
 import util.Vector;
 
 /**
@@ -20,20 +19,14 @@ import util.Vector;
 public class Pen {
     
     private static final double REVERSE_ANGLE_VALUE = 180;
-
-
     private static final int OPAQUE_COLOR = 255;
     private static final double DEFAULT_PEN_THICKNESS = 4.0;
-
-    private static final int DEFAULT_LINE_STYLE = 0;
-    
     
     private DisplayEditor myDisplayEditor;
     private Turtle myTurtle;
     private Color myColor;
     private LineBuilder myLineBuilder;
     private double myThickness;
-    private Pixmap myImage;
     
     /**
      * Creates a pen centered around a turtle and which can edit a displayEditor.
@@ -45,24 +38,19 @@ public class Pen {
         myTurtle = turtle;
         myDisplayEditor = displayEditor;
         try {
-            myColor = displayEditor.getPalette().getColor(ColorPalette.DEFAULT_BLACK_INDEX);
+            myColor = displayEditor.getPalette().getColor(PaletteFactory.DEFAULT_BLACK_INDEX);
         }
         catch (IllegalInstructionException e) {
             myColor = Color.BLACK;
         }
+        
         myThickness = DEFAULT_PEN_THICKNESS;
         
         try {
-            myLineBuilder = displayEditor.getPalette().getLineStyle(DEFAULT_LINE_STYLE);
+            myLineBuilder = displayEditor.getPalette().getLineStyle(SolidLine.PALETTE_INDEX);
         }
         catch (IllegalInstructionException e) {
             myLineBuilder = new SolidLine();
-        }
-        try {
-        	myImage = displayEditor.getPalette().getImage(ImagePalette.DEFAULT_IMAGE_INDEX);
-        }
-        catch (IllegalInstructionException e) {
-        	myImage = ImagePalette.DEFAULT_IMAGE;
         }
     }
     
@@ -77,8 +65,6 @@ public class Pen {
         Location start = new Location(myTurtle.getX(), myTurtle.getY());
         double angle = myTurtle.getAngle();
         if (distance < 0) {
-            // We are ignoring checkstyle here since the following operation only 'flips' the
-            // distance
             distance = -1 * distance;
             angle += REVERSE_ANGLE_VALUE;
         }
@@ -127,14 +113,6 @@ public class Pen {
         myColor = new Color(r, g, b, OPAQUE_COLOR);
     }
     
-    /**
-     * The current color of this pen.
-     * 
-     * @return The current color of this pen.
-     */
-    public Color penColor () {
-        return myColor;
-    }
     
     /**
      * Changes the color of the pen.
@@ -142,6 +120,15 @@ public class Pen {
      */
     public void changeColor(Color c) {
         myColor = c;
+    }
+    
+    /**
+     * Returns the color that the pen is drawing with 
+     * 
+     * @return Color of pen
+     */
+    public Color getColor() {
+        return myColor;
     }
     
     /**
@@ -162,12 +149,4 @@ public class Pen {
         myLineBuilder = lb;
     }
     
-    public void changeImage(Pixmap picture) {
-    	myImage = picture;
-    }
-    
-    public Pixmap getImage() {
-    	return myImage;
-    }
-
 }

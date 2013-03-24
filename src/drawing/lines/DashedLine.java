@@ -10,7 +10,7 @@ import util.Location;
  * @author Scott Valentine
  * 
  */
-public class DashedLine extends LineBuilder {
+public class DashedLine implements LineBuilder {
 
 
     /** Index of this line builder in the line palette */

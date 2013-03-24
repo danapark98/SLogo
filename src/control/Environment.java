@@ -34,12 +34,11 @@ public class Environment {
     private static final String UNDEFINED_INSTRUCTION = " is undefined and";
 
     private static final String SCOPE_LEVEL_HEADER = "AT SCOPE LEVEL ";
-    
+
+    private int myScope;
     private List<InstructionMap> myInstructions;
 
     private Palette myPalette;
-    
-    private int myScope;
 
     /**
      * Creates a new Environment with the default instructions located

@@ -9,7 +9,7 @@ import util.Location;
  * @author Scott Valentine
  *
  */
-public abstract class LineBuilder {
+public interface LineBuilder {
 
     
     

@@ -9,7 +9,7 @@ import util.Location;
  * @author Scott Valentine
  *
  */
-public class RainbowLine extends LineBuilder {
+public class RainbowLine implements LineBuilder {
 
 
     /** Index of the rainbow line builder in the LinePalette*/

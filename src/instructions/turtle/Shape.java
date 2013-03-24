@@ -31,7 +31,7 @@ public class Shape extends BaseInstruction{
     
 	@Override
 	public int execute(Model model) throws IllegalInstructionException {
-		return model.getPalette().getCurrentImageIndex();
+		return model.getPalette().getImageIndex();
 	}
 
 }

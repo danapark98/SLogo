@@ -45,6 +45,8 @@ instructions.turtle.SetPenSize
 instructions.turtle.DrawDashed
 instructions.turtle.DrawSolidLine
 instructions.turtle.Shape
+instructions.turtle.ID
+instructions.turtle.Tell
 #
 # -- boolean instructions -- #
 #
