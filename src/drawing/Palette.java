@@ -26,6 +26,7 @@ public class Palette implements Serializable {
     private GraphicsMap<Color> myColors;
     private GraphicsMap<LineBuilder> myLineStyles;
     private GraphicsMap<Pixmap> myImages;
+    private GraphicsMap<PriorityPixmap> myBackgroundColorImages;
 
 
     /**
@@ -35,6 +36,7 @@ public class Palette implements Serializable {
         myColors = PaletteFactory.initializeColors();
         myLineStyles = PaletteFactory.initializeLineStyles();
         myImages = PaletteFactory.initializeImages();
+        myBackgroundColorImages = PaletteFactory.initializeBackgroundColorImages();
     }
     
     
@@ -87,6 +89,17 @@ public class Palette implements Serializable {
      */
     public LineBuilder getLineStyle(int index) throws IllegalInstructionException {
         return myLineStyles.get(index);
+    }
+    
+    /**
+     * Returns the background color image at the given index
+     * 
+     * @param index of the background color image
+     * @return a PriorityPixmap that represents a background color image
+     * @throws IllegalInstructionException if an image not defined for that index
+     */
+    public PriorityPixmap getBackgroundColorImage(int index) throws IllegalInstructionException {
+        return myBackgroundColorImages.get(index);
     }
 
     /**
