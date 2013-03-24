@@ -28,6 +28,11 @@ import view.View;
  */
 public class Controller {
 
+    /**
+     * A type representing whether the Controller should save the environment
+     * automatically or only when the user specifies to
+     *
+     */
     public enum SaveOption {
         AUTO, MANUAL;
     }
@@ -41,7 +46,7 @@ public class Controller {
     private View myView;
     private Parser myParser;
     private Environment myEnvironment;
-    private SaveOption saveOption;
+    private SaveOption mySaveOption;
 
     /**
      * This creates a new controller with a model, a view, an environment,
@@ -56,7 +61,7 @@ public class Controller {
         myModel.setView(view);
         myEnvironment = myModel.initialize();
         myParser = new Parser(myEnvironment);
-        saveOption = SaveOption.MANUAL;
+        mySaveOption = SaveOption.MANUAL;
     }
 
     /**
@@ -72,7 +77,7 @@ public class Controller {
         try {
             Instruction instruction = myParser.generateInstruction(s);
             myModel.informView(instruction.execute(myModel) + "");
-            if (saveOption == SaveOption.AUTO) {
+            if (mySaveOption == SaveOption.AUTO) {
                 autoSave();
             }
         }
@@ -97,9 +102,9 @@ public class Controller {
         ObjectInput in;
         try {
             in = new ObjectInputStream(is);
-            myEnvironment = (Environment) in.readObject();
+            myEnvironment.load(in);
         }
-        catch (ClassNotFoundException | IOException e) {
+        catch (ClassNotFoundException | ClassCastException | IOException e) {
             myModel.informView(FILE_LOADING_ERROR_MESSAGE);
         }
     }
@@ -121,13 +126,13 @@ public class Controller {
         ObjectOutput out;
         try {
             out = new ObjectOutputStream(os);
-            out.writeObject(myEnvironment);
+            myEnvironment.save(out);
         }
         catch (IOException e) {
             myModel.informView(FILE_SAVING_ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Autosaves the environment to the file autoSLogo in the user's directory
      */
@@ -149,7 +154,7 @@ public class Controller {
      * @param option is the SaveOption to set
      */
     public void setSaveOption (SaveOption option) {
-        saveOption = option;
+        mySaveOption = option;
     }
 
     /**

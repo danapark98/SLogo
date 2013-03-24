@@ -3,6 +3,10 @@ package drawing;
 import drawing.lines.LineBuilder;
 import exceptions.IllegalInstructionException;
 import java.awt.Color;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
 
 import util.Pixmap;
 
@@ -13,7 +17,9 @@ import util.Pixmap;
  * @author Scott Valentine, Ellango
  * 
  */
-public class Palette {
+public class Palette implements Serializable {
+
+    private static final long serialVersionUID = 8628824944325378976L;
     private static final String COLOR_VALUE_OUT_OF_RANGE = "Not valid color value";
     private static final int MAX_COLOR_VALUE = 255;
     
@@ -81,5 +87,30 @@ public class Palette {
      */
     public LineBuilder getLineStyle(int index) throws IllegalInstructionException {
         return myLineStyles.get(index);
+    }
+
+    /**
+     * Save the mutable state of the palette to be loaded in later
+     * 
+     * @param out to write objects needed later
+     * @throws IOException if objects can't be written
+     */
+    public void save (ObjectOutput out) throws IOException {
+        out.writeObject(myColors);
+    }
+
+    /**
+     * Load in the mutable state of the palette
+     * 
+     * Objects must be loaded in the same order they were saved.
+     * 
+     * @param in to read objects in 
+     * @throws ClassNotFoundException if file not saved properly or objects read
+     * in wrong order
+     * @throws IOException if objects can't be read
+     */
+    @SuppressWarnings("unchecked")
+    public void load (ObjectInput in) throws ClassNotFoundException, IOException {
+        myColors = (GraphicsMap<Color>) in.readObject();
     }
 }

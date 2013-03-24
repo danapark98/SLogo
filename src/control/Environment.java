@@ -4,6 +4,10 @@ import drawing.Palette;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,7 +22,9 @@ import java.util.ResourceBundle;
  * @author Ellango Jothimurugesan
  * 
  */
-public class Environment {
+public class Environment implements Serializable {
+
+    private static final long serialVersionUID = 4319876122154622698L;
 
     private static final int GLOBAL_SCOPE = 0;
 
@@ -188,5 +194,33 @@ public class Environment {
     public void outScope() {
         myInstructions.remove(myInstructions.size() - 1);
         myScope -= 1;
+    }
+    
+    /**
+     * Called by the controller to save the state of the environment to be 
+     * loaded in later
+     * 
+     * @param out to write objects needed later
+     * @throws IOException if objects can't be written
+     */
+    public void save(ObjectOutput out) throws IOException {
+        out.writeObject(myInstructions);
+        myPalette.save(out);
+    }
+    
+    /**
+     * Called by the controller to load in the state of the environment
+     * 
+     * Objects must be loaded in the same order they were saved.
+     * 
+     * @param in to read objects in 
+     * @throws ClassNotFoundException if file not saved properly or objects read
+     * in wrong order
+     * @throws IOException if objects can't be read
+     */
+    @SuppressWarnings("unchecked")
+    public void load(ObjectInput in) throws ClassNotFoundException, IOException {
+        myInstructions = (List<InstructionMap>) in.readObject();
+        myPalette.load(in);
     }
 }
