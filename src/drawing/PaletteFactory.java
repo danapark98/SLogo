@@ -36,6 +36,9 @@ public class PaletteFactory {
 
     private static final String SHAPE_INDEX_FILE = 
             "/src/resources/TurtleShapes";
+    
+    private static final String LINE_STYLE_LOCATION = "drawing.lines.";
+    private static final String LINE_STYLE_INDEX_LOCATION = "/src/resources/line_styles_index.txt";
 
     /** Error Message to display when a class can not be instantiated from file*/
     private static final String ERROR_MESSAGE = "Missing instruction class names";
@@ -82,8 +85,6 @@ public class PaletteFactory {
 
     }
 
-
-
     public static GraphicsMap<Color> initializeColors() {
         Map<Integer, Color> colors = new HashMap<Integer, Color>();
         colors.put(DEFAULT_CLEAR_INDEX, CLEAR);
@@ -91,23 +92,20 @@ public class PaletteFactory {
         return new GraphicsMap<Color>(colors);
     }
 
+    /**
+     * Initializes line styles from default location.
+     * 
+     * @return A GraphicsMap from indices to LineBuilders
+     */
     public static GraphicsMap<LineBuilder> initializeLineStyles() {
-        String pack = "drawing.lines.";
-        String indexFile = "/src/resources/line_styles_index.txt";
-        PrototypeMapFactory<LineBuilder> pt = new PrototypeMapFactory<LineBuilder>(indexFile, pack);
+
+        PrototypeMapFactory<LineBuilder> pt = new 
+                PrototypeMapFactory<LineBuilder>(LINE_STYLE_LOCATION, 
+                        LINE_STYLE_INDEX_LOCATION);
         
         Map<Integer, LineBuilder> lineStyles = pt.buildIndexMap();
 
         return new GraphicsMap<LineBuilder>(lineStyles);
     }
 
-    //    public static GraphicsMap<Pixmap> initializeImages() {
-    //        Map<Integer, Pixmap> images = new HashMap<Integer, Pixmap>();
-    //        images.put(DEFAULT_INVISIBLE_INDEX, new Pixmap("blank.png"));
-    //        images.put(DEFAULT_IMAGE_INDEX, Turtle.DEFAULT_IMAGE);
-    //        images.put(DOG_IMAGE_INDEX, new Pixmap("dog.jpg"));
-    //        images.put(SQUIRREL_IMAGE_INDEX, new Pixmap("squirrel.png"));
-    //        images.put(UNICORN_IMAGE_INDEX, new Pixmap("Unicorn.jpg"));
-    //        return new GraphicsMap<Pixmap>(images);
-    //    }
 }
