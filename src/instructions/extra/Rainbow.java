@@ -1,6 +1,5 @@
 package instructions.extra;
 
-import drawing.lines.LineBuilder;
 import drawing.lines.RainbowLine;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
@@ -34,9 +33,7 @@ public class Rainbow extends BaseInstruction {
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        LineBuilder lb = model.getPalette().getLineStyle(RainbowLine.RAINBOW_INDEX);
-
-        model.getTurtle().getPen().changeLineStyle(lb);
+        model.getTurtle().getPen().changeLineStyle(RainbowLine.RAINBOW_INDEX);
         return RainbowLine.RAINBOW_INDEX;
     }
 

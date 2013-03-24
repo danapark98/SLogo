@@ -34,7 +34,7 @@ public class PenColor extends BaseInstruction {
 
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        return model.getPalette().getColorIndex();
+        return model.getTurtle().getPen().getColorIndex();
     }
 
 }

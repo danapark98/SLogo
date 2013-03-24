@@ -20,9 +20,6 @@ public class Palette {
     private GraphicsMap<Color> myColors;
     private GraphicsMap<LineBuilder> myLineStyles;
     private GraphicsMap<Pixmap> myImages;
-    
-    private int myCurrentColorIndex;
-    private int myCurrentImageIndex;
 
 
     /**
@@ -33,20 +30,8 @@ public class Palette {
         myLineStyles = PaletteFactory.initializeLineStyles();
         myImages = PaletteFactory.initializeImages();
     }
-
-    /**
-     * Returns the color at the given index.
-     * 
-     * @param index of the color.
-     * @return The color at the index.
-     * @throws IllegalInstructionException occurs when the index has not yet been defined.
-     */
-    public Color getColor(int index) throws IllegalInstructionException {
-        Color color = myColors.get(index);
-        myCurrentColorIndex = index;
-        return color;
-    }
-
+    
+    
     /**
      * Adds a new color to the palette.
      * 
@@ -63,14 +48,16 @@ public class Palette {
         }
         myColors.put(index, new Color(r, g, b));
     }
-    
+
     /**
-     * Gives the current index of the color being used.
+     * Returns the color at the given index.
      * 
-     * @return The index of the current color.
+     * @param index of the color.
+     * @return The color at the index.
+     * @throws IllegalInstructionException occurs when the index has not yet been defined.
      */
-    public int getColorIndex() {
-        return myCurrentColorIndex;
+    public Color getColor(int index) throws IllegalInstructionException {
+        return myColors.get(index);
     }
     
     /**
@@ -81,18 +68,8 @@ public class Palette {
      * @throws IllegalInstructionException 
      */
     public Pixmap getImage(int index) throws IllegalInstructionException {
-        Pixmap image = myImages.get(myCurrentImageIndex);
-        myCurrentImageIndex = index;
-        return image;
-    }
-    
-    /**
-     * Gives the current index of the image being used.
-     * 
-     * @return The index of the current image.
-     */   
-    public int getImageIndex() {
-        return myCurrentImageIndex;
+        return myImages.get(index);
+
     }
     
     /**
@@ -105,5 +82,4 @@ public class Palette {
     public LineBuilder getLineStyle(int index) throws IllegalInstructionException {
         return myLineStyles.get(index);
     }
-    
 }

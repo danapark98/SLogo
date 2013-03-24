@@ -1,6 +1,5 @@
 package instructions.turtle;
 
-import drawing.lines.LineBuilder;
 import drawing.lines.SolidLine;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
@@ -36,8 +35,7 @@ public class DrawSolidLine extends BaseInstruction {
     
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        LineBuilder lb = model.getPalette().getLineStyle(SolidLine.PALETTE_INDEX);
-        model.getTurtle().getPen().changeLineStyle(lb);
+        model.getTurtle().getPen().changeLineStyle(SolidLine.PALETTE_INDEX);
         return SolidLine.PALETTE_INDEX;
     }
 

@@ -36,7 +36,7 @@ public class IsShowing extends BooleanInstruction {
     
     @Override
     public boolean executeBoolean (Model model) {
-        return model.getPalette().getImageIndex() != PaletteFactory.DEFAULT_CLEAR_INDEX;
+        return model.getTurtle().getImageIndex() != PaletteFactory.DEFAULT_CLEAR_INDEX;
     }
 
 }
