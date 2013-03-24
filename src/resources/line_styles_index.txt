@@ -1,0 +1,6 @@
+#
+# Line Styles
+#
+SolidLine
+DashedLine
+RainbowLine
