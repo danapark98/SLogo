@@ -1,7 +1,6 @@
 package instructions.turtle;
 
 import drawing.lines.DashedLine;
-import drawing.lines.LineBuilder;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
@@ -30,8 +29,7 @@ public class DrawDashed extends BaseInstruction {
     
     @Override
     public int execute(Model model) throws IllegalInstructionException {
-        LineBuilder lb = model.getPalette().getLineStyle(DashedLine.PALETTE_INDEX);
-        model.getTurtle().getPen().changeLineStyle(lb);
+        model.getTurtle().getPen().changeLineStyle(DashedLine.PALETTE_INDEX);
         return DashedLine.PALETTE_INDEX;
     }
 

@@ -1,9 +1,7 @@
 package control;
 
 import drawing.Palette;
-import exceptions.FileSavingException;
 import exceptions.IllegalInstructionException;
-import exceptions.IncorrectFileFormatException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import java.io.IOException;

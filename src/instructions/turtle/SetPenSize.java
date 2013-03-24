@@ -19,6 +19,7 @@ import simulation.Model;
  */
 public class SetPenSize extends BaseInstruction {
 
+    private static final String ERROR_MESSAGE = "Size out of bounds";
     /**
      * Auto-generated ID
      */
@@ -37,7 +38,7 @@ public class SetPenSize extends BaseInstruction {
 
         int size = this.nextOperand().execute(model);
 
-        if (size <= 0) { throw new IllegalInstructionException("size out of bounds"); }
+        if (size <= 0) { throw new IllegalInstructionException(ERROR_MESSAGE); }
 
         model.getTurtle().getPen().changeSize(size);
         return size;

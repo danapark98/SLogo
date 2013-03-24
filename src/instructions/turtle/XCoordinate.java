@@ -29,7 +29,7 @@ public class XCoordinate extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 0;
     
     /**
-     * Initializes a current Y coordination turtle query instruction.
+     * Initializes a current X coordination turtle query instruction.
      */
     public XCoordinate () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
