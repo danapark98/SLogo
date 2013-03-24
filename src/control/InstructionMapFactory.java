@@ -40,7 +40,7 @@ public class InstructionMapFactory {
     		"/src/resources/images/TurtleShapes";
     
     /** Default location of the resources package. */
-    private static final String USER_DIR = "user.dir";
+   
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String PROPERTIES_SEPERATOR = "[,]";
 
@@ -90,7 +90,7 @@ public class InstructionMapFactory {
      */
     public Map<String, Instruction> buildInstructionMap () {
 
-        String currentDirectory = System.getProperty(USER_DIR);
+        String currentDirectory = System.getProperty(Controller.USER_DIR);
 
         FileReader fileToBeRead = null;
         try {
@@ -156,7 +156,7 @@ public class InstructionMapFactory {
      */
     public Map<Integer, String> buildTurtleShapeMap() throws CorruptedEnvironmentException{
     	FileReader fileToBeRead = null;
-    	String currentDirectory = System.getProperty(USER_DIR);
+    	String currentDirectory = System.getProperty(Controller.USER_DIR);
     	
     	 try {
              fileToBeRead = new FileReader(currentDirectory + SHAPE_INDEX_FILE);
