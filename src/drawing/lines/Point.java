@@ -3,6 +3,8 @@ package drawing.lines;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+import java.util.Collection;
 import util.Location;
 
 
@@ -17,7 +19,7 @@ public class Point {
     private Location myStart;
     private Color myColor;
     private double myThickness;
-    private Ellipse2D myPoint;
+    private Collection<Ellipse2D> myPoints;
 
     /**
      * Creates a new Point based on coordinates, thickness, and a color.
@@ -30,6 +32,10 @@ public class Point {
         myStart = start;
         myColor = color;
         myThickness = thickness;
+        
+        myPoints = new ArrayList<Ellipse2D>();
+        
+        
         initializeCircle();
         
     }
@@ -40,7 +46,7 @@ public class Point {
     private void initializeCircle() {
         double x = myStart.getX() - myThickness / 2;
         double y = myStart.getY() - myThickness / 2;
-        myPoint = new Ellipse2D.Double(x, y, myThickness, myThickness);
+        myPoints.add(new Ellipse2D.Double(x, y, myThickness, myThickness));
     }
 
     /**
@@ -50,7 +56,10 @@ public class Point {
      */
     public void paint(Graphics2D pen) {
         pen.setColor(myColor);
-        pen.draw(myPoint);
-        pen.fill(myPoint);
+        
+        for (Ellipse2D point: myPoints) {          
+            pen.draw(point);
+            pen.fill(point);
+        }
     }
 }
