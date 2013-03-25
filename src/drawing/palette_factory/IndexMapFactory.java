@@ -54,7 +54,7 @@ public abstract class IndexMapFactory<V> {
 
                 String objectData = "";
                 for (int i = 1; i < data.length; ++i) {
-                    objectData += data[i];
+                    objectData += " " + data[i].trim();
                 }
 
                 V value = getObject(objectData.trim());

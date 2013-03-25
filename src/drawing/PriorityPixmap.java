@@ -22,7 +22,8 @@ public class PriorityPixmap extends Pixmap implements Comparable<PriorityPixmap>
      * 0 should be used for highest priority
      * 
      * @param filename is the image's filename
-     * @param priority
+     * @param priority determines order in which the pixmap is painted. 
+     * The lower the number, the first it will get painted.
      */
     public PriorityPixmap (String filename, int priority) {
         super(filename);
@@ -39,7 +40,7 @@ public class PriorityPixmap extends Pixmap implements Comparable<PriorityPixmap>
 
     @Override
     public int compareTo (PriorityPixmap other) {
-       return myPriority - other.getPriority();
+        return myPriority - other.getPriority();
     }
 
 }
