@@ -34,3 +34,6 @@ local.properties
 
 #checkstyle
 .checkstyle
+
+#our backups
+.bk
