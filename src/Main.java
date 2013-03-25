@@ -10,7 +10,7 @@ import view.View;
 public class Main {
 
     private static final String TITLE = "SLogo";
-    private static final String LANGUAGE = "English";
+    private static final String LANGUAGE = "Portuguese";
 
     /**
      * Creates the SLogo simulation.
