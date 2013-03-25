@@ -71,6 +71,8 @@ public class ColorChooser extends JFrame
     }
     
     private String getResourceLocation (String input) {
-        return myView.getResources().getString(input);
+        String allCommands = myView.getResources().getString(input);
+        String command = allCommands.split(",")[0];
+        return command;
     }
 }
