@@ -37,7 +37,7 @@ public class ViewFileMenu {
     private static final String RESOURCE_DIR = "/src/resources/";
     private static final String USER_DIR = "user.dir";
     private static final String HELP = "Help";
-    private static final String OPEN = "OpenCommand";
+    private static final String LOAD = "LoadCommand";
     private static final String FILE = "FileMenu";
     private static final String QUIT = "QuitCommand";
     private static final String NEW = "NewCommand";
@@ -118,7 +118,7 @@ public class ViewFileMenu {
                 }
             }
         };
-        return makeMenuItem(OPEN, OPEN.charAt(0), acl);
+        return makeMenuItem(LOAD, LOAD.charAt(0), acl);
     }
     
     private JMenuItem makeMenuBarAutoSave (final SaveOption status) {

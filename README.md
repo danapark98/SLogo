@@ -11,7 +11,7 @@
 <li> Repository: https://github.com/srwareham/SLogo
 </ul>
 <b>Start date:</b> February 15, 2013
-
+<b>End date:</b> March 25, 2013
 <hr>
 
 <b>View Team:</b>
