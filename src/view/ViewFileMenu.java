@@ -124,13 +124,7 @@ public class ViewFileMenu {
                 myView.getController().setSaveOption(status);
             }
         };
-        return makeMenuItem(getSaveOptionName(status), null, acl);
-    }
-    
-    // TODO: do you guys know how to put this as a method in the enum object?
-    private String getSaveOptionName (SaveOption input) {
-        String s = (input.equals(SaveOption.AUTO)) ? AUTOSAVE : MANUALSAVE;
-        return s;
+        return makeMenuItem(status.getResourceName(), null, acl);
     }
     
     private JMenuItem makeMenuBarSave () {
