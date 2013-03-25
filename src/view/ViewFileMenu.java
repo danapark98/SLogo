@@ -1,6 +1,7 @@
 package view;
 
 import control.Controller;
+import control.Controller.SaveOption;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,8 @@ import javax.swing.KeyStroke;
  * 
  */
 public class ViewFileMenu {
+    private static final String AUTOSAVE = "AutoSave";
+    private static final String MANUALSAVE = "ManualSave";
     private static final String INSTRUCTION_HELP_HTML = "instruction_help.html";
     private static final String RESOURCE_DIR = "/src/resources/";
     private static final String USER_DIR = "user.dir";
@@ -60,9 +63,10 @@ public class ViewFileMenu {
         JMenu result = new JMenu(getResourceLocalization(FILE));
         result.add(makeMenuBarNew());
         result.add(makeMenuBarOpen());
-        result.add(makeMenuBarSave());
+//        result.add(makeMenuBarSave());
         result.add(new JSeparator());
         result.add(makeMenuBarHelp());
+        result.add(makeSaveMenu());
         result.add(new JSeparator());
         result.add(makeMenuBarQuit());
         return result;
@@ -106,6 +110,26 @@ public class ViewFileMenu {
         };
     }
     
+    private AbstractAction makeMenuBarAutoSave(final SaveOption status) {
+        return new AbstractAction(getSaveOptionName(status)) {
+            private static final long serialVersionUID = -3069426439854097469L;
+
+            public void actionPerformed (ActionEvent e) {
+                myView.getController().setSaveOption(status);
+            }
+        };
+    }
+//TODO: do you guys know how to put this as a method in the enum object?
+    private String getSaveOptionName(SaveOption input) {
+        if (input.equals(SaveOption.AUTO)) {
+            return getResourceLocalization(AUTOSAVE);
+        }
+        else {
+            return getResourceLocalization(MANUALSAVE);
+        }
+        
+    }
+    
     private AbstractAction makeMenuBarSave () {
         return new AbstractAction(getResourceLocalization(SAVE)) {
             private static final long serialVersionUID = -686883125108316843L;
@@ -147,6 +171,15 @@ public class ViewFileMenu {
                 }
             }
         };
+    }
+    
+    private JMenu makeSaveMenu() {
+        JMenu saveOptions = new JMenu("Save Options");
+        saveOptions.add(makeMenuBarSave());
+        saveOptions.add(new JSeparator());
+        saveOptions.add(makeMenuBarAutoSave(SaveOption.AUTO));
+        saveOptions.add(makeMenuBarAutoSave(SaveOption.MANUAL));
+        return saveOptions;
     }
     
     private JFileChooser getViewChooser () {
