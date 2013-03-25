@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.swing.AbstractAction;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
+import javax.swing.event.MenuListener;
 
 
 /**
@@ -40,6 +42,9 @@ public class ViewFileMenu {
     private static final String QUIT = "QuitCommand";
     private static final String NEW = "NewCommand";
     private static final String SAVE = "SaveCommand";
+    private static final String COLOR = "ColorMenu";
+    private static final String CHANGEPENCOLOR = "ChangePenColor";
+
     private View myView;
     
     /**
@@ -69,6 +74,21 @@ public class ViewFileMenu {
         result.add(makeSaveMenu());
         result.add(new JSeparator());
         result.add(makeMenuBarQuit());
+        return result;
+    }
+    
+    protected JMenu makeColorMenu () {
+        JMenu result = new JMenu(getResourceLocation(COLOR));
+        
+        ActionListener acl = new ActionListener() {
+            public void actionPerformed (ActionEvent e) {
+                @SuppressWarnings("unused")
+                ColorChooser c = new ColorChooser(myView);
+            }
+        };
+        
+        JMenuItem item = makeMenuItem(CHANGEPENCOLOR, 'P', acl);
+        result.add(item);
         return result;
     }
     
@@ -200,4 +220,5 @@ public class ViewFileMenu {
         return newItem;
         
     }
+    
 }

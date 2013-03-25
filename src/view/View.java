@@ -79,6 +79,7 @@ public abstract class View extends JFrame {
         JMenuBar result = new JMenuBar();
         ViewFileMenu menu = new ViewFileMenu(this);
         result.add(menu.makeFileMenu());
+        result.add(menu.makeColorMenu());
         return result;
     }
 
