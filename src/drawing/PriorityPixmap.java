@@ -11,7 +11,7 @@ import util.Pixmap;
  * @author Ellango
  *
  */
-public class PriorityPixmap extends Pixmap implements Comparable<PriorityPixmap> {
+public class PriorityPixmap extends Pixmap {
     private int myPriority;
 
     /**
@@ -37,10 +37,4 @@ public class PriorityPixmap extends Pixmap implements Comparable<PriorityPixmap>
     public int getPriority() {
         return myPriority;
     }
-
-    @Override
-    public int compareTo (PriorityPixmap other) {
-        return myPriority - other.getPriority();
-    }
-
 }

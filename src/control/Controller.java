@@ -36,7 +36,22 @@ public class Controller {
      *
      */
     public enum SaveOption {
-        AUTO, MANUAL;
+        AUTO {
+            @Override
+            public String getResourceName() {
+                return AUTO_NAME;
+            }
+        },
+        MANUAL {
+            @Override
+            public String getResourceName() {
+                return MANUAL_NAME;
+            }
+        };
+        private static final String MANUAL_NAME = "ManualSave";
+        private static final String AUTO_NAME = "AutoSave";
+
+        public abstract String getResourceName();
     }
 
     /** String that indicated a return result from a user input */
