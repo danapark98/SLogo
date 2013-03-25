@@ -60,10 +60,10 @@ public class ViewFileMenu {
      * separate file for one line of actual code.
      */
     protected JMenu makeFileMenu () {
-        JMenu result = new JMenu(getResourceLocalization(FILE));
+        JMenu result = new JMenu(getResourceLocation(FILE));
         result.add(makeMenuBarNew());
         result.add(makeMenuBarOpen());
-//        result.add(makeMenuBarSave());
+        // result.add(makeMenuBarSave());
         result.add(new JSeparator());
         result.add(makeMenuBarHelp());
         result.add(makeSaveMenu());
@@ -73,27 +73,17 @@ public class ViewFileMenu {
     }
     
     private JMenuItem makeMenuBarNew () {
-        JMenuItem newItem = new JMenuItem(getResourceLocalization(NEW));
-        newItem.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_N,
-                                       Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        newItem.addActionListener(new ActionListener() {
+        ActionListener acl = new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 @SuppressWarnings("unused")
                 View newView = new SLogoView(myView.getTitle(), myView.getLanguage());
             }
-        });
-        return newItem;
+        };
+        return makeMenuItem(NEW, NEW.charAt(0), acl);
     }
     
-    private AbstractAction makeMenuBarOpen () {
-        return new AbstractAction(getResourceLocalization(OPEN)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = -3471532304609267535L;
-            
-            @Override
+    private JMenuItem makeMenuBarOpen () {
+        ActionListener acl = new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = getViewChooser().showOpenDialog(null);
@@ -105,36 +95,29 @@ public class ViewFileMenu {
                 catch (IOException io) {
                     // This should never occur because the picks a file
                     viewDisplayText(io.toString());
-                }              
+                }
             }
         };
+        return makeMenuItem(OPEN, OPEN.charAt(0), acl);
     }
     
-    private AbstractAction makeMenuBarAutoSave(final SaveOption status) {
-        return new AbstractAction(getSaveOptionName(status)) {
-            private static final long serialVersionUID = -3069426439854097469L;
-
+    private JMenuItem makeMenuBarAutoSave (final SaveOption status) {
+        ActionListener acl = new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myView.getController().setSaveOption(status);
             }
         };
-    }
-//TODO: do you guys know how to put this as a method in the enum object?
-    private String getSaveOptionName(SaveOption input) {
-        if (input.equals(SaveOption.AUTO)) {
-            return getResourceLocalization(AUTOSAVE);
-        }
-        else {
-            return getResourceLocalization(MANUALSAVE);
-        }
-        
+        return makeMenuItem(getSaveOptionName(status), null, acl);
     }
     
-    private AbstractAction makeMenuBarSave () {
-        return new AbstractAction(getResourceLocalization(SAVE)) {
-            private static final long serialVersionUID = -686883125108316843L;
-            
-            @Override
+    // TODO: do you guys know how to put this as a method in the enum object?
+    private String getSaveOptionName (SaveOption input) {
+        String s = (input.equals(SaveOption.AUTO)) ? AUTOSAVE : MANUALSAVE;
+        return s;
+    }
+    
+    private JMenuItem makeMenuBarSave () {
+        ActionListener acl = new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = getViewChooser().showSaveDialog(null);
@@ -144,24 +127,20 @@ public class ViewFileMenu {
                         getViewController().saveState(o);
                     }
                 }
-                
                 catch (IOException io) {
                     // This should never occur because the makes a file
                     viewDisplayText(io.toString());
                 }
             }
         };
+        return makeMenuItem(SAVE, SAVE.charAt(0), acl);
     }
     
-    private AbstractAction makeMenuBarHelp () {
-        return new AbstractAction(getResourceLocalization(HELP)) {
-            private static final long serialVersionUID = -6868831251083168422L;
-            
-            @Override
+    private JMenuItem makeMenuBarHelp () {
+        ActionListener acl = new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 Desktop hi = Desktop.getDesktop();
                 String here = System.getProperty(USER_DIR);
-                
                 try {
                     File file = new File(here + RESOURCE_DIR + INSTRUCTION_HELP_HTML);
                     hi.open(file);
@@ -171,9 +150,10 @@ public class ViewFileMenu {
                 }
             }
         };
+        return makeMenuItem(HELP, HELP.charAt(0), acl);
     }
     
-    private JMenu makeSaveMenu() {
+    private JMenu makeSaveMenu () {
         JMenu saveOptions = new JMenu("Save Options");
         saveOptions.add(makeMenuBarSave());
         saveOptions.add(new JSeparator());
@@ -186,7 +166,7 @@ public class ViewFileMenu {
         return myView.getChooser();
     }
     
-    private String getResourceLocalization (String input) {
+    private String getResourceLocation (String input) {
         return myView.getResources().getString(input);
         
     }
@@ -199,17 +179,25 @@ public class ViewFileMenu {
         myView.displayText(input);
     }
     
-    private AbstractAction makeMenuBarQuit () {
-        return new AbstractAction(getResourceLocalization(QUIT)) {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 1514963101036925921L;
-            
-            @Override
+    private JMenuItem makeMenuBarQuit () {
+        ActionListener acl = new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 System.exit(0);
             }
         };
+        return makeMenuItem(QUIT, QUIT.charAt(0), acl);
+    }
+    
+    private JMenuItem makeMenuItem (String name, Character key, ActionListener a) {
+        
+        JMenuItem newItem = new JMenuItem(getResourceLocation(name));
+        if (key != null) {
+            newItem.setAccelerator(
+                    KeyStroke.getKeyStroke(KeyEvent.getExtendedKeyCodeForChar(key),
+                                           Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        }
+        newItem.addActionListener(a);
+        return newItem;
+        
     }
 }
