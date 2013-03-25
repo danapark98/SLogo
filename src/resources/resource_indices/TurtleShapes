@@ -1,7 +1,7 @@
 #The first number is the index for the picture and the text is the name of the
 #pixmap that will be the turtle image
--1 = Blank.png
+-1 = blank.png
 0 = turtle_art.png
 1 = dog.jpg
 2 = squirrel.png
-3 = Unicorn.jpg
+3 = unicorn.jpg

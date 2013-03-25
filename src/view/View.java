@@ -24,7 +24,7 @@ public abstract class View extends JFrame {
      */
     public static final Dimension PREFERRED_CANVAS_SIZE = new Dimension(400, 500);
     private static final long serialVersionUID = 1L;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages.";
     private static final String ENGLISH = "English";
     private static final String USER_DIR = "user.dir";
 

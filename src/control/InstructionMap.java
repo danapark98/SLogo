@@ -23,13 +23,15 @@ import java.util.ResourceBundle;
 public class InstructionMap implements Serializable {
 
     private static final String INSTRUCTION_INDEX_FILE =
-            "/src/resources/instruction_index.txt";
+            "/src/resources/resource_indices/instruction_index";
     
     // Please note the . at the end of instructions
     private static final String INSTRUCTION_PACKAGE_LOCATION = "instructions.";
     
     private static final String VARIABLE_HEADER = "variableHeader";
     private static final String FUNCTIONS_HEADER = "functionsHeader";
+    
+    
     /**
      * Auto-generated ID for I/O
      */

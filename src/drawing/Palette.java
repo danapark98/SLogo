@@ -1,6 +1,7 @@
 package drawing;
 
 import drawing.lines.LineBuilder;
+import drawing.palette_factory.PaletteFactory;
 import exceptions.IllegalInstructionException;
 import java.awt.Color;
 import java.io.IOException;

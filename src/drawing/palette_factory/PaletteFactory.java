@@ -1,4 +1,4 @@
-package drawing;
+package drawing.palette_factory;
 
 import java.awt.Color;
 import java.io.FileNotFoundException;
@@ -11,6 +11,8 @@ import control.Controller;
 import control.factories.PrototypeMapFactory;
 import simulation.Turtle;
 import util.Pixmap;
+import drawing.GraphicsMap;
+import drawing.PriorityPixmap;
 import drawing.lines.DashedLine;
 import drawing.lines.LineBuilder;
 import drawing.lines.RainbowLine;
@@ -37,11 +39,13 @@ public class PaletteFactory {
     private static final char COMMENT_CHARACTER = '#';
 
     private static final String SHAPE_INDEX_FILE =
-            "/src/resources/TurtleShapes";
+            "/src/resources/resource_indices/TurtleShapes";
 
     private static final String LINE_STYLE_LOCATION = "drawing.lines.";
-    private static final String LINE_STYLE_INDEX_LOCATION = "/src/resources/line_styles_index.txt";
-    private static final String BACKGROUND_COLOR_IMAGE_FILE = "/src/resources/BackgroundImages";
+    private static final String LINE_STYLE_INDEX_LOCATION = 
+            "/src/resources/resource_indices/line_styles_index";
+    private static final String BACKGROUND_COLOR_IMAGE_FILE = 
+            "/src/resources/resource_indices/BackgroundImages";
     
     /** Error Message to display when a class can not be instantiated from file */
     private static final String ERROR_MESSAGE = "Missing instruction class names";
@@ -52,6 +56,8 @@ public class PaletteFactory {
     public static final int DOG_IMAGE_INDEX = 1;
     public static final int SQUIRREL_IMAGE_INDEX = 2;
     public static final int UNICORN_IMAGE_INDEX = 3;
+
+    private static final String COLOR_FILE_LOCATION = "/src/resources/resource_indices/color_indices";
 
     /**
      * Unused right now. Could be used to load in turtle pictures using reflection
@@ -87,13 +93,12 @@ public class PaletteFactory {
         }
         line.close();
         return new GraphicsMap<>(shapeMap);
-
     }
 
     public static GraphicsMap<Color> initializeColors () {
-        Map<Integer, Color> colors = new HashMap<Integer, Color>();
-        colors.put(DEFAULT_CLEAR_INDEX, CLEAR);
-        colors.put(DEFAULT_BLACK_INDEX, Color.BLACK);
+        IndexMapFactory<Color> cmf = new ColorFactory(COLOR_FILE_LOCATION);
+        Map<Integer, Color> colors= cmf.buildMap();
+
         return new GraphicsMap<Color>(colors);
     }
 
@@ -133,8 +138,7 @@ public class PaletteFactory {
                 String[] shapes = str.split("=");
                 try {
                     shapeMap.put(Integer.parseInt(shapes[0].trim()),
-                                 new PriorityPixmap(shapes[1].trim(), Integer.parseInt(shapes[2]
-                                         .trim())));
+                                 new PriorityPixmap(shapes[1].trim(), Integer.parseInt(shapes[2].trim())));
                 }
                 catch (NumberFormatException e) {
                     line.close();
