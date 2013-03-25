@@ -23,7 +23,7 @@ import view.View;
  *
  */
 public class Background {
-    private static final int GRID_PRIORITY = 0;
+    private static final int GRID_PRIORITY = 1;
     private static final int WHITE_BACKGROUND_INDEX = 0;
     private static final PriorityPixmap GRID = 
             new PriorityPixmap("grid.png", GRID_PRIORITY);
