@@ -3,6 +3,7 @@ package drawing;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import exceptions.CorruptedEnvironmentException;
 import exceptions.IllegalInstructionException;
@@ -56,7 +57,12 @@ public class Background {
      * @param pen
      */
     public void paint (Graphics2D pen) {
-        Collections.sort(myActiveImages);
+        Collections.sort(myActiveImages, new Comparator<PriorityPixmap>() {
+            @Override
+            public int compare (PriorityPixmap arg0, PriorityPixmap arg1) {
+                return arg0.getPriority() - arg1.getPriority();
+            }}
+        );
         for (Pixmap image : myActiveImages) {
             image.paint(pen, Turtle.startingLocation(), View.PREFERRED_CANVAS_SIZE);
         }
@@ -66,9 +72,8 @@ public class Background {
      * Turns the grid on
      */
     public void gridOn() {
-        // don't add it again
-        if (!myActiveImages.contains(GRID))
-            myActiveImages.add(GRID);
+        gridOff(); // only one grid allowed
+        myActiveImages.add(GRID);
     }
     
     /**
@@ -81,20 +86,18 @@ public class Background {
     /**
      * Switches the background color image with the one specified in the Palette
      * at the provided index
-     * 
-     * Adds the new image, and then removes the old.
+     *
      * 
      * @param index corresponding to the new image
      * @throws IllegalInstructionException if no image corresponds to the provided
      * index
      */
     public void switchColorImage(int index) throws IllegalInstructionException {
-        // don't add it again
-        if (myCurrentColorImageIndex != index) {
-            myActiveImages.add(myPalette.getBackgroundColorImage(index));
-            myActiveImages.remove(myPalette.getBackgroundColorImage(myCurrentColorImageIndex));
-            myCurrentColorImageIndex = index;
-        }
+        PriorityPixmap currentImage = myPalette.getBackgroundColorImage(myCurrentColorImageIndex);
+        myActiveImages.remove(currentImage);
+
+        myActiveImages.add(myPalette.getBackgroundColorImage(index));
+        myCurrentColorImageIndex = index;
     }
 
 }
