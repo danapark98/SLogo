@@ -3,9 +3,10 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -16,11 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.StyledDocument;
 
 
 /**
@@ -43,6 +41,11 @@ public class SLogoView extends View {
      * Value for the borders of the JPanels.
      */
     private static final int BORDER_OFFSET = 5;
+    
+    /**
+     * A magic number for the increase in the space of the history panel when a command is added.
+     */
+    private static final int SIZE_INCREMENT = 60;
     /**
      * Forward button label text.
      */
@@ -119,11 +122,6 @@ public class SLogoView extends View {
      * Text area where the user can type, edit, copy and paste the commands.
      */
     private JTextArea myConsole;
-    /**
-     * Text area that displays the commands submitted by the user and
-     * the controller messages
-     */
-    private JTextArea myHistory;
     private JPanel myHistoryPanel;
     
     /**
@@ -146,38 +144,35 @@ public class SLogoView extends View {
      */
     @Override
     public void displayText (String text) {
-        /*
-         * String s;
-         * if (text.length() > 0) {
-         * s = (myHistory.getText().length() == 0) ? text : "\n"+ text;
-         * myHistory.append(s);
-         * }
-         */
-        JButton button  = makeTextButton(text);
+        JTextArea button = makeTextButton(text);
         myHistoryPanel.add(button);
-        myHistoryPanel.revalidate();
-        myHistoryPanel.repaint();
-        double height = myHistoryPanel.getSize().getHeight() + 60;
-        //TODO: Change the magic number to the actual size of the buttons.
+        double height = myHistoryPanel.getSize().getHeight() + SIZE_INCREMENT;
+        // TODO: Change the magic number to the actual size of the buttons.
         myHistoryPanel.setPreferredSize(
                 new Dimension((int) (myHistoryPanel.getSize().getWidth()), (int) height));
-        
+        myHistoryPanel.revalidate();
+        myHistoryPanel.repaint();
     }
     
-    private JButton makeTextButton (final String text) {
-        JButton button = new JButton(text);
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
+    /**
+     * Creates an area with a text that, when clicked, sends a command to the controller if
+     * the text is formatted as a command.
+     * 
+     * @param text
+     * @return A TextArea with a Mouse Listener
+     */
+    private JTextArea makeTextButton (final String text) {
+        JTextArea button = new JTextArea(text);
+        button.setFocusable(false);
+        button.setEditable(false);
         if (!text.startsWith(">>")) {
-            button.addActionListener(new ActionListener() {
+            button.addMouseListener(new MouseAdapter() {
                 @Override
-                public void actionPerformed (ActionEvent e) {
+                public void mouseClicked (MouseEvent e) {
                     submitCommand(text);
                 }
             });
         }
-        button.setAlignmentX(LEFT_ALIGNMENT);
         return button;
     }
     
@@ -221,12 +216,6 @@ public class SLogoView extends View {
      * @return Panel with History.
      */
     private JPanel makeHistoryPanel () {
-        /*
-         * JTextArea textArea = new JTextArea();
-         * myHistory = textArea;
-         * textArea.setEditable(false);
-         */
-        
         myHistoryPanel = new JPanel();
         myHistoryPanel.setPreferredSize(PREFERRED_HISTORY_SIZE);
         myHistoryPanel.setBackground(Color.white);
