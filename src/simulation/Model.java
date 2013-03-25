@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
+//import java.util.LinkedList; unimplemented
 import java.util.Map;
 import view.View;
 
@@ -30,7 +30,7 @@ import view.View;
 public class Model implements DisplayEditor {
 
     private static final int DEFAULT_TURTLE_ID = 1;
-    private static final int MAXIMUM_STATES_REMEMBERED = 10;
+//    private static final int MAXIMUM_STATES_REMEMBERED = 10; unimplemented
     /**
      * Represents all of the state of the simulation.  It contains all of the 
      * turtles, the active turtle, the lines and stamps on the screen, and the
@@ -51,8 +51,8 @@ public class Model implements DisplayEditor {
     }
 
     private State myState;
-    private LinkedList<State> myPreviousStates;
-    private LinkedList<State> myUndoneStates;
+//    private LinkedList<State> myPreviousStates; unimplemented
+//    private LinkedList<State> myUndoneStates; unimplemented
 
     private View myView;
 
@@ -61,8 +61,8 @@ public class Model implements DisplayEditor {
      */
     public Model () {
         myState = new State();
-        myPreviousStates = new LinkedList<State>();
-        myUndoneStates = new LinkedList<State>();
+//        myPreviousStates = new LinkedList<State>(); unimplemented
+//        myUndoneStates = new LinkedList<State>(); unimplemented
 
         myState.turtles = new HashMap<Integer, Turtle>();
         myState.lines = new ArrayList<Point>();
