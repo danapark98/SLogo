@@ -28,6 +28,8 @@ import view.View;
  */
 public class Controller {
 
+    private static final String AUTOSAVE_FILENAME = "/autoSLogo.bk";
+
     /**
      * A type representing whether the Controller should save the environment
      * automatically or only when the user specifies to
@@ -123,7 +125,6 @@ public class Controller {
      *        (e.g. picking a different file)
      */
     public void saveState (OutputStream os) {
-
         ObjectOutput out;
         try {
             out = new ObjectOutputStream(os);
@@ -138,7 +139,7 @@ public class Controller {
      * Autosaves the environment to the file autoSLogo in the user's directory
      */
     private void autoSave () {
-        File file = new File(System.getProperty(USER_DIR) + "/autoSLogo");
+        File file = new File(System.getProperty(USER_DIR) + AUTOSAVE_FILENAME);
         try {
             OutputStream os = new FileOutputStream(file);
             saveState(os);

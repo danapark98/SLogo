@@ -168,7 +168,9 @@ public class Environment implements Serializable {
      * @throws IOException if objects can't be written
      */
     public void save(ObjectOutput out) throws IOException {
-        out.writeObject(myInstructions);
+        for (InstructionMap im : myInstructions) {
+            im.save(out);
+        }
         myPalette.save(out);
     }
     
@@ -182,9 +184,10 @@ public class Environment implements Serializable {
      * in wrong order
      * @throws IOException if objects can't be read
      */
-    @SuppressWarnings("unchecked")
     public void load(ObjectInput in) throws ClassNotFoundException, IOException {
-        myInstructions = (List<InstructionMap>) in.readObject();
+        for (InstructionMap im : myInstructions) {
+            im.load(in);
+        }
         myPalette.load(in);
     }
 }

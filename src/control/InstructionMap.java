@@ -5,6 +5,9 @@ import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.UserInstruction;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -212,5 +215,36 @@ public class InstructionMap implements Serializable {
                 map.remove(key);
             }
         }
+    }
+    
+    /**
+     * Save the mutable state of the InstructionMap to be loaded in later
+     * 
+     * @param out to write objects needed later
+     * @throws IOException if objects can't be written
+     */
+    public void save (ObjectOutput out) throws IOException {
+        out.writeObject(myGlobalVariables);
+        out.writeObject(myInstructionMaps);
+        out.writeObject(myInstructions);
+        out.writeObject(myUserInstructions);
+    }
+
+    /**
+     * Load in the mutable state of the InstructionMap
+     * 
+     * Objects must be loaded in the same order they were saved.
+     * 
+     * @param in to read objects in 
+     * @throws ClassNotFoundException if file not saved properly or objects read
+     * in wrong order
+     * @throws IOException if objects can't be read
+     */
+    @SuppressWarnings("unchecked")
+    public void load (ObjectInput in) throws ClassNotFoundException, IOException {
+        myGlobalVariables = (Map<String, Instruction>) in.readObject();
+        myInstructionMaps = (Collection<Map<String, Instruction>>) in.readObject();
+        myInstructions = (Map<String, Instruction>) in.readObject();
+        myUserInstructions = (Map<String, Instruction>) in.readObject();
     }
 }
