@@ -18,7 +18,7 @@ import javax.swing.JMenuBar;
  * 
  */
 public abstract class View extends JFrame {
-
+    
     /**
      * Preferred Dimensions of the Canvas.
      */
@@ -27,13 +27,13 @@ public abstract class View extends JFrame {
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages.";
     private static final String ENGLISH = "English";
     private static final String USER_DIR = "user.dir";
-
+    
     private ResourceBundle myResources;
     private Canvas myCanvas;
     private Controller myController;
     private String myLanguage;
     private JFileChooser myChooser;
-
+    
     /**
      * Creates a SLogoView.
      * 
@@ -48,29 +48,28 @@ public abstract class View extends JFrame {
         catch (MissingResourceException e) {
             myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + ENGLISH);
         }
-
+        
         setTitle(title);
-//        this.setDefaultCloseOperation(EXIT_ON_CLOSE); this will make the close button
-//        close all view windows when clicked we choose this not to be desired behavior
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         setCanvas();
         getContentPane().add(makeMenus(), BorderLayout.NORTH);
     }
-
+    
     /**
      * Method to build all InputAccepting JComponents.
      * 
      * @return
      */
     protected abstract JComponent makeInput ();
-
+    
     /**
      * Method to build the display area consisting of the Canvas
      * 
      * @return
      */
     protected abstract JComponent makeCanvasPanel ();
-
+    
     /**
      * Create a menu to appear at the top of the frame,
      * usually File, Edit, App Specific Actions, Help
@@ -82,14 +81,14 @@ public abstract class View extends JFrame {
         result.add(menu.makeColorMenu());
         return result;
     }
-
+    
     /**
      * Method to display a text to the user in a display Box.
      * 
      * @param text Text to display
      */
     public abstract void displayText (String text);
-
+    
     /**
      * Sets the Controller for this View.
      * 
@@ -99,7 +98,7 @@ public abstract class View extends JFrame {
     public void setController (Controller controller) {
         myController = controller;
     }
-
+    
     /**
      * Sets the canvas for the view. Will be called from the model or controller.
      * Called with command within controller such as myView.super.setCanvas(model)
@@ -111,15 +110,15 @@ public abstract class View extends JFrame {
         myCanvas = new Canvas(PREFERRED_CANVAS_SIZE);
         myCanvas.start(this);
     }
-
+    
     protected Controller getController () {
         return myController;
     }
-
+    
     protected Canvas getCanvas () {
         return myCanvas;
     }
-
+    
     /**
      * Returns the Resources from the View.
      * 
@@ -128,7 +127,7 @@ public abstract class View extends JFrame {
     public ResourceBundle getResources () {
         return myResources;
     }
-
+    
     /**
      * returns the JFileChooser for the View.
      * 
@@ -137,7 +136,7 @@ public abstract class View extends JFrame {
     public JFileChooser getChooser () {
         return myChooser;
     }
-
+    
     /**
      * Returns the current language of the View.
      * 

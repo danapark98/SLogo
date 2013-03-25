@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -124,7 +125,6 @@ public class SLogoView extends View {
      */
     private JTextArea myHistory;
     private JPanel myHistoryPanel;
-    private JPanel histPane;
     
     /**
      * Creates an instance of the View with personalized layout.
@@ -153,10 +153,14 @@ public class SLogoView extends View {
          * myHistory.append(s);
          * }
          */
-        
-        myHistoryPanel.add(makeTextButton(text));
+        JButton button  = makeTextButton(text);
+        myHistoryPanel.add(button);
         myHistoryPanel.revalidate();
-        histPane.revalidate();
+        myHistoryPanel.repaint();
+        double height = myHistoryPanel.getSize().getHeight() + 60;
+        //TODO: Change the magic number to the actual size of the buttons.
+        myHistoryPanel.setPreferredSize(
+                new Dimension((int) (myHistoryPanel.getSize().getWidth()), (int) height));
         
     }
     
@@ -173,6 +177,7 @@ public class SLogoView extends View {
                 }
             });
         }
+        button.setAlignmentX(LEFT_ALIGNMENT);
         return button;
     }
     
@@ -216,7 +221,6 @@ public class SLogoView extends View {
      * @return Panel with History.
      */
     private JPanel makeHistoryPanel () {
-        histPane = new JPanel();
         /*
          * JTextArea textArea = new JTextArea();
          * myHistory = textArea;
@@ -227,11 +231,12 @@ public class SLogoView extends View {
         myHistoryPanel.setPreferredSize(PREFERRED_HISTORY_SIZE);
         myHistoryPanel.setBackground(Color.white);
         myHistoryPanel.setLayout(new BoxLayout(myHistoryPanel, BoxLayout.PAGE_AXIS));
-        // myHistoryPanel.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
+        JScrollPane myScroller = new JScrollPane();
+        myScroller.setViewportView(myHistoryPanel);
+        myScroller.setPreferredSize(PREFERRED_HISTORY_SIZE);
+        JPanel histPane = new JPanel();
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
-        histPane.setPreferredSize(PREFERRED_HISTORY_SIZE);
-        JScrollPane scroller = new JScrollPane(myHistoryPanel);
-        histPane.add(scroller);
+        histPane.add(myScroller);
         histPane.setBorder(makeBorder(HISTORY_NAME));
         return histPane;
     }
