@@ -4,11 +4,12 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import exceptions.CorruptedEnvironmentException;
-import exceptions.IllegalInstructionException;
 import simulation.Turtle;
 import util.Pixmap;
 import view.View;
+import exceptions.CorruptedEnvironmentException;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents all possible background layers for the Canvas.  The Background is 
@@ -35,8 +36,8 @@ public class Background {
     /**
      * Constructs a BackgroundLayer with a white background image
      * 
-     * @param grid
-     * @param colorImages
+     * @param palette is a palette that will be used to generate the background
+     *
      */
     public Background(Palette palette) {
         myPalette = palette;
@@ -53,7 +54,7 @@ public class Background {
     /**
      * Paints the canvas with all the background layers in order
      * 
-     * @param pen
+     * @param pen is the pen that will be used to paint the background
      */
     public void paint (Graphics2D pen) {
         Collections.sort(myActiveImages);
@@ -67,8 +68,9 @@ public class Background {
      */
     public void gridOn() {
         // don't add it again
-        if (!myActiveImages.contains(GRID))
-            myActiveImages.add(GRID);
+        if (!myActiveImages.contains(GRID)) {
+			myActiveImages.add(GRID);
+		}
     }
     
     /**

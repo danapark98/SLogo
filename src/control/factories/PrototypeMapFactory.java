@@ -1,12 +1,8 @@
 package control.factories;
 
-import control.Controller;
 import exceptions.CorruptedEnvironmentException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -21,14 +17,9 @@ import java.util.Scanner;
  * @author Scott Valentine
  * 
  */
-public class PrototypeMapFactory<V> {
+public class PrototypeMapFactory<V> extends TextFileReader<V> {
     
-    private static final String ERROR_MESSAGE = "Missing class names";
-
-
     private static final String PROPERTIES_SEPERATOR = "[,]";
-    private static final char COMMENT_CHARACTER = '#';
-
     private static final int DEFAULT_START_INDEX = 0;
 
     /**
@@ -154,20 +145,4 @@ public class PrototypeMapFactory<V> {
         return str;
     }
 
-    protected Scanner getScanner(String indexFile) {
-        FileReader fileToBeRead = null;
-        String currentDirectory = System.getProperty(Controller.USER_DIR);
-        try {
-            fileToBeRead = new FileReader(currentDirectory + indexFile);
-        }
-        catch (FileNotFoundException e) {
-            throw new MissingResourceException(ERROR_MESSAGE, "", "");
-        }
-        Scanner line = new Scanner(fileToBeRead);
-        return line;
-    }
-    
-    private boolean commentedLine(String line) {
-        return line.charAt(0) == COMMENT_CHARACTER || line.length() <= 0;
-    }
 }
