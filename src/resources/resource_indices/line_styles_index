@@ -1,6 +1,6 @@
 #
 # Line Styles
 #
-SolidLine
-DashedLine
-RainbowLine
+0 = SolidLine
+1 = DashedLine
+2 = RainbowLine

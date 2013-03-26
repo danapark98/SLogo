@@ -1,13 +1,7 @@
 package drawing.palette_factory;
-
-import control.Controller;
 import control.factories.TextFileReader;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.Scanner;
 
 /**
@@ -25,11 +19,6 @@ import java.util.Scanner;
  * @param <V> is the object to which integer indices map.
  */
 public abstract class IndexMapFactory<V> extends TextFileReader<V> {
-
-    /** Error Message to display when a class can not be instantiated from file */
-    private static final String ERROR_MESSAGE = "Missing instruction class names";
-
-    private static final char COMMENT_CHAR = '#';
 
     private String myIndexFile;
 
@@ -64,7 +53,7 @@ public abstract class IndexMapFactory<V> extends TextFileReader<V> {
                 result.put(key, value);
             }
         }
-
+        fileScanner.close();
         return result;
 
     }
