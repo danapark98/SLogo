@@ -167,7 +167,7 @@ public class SLogoView extends View {
      */
     private JTextArea makeTextButton (final String text) {
         JTextArea button = new JTextArea(text);
-        button.setFocusable(false);
+        button.setFocusable(true);
         if (!text.startsWith(">>")) {
             button.addMouseListener(new MouseAdapter() {
                 @Override
@@ -185,7 +185,6 @@ public class SLogoView extends View {
             });
         }
         button.setEnabled(true);
-        // button.setEditable(false);
         return button;
     }
     
@@ -236,6 +235,7 @@ public class SLogoView extends View {
         JScrollPane myScroller = new JScrollPane();
         myScroller.setViewportView(myHistoryPanel);
         myScroller.setPreferredSize(PREFERRED_HISTORY_SIZE);
+        myScroller.getVerticalScrollBar().setValue(myHistoryPanel.getHeight());
         JPanel histPane = new JPanel();
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
         histPane.add(myScroller);
