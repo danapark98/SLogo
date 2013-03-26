@@ -3,8 +3,12 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -163,16 +167,24 @@ public class SLogoView extends View {
      */
     private JTextArea makeTextButton (final String text) {
         JTextArea button = new JTextArea(text);
-        button.setFocusable(false);
-        button.setEditable(false);
+        button.setFocusable(true);
         if (!text.startsWith(">>")) {
             button.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked (MouseEvent e) {
-                    submitCommand(text);
+                    if (((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) ||
+                        ((e.getModifiers() & InputEvent.META_MASK) == InputEvent.META_MASK)) {
+                        StringSelection stringSelection = new StringSelection(text);
+                        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                        clpbrd.setContents(stringSelection, null);
+                    }
+                    else {
+                        submitCommand(text);
+                    }
                 }
             });
         }
+        button.setEnabled(true);
         return button;
     }
     
@@ -223,6 +235,7 @@ public class SLogoView extends View {
         JScrollPane myScroller = new JScrollPane();
         myScroller.setViewportView(myHistoryPanel);
         myScroller.setPreferredSize(PREFERRED_HISTORY_SIZE);
+        myScroller.getVerticalScrollBar().setValue(myHistoryPanel.getHeight());
         JPanel histPane = new JPanel();
         histPane.setLayout(new BoxLayout(histPane, BoxLayout.PAGE_AXIS));
         histPane.add(myScroller);
@@ -261,17 +274,17 @@ public class SLogoView extends View {
         turtleMovePane.setLayout(new BorderLayout());
         
         JButton fdButton =
-                makeTurtleMoveButton(getResourceName(FORWARD_LABEL), getResourceName(FD_COMMAND) +
-                                                                     " " + DEFAULT_FD_MAG);
+                makeMoveButton(getResourceName(FORWARD_LABEL),
+                               getResourceName(FD_COMMAND) + " " + DEFAULT_FD_MAG);
         JButton leftButton =
-                makeTurtleMoveButton(getResourceName(LEFT_LABEL), getResourceName(LEFT) + " " +
-                                                                  DEFAULT_TURN_MAG);
+                makeMoveButton(getResourceName(LEFT_LABEL),
+                               getResourceName(LEFT) + " " + DEFAULT_TURN_MAG);
         JButton rightButton =
-                makeTurtleMoveButton(getResourceName(RIGHT_LABEL), getResourceName(RIGHT) + " " +
-                                                                   DEFAULT_TURN_MAG);
+                makeMoveButton(getResourceName(RIGHT_LABEL),
+                               getResourceName(RIGHT) + " " + DEFAULT_TURN_MAG);
         JButton backButton =
-                makeTurtleMoveButton(getResourceName(BACKWARD_LABEL), getResourceName(FD_COMMAND) +
-                                                                      " " + -DEFAULT_FD_MAG);
+                makeMoveButton(getResourceName(BACKWARD_LABEL),
+                               getResourceName(FD_COMMAND) + " " + -DEFAULT_FD_MAG);
         
         turtleMovePane.add(fdButton, BorderLayout.NORTH);
         turtleMovePane.add(leftButton, BorderLayout.LINE_START);
@@ -321,7 +334,7 @@ public class SLogoView extends View {
      * 
      * @return button
      */
-    private JButton makeTurtleMoveButton (String name, final String command) {
+    private JButton makeMoveButton (String name, final String command) {
         JButton button = new JButton(name);
         button.addActionListener(new ActionListener() {
             @Override
