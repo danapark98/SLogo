@@ -6,7 +6,6 @@ Sean, Yoshi: View
 Ellango, Ryan, Scott: Model / Controller
 Resources Consulted: stackoverflow.com, Google Images
 (default package) Main.java to run the simulation.  This file can be modified to change the language or the title of the simulation
-
 Program use: 
 File-> New to open a new workspace
 File-> Load to load a previously saved workspace
@@ -20,6 +19,7 @@ All necessary data files can be found in src/resources
 Easter eggs: Type in “unicorn” to change the line color to a rainbow effect. Also try setsh 3 for added effect.
 
 Known Bugs:
+
 The Operating System level close button (ie red “x” in Windows or red circle in Mac) does not kill the process running our simulation- it only closes the view.  We were presented with the choice of this error or that all running workspaces would be terminated upon any of them being closed out.  Our quit button, however, successfully terminates the underlying process.
 Line drawing for a distance past 6990 (ie fd 7000)  results in stack overflow from a recursive method
 Defined functions do not always save properly to files.
