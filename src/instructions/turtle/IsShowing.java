@@ -1,6 +1,6 @@
 package instructions.turtle;
 
-import drawing.palette_factory.PaletteFactory;
+import factories.palette_factories.PaletteFactory;
 import instructions.booleans.BooleanInstruction;
 import simulation.Model;
 

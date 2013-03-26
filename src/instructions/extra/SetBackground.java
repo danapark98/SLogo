@@ -1,8 +1,9 @@
 package instructions.extra;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+
 
 /**
  * Instruction to set the background color image to a default in the Palette

@@ -84,3 +84,4 @@ extra.GetUserVariables
 extra.GridOn
 extra.GridOff
 extra.SetBackground
+extra.Exit

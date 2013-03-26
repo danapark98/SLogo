@@ -2,8 +2,8 @@ package drawing;
 
 import drawing.lines.LineBuilder;
 import drawing.lines.SolidLine;
-import drawing.palette_factory.PaletteFactory;
 import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import simulation.DisplayEditor;

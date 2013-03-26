@@ -11,12 +11,23 @@ package exceptions;
 
 @SuppressWarnings("serial")
 public class RedoException extends Exception {
+   
+    private final String myMessage;
+    
+    /**
+     * Constructor for Redo Exception with message.
+     * 
+     * @param message is the message for the excpetion to display
+     */
+    public RedoException(String message) {
+        myMessage = message;
+    }
     
     /**
      * The message provided to the user when exception is thrown.
      */
     @Override
     public String toString() {
-        return "Cannot redo anymore";
+        return myMessage;
     }
 }

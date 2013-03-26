@@ -1,6 +1,6 @@
 package control;
 
-import control.factories.PrototypeMapFactory;
+import factories.PrototypeMapFactory;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
@@ -27,14 +27,10 @@ public class InstructionMap implements Serializable {
 
     private static final String INSTRUCTION_INDEX_FILE =
             "/src/resources/resource_indices/instruction_index";
-    
+
     // Please note the . at the end of instructions
     private static final String INSTRUCTION_PACKAGE_LOCATION = "instructions.";
-    
-    private static final String VARIABLE_HEADER = "variableHeader";
-    private static final String FUNCTIONS_HEADER = "functionsHeader";
-    
-    
+
     /**
      * Auto-generated ID for I/O
      */
@@ -43,24 +39,24 @@ public class InstructionMap implements Serializable {
     private Collection<Map<String, Instruction>> myInstructionMaps;
 
     private Map<String, Instruction> myInstructions;
-    
+
     private Map<String, Instruction> myUserInstructions;
-    
+
     private Map<String, Instruction> myGlobalVariables;
-    
-    private ResourceBundle myResources; 
-    
+
+    private ResourceBundle myResources;
+
     /**
      * Creates an Instruction Map based on the bass resource bundle.
      * 
      * @param resource is the ResourceBundle that contains all of the instruction keywords.
      */
     public InstructionMap(ResourceBundle resource) {
-        
-        this();        
+
+        this();
 
         myResources = resource;
-        
+
         initiateInstructionMap();
         myInstructionMaps.add(myInstructions);
 
@@ -71,11 +67,11 @@ public class InstructionMap implements Serializable {
      */
     public InstructionMap() {
         myInstructionMaps = new ArrayList<Map<String, Instruction>>();
-        
+
         myUserInstructions = new HashMap<String, Instruction>();
-        
+
         myInstructionMaps.add(myUserInstructions);
-        
+
         myGlobalVariables = new HashMap<String, Instruction>();
         myInstructionMaps.add(myGlobalVariables);
     }
@@ -87,8 +83,9 @@ public class InstructionMap implements Serializable {
      */
     private void initiateInstructionMap() {
         PrototypeMapFactory<Instruction> imf =
-                new PrototypeMapFactory<Instruction>(myResources, 
-                        INSTRUCTION_INDEX_FILE, INSTRUCTION_PACKAGE_LOCATION);
+                new PrototypeMapFactory<Instruction>(myResources,
+                                                     INSTRUCTION_INDEX_FILE,
+                                                     INSTRUCTION_PACKAGE_LOCATION);
         myInstructions = imf.buildStringMap();
     }
 
@@ -103,11 +100,11 @@ public class InstructionMap implements Serializable {
         if (userInstruction instanceof ConstantInstruction) {
             myGlobalVariables.put(keyword, userInstruction);
         }
-        else {     
+        else {
             myUserInstructions.put(keyword, userInstruction);
         }
     }
-    
+
     /**
      * Adds a new user defined variable.
      * 
@@ -117,7 +114,7 @@ public class InstructionMap implements Serializable {
     public void addUserDefVar(String keyword, Instruction value) {
         myGlobalVariables.put(keyword, value);
     }
-    
+
     /**
      * Adds a new user defined function.
      * 
@@ -131,17 +128,19 @@ public class InstructionMap implements Serializable {
     /**
      * Makes a string containing info for all user defined variables.
      * 
+     * @param header is the header to display for the text.
+     * 
      * @return String containing info on user defined values.
      */
-    public String variablesToString() {
+    public String variablesToString(String header) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(myResources.getString(VARIABLE_HEADER));
+        sb.append(header);
 
         for (String key : myGlobalVariables.keySet()) {
             Instruction bi = myGlobalVariables.get(key);
             sb.append(key + "\t" + bi.toString());
-            
+
         }
         return sb.toString();
     }
@@ -149,12 +148,13 @@ public class InstructionMap implements Serializable {
     /**
      * Makes a string containing information of user-defined functions.
      * 
-     * @return A String with user-defined function info. 
+     * @param header is the header to display for the text.
+     * @return A String with user-defined function info.
      */
-    public String userDefinedInstructionstoString() {
+    public String userDefinedInstructionstoString(String header) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(myResources.getString(FUNCTIONS_HEADER));
+        sb.append(header);
 
         for (String key : myUserInstructions.keySet()) {
             UserInstruction instruct = (UserInstruction) myUserInstructions.get(key);
@@ -174,15 +174,13 @@ public class InstructionMap implements Serializable {
      * @param key to check in the InstructionMap
      * @return Whether the key is used in this InstructionMap.
      */
-    public boolean containsKey(String key) {      
-        for (Map<String, Instruction> map: myInstructionMaps) {
-            if (map.containsKey(key)) {
-                return true;
-            }
+    public boolean containsKey(String key) {
+        for (Map<String, Instruction> map : myInstructionMaps) {
+            if (map.containsKey(key)) { return true; }
         }
         return false;
     }
-    
+
     /**
      * 
      * Returns the instruction corresponding to the passed keyword.
@@ -192,11 +190,11 @@ public class InstructionMap implements Serializable {
      */
     public BaseInstruction get(String key) {
         for (Map<String, Instruction> map : myInstructionMaps) {
-            if (map.containsKey(key)) { 
-                
-                BaseInstruction original = (BaseInstruction)map.get(key);
-                
-                return original.newCopy(); 
+            if (map.containsKey(key)) {
+
+                BaseInstruction original = (BaseInstruction) map.get(key);
+
+                return original.newCopy();
             }
         }
         return null;
@@ -216,14 +214,14 @@ public class InstructionMap implements Serializable {
             }
         }
     }
-    
+
     /**
      * Save the mutable state of the InstructionMap to be loaded in later
      * 
      * @param out to write objects needed later
      * @throws IOException if objects can't be written
      */
-    public void save (ObjectOutput out) throws IOException {
+    public void save(ObjectOutput out) throws IOException {
         out.writeObject(myGlobalVariables);
         out.writeObject(myInstructionMaps);
         out.writeObject(myInstructions);
@@ -235,13 +233,13 @@ public class InstructionMap implements Serializable {
      * 
      * Objects must be loaded in the same order they were saved.
      * 
-     * @param in to read objects in 
+     * @param in to read objects in
      * @throws ClassNotFoundException if file not saved properly or objects read
-     * in wrong order
+     *         in wrong order
      * @throws IOException if objects can't be read
      */
     @SuppressWarnings("unchecked")
-    public void load (ObjectInput in) throws ClassNotFoundException, IOException {
+    public void load(ObjectInput in) throws ClassNotFoundException, IOException {
         myGlobalVariables = (Map<String, Instruction>) in.readObject();
         myInstructionMaps = (Collection<Map<String, Instruction>>) in.readObject();
         myInstructions = (Map<String, Instruction>) in.readObject();

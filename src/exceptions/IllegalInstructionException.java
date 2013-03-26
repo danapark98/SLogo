@@ -26,7 +26,8 @@ public class IllegalInstructionException extends Exception {
 
     @Override
     public String toString () {
-        return "Error: " + myCommand + " is not a legal instruction";
+        return myCommand;
+        //return "Error: " + myCommand + " is not a legal instruction";
     }
 
 }

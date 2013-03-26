@@ -1,8 +1,8 @@
 package drawing;
 
+import exceptions.IllegalInstructionException;
 import java.io.Serializable;
 import java.util.Map;
-import exceptions.IllegalInstructionException;
 
 
 
@@ -54,7 +54,7 @@ public class GraphicsMap<E> implements Serializable {
      * Sets the element at a specified index to the user defined value.
      * 
      * @param index of the element to be edited (or added if index is not yet in use)
-     * @param E is the new element added
+     * @param element is the new element added
      * @throws IllegalInstructionException if index not positive
      */
     public void put(int index, E element) throws IllegalInstructionException {
