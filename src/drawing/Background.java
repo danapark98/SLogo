@@ -68,6 +68,7 @@ public class Background {
 		for (Pixmap image : myActiveImages) {
 			image.paint(pen, Turtle.startingLocation(),
 					View.PREFERRED_CANVAS_SIZE);
+			
 		}
 	}
 

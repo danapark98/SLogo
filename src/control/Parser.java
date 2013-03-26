@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Converts a user inputed string into an Instruction that can execute on the model.
  * 
  * @author Scott Valentine
- * @author Ryan Fishel
+ * @author Ryan Fishelcake
  * @author Ellango Jothimurugesan
  * 
  */

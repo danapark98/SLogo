@@ -27,6 +27,7 @@ public class PriorityPixmap extends Pixmap {
      */
     public PriorityPixmap (String filename, int priority) {
         super(filename);
+        myPriority = priority;
     }
     
     /**
