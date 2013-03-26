@@ -13,14 +13,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.swing.AbstractAction;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
-import javax.swing.event.MenuListener;
 
 
 /**
@@ -37,7 +34,7 @@ public class ViewFileMenu {
     private static final String RESOURCE_DIR = "/src/resources/";
     private static final String USER_DIR = "user.dir";
     private static final String HELP = "Help";
-    private static final String OPEN = "OpenCommand";
+    private static final String LOAD = "LoadCommand";
     private static final String FILE = "FileMenu";
     private static final String QUIT = "QuitCommand";
     private static final String NEW = "NewCommand";
@@ -118,7 +115,7 @@ public class ViewFileMenu {
                 }
             }
         };
-        return makeMenuItem(OPEN, OPEN.charAt(0), acl);
+        return makeMenuItem(LOAD, LOAD.charAt(0), acl);
     }
     
     private JMenuItem makeMenuBarAutoSave (final SaveOption status) {
@@ -127,13 +124,7 @@ public class ViewFileMenu {
                 myView.getController().setSaveOption(status);
             }
         };
-        return makeMenuItem(getSaveOptionName(status), null, acl);
-    }
-    
-    // TODO: do you guys know how to put this as a method in the enum object?
-    private String getSaveOptionName (SaveOption input) {
-        String s = (input.equals(SaveOption.AUTO)) ? AUTOSAVE : MANUALSAVE;
-        return s;
+        return makeMenuItem(status.getResourceName(), null, acl);
     }
     
     private JMenuItem makeMenuBarSave () {

@@ -1,12 +1,8 @@
 package control.factories;
 
-import control.Controller;
 import exceptions.CorruptedEnvironmentException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -19,17 +15,13 @@ import java.util.Scanner;
  * @param <V> is the Class of the prototypes that the properties file maps to.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
-public class PrototypeMapFactory<V> {
+public class PrototypeMapFactory<V> extends MapFactory<V> {
     
-    private static final String ERROR_MESSAGE = "Missing class names";
-
-
     private static final String PROPERTIES_SEPERATOR = "[,]";
-    private static final char COMMENT_CHARACTER = '#';
-
-    private static final int DEFAULT_START_INDEX = 0;
 
     /**
      * Character that indicates a comment when places at beginning of line of
@@ -77,15 +69,14 @@ public class PrototypeMapFactory<V> {
      * @return Map of keywords to instructions.
      */
     public Map<String, V> buildStringMap() {
-        Scanner line = getScanner(myIndexFile);
+        Scanner line = getScanner();
         Map<String, V> protoMap =
                 new HashMap<String, V>();
 
         while (line.hasNextLine()) {
             String nextLine = line.nextLine();
             if (!commentedLine(nextLine)) {
-                String classPath = myPackageLocation + nextLine;
-                V generic = getValue(classPath);
+                V generic = getValue(nextLine);
 
                 String[] keyWords = getKeys(nextLine);
                 
@@ -99,40 +90,22 @@ public class PrototypeMapFactory<V> {
         line.close();
         return protoMap;
     }
-    
-    /**
-     * Builds a Map of prototypes based on index in text file.
-     * 
-     * @return
-     */
-    public Map<Integer, V> buildIndexMap() {
-        Scanner line = getScanner(myIndexFile);
-        Map<Integer, V> protoMap =
-                new HashMap<Integer, V>();
-        
-        int index = DEFAULT_START_INDEX;
-        
-        while (line.hasNextLine()) {           
-            String currentLine = line.nextLine();            
-            if (!commentedLine(currentLine)) {
-                String classPath = myPackageLocation + currentLine;       
-                V val = getValue(classPath);
-                protoMap.put(index, val);
-                index += 1;
-            }        
-        }
-        line.close();
-        return protoMap;
-    }
-    
-    private String[] getKeys(String line) {
+  
+
+	private String[] getKeys(String line) {
         String className = getClassName(line);
         String entry = myResources.getString(className);
         return entry.split(PROPERTIES_SEPERATOR);
     }
-
+    
+	@Override
+    protected V getMapValue(String[] restOfLine) {
+        return getValue(restOfLine[1].trim());
+    }
+	
     @SuppressWarnings("unchecked")
-    private V getValue(String classPath) {
+	private V getValue(String className) {
+    	String classPath = myPackageLocation + className;
         try {
             Class<?> genericClass = Class.forName(classPath);
             return (V) genericClass.newInstance();
@@ -140,7 +113,7 @@ public class PrototypeMapFactory<V> {
         catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
             throw new CorruptedEnvironmentException();
         }
-    }
+	}
 
     /**
      * Determines the name of the class from the class path.
@@ -153,21 +126,10 @@ public class PrototypeMapFactory<V> {
         String str = path[path.length - 1];
         return str;
     }
-
-    protected Scanner getScanner(String indexFile) {
-        FileReader fileToBeRead = null;
-        String currentDirectory = System.getProperty(Controller.USER_DIR);
-        try {
-            fileToBeRead = new FileReader(currentDirectory + indexFile);
-        }
-        catch (FileNotFoundException e) {
-            throw new MissingResourceException(ERROR_MESSAGE, "", "");
-        }
-        Scanner line = new Scanner(fileToBeRead);
-        return line;
-    }
     
-    private boolean commentedLine(String line) {
-        return line.charAt(0) == COMMENT_CHARACTER || line.length() <= 0;
+    @Override
+    protected String getIndexFile() {
+    	return myIndexFile;
     }
+
 }

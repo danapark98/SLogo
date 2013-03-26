@@ -2,6 +2,6 @@
 #pixmap that will be the turtle image
 -1 = blank.png
 0 = turtle_art.png
-1 = dog.jpg
+1 = dog.png
 2 = squirrel.png
-3 = unicorn.jpg
+3 = unicorn.png

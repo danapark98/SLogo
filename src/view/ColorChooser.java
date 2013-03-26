@@ -49,16 +49,8 @@ public class ColorChooser extends JFrame
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing (java.awt.event.WindowEvent windowEvent) {
-                float[] compArray = null;
-                compArray = myColor.getRGBColorComponents(compArray);
-                int red = (int) (compArray[0] * MAX_RGB);
-                int green = (int) (compArray[1] * MAX_RGB);
-                int blue = (int) (compArray[2] * MAX_RGB);
-                myView.getController().createRunInstruction(getResourceLocation(SET_PALLETE) + " " +
-                                                            1 + " " + red + " " +
-                                                            green + " " + blue);
-                myView.getController().createRunInstruction(getResourceLocation(SET_PEN_COLOR) +
-                                                            " 1");
+                setVisible(false);
+                dispose();
             }
         });
     }
@@ -70,6 +62,16 @@ public class ColorChooser extends JFrame
      */
     public void stateChanged (ChangeEvent e) {
         myColor = myTcc.getColor();
+        float[] compArray = null;
+        compArray = myColor.getRGBColorComponents(compArray);
+        int red = (int) (compArray[0] * MAX_RGB);
+        int green = (int) (compArray[1] * MAX_RGB);
+        int blue = (int) (compArray[2] * MAX_RGB);
+        myView.getController().createRunInstruction(getResourceLocation(SET_PALLETE) + " " +
+                                                    1 + " " + red + " " +
+                                                    green + " " + blue);
+        myView.getController().createRunInstruction(getResourceLocation(SET_PEN_COLOR) +
+                                                    " 1");
     }
     
     private String getResourceLocation (String input) {
