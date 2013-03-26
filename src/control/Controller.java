@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ResourceBundle;
 import simulation.Model;
 import view.View;
 
@@ -28,43 +29,22 @@ import view.View;
  */
 public class Controller {
 
-    private static final String AUTOSAVE_FILENAME = "/autoSLogo.bk";
-
-    /**
-     * A type representing whether the Controller should save the environment
-     * automatically or only when the user specifies to
-     *
-     */
-    public enum SaveOption {
-        AUTO {
-            @Override
-            public String getResourceName() {
-                return AUTO_NAME;
-            }
-        },
-        MANUAL {
-            @Override
-            public String getResourceName() {
-                return MANUAL_NAME;
-            }
-        };
-        private static final String MANUAL_NAME = "ManualSave";
-        private static final String AUTO_NAME = "AutoSave";
-
-        public abstract String getResourceName();
-    }
 
     /** String that indicated a return result from a user input */
-    public static final String PRINT_INDICATOR = ">> ";
+    public static final String PRINT_INDICATOR = "printIndicator";
     /** String indicating the current user directory*/
     public static final String USER_DIR = "user.dir";
-    private static final String FILE_SAVING_ERROR_MESSAGE = "Error: Could not save to file.";
-    private static final String FILE_LOADING_ERROR_MESSAGE = "Error: File format is not compatible";
+    private static final String FILE_SAVING_ERROR_MESSAGE = "fileSaveErrorMessage";
+    private static final String FILE_LOADING_ERROR_MESSAGE = "fileLoadErrorMessage";
+    
+    private static final String AUTOSAVE_FILENAME = "/autoSLogo.bk";
+    
     private Model myModel;
     private View myView;
     private Parser myParser;
     private Environment myEnvironment;
     private SaveOption mySaveOption;
+    private ResourceBundle myResources;
 
     /**
      * This creates a new controller with a model, a view, an environment,
@@ -78,6 +58,7 @@ public class Controller {
         myModel = model;
         myModel.setView(view);
         myEnvironment = myModel.initialize();
+        myResources = myEnvironment.getResources();
         myParser = new Parser(myEnvironment);
         mySaveOption = SaveOption.MANUAL;
     }
@@ -123,7 +104,7 @@ public class Controller {
             myEnvironment.load(in);
         }
         catch (ClassNotFoundException | ClassCastException | IOException e) {
-            myModel.informView(FILE_LOADING_ERROR_MESSAGE);
+            myModel.informView(myResources.getString(FILE_LOADING_ERROR_MESSAGE));
         }
     }
 
@@ -146,7 +127,7 @@ public class Controller {
             myEnvironment.save(out);
         }
         catch (IOException e) {
-            myModel.informView(FILE_SAVING_ERROR_MESSAGE);
+            myModel.informView(myResources.getString(FILE_SAVING_ERROR_MESSAGE));
         }
     }
 
@@ -160,7 +141,7 @@ public class Controller {
             saveState(os);
         }
         catch (FileNotFoundException e) {
-            myModel.informView(FILE_SAVING_ERROR_MESSAGE);
+            myModel.informView(myResources.getString(FILE_SAVING_ERROR_MESSAGE));
         }
     }
 
@@ -180,6 +161,41 @@ public class Controller {
      */
     public void clear () {
         new ClearScreen().execute(myModel);
+    }
+    
+    /**
+     * A type representing whether the Controller should save the environment
+     * automatically or only when the user specifies to
+     *
+     */
+    public enum SaveOption {
+        /**
+         * Auto-save protocol
+         */
+        AUTO {
+            @Override
+            public String getResourceName() {
+                return AUTO_NAME;
+            }
+        },
+        /**
+         * Manual save protocol
+         */
+        MANUAL {
+            @Override
+            public String getResourceName() {
+                return MANUAL_NAME;
+            }
+        };
+        private static final String MANUAL_NAME = "ManualSave";
+        private static final String AUTO_NAME = "AutoSave";
+
+        /**
+         * Gives the name of the resource
+         * 
+         * @return The name of the resource (save)
+         */
+        public abstract String getResourceName();
     }
 
 }

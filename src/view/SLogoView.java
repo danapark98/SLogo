@@ -168,6 +168,7 @@ public class SLogoView extends View {
     private JTextArea makeTextButton (final String text) {
         JTextArea button = new JTextArea(text);
         button.setFocusable(true);
+        button.setEditable(false);
         if (!text.startsWith(">>")) {
             button.addMouseListener(new MouseAdapter() {
                 @Override
@@ -184,7 +185,6 @@ public class SLogoView extends View {
                 }
             });
         }
-        button.setEnabled(true);
         return button;
     }
     

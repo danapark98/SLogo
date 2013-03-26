@@ -1,13 +1,14 @@
 package drawing;
 
 import drawing.lines.LineBuilder;
-import drawing.palette_factory.PaletteFactory;
 import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import util.Pixmap;
 
@@ -32,12 +33,15 @@ public class Palette implements Serializable {
 
     /**
      * Constructs Palette with default colors, linestyles, and shapes
+     * 
+     * @param resources is ResourceBundle that contains specific langauge strings
      */
-    public Palette() {
-        myColors = PaletteFactory.initializeColors();
-        myLineStyles = PaletteFactory.initializeLineStyles();
-        myImages = PaletteFactory.initializeImages();
-        myBackgroundColorImages = PaletteFactory.initializeBackgroundColorImages();
+    public Palette(ResourceBundle resources) {        
+        PaletteFactory pf = new PaletteFactory(resources);        
+        myColors = pf.initializeColors();
+        myLineStyles = pf.initializeLineStyles();
+        myImages = pf.initializeImages();
+        myBackgroundColorImages = pf.initializeBackgroundColorImages();
     }
     
     

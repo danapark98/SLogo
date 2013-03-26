@@ -1,4 +1,4 @@
-package control.factories;
+package factories;
 
 import exceptions.CorruptedEnvironmentException;
 import java.util.HashMap;
@@ -19,8 +19,8 @@ import java.util.Scanner;
  * @author Ellango Jothimurugesan
  * 
  */
-public class PrototypeMapFactory<V> extends MapFactory<V> {
-    
+public class PrototypeMapFactory<V> extends MapFactory<String, V> {
+
     private static final String PROPERTIES_SEPERATOR = "[,]";
 
     /**
@@ -30,8 +30,6 @@ public class PrototypeMapFactory<V> extends MapFactory<V> {
 
     private String myIndexFile;
     private String myPackageLocation;
-
-    private ResourceBundle myResources;
 
     /**
      * Constructor that creates new factory based on the resource bundle of
@@ -46,18 +44,7 @@ public class PrototypeMapFactory<V> extends MapFactory<V> {
      *        prototyped are located
      */
     public PrototypeMapFactory(ResourceBundle resources, String indexFile, String packageLoc) {
-        this(indexFile, packageLoc);
-        myResources = resources;    
-    }
-    
-    /**
-     * Constructs a new factory that can build Index Maps.
-     * 
-     * @param indexFile is the location of the text file that contains prototyping class info.
-     * @param packageLoc is the location of the package where all the classes to be 
-     *        prototyped are located
-     */
-    public PrototypeMapFactory(String indexFile, String packageLoc) {
+        super(resources); 
         myPackageLocation = packageLoc;
         myIndexFile = indexFile;
     }
@@ -79,7 +66,7 @@ public class PrototypeMapFactory<V> extends MapFactory<V> {
                 V generic = getValue(nextLine);
 
                 String[] keyWords = getKeys(nextLine);
-                
+
                 for (String keyword : keyWords) {
                     if (keyword.length() > 0) {
                         protoMap.put(keyword, generic);
@@ -90,22 +77,22 @@ public class PrototypeMapFactory<V> extends MapFactory<V> {
         line.close();
         return protoMap;
     }
-  
 
-	private String[] getKeys(String line) {
+
+    private String[] getKeys(String line) {
         String className = getClassName(line);
-        String entry = myResources.getString(className);
+        String entry = getResources().getString(className);
         return entry.split(PROPERTIES_SEPERATOR);
     }
-    
-	@Override
+
+    @Override
     protected V getMapValue(String[] restOfLine) {
         return getValue(restOfLine[1].trim());
     }
-	
+
     @SuppressWarnings("unchecked")
-	private V getValue(String className) {
-    	String classPath = myPackageLocation + className;
+    private V getValue(String className) {
+        String classPath = myPackageLocation + className;
         try {
             Class<?> genericClass = Class.forName(classPath);
             return (V) genericClass.newInstance();
@@ -113,7 +100,7 @@ public class PrototypeMapFactory<V> extends MapFactory<V> {
         catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
             throw new CorruptedEnvironmentException();
         }
-	}
+    }
 
     /**
      * Determines the name of the class from the class path.
@@ -126,10 +113,10 @@ public class PrototypeMapFactory<V> extends MapFactory<V> {
         String str = path[path.length - 1];
         return str;
     }
-    
+
     @Override
     protected String getIndexFile() {
-    	return myIndexFile;
+        return myIndexFile;
     }
 
 }

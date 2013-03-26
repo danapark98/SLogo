@@ -6,6 +6,7 @@ import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 
@@ -13,24 +14,25 @@ import java.util.Scanner;
  * Converts a user inputed string into an Instruction that can execute on the model.
  * 
  * @author Scott Valentine
- * @author Ryan Fishelcake
+ * @author Ryan Fishel
  * @author Ellango Jothimurugesan
  * 
  */
 public class Parser {
 
     /** Indicator for the start of a list*/
-    public static final String BEGINNING_OF_LIST = "[";
+    public static final String BEGINNING_OF_LIST = "listStart";
     
     /** Indicator for the end of a list*/
-    public static final String END_OF_LIST = "]";
+    public static final String END_OF_LIST = "listEnd";
     
     /** Indicator for a user defined variable*/
-    public static final String START_OF_VARIABLE = ":";
-    private static final String ARGUMENT_ERROR_MESSAGE = "Incorrect number of arguments";
-    private static final String LIST_ERROR_MESSAGE = "Incorrect bracket formatting";
+    public static final String START_OF_VARIABLE = "userVariable";
+    private static final String ARGUMENT_ERROR_MESSAGE = "argumentErrorMessage";
+    private static final String LIST_ERROR_MESSAGE = "listErrorMessage";
     /** Environment contains the system functions and user defined variables/functions. */
     private Environment myEnvironment;
+    private ResourceBundle myResources;
 
     /**
      * Creates new parser that uses an environment for to create new instructions from text.
@@ -39,6 +41,7 @@ public class Parser {
      */
     public Parser (Environment environment) {
         myEnvironment = environment;
+        myResources = myEnvironment.getResources();
     }
 
     /**
@@ -78,10 +81,10 @@ public class Parser {
             String commandName = line.next();
 
             Instruction result;
-            if (commandName.equals(BEGINNING_OF_LIST)) {
+            if (commandName.equals(myResources.getString(BEGINNING_OF_LIST))) {
                 result = generateInstruction(new Scanner(unpackList(line)));
             }
-            else if (commandName.startsWith(START_OF_VARIABLE)) {
+            else if (commandName.startsWith(myResources.getString(START_OF_VARIABLE))) {
                 result = new VariableInstruction(commandName);
             }
             else {
@@ -114,10 +117,10 @@ public class Parser {
      */
     public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
         if (!line.hasNext()) {
-            throw new IllegalInstructionException(ARGUMENT_ERROR_MESSAGE);
+            throw new IllegalInstructionException(myResources.getString(ARGUMENT_ERROR_MESSAGE));
         }
         String next = line.next();
-        if (next.equals(BEGINNING_OF_LIST)) {
+        if (next.equals(myResources.getString(BEGINNING_OF_LIST))) {
             next = unpackList(line);
         }
         return generateInstruction(new Scanner(next));
@@ -135,10 +138,12 @@ public class Parser {
         int counterBracket = 1;
         while (counterBracket != 0) {
             if (!line.hasNext()) {
-                throw new IllegalInstructionException(LIST_ERROR_MESSAGE);
+                throw new IllegalInstructionException(myResources.getString(LIST_ERROR_MESSAGE));
             }
             String str = line.next();
-            counterBracket = updateCounterBracket(str, counterBracket);
+            counterBracket = updateCounterBracket(str, counterBracket, 
+                                                  myResources.getString(BEGINNING_OF_LIST), 
+                                                  myResources.getString(END_OF_LIST));
             if (counterBracket != 0) {
                 sb.append(str);
                 sb.append(" ");
@@ -153,15 +158,19 @@ public class Parser {
      * have been seen so far (left brackets count as positive, right brackets
      * are negative)
      * 
-     * @param str is the current string being considered
-     * @param counterBracket is the current number of brackets
+     * @param str is the current string being considered.
+     * @param counterBracket is the current number of brackets.
+     * @param listStart is the indicator for the start of a list.
+     * @param listEnd is the indicator of the end of a list.
+     * 
      * @return the updated counterBracket
      */
-    static int updateCounterBracket (String str, int counterBracket) {
-        if (str.equals(BEGINNING_OF_LIST)) {
+    static int updateCounterBracket (String str, int counterBracket, 
+                                     String listStart, String listEnd) {
+        if (str.equals(listStart)) {
             return counterBracket + 1;
         }
-        else if (str.equals(END_OF_LIST)) {
+        else if (str.equals(listEnd)) {
             return counterBracket - 1;
         }
         else {

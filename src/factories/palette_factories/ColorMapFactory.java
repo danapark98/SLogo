@@ -1,6 +1,7 @@
-package drawing.palette_factory;
+package factories.palette_factories;
 
 import java.awt.Color;
+import java.util.ResourceBundle;
 
 /**
  * Factory that builds map of indices to colors read in from text file.
@@ -8,7 +9,7 @@ import java.awt.Color;
  * @author Scott Valentine
  *
  */
-public class ColorMapFactory extends IndexMapFactory<Color> {
+public class ColorMapFactory extends IndexMapFactory< Color> {
 
     // info for reading in from textfile
     private static final int R_INDEX = 0;
@@ -21,9 +22,11 @@ public class ColorMapFactory extends IndexMapFactory<Color> {
      * Default Constructor. Sets the file to read Color data from
      * 
      * @param indexFileLocation is the location of the text file containing color data.
+     * 
+     * @param resources is a ResourceBundle with language specific strings.
      */
-    public ColorMapFactory(String indexFileLocation) {
-        super(indexFileLocation);
+    public ColorMapFactory(String indexFileLocation, ResourceBundle resources) {
+        super(indexFileLocation, resources);
     }
 
     @Override

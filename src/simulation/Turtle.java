@@ -2,8 +2,8 @@ package simulation;
 
 import drawing.Palette;
 import drawing.Pen;
-import drawing.palette_factory.PaletteFactory;
 import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;

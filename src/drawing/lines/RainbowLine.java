@@ -44,7 +44,6 @@ public class RainbowLine implements LineBuilder {
         myG = 0;
         myB = 0;
         myLast = new Location();
-
     }
 
     @Override

@@ -8,7 +8,17 @@ import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
 
-
+/**
+ * Represents an instruction loops for a set amount of times.<br>
+ * <br>
+ * <u> Examples:</u> <br>
+ * dotimes [ :i 10 ] [fd :i ] ---> moves the turtle forward 10 times (by 0, 1,2,...)
+ * 
+ * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
+ * 
+ */
 public class DoTimes extends BaseInstruction {
 
     /**

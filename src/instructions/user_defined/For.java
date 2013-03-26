@@ -1,12 +1,12 @@
 package instructions.user_defined;
 
 import control.Environment;
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
+import simulation.Model;
 
 /**
  * Represents the for loop instruction
@@ -27,6 +27,9 @@ public class For extends BaseInstruction {
     private static final int END_INDEX = 2;
     private static final int INCREMENT_INDEX = 3;
     
+    /**
+     * Default constructor for new instance ready to be loaded.
+     */
     public For() {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }

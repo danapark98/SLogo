@@ -1,8 +1,9 @@
 package instructions.turtle;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+
 
 /**
  * Represents Tell instruction, which changes the active turtle

@@ -1,7 +1,7 @@
 package instructions.turtle;
 
-import drawing.palette_factory.PaletteFactory;
 import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 import instructions.BaseInstruction;
 import simulation.Model;
 

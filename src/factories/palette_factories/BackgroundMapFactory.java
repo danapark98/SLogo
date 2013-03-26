@@ -1,6 +1,7 @@
-package drawing.palette_factory;
+package factories.palette_factories;
 
 import drawing.PriorityPixmap;
+import java.util.ResourceBundle;
 
 /**
  * Factory that creates a mapping of indices to PriorityPixmaps from info from a text file.
@@ -10,8 +11,8 @@ import drawing.PriorityPixmap;
  */
 public class BackgroundMapFactory extends IndexMapFactory<PriorityPixmap> {
 
-    protected BackgroundMapFactory(String indexFileLocation) {
-        super(indexFileLocation);
+    protected BackgroundMapFactory(String indexFileLocation, ResourceBundle resources) {
+        super(indexFileLocation, resources);
     }
 
     @Override

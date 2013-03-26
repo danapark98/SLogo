@@ -1,5 +1,6 @@
-package drawing.palette_factory;
+package factories.palette_factories;
 
+import java.util.ResourceBundle;
 import util.Pixmap;
 
 /**
@@ -10,8 +11,8 @@ import util.Pixmap;
  */
 public class ImageMapFactory extends IndexMapFactory<Pixmap> {
 
-    protected ImageMapFactory(String indexFileLocation) {
-        super(indexFileLocation);
+    protected ImageMapFactory(String indexFileLocation, ResourceBundle resources) {
+        super(indexFileLocation, resources);
     }
 
     @Override

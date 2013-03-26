@@ -1,8 +1,9 @@
 package instructions.extra;
 
-import simulation.Model;
 import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
+import simulation.Model;
+
 
 /**
  * Instruction to turn the grid on.

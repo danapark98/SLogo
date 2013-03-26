@@ -28,32 +28,40 @@ public class Environment implements Serializable {
 
     private static final int GLOBAL_SCOPE = 0;
 
-    private static final String UNDEFINED_INSTRUCTION = " is undefined and";
+    private static final String UNDEFINED_INSTRUCTION = "undefinedInstruction";
 
-    private static final String SCOPE_LEVEL_HEADER = "AT SCOPE LEVEL ";
+    private static final String SCOPE_LEVEL_HEADER = "scopeHeader";
+
+    private static final String USER_FUNCTIONS_HEADER = "functionsHeader";
+
+    private static final String USER_VARIABLE_HEADER = "variableHeader";
 
     private int myScope;
     private List<InstructionMap> myInstructions;
 
     private Palette myPalette;
 
+    private ResourceBundle myResources;
+
     /**
      * Creates a new Environment with the default instructions located
-     * .\resources\instruction_index.txt
+     * .\resources\instruction_indices\instruction_index.txt
      * 
      * @param resource is the ResourceBundle where all of the instruction keywords are stored.
      */
-    public Environment (ResourceBundle resource) {
-        
+    public Environment(ResourceBundle resource) {
+
+        myResources = resource;
+
         myInstructions = new ArrayList<InstructionMap>();
-        
+
         myScope = GLOBAL_SCOPE;
-        
+
         InstructionMap iMap = new InstructionMap(resource);
 
         myInstructions.add(iMap);
 
-        myPalette = new Palette();
+        myPalette = new Palette(resource);
     }
 
     /**
@@ -61,7 +69,7 @@ public class Environment implements Serializable {
      * 
      * @return The current palette in use.
      */
-    public Palette getPalette () {
+    public Palette getPalette() {
         return myPalette;
     }
 
@@ -71,12 +79,12 @@ public class Environment implements Serializable {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction is the instruction to be added to the environment.
      */
-    public void addInstruction (String keyword,
-                                           Instruction userInstruction) {        
-        InstructionMap currentScope = myInstructions.get(myScope);        
+    public void addInstruction(String keyword,
+                               Instruction userInstruction) {
+        InstructionMap currentScope = myInstructions.get(myScope);
         currentScope.addInstruction(keyword, userInstruction);
     }
-    
+
     /**
      * Defines a new user function.
      * 
@@ -86,7 +94,7 @@ public class Environment implements Serializable {
     public void defineFunction(String keyword, Instruction instruction) {
         myInstructions.get(myScope).addUserDefFunct(keyword, instruction);
     }
-    
+
     /**
      * Defines a new user variable.
      * 
@@ -104,11 +112,11 @@ public class Environment implements Serializable {
      * 
      * @param instructionName of the instruction to be deleted.
      */
-    public void removeInstruction (String instructionName) {       
-        InstructionMap currentScope = myInstructions.get(myScope);       
+    public void removeInstruction(String instructionName) {
+        InstructionMap currentScope = myInstructions.get(myScope);
         currentScope.remove(instructionName);
     }
-    
+
     /**
      * Gives all user defined functions and variables as a string.
      * 
@@ -117,14 +125,15 @@ public class Environment implements Serializable {
     public String customValuesToString() {
         StringBuilder sb = new StringBuilder();
         for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
-            sb.append(SCOPE_LEVEL_HEADER + i + "\n");
-            sb.append(myInstructions.get(i).userDefinedInstructionstoString());
-            sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString());
+            sb.append(myResources.getString(SCOPE_LEVEL_HEADER) + i + "\n");
+            sb.append(myInstructions.get(i).userDefinedInstructionstoString(myResources.getString(
+                USER_FUNCTIONS_HEADER)));
+            sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString(myResources.getString(
+                USER_VARIABLE_HEADER)));
         }
-        
+
         return sb.toString();
     }
-
 
     /**
      * Gives the Instruction associated with the passed keyword.
@@ -134,13 +143,14 @@ public class Environment implements Serializable {
      * @throws IllegalInstructionException This occurs when the keyword is not
      *         found in the environment.
      */
-    public BaseInstruction getInstruction (String commandName) throws IllegalInstructionException {
+    public BaseInstruction getInstruction(String commandName) throws IllegalInstructionException {
         for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
-            if (myInstructions.get(i).containsKey(commandName)) {
-                return myInstructions.get(i).get(commandName);
+            if (myInstructions.get(i).containsKey(commandName)) { 
+                return myInstructions.get(i).get(commandName); 
             }
         }
-        throw new IllegalInstructionException(commandName + UNDEFINED_INSTRUCTION);
+        throw new IllegalInstructionException(commandName +
+                                              myResources.getString(UNDEFINED_INSTRUCTION));
     }
 
     /**
@@ -148,20 +158,20 @@ public class Environment implements Serializable {
      */
     public void inScope() {
         myScope += 1;
-        
+
         myInstructions.add(new InstructionMap());
     }
-    
+
     /**
      * Decrease the scope of the current variables.
      */
     public void outScope() {
         myInstructions.remove(myInstructions.size() - 1);
         myScope -= 1;
-    } 
-    
+    }
+
     /**
-     * Called by the controller to save the state of the environment to be 
+     * Called by the controller to save the state of the environment to be
      * loaded in later
      * 
      * @param out to write objects needed later
@@ -173,15 +183,15 @@ public class Environment implements Serializable {
         }
         myPalette.save(out);
     }
-    
+
     /**
      * Called by the controller to load in the state of the environment
      * 
      * Objects must be loaded in the same order they were saved.
      * 
-     * @param in to read objects in 
+     * @param in to read objects in
      * @throws ClassNotFoundException if file not saved properly or objects read
-     * in wrong order
+     *         in wrong order
      * @throws IOException if objects can't be read
      */
     public void load(ObjectInput in) throws ClassNotFoundException, IOException {
@@ -189,5 +199,14 @@ public class Environment implements Serializable {
             im.load(in);
         }
         myPalette.load(in);
+    }
+    
+    /**
+     * Gives the resources used by this environment.
+     *  
+     * @return Resource bundle used by this environment
+     */
+    public ResourceBundle getResources() {
+        return myResources;
     }
 }

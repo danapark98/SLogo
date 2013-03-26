@@ -47,12 +47,6 @@
     note, to make parsing easier, these will always be separated from other tokens by spaces</TD>
   <TD><code>[ fd 50 rt 90 ]</code></TD>
 </TR>
-<TR>
-  <TD>( <em>command</em> <em>expression(s)</em> )</TD>
-  <TD>allows <em>command</em> to take any number of <em>expressions</em> as parameter values<br />
-    note, this syntax is legal for any command, but only makes sense for a few commands</TD>
-  <TD>( SUM 1 2 3 4 5 )</TD>
-</TR>
 </TABLE>
 
 <H4>Turtle Commands</H4>
@@ -242,7 +236,7 @@
 </TR>
 <TR>
   <TD><code>NOTEQUAL? </code><em>value1</em> <em>value2</em><br />
-    </code>NOTEQUALP </code><em>value1</em> <em>value2</em> &nbsp;</TD>
+    <code>NOTEQUALP </code><em>value1</em> <em>value2</em> &nbsp;</TD>
   <TD>returns 1 if  <em>value1</em> and  <em>value2</em> are not equal, otherwise 0</TD>
 </TR>
 <TR>
@@ -300,7 +294,7 @@
     returns 1 if command is successfully defined, otherwise 0</TD>
 </TR>
 <tr>
-  <td>DOTIMES [ <em>variable</em> <em>limit</em> ]<br />
+  <td><code>DOTIMES </code>[ <em>variable</em> <em>limit</em> ]<br />
     [ <em>command(s)</em> ]</td>
   <td>runs the <em>commands</em> for each value specified in the range, i.e., from 0 up to (<em>limit</em> - 1). <br />
     note, <em>variable</em> is assigned to each succeeding value so that it can be accessed by the <em>commands</em></td>
@@ -308,57 +302,13 @@
     [ FD 10 RT :i + 1 ]</code></td>
   </tr>
 <tr>
-  <td>FOR [ <em>variable</em> <em>start end increment</em> ]<br />
-    [ <em>command(s)</em> ]</td>
+  <td><code>FOR [ </code<em>variable</em> <em>start end increment</em> ]<br />
+    [ <em>command(s)</em> ]></td>
   <td>runs the <em>commands</em> for each value specified in the range, i.e., from start up to <em>end</em>, going by <em>increment</em>.<br />
     note, <em>variable</em> is assigned to each succeeding value so that it can be accessed by the <em>commands</em></td>
   <td><code>FOR [ :n 4 16 2 ] <br />
     [ FD 100 RT / 360 :n ]</code></td>
   </tr>
-<TR>
-  <TD><code>TELL</code> <code>[</code> <em>turtle(s)</em> <code>]</code></TD>
-  <td><p>sets <em>turtles</em> that will follow commands hereafter<br />
-    returns last value in <em>turtles</em> list<em><br />
-      </em>note, if turtle has not previously existed, it is created and placed at the home location<br />
-    note, if more than one turtle is active, commands run return value associated with the last active turtle </p></td>
-  <TD>&nbsp;</TD>
-</TR>
-<TR>
-  <TD><code>TELLEVEN</code><br />    <br /></TD>
-  <td><p>sets <em>turtles</em> that will follow commands hereafter to the ones with even ID numbers<br />
-    returns last turtle's ID value<em><br />
-      </em>note, unlike the previous command, this one does not create any new turtles<br />
-    note, if more than one turtle is active, commands run return value associated with the last active turtle </p></td>
-  <td>&nbsp;</td>
-  </TR>
-<TR>
-  <TD><code>TELLODD</code></TD>
-  <td>sets <em>turtles</em> that will follow commands hereafter to the ones with odd ID numbers<br />
-    returns last turtle's ID value<em><br />
-  </em>note, unlike the previous command, this one does not create any new turtles<br />
-    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
-  <TD>&nbsp;</TD>
-</TR>
-<tr>
-  <td><code>ASK</code> <code>[</code> <em>turtle(s)</em> <code>]</code> <br />    
-    <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></td>
-  <td>tell <i>turtles</i> given in first list to run <em>commands</em> given in the second list<em><br />
-    </em>returns result of last command run<br />
-    note, after commands are run,  currently active list of turtles returns to that set by the last TELL command<br />
-    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
-  <td>&nbsp;</td>
-</tr>
-<TR>
-  <TD><code>ASKWITH</code> <code>[</code> <em>condition</em> <code>]<br />
-  </code> <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></TD>
-  <td>tell <i>turtles</i> matching  given <em>condition</em> to run <em>commands</em> given in the second list<em><br />
-    </em>returns result of last command run<br />
-    note, does not change currently active list of turtles set by the last tell command<br />
-    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
-  <TD><code>ASKWITH <br />
-    [ EQUAL? SH 1 ] <br />
-    [ FD 100 ]</code></TD>
-</TR>
 </TABLE>
 </div>
 
@@ -449,6 +399,12 @@
   <TD><code>RAINBOWLINE<br>
   UNICORN</code></TD>
   </TR>
+    <TR>
+  <TD><code>EXIT</code></TD>
+  <td>exits SLogo</td>
+  <TD><code>EXIT</code></TD>
+  </TR>
+  
 </TABLE>
 
 

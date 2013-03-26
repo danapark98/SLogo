@@ -4,6 +4,7 @@ import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 /**
@@ -19,6 +20,7 @@ import java.util.List;
 public class Preparser {
     private static final int MIN_SIZE_WHEN_BRACKETS_NEEDED = 3;
     private Environment myEnvironment;
+    private ResourceBundle myResources;
     
     /**
      * Initiates a preparser based on the environment in which it works.
@@ -27,6 +29,7 @@ public class Preparser {
      */
     public Preparser (Environment environment) {
         myEnvironment = environment;
+        myResources = environment.getResources();
     }
 
     /**
@@ -59,7 +62,7 @@ public class Preparser {
         String[] lines = s.split("\\r?\\n");
         StringBuilder sb = new StringBuilder();
         for (String line : lines) {
-            if (!line.startsWith(Controller.PRINT_INDICATOR)) {
+            if (!line.startsWith(myResources.getString(Controller.PRINT_INDICATOR))) {
                 sb.append(line);
                 sb.append(" ");
             }
@@ -107,7 +110,7 @@ public class Preparser {
                 break;
             }
             String command = wordsList.get(counter);
-            if (command.equals(Parser.BEGINNING_OF_LIST)) {
+            if (command.equals(myResources.getString(Parser.BEGINNING_OF_LIST))) {
                 counter++;
                 int indexOfRightBracket = findRightBracket(wordsList, counter);
                 String s = createStringFromList(wordsList, counter, indexOfRightBracket);
@@ -120,14 +123,14 @@ public class Preparser {
                 counter++;
             }
             else {
-                wordsList.add(counter, Parser.BEGINNING_OF_LIST);
+                wordsList.add(counter, myResources.getString(Parser.BEGINNING_OF_LIST));
                 counter++;
                 List<String> restOfList = createRestOfList(wordsList, counter);
                 ReturnValues rv = recurse(restOfList, getArgumentCount(command));
                 counter += rv.getCounterChange();
                 wordsList.addAll(rv.getList());
                 counter++;
-                wordsList.add(counter, Parser.END_OF_LIST);
+                wordsList.add(counter, myResources.getString(Parser.END_OF_LIST));
                 counter++;
             }
         }
@@ -190,7 +193,9 @@ public class Preparser {
         int counterBracket = 1;
         while (counterBracket != 0) {
             String str = wordsList.get(count);
-            counterBracket = Parser.updateCounterBracket(str, counterBracket);
+            counterBracket = Parser.updateCounterBracket(str, counterBracket, 
+                                            myResources.getString(Parser.BEGINNING_OF_LIST), 
+                                            myResources.getString(Parser.END_OF_LIST));
             if (counterBracket != 0) {
                 count++;
             }
@@ -207,7 +212,7 @@ public class Preparser {
      * at a later point in regular parsing.
      */
     private int getArgumentCount (String s) {
-        if (s.startsWith(Parser.START_OF_VARIABLE)) {
+        if (s.startsWith(myResources.getString(Parser.START_OF_VARIABLE))) {
             return -1;
         }
         else {
