@@ -1,7 +1,7 @@
 package factories.palette_factories;
 
-import factories.MapFactory;
 import java.util.ResourceBundle;
+import factories.MapFactory;
 
 
 /**
@@ -22,13 +22,13 @@ public abstract class IndexMapFactory<V> extends MapFactory<Integer, V> {
 
     private String myIndexFile;
 
-    protected IndexMapFactory(String indexFileLocation, ResourceBundle resources) {
+    protected IndexMapFactory (String indexFileLocation, ResourceBundle resources) {
         super(resources);
         myIndexFile = indexFileLocation;
     }
 
     @Override
-    protected V getMapValue(String[] restOfLine) {
+    protected V getMapValue (String[] restOfLine) {
         String objectData = "";
         for (int i = 1; i < restOfLine.length; ++i) {
             objectData += " " + restOfLine[i].trim();
@@ -36,10 +36,10 @@ public abstract class IndexMapFactory<V> extends MapFactory<Integer, V> {
         return getObject(objectData.trim());
     }
 
-    protected abstract V getObject(String objectData);
+    protected abstract V getObject (String objectData);
 
     @Override
-    protected String getIndexFile() {
+    protected String getIndexFile () {
         return myIndexFile;
     }
 }

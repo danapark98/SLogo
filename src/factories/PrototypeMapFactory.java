@@ -1,10 +1,10 @@
 package factories;
 
-import exceptions.CorruptedEnvironmentException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import exceptions.CorruptedEnvironmentException;
 
 
 /**
@@ -40,11 +40,11 @@ public class PrototypeMapFactory<V> extends MapFactory<String, V> {
      * 
      * @param indexFile is the location of the text file that contains prototyping class info.
      * 
-     * @param packageLoc is the location of the package where all the classes to be 
+     * @param packageLoc is the location of the package where all the classes to be
      *        prototyped are located
      */
-    public PrototypeMapFactory(ResourceBundle resources, String indexFile, String packageLoc) {
-        super(resources); 
+    public PrototypeMapFactory (ResourceBundle resources, String indexFile, String packageLoc) {
+        super(resources);
         myPackageLocation = packageLoc;
         myIndexFile = indexFile;
     }
@@ -55,7 +55,7 @@ public class PrototypeMapFactory<V> extends MapFactory<String, V> {
      * 
      * @return Map of keywords to instructions.
      */
-    public Map<String, V> buildStringMap() {
+    public Map<String, V> buildStringMap () {
         Scanner line = getScanner();
         Map<String, V> protoMap =
                 new HashMap<String, V>();
@@ -71,27 +71,26 @@ public class PrototypeMapFactory<V> extends MapFactory<String, V> {
                     if (keyword.length() > 0) {
                         protoMap.put(keyword, generic);
                     }
-                }           
+                }
             }
         }
         line.close();
         return protoMap;
     }
 
-
-    private String[] getKeys(String line) {
+    private String[] getKeys (String line) {
         String className = getClassName(line);
         String entry = getResources().getString(className);
         return entry.split(PROPERTIES_SEPERATOR);
     }
 
     @Override
-    protected V getMapValue(String[] restOfLine) {
+    protected V getMapValue (String[] restOfLine) {
         return getValue(restOfLine[1].trim());
     }
 
     @SuppressWarnings("unchecked")
-    private V getValue(String className) {
+    private V getValue (String className) {
         String classPath = myPackageLocation + className;
         try {
             Class<?> genericClass = Class.forName(classPath);
@@ -108,14 +107,14 @@ public class PrototypeMapFactory<V> extends MapFactory<String, V> {
      * @param classPath is the classPath to determine the class name.
      * @return The name of the class at the given classPath.
      */
-    private String getClassName(String classPath) {
+    private String getClassName (String classPath) {
         String[] path = classPath.split("[.]");
         String str = path[path.length - 1];
         return str;
     }
 
     @Override
-    protected String getIndexFile() {
+    protected String getIndexFile () {
         return myIndexFile;
     }
 

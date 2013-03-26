@@ -1,7 +1,7 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -24,17 +24,17 @@ public class Equal extends BooleanInstruction {
      */
     private static final long serialVersionUID = -9085755361792996511L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes an '==' instruction.
      */
-    public Equal() {
+    public Equal () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public boolean executeBoolean(Model model)
-        throws IllegalInstructionException {
+    public boolean executeBoolean (Model model)
+                                               throws IllegalInstructionException {
         return nextOperand().execute(model) == nextOperand().execute(model);
     }
 }

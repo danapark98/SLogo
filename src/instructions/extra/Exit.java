@@ -1,15 +1,15 @@
 package instructions.extra;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
  * Instruction that exits SLogo.
  * 
  * @author Scott Valentine
- *
+ * 
  */
 public class Exit extends BaseInstruction {
 
@@ -22,12 +22,12 @@ public class Exit extends BaseInstruction {
     /**
      * Default Exit instruction with 0 arguments.
      */
-    public Exit() {
+    public Exit () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-    
+
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         System.exit(-1);
         return 0;
     }

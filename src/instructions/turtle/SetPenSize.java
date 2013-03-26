@@ -1,8 +1,9 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents an instruction that changes the diameter of the pen used by a turtle to make lines.<br>
@@ -29,16 +30,16 @@ public class SetPenSize extends BaseInstruction {
     /**
      * Initializes a put pen down instruction.
      */
-    public SetPenSize() {
+    public SetPenSize () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
 
-        int size = this.nextOperand().execute(model);
+        int size = nextOperand().execute(model);
 
-        if (size <= 0) { throw new IllegalInstructionException(ERROR_MESSAGE); }
+        if (size <= 0) throw new IllegalInstructionException(ERROR_MESSAGE);
 
         model.getTurtle().getPen().changeSize(size);
         return size;

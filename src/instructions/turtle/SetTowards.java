@@ -1,10 +1,10 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
 import util.Location;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -36,7 +36,7 @@ public class SetTowards extends BaseInstruction {
      * measured clockwise.
      */
     private static final double ANGLE_OFFSET = 270;
-    
+
     /**
      * Initializes a rotation to face a given position rotation-instruction.
      */
@@ -45,16 +45,16 @@ public class SetTowards extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         Turtle turtle = model.getTurtle();
         Location currentLocation = turtle.getLocationOnCanvas();
         Location givenLocation =
-                new Location(nextOperand().execute(model), 
+                new Location(nextOperand().execute(model),
                              nextOperand().execute(model));
         double startAngle = turtle.getAngle();
         double endAngle =
                 ANGLE_OFFSET -
-                    givenLocation.difference(currentLocation).getDirection();
+                        givenLocation.difference(currentLocation).getDirection();
         turtle.setAngle(endAngle);
         return (int) Math.abs(endAngle - startAngle);
     }

@@ -1,7 +1,8 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents the instruction for not, and returns 1 if argument is
@@ -24,11 +25,11 @@ public class Not extends BooleanInstruction {
      */
     private static final long serialVersionUID = 1645427597906420824L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-    
+
     /**
-     * Initializes an 'not',  '~' instruction.
+     * Initializes an 'not', '~' instruction.
      */
-    public Not() {
+    public Not () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 

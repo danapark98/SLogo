@@ -26,20 +26,19 @@ public class Point {
      * @param thickness is the thickness of the line.
      * @param color is the color of the line.
      */
-    public Point(Location pos, double thickness, Color color) {
+    public Point (Location pos, double thickness, Color color) {
         myColor = color;
-        
+
         myPoints = new ArrayList<Ellipse2D>();
-        
-        
+
         initializeCircle(pos, thickness);
-        
+
     }
 
     /**
      * Initializes the circle shape based on the parameters of this point.
      */
-    private void initializeCircle(Location pos, double thickness) {
+    private void initializeCircle (Location pos, double thickness) {
         double x = pos.getX() - thickness / 2;
         double y = pos.getY() - thickness / 2;
         myPoints.add(new Ellipse2D.Double(x, y, thickness, thickness));
@@ -50,10 +49,10 @@ public class Point {
      * 
      * @param pen is the graphic representation that will represent the line.
      */
-    public void paint(Graphics2D pen) {
+    public void paint (Graphics2D pen) {
         pen.setColor(myColor);
-        
-        for (Ellipse2D point: myPoints) {          
+
+        for (Ellipse2D point : myPoints) {
             pen.draw(point);
             pen.fill(point);
         }

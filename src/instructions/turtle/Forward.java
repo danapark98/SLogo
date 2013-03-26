@@ -1,7 +1,8 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents forward movement of the turtle as an instruction. Takes one
@@ -24,7 +25,7 @@ public class Forward extends Translate {
      */
     private static final long serialVersionUID = 443555056700673405L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-    
+
     /**
      * Initializes a forward translation instruction.
      */
@@ -38,4 +39,3 @@ public class Forward extends Translate {
     }
 
 }
-

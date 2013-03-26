@@ -1,12 +1,14 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
-/**a
- * Represents an boolean as an instruction. 
- * <br><br>
+
+/**
+ * a
+ * Represents an boolean as an instruction. <br>
+ * <br>
  * ex: and, or, greater, less, equal, notequal
  * 
  * @author Scott Valentine
@@ -25,7 +27,7 @@ public abstract class BooleanInstruction extends BaseInstruction {
         boolean b = executeBoolean(model);
         return b ? 1 : 0;
     }
-    
+
     /**
      * Executes a boolean instruction on the model.
      * 
@@ -33,7 +35,6 @@ public abstract class BooleanInstruction extends BaseInstruction {
      * @return a boolean that represents the value of this evaluation.
      * @throws IllegalInstructionException when the parameters do not match the expected.
      */
-    public abstract boolean executeBoolean(Model model) throws IllegalInstructionException; 
-
+    public abstract boolean executeBoolean (Model model) throws IllegalInstructionException;
 
 }

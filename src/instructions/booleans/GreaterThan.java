@@ -1,7 +1,8 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents the instruction for >, and returns 1 if the first argument is
@@ -24,17 +25,17 @@ public class GreaterThan extends BooleanInstruction {
      */
     private static final long serialVersionUID = -5228113262586227488L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes an '>' instruction.
      */
-    public GreaterThan() {
+    public GreaterThan () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public boolean executeBoolean(Model model)
-        throws IllegalInstructionException {
+    public boolean executeBoolean (Model model)
+                                               throws IllegalInstructionException {
         return nextOperand().execute(model) > nextOperand().execute(model);
     }
 

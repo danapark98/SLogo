@@ -1,10 +1,10 @@
 package instructions.user_defined;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -33,7 +33,7 @@ public class Repeat extends BaseInstruction {
     private static final long serialVersionUID = -6196556606163979681L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     private static final String VARIABLE_NAME = ":repcount";
-    
+
     /**
      * Initializes user defined for-loop instruction.
      */
@@ -42,10 +42,10 @@ public class Repeat extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int numberOfIterations = nextOperand().execute(model);
         Instruction commandsToLoop = nextOperand();
-        int last = 0;        
+        int last = 0;
         for (int i = 1; i <= numberOfIterations; ++i) {
             model.getEnvironment().inScope();
 

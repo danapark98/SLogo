@@ -1,11 +1,11 @@
 package instructions.user_defined;
 
-import control.Parser;
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import java.util.Scanner;
 import simulation.Model;
+import control.Parser;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -41,7 +41,7 @@ public class MakeUserInstruction extends BaseInstruction {
     private String myCommandName;
     private Instruction myVariables;
     private Instruction myCommands;
-    
+
     /**
      * Initializes user the definition of a custom instruction.
      */
@@ -50,7 +50,7 @@ public class MakeUserInstruction extends BaseInstruction {
     }
 
     @Override
-    public void load(Scanner line, Parser parser) throws IllegalInstructionException {
+    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
         myCommandName = line.next();
 
         if (myCommandName.equals("[")) {
@@ -62,7 +62,7 @@ public class MakeUserInstruction extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         BaseInstruction instruction = new UserInstruction(myVariables, myCommands);
         model.getEnvironment().defineFunction(myCommandName, instruction);
         return 1;

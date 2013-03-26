@@ -1,13 +1,13 @@
 package factories.palette_factories;
 
-import drawing.GraphicsMap;
-import drawing.PriorityPixmap;
-import drawing.lines.LineBuilder;
-import factories.PrototypeMapFactory;
 import java.awt.Color;
 import java.util.Map;
 import java.util.ResourceBundle;
 import util.Pixmap;
+import drawing.GraphicsMap;
+import drawing.PriorityPixmap;
+import drawing.lines.LineBuilder;
+import factories.PrototypeMapFactory;
 
 
 /**
@@ -46,7 +46,7 @@ public class PaletteFactory {
      * 
      * @param resources is the resource bundle containing any specific language strings.
      */
-    public PaletteFactory(ResourceBundle resources) {
+    public PaletteFactory (ResourceBundle resources) {
         myResources = resources;
     }
 
@@ -55,7 +55,7 @@ public class PaletteFactory {
      * 
      * @return A GraphicsMap that maps indices to images (pixmaps)
      */
-    public GraphicsMap<Pixmap> initializeImages() {
+    public GraphicsMap<Pixmap> initializeImages () {
         ImageMapFactory imf = new ImageMapFactory(SHAPE_INDEX, myResources);
         Map<Integer, Pixmap> shapeMap = imf.buildIndexMap();
         return new GraphicsMap<>(shapeMap);
@@ -66,7 +66,7 @@ public class PaletteFactory {
      * 
      * @return A GraphicsMap of indices to colors.
      */
-    public GraphicsMap<Color> initializeColors() {
+    public GraphicsMap<Color> initializeColors () {
         IndexMapFactory<Color> cmf = new ColorMapFactory(COLOR_INDEX, myResources);
         Map<Integer, Color> colors = cmf.buildIndexMap();
 
@@ -78,7 +78,7 @@ public class PaletteFactory {
      * 
      * @return A GraphicsMap from indices to LineBuilders
      */
-    public GraphicsMap<LineBuilder> initializeLineStyles() {
+    public GraphicsMap<LineBuilder> initializeLineStyles () {
         PrototypeMapFactory<LineBuilder> pt = new
                 PrototypeMapFactory<LineBuilder>(myResources, LINE_STYLE_INDEX,
                                                  LINE_STYLE_LOCATION);
@@ -91,7 +91,7 @@ public class PaletteFactory {
      * 
      * @return A GraphicsMap from indices to Background images (priority pixmaps).
      */
-    public GraphicsMap<PriorityPixmap> initializeBackgroundColorImages() {
+    public GraphicsMap<PriorityPixmap> initializeBackgroundColorImages () {
         BackgroundMapFactory bgf = new BackgroundMapFactory(BACKGROUND_IMAGE_INDEX,
                                                             myResources);
         Map<Integer, PriorityPixmap> shapeMap = bgf.buildIndexMap();

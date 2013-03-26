@@ -16,13 +16,13 @@ import java.awt.geom.Point2D;
  */
 public abstract class Sprite {
     // canonical directions for a collision
-    /** Angle of East*/
+    /** Angle of East */
     public static final int RIGHT_DIRECTION = 0;
-    /** Angle of South*/
+    /** Angle of South */
     public static final int DOWN_DIRECTION = 90;
-    /** Angle of West*/
+    /** Angle of West */
     public static final int LEFT_DIRECTION = 180;
-    /** Angle of NOrth*/
+    /** Angle of NOrth */
     public static final int UP_DIRECTION = 270;
 
     // state
@@ -259,13 +259,13 @@ public abstract class Sprite {
         myVelocity = new Vector(myOriginalVelocity);
         myView = new Pixmap(myOriginalView);
     }
-    
+
     /**
      * Gives the size of the sprite.
      * 
      * @return The size of the sprite.
      */
-    public Dimension getSize() {
+    public Dimension getSize () {
         return mySize;
     }
 

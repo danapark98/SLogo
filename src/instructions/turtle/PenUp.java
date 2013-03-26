@@ -4,7 +4,6 @@ import instructions.BaseInstruction;
 import simulation.Model;
 
 
-
 /**
  * Represents setting the turtle to not draw (putting the pen up) as an
  * instruction. Takes zero
@@ -26,16 +25,16 @@ public class PenUp extends BaseInstruction {
      */
     private static final long serialVersionUID = -45623041636717507L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    
+
     /**
      * Initializes a 'put pen up' a.k.a 'do not draw' instruction.
      */
-    public PenUp() {
+    public PenUp () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public int execute(Model model) {     
+    public int execute (Model model) {
         model.getTurtle().getPen().penOff();
         return 0;
     }

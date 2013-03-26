@@ -1,11 +1,5 @@
 package simulation;
 
-import control.Controller;
-import control.Environment;
-import drawing.Background;
-import drawing.Palette;
-import drawing.StampSprite;
-import drawing.lines.Point;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -13,8 +7,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-// import java.util.LinkedList; unimplemented
 import view.View;
+import control.Controller;
+import control.Environment;
+import drawing.Background;
+import drawing.Palette;
+import drawing.StampSprite;
+import drawing.lines.Point;
+// import java.util.LinkedList; unimplemented
 
 
 /**
@@ -34,7 +34,6 @@ public class Model implements DisplayEditor {
 
     // private static final int MAXIMUM_STATES_REMEMBERED = 10; unimplemented
 
-
     private State myState;
     // private LinkedList<State> myPreviousStates; unimplemented
     // private LinkedList<State> myUndoneStates; unimplemented
@@ -45,7 +44,7 @@ public class Model implements DisplayEditor {
     /**
      * Instantiates a model with a turtle and a collection of lines.
      */
-    public Model() {
+    public Model () {
         myState = new State();
         // myPreviousStates = new LinkedList<State>(); unimplemented
         // myUndoneStates = new LinkedList<State>(); unimplemented
@@ -53,8 +52,7 @@ public class Model implements DisplayEditor {
         myState.turtles = new HashMap<Integer, Turtle>();
         myState.lines = new ArrayList<Point>();
         myState.stamps = new ArrayList<StampSprite>();
-        
-        
+
     }
 
     /**
@@ -62,7 +60,7 @@ public class Model implements DisplayEditor {
      * 
      * @return The environment that is initialized in the model.
      */
-    public Environment initialize() {
+    public Environment initialize () {
         myState.environment = new Environment(myView.getResources());
 
         myState.activeTurtle = new Turtle(this);
@@ -72,8 +70,7 @@ public class Model implements DisplayEditor {
         myState.background = new Background(getPalette());
 
         myResources = myView.getResources();
-        
-        
+
         return myState.environment;
     }
 
@@ -82,7 +79,7 @@ public class Model implements DisplayEditor {
      * 
      * @param view on which the model paints.
      */
-    public void setView(View view) {
+    public void setView (View view) {
         myView = view;
     }
 
@@ -93,7 +90,7 @@ public class Model implements DisplayEditor {
      * @param bounds is the current bounds of the canvas in the view. (This is the area where the
      *        lines and turtle are displayed).
      */
-    public void update(double elapsedTime, Dimension bounds) {
+    public void update (double elapsedTime, Dimension bounds) {
         for (Turtle turt : myState.turtles.values()) {
             turt.update(elapsedTime, bounds);
         }
@@ -105,7 +102,7 @@ public class Model implements DisplayEditor {
      * 
      * @param pen is the graphic that is used to paint lins and turtles.
      */
-    public void paint(Graphics2D pen) {
+    public void paint (Graphics2D pen) {
         myState.background.paint(pen);
         for (StampSprite st : myState.stamps) {
             st.paint(pen);
@@ -124,22 +121,23 @@ public class Model implements DisplayEditor {
      * 
      * @return The active turtle in the model.
      */
-    public Turtle getTurtle() {
+    public Turtle getTurtle () {
         return myState.activeTurtle;
     }
 
     /**
      * Returns ID of current active turtle
      */
-    public int getTurtleID() {
+    public int getTurtleID () {
         return myState.turtleID;
     }
 
     /**
      * Switches the active turtle to turtle with the provided ID.
+     * 
      * @param index is the index to switch the active turtle to.
      */
-    public void switchTurtle(int index) {
+    public void switchTurtle (int index) {
         if (!myState.turtles.containsKey(index)) {
             myState.turtles.put(index, new Turtle(this));
         }
@@ -151,29 +149,29 @@ public class Model implements DisplayEditor {
      * 
      * @return environment
      */
-    public Environment getEnvironment() {
+    public Environment getEnvironment () {
         return myState.environment;
     }
 
     @Override
-    public Palette getPalette() {
+    public Palette getPalette () {
         return myState.environment.getPalette();
     }
 
     @Override
-    public void addLine(Point line) {
+    public void addLine (Point line) {
         myState.lines.add(line);
     }
 
     @Override
-    public void addStamp(StampSprite st) {
+    public void addStamp (StampSprite st) {
         myState.stamps.add(st);
     }
 
     /**
      * Clears stamps and lines from model.
      */
-    public void clear() {
+    public void clear () {
         clearLines();
         clearStamps();
     }
@@ -181,14 +179,14 @@ public class Model implements DisplayEditor {
     /**
      * Clears all lines from the model.
      */
-    public void clearLines() {
+    public void clearLines () {
         myState.lines.clear();
     }
 
     /**
      * Clears all stamps in the current workspace.
      */
-    public void clearStamps() {
+    public void clearStamps () {
         myState.stamps.clear();
     }
 
@@ -197,7 +195,7 @@ public class Model implements DisplayEditor {
      * 
      * @return Background
      */
-    public Background getBackground() {
+    public Background getBackground () {
         return myState.background;
     }
 
@@ -208,7 +206,7 @@ public class Model implements DisplayEditor {
      * 
      * @param s return message
      */
-    public void informView(String s) {
+    public void informView (String s) {
         myView.displayText(myResources.getString(Controller.PRINT_INDICATOR) + s);
     }
 
@@ -276,5 +274,5 @@ public class Model implements DisplayEditor {
         Environment environment;
         Background background;
     }
-    
+
 }

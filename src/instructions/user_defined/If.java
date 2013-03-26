@@ -1,9 +1,9 @@
 package instructions.user_defined;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -33,7 +33,7 @@ public class If extends BaseInstruction {
      */
     private static final long serialVersionUID = 845349488293601623L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes user defined if instruction.
      */
@@ -42,17 +42,17 @@ public class If extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int condition = nextOperand().execute(model);
         Instruction trueInstruction = nextOperand();
-        if (condition != 0) { 
+        if (condition != 0) {
             model.getEnvironment().inScope();
-            
+
             int res = trueInstruction.execute(model);
-            
+
             model.getEnvironment().outScope();
-            
-            return res; 
+
+            return res;
         }
         return 0;
     }

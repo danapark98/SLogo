@@ -1,15 +1,15 @@
 package instructions.extra;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
  * Gives the current user defined variables and functions in the environment.
  * 
  * @author Scott Valentine
- *
+ * 
  */
 public class GetUserVariables extends BaseInstruction {
 
@@ -22,12 +22,12 @@ public class GetUserVariables extends BaseInstruction {
     /**
      * Default constructor, makes new instance to be loaded.
      */
-    public GetUserVariables() {
+    public GetUserVariables () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-    
+
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         String info = model.getEnvironment().customValuesToString();
         model.informView(info);
         return 1;

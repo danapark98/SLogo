@@ -1,9 +1,9 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
-import factories.palette_factories.PaletteFactory;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 
 
 /**
@@ -30,12 +30,12 @@ public class HideTurtle extends BaseInstruction {
     /**
      * Initializes a hide turtle instruction.
      */
-    public HideTurtle() {
+    public HideTurtle () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-    
+
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         model.getTurtle().changeImage(PaletteFactory.DEFAULT_CLEAR_INDEX);
         return 0;
     }

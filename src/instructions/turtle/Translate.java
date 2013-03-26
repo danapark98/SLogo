@@ -1,20 +1,20 @@
 package instructions.turtle;
 
-
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
 import util.Vector;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents any instruction that shifts the turtle. These include the instructions:
  * <ul>
- * <li> Forward
- * <li> Backward
- * <li> SetPostion
- * <li> Home
- * <li> etc.
+ * <li>Forward
+ * <li>Backward
+ * <li>SetPostion
+ * <li>Home
+ * <li>etc.
  * </ul>
  * 
  * @author Scott Valentine

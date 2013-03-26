@@ -1,8 +1,5 @@
 package drawing;
 
-
-import exceptions.CorruptedEnvironmentException;
-import exceptions.IllegalInstructionException;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +8,8 @@ import java.util.List;
 import simulation.Turtle;
 import util.Pixmap;
 import view.View;
-
+import exceptions.CorruptedEnvironmentException;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -43,12 +41,12 @@ public class Background {
      *        is a palette that will be used to generate the background
      * 
      */
-    public Background(Palette palette) {
+    public Background (Palette palette) {
         myPalette = palette;
         myActiveImages = new ArrayList<PriorityPixmap>();
         try {
             myActiveImages.add(
-                myPalette.getBackgroundColorImage(WHITE_BACKGROUND_INDEX));
+                    myPalette.getBackgroundColorImage(WHITE_BACKGROUND_INDEX));
         }
         catch (IllegalInstructionException e) {
             throw new CorruptedEnvironmentException();
@@ -62,10 +60,10 @@ public class Background {
      * @param pen
      *        is the pen that will be used to paint the background
      */
-    public void paint(Graphics2D pen) {
+    public void paint (Graphics2D pen) {
         Collections.sort(myActiveImages, new Comparator<PriorityPixmap>() {
             @Override
-            public int compare(PriorityPixmap arg0, PriorityPixmap arg1) {
+            public int compare (PriorityPixmap arg0, PriorityPixmap arg1) {
                 return arg0.getPriority() - arg1.getPriority();
             }
         });
@@ -78,7 +76,7 @@ public class Background {
     /**
      * Turns the grid on
      */
-    public void gridOn() {
+    public void gridOn () {
         // only one grid allowed
         gridOff();
         myActiveImages.add(GRID);
@@ -87,7 +85,7 @@ public class Background {
     /**
      * Turns the grid off
      */
-    public void gridOff() {
+    public void gridOff () {
         myActiveImages.remove(GRID);
     }
 
@@ -101,8 +99,8 @@ public class Background {
      * @throws IllegalInstructionException
      *         if no image corresponds to the provided index
      */
-    public void switchColorImage(int index) throws IllegalInstructionException {
-        PriorityPixmap currentImage = 
+    public void switchColorImage (int index) throws IllegalInstructionException {
+        PriorityPixmap currentImage =
                 myPalette.getBackgroundColorImage(myCurrentColorImageIndex);
         myActiveImages.remove(currentImage);
 

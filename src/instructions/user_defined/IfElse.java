@@ -1,14 +1,15 @@
 package instructions.user_defined;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents an if and else statement as an instruction. Takes three
  * arguments: a boolean value (1 or else as an integer), the instruction to
- * execute if the boolean evaluates true, and the instruction to evaluate otherwise. 
+ * execute if the boolean evaluates true, and the instruction to evaluate otherwise.
  * Note that the second and third arguments (the
  * instructions) must be contained in
  * brackets.<br>
@@ -32,7 +33,7 @@ public class IfElse extends BaseInstruction {
      */
     private static final long serialVersionUID = -2767016588772946054L;
     private static final int NUMBER_OF_ARGUMENTS = 3;
-    
+
     /**
      * Initializes user defined ifelse instruction.
      */
@@ -47,7 +48,7 @@ public class IfElse extends BaseInstruction {
         Instruction falseInstruction = nextOperand();
         if (condition != 0) {
             model.getEnvironment().inScope();
-            
+
             int res = trueInstruction.execute(model);
             model.getEnvironment().outScope();
 
@@ -55,7 +56,7 @@ public class IfElse extends BaseInstruction {
         }
         else {
             model.getEnvironment().inScope();
-            
+
             int res = falseInstruction.execute(model);
             model.getEnvironment().outScope();
 

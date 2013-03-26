@@ -1,7 +1,7 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -25,7 +25,7 @@ public class Backward extends Translate {
      */
     private static final long serialVersionUID = 7749994394524662088L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-    
+
     /**
      * Initializes a backwards translation instruction.
      */
@@ -38,4 +38,3 @@ public class Backward extends Translate {
         return -1 * nextOperand().execute(model);
     }
 }
-

@@ -6,11 +6,12 @@ import util.Location;
 import util.Pixmap;
 import util.Sprite;
 
+
 /**
  * Represents a stamp of the turtle in the workspace.
  * 
  * @author Scott Valentine
- *
+ * 
  */
 public class StampSprite extends Sprite {
 
@@ -21,10 +22,10 @@ public class StampSprite extends Sprite {
      * @param center of the stamp.
      * @param size of the stamp.
      */
-    public StampSprite(Pixmap image, Location center, Dimension size) {
+    public StampSprite (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
     }
-    
+
     /**
      * When painted, original parameters of location, size, and velocity are reset
      * so that these fields are, in effect, immutable

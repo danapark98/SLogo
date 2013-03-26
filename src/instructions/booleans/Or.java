@@ -1,7 +1,7 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -24,7 +24,7 @@ public class Or extends BooleanInstruction {
      */
     private static final long serialVersionUID = 6607652502391503222L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes an 'or' instruction.
      */
@@ -33,8 +33,8 @@ public class Or extends BooleanInstruction {
     }
 
     @Override
-    public boolean executeBoolean(Model model)
-        throws IllegalInstructionException {
+    public boolean executeBoolean (Model model)
+                                               throws IllegalInstructionException {
         return nextOperand().execute(model) == 1 ||
                nextOperand().execute(model) == 1;
     }

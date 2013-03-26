@@ -27,7 +27,7 @@ public class YCoordinate extends BaseInstruction {
      */
     private static final long serialVersionUID = -2404496602465804576L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    
+
     /**
      * Initializes a current Y coordination turtle query instruction.
      */
@@ -36,7 +36,7 @@ public class YCoordinate extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getLocationOnCanvas().getY();
     }

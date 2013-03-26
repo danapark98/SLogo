@@ -14,7 +14,7 @@ public class DashedLine implements LineBuilder {
 
     /** Index of this line builder in the line palette */
     public static final Integer PALETTE_INDEX = 1;
-    
+
     private static final int DEFAULT_SPACE = 15;
 
     private static final Color CLEAR = new Color(0, 0, 0, 0);
@@ -25,16 +25,14 @@ public class DashedLine implements LineBuilder {
     /**
      * Default constructor. creation of dashed lines.
      */
-    public DashedLine() {
+    public DashedLine () {
         myCount = 0;
         myLast = new Location();
     }
 
     @Override
-    public Point buildLine(Location start, Location end, double thickness, Color color) {
-        if (myLast.equals(start)) { 
-            return new Point(start, thickness, CLEAR); 
-        }
+    public Point buildLine (Location start, Location end, double thickness, Color color) {
+        if (myLast.equals(start)) return new Point(start, thickness, CLEAR);
         myLast = start;
         if (myCount % (DEFAULT_SPACE * 2) < DEFAULT_SPACE) {
             myCount += 1;

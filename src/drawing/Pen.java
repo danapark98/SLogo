@@ -1,42 +1,43 @@
 package drawing;
 
-import drawing.lines.LineBuilder;
-import drawing.lines.SolidLine;
-import exceptions.IllegalInstructionException;
-import factories.palette_factories.PaletteFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import simulation.DisplayEditor;
 import simulation.Turtle;
 import util.Location;
 import util.Vector;
+import drawing.lines.LineBuilder;
+import drawing.lines.SolidLine;
+import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
+
 
 /**
  * Paints lines.
  * 
  * @author Scott Valentine
- *
+ * 
  */
 public class Pen {
-    
+
     private static final double REVERSE_ANGLE_VALUE = 180;
     private static final int OPAQUE_COLOR = 255;
     private static final double DEFAULT_PEN_THICKNESS = 4.0;
-    
+
     private DisplayEditor myDisplayEditor;
     private Turtle myTurtle;
     private Color myColor;
     private LineBuilder myLineBuilder;
     private double myThickness;
     private int myCurrentColorIndex;
-    
+
     /**
      * Creates a pen centered around a turtle and which can edit a displayEditor.
      * 
      * @param turtle moves the pen
      * @param displayEditor is what the pen draws on.
      */
-    public Pen(Turtle turtle, DisplayEditor displayEditor) {
+    public Pen (Turtle turtle, DisplayEditor displayEditor) {
         myTurtle = turtle;
         myDisplayEditor = displayEditor;
         try {
@@ -45,9 +46,9 @@ public class Pen {
         catch (IllegalInstructionException e) {
             myColor = Color.BLACK;
         }
-        
+
         myThickness = DEFAULT_PEN_THICKNESS;
-        
+
         try {
             myLineBuilder = displayEditor.getPalette().getLineStyle(SolidLine.PALETTE_INDEX);
         }
@@ -55,7 +56,7 @@ public class Pen {
             myLineBuilder = new SolidLine();
         }
     }
-    
+
     /**
      * Draws all necessary lines between the start and end positions.
      * 
@@ -81,12 +82,10 @@ public class Pen {
      * @param angle is the direction to draw the lines in
      * @param bounds is the current dimension of the workspace
      */
-    private void recursiveLineCreation (double distanceRemaining, Location start, double angle, 
+    private void recursiveLineCreation (double distanceRemaining, Location start, double angle,
                                         Dimension bounds) {
-        
-        if (distanceRemaining < 0) {
-            return;
-        }
+
+        if (distanceRemaining < 0) return;
         Location end = new Location(start);
         end.translate(new Vector(angle, 1));
         if (!end.tryCorrectingBounds(bounds)) {
@@ -94,75 +93,74 @@ public class Pen {
         }
         recursiveLineCreation(distanceRemaining - 1, end, angle, bounds);
     }
-    
+
     /**
      * Picks the pen up. Disables the drawing of lines.
      */
-    public void penOff() {
+    public void penOff () {
         int r = myColor.getRed();
         int g = myColor.getGreen();
         int b = myColor.getBlue();
         myColor = new Color(r, g, b, 0);
     }
-    
+
     /**
      * Puts the pen down: enables the drawing of lines.
      */
-    public void penOn() {
+    public void penOn () {
         int r = myColor.getRed();
         int g = myColor.getGreen();
         int b = myColor.getBlue();
         myColor = new Color(r, g, b, OPAQUE_COLOR);
     }
-    
-    
+
     /**
      * Changes the color of the pen.
      * 
      * @param index is the index of the color in the palette.
      * @throws IllegalInstructionException if no color represented by the index
      */
-    public void changeColor(int index) throws IllegalInstructionException {
+    public void changeColor (int index) throws IllegalInstructionException {
         myColor = myDisplayEditor.getPalette().getColor(index);
         myCurrentColorIndex = index;
     }
-    
+
     /**
      * Gives the current index of the color being used.
      * 
      * @return The index of the current color.
      */
-    public int getColorIndex() {
+    public int getColorIndex () {
         return myCurrentColorIndex;
     }
-    
+
     /**
-     * Returns the color that the pen is drawing with 
+     * Returns the color that the pen is drawing with
      * 
      * @return Color of pen
      */
-    public Color getColor() {
+    public Color getColor () {
         return myColor;
     }
 
-    /** 
+    /**
      * Changes the line style
      * 
      * @param index is of the linestyle in the palette.
      * @throws IllegalInstructionException if no line builder represented by the
-     * index
+     *         index
      */
-    public void changeLineStyle(int index) throws IllegalInstructionException {
+    public void changeLineStyle (int index) throws IllegalInstructionException {
         myLineBuilder = myDisplayEditor.getPalette().getLineStyle(index);
     }
-    
+
     /**
      * Changes the size of the pen.
      * 
      * @param size The diameter of points drawn by the pen.
      */
-    public void changeSize(int size) {
+    public void changeSize (int size) {
         myThickness = size;
     }
-    
+
 }

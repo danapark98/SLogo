@@ -12,7 +12,7 @@ import simulation.Turtle;
  * <br>
  * <u> Examples:</u> <br>
  * heading ---> give the turtle current heading <br>
- *  
+ * 
  * @author Scott Valentine
  * @author Ryan Fishel
  * @author Ellango Jothimurugesan
@@ -25,7 +25,7 @@ public class Heading extends BaseInstruction {
      */
     private static final long serialVersionUID = -1343102259227622948L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    
+
     /**
      * Initializes a change of heading rotation instruction.
      */
@@ -34,7 +34,7 @@ public class Heading extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getAngle();
     }

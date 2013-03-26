@@ -27,7 +27,7 @@ public class XCoordinate extends BaseInstruction {
      */
     private static final long serialVersionUID = -1625057934983841840L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    
+
     /**
      * Initializes a current X coordination turtle query instruction.
      */
@@ -36,7 +36,7 @@ public class XCoordinate extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         Turtle turtle = model.getTurtle();
         return (int) turtle.getLocationOnCanvas().getX();
     }

@@ -1,9 +1,9 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -29,7 +29,7 @@ public class SetHeading extends BaseInstruction {
      */
     private static final long serialVersionUID = 1L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-    
+
     /**
      * Initializes a rotation to given heading rotation instruction.
      */
@@ -38,7 +38,7 @@ public class SetHeading extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         Turtle turtle = model.getTurtle();
         int originalAngle = (int) turtle.getAngle();
         int absoluteHeading = nextOperand().execute(model);

@@ -1,12 +1,12 @@
 package instructions.user_defined;
 
-import control.Parser;
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import java.util.Scanner;
 import simulation.Model;
+import control.Parser;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -35,21 +35,20 @@ public class MakeVariable extends BaseInstruction {
     private static final int NUMBER_OF_ARGUMENTS = 2;
     private String myName;
     private Instruction myArgument;
-    
+
     /**
      * Initializes the definition of a custom variable.
      */
     public MakeVariable () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-    
-    
+
     @Override
-    public void load(Scanner line, Parser parser) throws IllegalInstructionException {
+    public void load (Scanner line, Parser parser) throws IllegalInstructionException {
         myName = line.next();
         myArgument = parser.nextInstruction(line);
     }
-    
+
     @Override
     public int execute (Model model) throws IllegalInstructionException {
         int variableValue = myArgument.execute(model);

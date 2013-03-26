@@ -41,7 +41,7 @@ public class Pixmap {
      */
     public void setImage (String fileName) {
 
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION+ fileName)).getImage();
+        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
         myFileName = fileName;
     }
 

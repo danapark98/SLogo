@@ -1,10 +1,10 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -21,7 +21,7 @@ public class Preparser {
     private static final int MIN_SIZE_WHEN_BRACKETS_NEEDED = 3;
     private Environment myEnvironment;
     private ResourceBundle myResources;
-    
+
     /**
      * Initiates a preparser based on the environment in which it works.
      * 
@@ -79,9 +79,7 @@ public class Preparser {
      */
     private String addBrackets (String s) throws IllegalInstructionException {
         List<String> wordsList = createListFromString(s);
-        if (wordsList.size() < MIN_SIZE_WHEN_BRACKETS_NEEDED) { 
-            return s;
-        }
+        if (wordsList.size() < MIN_SIZE_WHEN_BRACKETS_NEEDED) return s;
 
         // the second argument should just be arbitrarily large, so that it
         // can read every instruction provided. the second argument for the
@@ -103,7 +101,7 @@ public class Preparser {
      *         well as the counter in the list of words that is currently being operated on
      */
     private ReturnValues recurse (List<String> wordsList, int argCount)
-        throws IllegalInstructionException {
+                                                                       throws IllegalInstructionException {
         int counter = 0;
         for (int i = 0; i < argCount; i++) {
             if (counter >= wordsList.size()) {
@@ -193,9 +191,10 @@ public class Preparser {
         int counterBracket = 1;
         while (counterBracket != 0) {
             String str = wordsList.get(count);
-            counterBracket = Parser.updateCounterBracket(str, counterBracket, 
-                                            myResources.getString(Parser.BEGINNING_OF_LIST), 
-                                            myResources.getString(Parser.END_OF_LIST));
+            counterBracket =
+                    Parser.updateCounterBracket(str, counterBracket,
+                                                myResources.getString(Parser.BEGINNING_OF_LIST),
+                                                myResources.getString(Parser.END_OF_LIST));
             if (counterBracket != 0) {
                 count++;
             }
@@ -212,9 +211,8 @@ public class Preparser {
      * at a later point in regular parsing.
      */
     private int getArgumentCount (String s) {
-        if (s.startsWith(myResources.getString(Parser.START_OF_VARIABLE))) {
+        if (s.startsWith(myResources.getString(Parser.START_OF_VARIABLE)))
             return -1;
-        }
         else {
             try {
                 BaseInstruction base = myEnvironment.getInstruction(s);

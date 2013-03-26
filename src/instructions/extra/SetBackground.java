@@ -1,15 +1,15 @@
 package instructions.extra;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
  * Instruction to set the background color image to a default in the Palette
  * 
  * @author Ellango
- *
+ * 
  */
 public class SetBackground extends BaseInstruction {
 
@@ -18,7 +18,7 @@ public class SetBackground extends BaseInstruction {
      */
     private static final long serialVersionUID = 1480866910214941880L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-    
+
     /**
      * Initializes a instruction to set the background image
      */
@@ -27,7 +27,7 @@ public class SetBackground extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int index = nextOperand().execute(model);
         model.getBackground().switchColorImage(index);
         return index;

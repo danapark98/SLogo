@@ -1,15 +1,16 @@
 package instructions.math;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
- * Represents a negation of a value as an instruction.
- * <br><br>
- * <u> Examples:</u>
- * <br> minus 10 ---> -10
- * <br> minus -4 ---> 4
+ * Represents a negation of a value as an instruction. <br>
+ * <br>
+ * <u> Examples:</u> <br>
+ * minus 10 ---> -10 <br>
+ * minus -4 ---> 4
  * 
  * @author Scott Valentine
  * @author Ryan Fishel
@@ -22,7 +23,7 @@ public class Minus extends BaseInstruction {
      */
     private static final long serialVersionUID = 2286830618398845175L;
     private static final int NUMBER_OF_ARGUMENTS = 1;
-    
+
     /**
      * Initializes a '-' operation instruction.
      */

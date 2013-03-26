@@ -51,7 +51,7 @@ public class InstructionMap implements Serializable {
      * 
      * @param resource is the ResourceBundle that contains all of the instruction keywords.
      */
-    public InstructionMap(ResourceBundle resource) {
+    public InstructionMap (ResourceBundle resource) {
 
         this();
 
@@ -65,7 +65,7 @@ public class InstructionMap implements Serializable {
     /**
      * Creates a new instruction map with local, global variable maps for this scope.
      */
-    public InstructionMap() {
+    public InstructionMap () {
         myInstructionMaps = new ArrayList<Map<String, Instruction>>();
 
         myUserInstructions = new HashMap<String, Instruction>();
@@ -81,7 +81,7 @@ public class InstructionMap implements Serializable {
      * from the instruction_index.txt file and their keywords from a .properties
      * file
      */
-    private void initiateInstructionMap() {
+    private void initiateInstructionMap () {
         PrototypeMapFactory<Instruction> imf =
                 new PrototypeMapFactory<Instruction>(myResources,
                                                      INSTRUCTION_INDEX_FILE,
@@ -95,7 +95,7 @@ public class InstructionMap implements Serializable {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction is the instruction to be added to the environment.
      */
-    public void addInstruction(String keyword, Instruction userInstruction) {
+    public void addInstruction (String keyword, Instruction userInstruction) {
 
         if (userInstruction instanceof ConstantInstruction) {
             myGlobalVariables.put(keyword, userInstruction);
@@ -111,7 +111,7 @@ public class InstructionMap implements Serializable {
      * @param keyword is the name of the variable.
      * @param value is the value of the variable.
      */
-    public void addUserDefVar(String keyword, Instruction value) {
+    public void addUserDefVar (String keyword, Instruction value) {
         myGlobalVariables.put(keyword, value);
     }
 
@@ -121,7 +121,7 @@ public class InstructionMap implements Serializable {
      * @param keyword is the name of the function.
      * @param instruction is the function.
      */
-    public void addUserDefFunct(String keyword, Instruction instruction) {
+    public void addUserDefFunct (String keyword, Instruction instruction) {
         myUserInstructions.put(keyword, instruction);
     }
 
@@ -132,7 +132,7 @@ public class InstructionMap implements Serializable {
      * 
      * @return String containing info on user defined values.
      */
-    public String variablesToString(String header) {
+    public String variablesToString (String header) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(header);
@@ -151,7 +151,7 @@ public class InstructionMap implements Serializable {
      * @param header is the header to display for the text.
      * @return A String with user-defined function info.
      */
-    public String userDefinedInstructionstoString(String header) {
+    public String userDefinedInstructionstoString (String header) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(header);
@@ -174,9 +174,9 @@ public class InstructionMap implements Serializable {
      * @param key to check in the InstructionMap
      * @return Whether the key is used in this InstructionMap.
      */
-    public boolean containsKey(String key) {
+    public boolean containsKey (String key) {
         for (Map<String, Instruction> map : myInstructionMaps) {
-            if (map.containsKey(key)) { return true; }
+            if (map.containsKey(key)) return true;
         }
         return false;
     }
@@ -188,7 +188,7 @@ public class InstructionMap implements Serializable {
      * @param key is the keyword to lookup.
      * @return The instruction with the key.
      */
-    public BaseInstruction get(String key) {
+    public BaseInstruction get (String key) {
         for (Map<String, Instruction> map : myInstructionMaps) {
             if (map.containsKey(key)) {
 
@@ -207,7 +207,7 @@ public class InstructionMap implements Serializable {
      * 
      * @param key of the instruction to be deleted.
      */
-    public void remove(String key) {
+    public void remove (String key) {
         for (Map<String, Instruction> map : myInstructionMaps) {
             if (map.containsKey(key)) {
                 map.remove(key);
@@ -221,7 +221,7 @@ public class InstructionMap implements Serializable {
      * @param out to write objects needed later
      * @throws IOException if objects can't be written
      */
-    public void save(ObjectOutput out) throws IOException {
+    public void save (ObjectOutput out) throws IOException {
         out.writeObject(myGlobalVariables);
         out.writeObject(myInstructionMaps);
         out.writeObject(myInstructions);
@@ -239,7 +239,7 @@ public class InstructionMap implements Serializable {
      * @throws IOException if objects can't be read
      */
     @SuppressWarnings("unchecked")
-    public void load(ObjectInput in) throws ClassNotFoundException, IOException {
+    public void load (ObjectInput in) throws ClassNotFoundException, IOException {
         myGlobalVariables = (Map<String, Instruction>) in.readObject();
         myInstructionMaps = (Collection<Map<String, Instruction>>) in.readObject();
         myInstructions = (Map<String, Instruction>) in.readObject();

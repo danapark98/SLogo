@@ -30,10 +30,10 @@ public class IsShowing extends BooleanInstruction {
     /**
      * Initializes a "Is the Turtle Showing?" boolean instruction.
      */
-    public IsShowing() {
+    public IsShowing () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-    
+
     @Override
     public boolean executeBoolean (Model model) {
         return model.getTurtle().getImageIndex() != PaletteFactory.DEFAULT_CLEAR_INDEX;

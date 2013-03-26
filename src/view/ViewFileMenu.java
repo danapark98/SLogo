@@ -1,7 +1,5 @@
 package view;
 
-import control.Controller;
-import control.Controller.SaveOption;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,6 +16,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
+import control.Controller;
+import control.Controller.SaveOption;
 
 
 /**
@@ -43,7 +43,7 @@ public class ViewFileMenu {
     private static final String CHANGEPENCOLOR = "ChangePenColor";
 
     private View myView;
-    
+
     /**
      * Creates a new object to create a FileMenuBar for the View
      * 
@@ -52,7 +52,7 @@ public class ViewFileMenu {
     public ViewFileMenu (View view) {
         myView = view;
     }
-    
+
     /**
      * Create a menu that will pop up when the menu button is pressed in the
      * frame. File menu usually contains Open, Save, and Exit
@@ -73,24 +73,26 @@ public class ViewFileMenu {
         result.add(makeMenuBarQuit());
         return result;
     }
-    
+
     protected JMenu makeColorMenu () {
         JMenu result = new JMenu(getResourceLocation(COLOR));
-        
+
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 @SuppressWarnings("unused")
                 ColorChooser c = new ColorChooser(myView);
             }
         };
-        
+
         JMenuItem item = makeMenuItem(CHANGEPENCOLOR, 'P', acl);
         result.add(item);
         return result;
     }
-    
+
     private JMenuItem makeMenuBarNew () {
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 @SuppressWarnings("unused")
                 View newView = new SLogoView(myView.getTitle(), myView.getLanguage());
@@ -98,9 +100,10 @@ public class ViewFileMenu {
         };
         return makeMenuItem(NEW, NEW.charAt(0), acl);
     }
-    
+
     private JMenuItem makeMenuBarOpen () {
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = getViewChooser().showOpenDialog(null);
@@ -117,18 +120,20 @@ public class ViewFileMenu {
         };
         return makeMenuItem(LOAD, LOAD.charAt(0), acl);
     }
-    
+
     private JMenuItem makeMenuBarAutoSave (final SaveOption status) {
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 myView.getController().setSaveOption(status);
             }
         };
         return makeMenuItem(status.getResourceName(), null, acl);
     }
-    
+
     private JMenuItem makeMenuBarSave () {
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = getViewChooser().showSaveDialog(null);
@@ -146,9 +151,10 @@ public class ViewFileMenu {
         };
         return makeMenuItem(SAVE, SAVE.charAt(0), acl);
     }
-    
+
     private JMenuItem makeMenuBarHelp () {
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 Desktop hi = Desktop.getDesktop();
                 String here = System.getProperty(USER_DIR);
@@ -163,7 +169,7 @@ public class ViewFileMenu {
         };
         return makeMenuItem(HELP, HELP.charAt(0), acl);
     }
-    
+
     private JMenu makeSaveMenu () {
         JMenu saveOptions = new JMenu("Save Options");
         saveOptions.add(makeMenuBarSave());
@@ -172,35 +178,36 @@ public class ViewFileMenu {
         saveOptions.add(makeMenuBarAutoSave(SaveOption.MANUAL));
         return saveOptions;
     }
-    
+
     private JFileChooser getViewChooser () {
         return myView.getChooser();
     }
-    
+
     private String getResourceLocation (String input) {
         return myView.getResources().getString(input);
-        
+
     }
-    
+
     private Controller getViewController () {
         return myView.getController();
     }
-    
+
     private void viewDisplayText (String input) {
         myView.displayText(input);
     }
-    
+
     private JMenuItem makeMenuBarQuit () {
         ActionListener acl = new ActionListener() {
+            @Override
             public void actionPerformed (ActionEvent e) {
                 System.exit(0);
             }
         };
         return makeMenuItem(QUIT, QUIT.charAt(0), acl);
     }
-    
+
     private JMenuItem makeMenuItem (String name, Character key, ActionListener a) {
-        
+
         JMenuItem newItem = new JMenuItem(getResourceLocation(name));
         if (key != null) {
             newItem.setAccelerator(
@@ -209,7 +216,7 @@ public class ViewFileMenu {
         }
         newItem.addActionListener(a);
         return newItem;
-        
+
     }
-    
+
 }

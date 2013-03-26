@@ -1,8 +1,8 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -24,16 +24,16 @@ public class PenColor extends BaseInstruction {
      */
     private static final long serialVersionUID = -6331249525599036720L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    
-    /** 
+
+    /**
      * Default constructor for Base Instruction types.
      */
-    public PenColor() {
+    public PenColor () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         return model.getTurtle().getPen().getColorIndex();
     }
 

@@ -1,18 +1,19 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
+import exceptions.IllegalInstructionException;
+
 
 /**
- * Represents any instruction that changes the heading of the turtle. 
+ * Represents any instruction that changes the heading of the turtle.
  * These include the instructions:
  * <ul>
- * <li> Left
- * <li> Right
- * <li> SetHeading
- * <li> etc.
+ * <li>Left
+ * <li>Right
+ * <li>SetHeading
+ * <li>etc.
  * </ul>
  * 
  * @author Scott Valentine
@@ -29,7 +30,7 @@ public abstract class Rotate extends BaseInstruction {
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {
-        int rotation = getRotation(model);        
+        int rotation = getRotation(model);
         Turtle turtle = model.getTurtle();
         turtle.setAngle(turtle.getAngle() + rotation);
         return nextOperand().execute(model);

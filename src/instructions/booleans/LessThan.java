@@ -1,7 +1,8 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents the instruction for >, and returns 1 if the first argument is
@@ -24,11 +25,11 @@ public class LessThan extends BooleanInstruction {
      */
     private static final long serialVersionUID = -7617375173556456877L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
-    /**
+
+/**
      * Initializes a '<' instruction.
      */
-    public LessThan() {
+    public LessThan () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 

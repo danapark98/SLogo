@@ -1,12 +1,12 @@
 package instructions;
 
-import control.Parser;
-import exceptions.CorruptedEnvironmentException;
-import exceptions.IllegalInstructionException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
+import control.Parser;
+import exceptions.CorruptedEnvironmentException;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -44,8 +44,8 @@ public abstract class BaseInstruction implements Instruction {
      *         instruction that does not exist or has not been defined
      */
 
-    public void load(Scanner line, Parser parser)
-        throws IllegalInstructionException {
+    public void load (Scanner line, Parser parser)
+                                                  throws IllegalInstructionException {
         List<Instruction> operands = new ArrayList<Instruction>();
         for (int i = 0; i < getNumberOfArguments(); i++) {
             operands.add(parser.nextInstruction(line));
@@ -58,7 +58,7 @@ public abstract class BaseInstruction implements Instruction {
      * 
      * @return The next instruction in this instructions operands.
      */
-    public Instruction nextOperand() {
+    public Instruction nextOperand () {
         if (!myOperands.hasNext()) {
             resetOperands();
         }
@@ -68,19 +68,19 @@ public abstract class BaseInstruction implements Instruction {
     /**
      * used when the execute method is called more than once.
      */
-    private void resetOperands() {
+    private void resetOperands () {
         while (myOperands.hasPrevious()) {
             myOperands.previous();
         }
     }
-
 
     /**
      * Gives a string representing this instruction.
      * 
      * @return The name of this Instruction Class.
      */
-    public String toString() {
+    @Override
+    public String toString () {
 
         StringBuilder sb = new StringBuilder();
 
@@ -95,7 +95,7 @@ public abstract class BaseInstruction implements Instruction {
         return sb.toString();
     }
 
-    private String operandsToString() {
+    private String operandsToString () {
         StringBuilder sb = new StringBuilder();
         resetOperands();
         while (myOperands.hasNext()) {
@@ -111,7 +111,7 @@ public abstract class BaseInstruction implements Instruction {
      * @return a copy of this instruction
      */
 
-    public BaseInstruction newCopy() {
+    public BaseInstruction newCopy () {
         BaseInstruction copy = null;
         try {
             copy = this.getClass().newInstance();
@@ -127,11 +127,11 @@ public abstract class BaseInstruction implements Instruction {
      * 
      * @return The number of arguments needed for this instruction.
      */
-    public int getNumberOfArguments() {
+    public int getNumberOfArguments () {
         return myNumberOfArguments;
     }
 
-    protected void setNumberOfArguments(int numberOfArguments) {
+    protected void setNumberOfArguments (int numberOfArguments) {
         myNumberOfArguments = numberOfArguments;
     }
 

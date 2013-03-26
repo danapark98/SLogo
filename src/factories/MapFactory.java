@@ -1,6 +1,5 @@
 package factories;
 
-import control.Controller;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -8,6 +7,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import control.Controller;
 
 
 /**
@@ -29,14 +29,14 @@ public abstract class MapFactory<K, V> {
 
     private ResourceBundle myResources;
 
-    protected MapFactory(ResourceBundle resources) {
+    protected MapFactory (ResourceBundle resources) {
         myResources = resources;
 
         myResources.getString(COMMENT_CHARACTER_KEY);
 
     }
 
-    protected ResourceBundle getResources() {
+    protected ResourceBundle getResources () {
         return myResources;
     }
 
@@ -46,7 +46,7 @@ public abstract class MapFactory<K, V> {
      * 
      * @return Scanner
      */
-    protected Scanner getScanner() {
+    protected Scanner getScanner () {
         FileReader fileToBeRead = null;
         String currentDirectory = System.getProperty(Controller.USER_DIR);
         try {
@@ -65,7 +65,7 @@ public abstract class MapFactory<K, V> {
      * @param line to read
      * @return true if commented line
      */
-    protected boolean commentedLine(String line) {
+    protected boolean commentedLine (String line) {
         return line.charAt(0) == myResources.getString(COMMENT_CHARACTER_KEY).charAt(0) ||
                line.length() <= 0;
     }
@@ -75,7 +75,7 @@ public abstract class MapFactory<K, V> {
      * 
      * @return
      */
-    public Map<Integer, V> buildIndexMap() {
+    public Map<Integer, V> buildIndexMap () {
         Scanner line = getScanner();
         Map<Integer, V> protoMap =
                 new HashMap<Integer, V>();
@@ -92,11 +92,11 @@ public abstract class MapFactory<K, V> {
         return protoMap;
     }
 
-    protected abstract V getMapValue(String[] restOfLine);
+    protected abstract V getMapValue (String[] restOfLine);
 
     /**
      * 
      * @return the string of the file name
      */
-    protected abstract String getIndexFile();
+    protected abstract String getIndexFile ();
 }

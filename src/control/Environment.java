@@ -1,7 +1,5 @@
 package control;
 
-import drawing.Palette;
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.Instruction;
 import java.io.IOException;
@@ -11,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import drawing.Palette;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -49,7 +49,7 @@ public class Environment implements Serializable {
      * 
      * @param resource is the ResourceBundle where all of the instruction keywords are stored.
      */
-    public Environment(ResourceBundle resource) {
+    public Environment (ResourceBundle resource) {
 
         myResources = resource;
 
@@ -69,7 +69,7 @@ public class Environment implements Serializable {
      * 
      * @return The current palette in use.
      */
-    public Palette getPalette() {
+    public Palette getPalette () {
         return myPalette;
     }
 
@@ -79,8 +79,8 @@ public class Environment implements Serializable {
      * @param keyword associated with the instruction for future calls
      * @param userInstruction is the instruction to be added to the environment.
      */
-    public void addInstruction(String keyword,
-                               Instruction userInstruction) {
+    public void addInstruction (String keyword,
+                                Instruction userInstruction) {
         InstructionMap currentScope = myInstructions.get(myScope);
         currentScope.addInstruction(keyword, userInstruction);
     }
@@ -91,7 +91,7 @@ public class Environment implements Serializable {
      * @param keyword is the name of the new user function.
      * @param instruction is the instruction for the new function.
      */
-    public void defineFunction(String keyword, Instruction instruction) {
+    public void defineFunction (String keyword, Instruction instruction) {
         myInstructions.get(myScope).addUserDefFunct(keyword, instruction);
     }
 
@@ -101,7 +101,7 @@ public class Environment implements Serializable {
      * @param keyword is the name of the variable.
      * @param value is the value of the variable.
      */
-    public void defineVariable(String keyword, Instruction value) {
+    public void defineVariable (String keyword, Instruction value) {
         myInstructions.get(myScope).addUserDefVar(keyword, value);
     }
 
@@ -112,7 +112,7 @@ public class Environment implements Serializable {
      * 
      * @param instructionName of the instruction to be deleted.
      */
-    public void removeInstruction(String instructionName) {
+    public void removeInstruction (String instructionName) {
         InstructionMap currentScope = myInstructions.get(myScope);
         currentScope.remove(instructionName);
     }
@@ -122,14 +122,14 @@ public class Environment implements Serializable {
      * 
      * @return A String that contains all information on user defined functions.
      */
-    public String customValuesToString() {
+    public String customValuesToString () {
         StringBuilder sb = new StringBuilder();
         for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
             sb.append(myResources.getString(SCOPE_LEVEL_HEADER) + i + "\n");
             sb.append(myInstructions.get(i).userDefinedInstructionstoString(myResources.getString(
-                USER_FUNCTIONS_HEADER)));
+                    USER_FUNCTIONS_HEADER)));
             sb.append(myInstructions.get(GLOBAL_SCOPE).variablesToString(myResources.getString(
-                USER_VARIABLE_HEADER)));
+                    USER_VARIABLE_HEADER)));
         }
 
         return sb.toString();
@@ -143,11 +143,10 @@ public class Environment implements Serializable {
      * @throws IllegalInstructionException This occurs when the keyword is not
      *         found in the environment.
      */
-    public BaseInstruction getInstruction(String commandName) throws IllegalInstructionException {
+    public BaseInstruction getInstruction (String commandName) throws IllegalInstructionException {
         for (int i = GLOBAL_SCOPE; i <= myScope; ++i) {
-            if (myInstructions.get(i).containsKey(commandName)) { 
-                return myInstructions.get(i).get(commandName); 
-            }
+            if (myInstructions.get(i).containsKey(commandName)) return myInstructions.get(i)
+                    .get(commandName);
         }
         throw new IllegalInstructionException(commandName +
                                               myResources.getString(UNDEFINED_INSTRUCTION));
@@ -156,7 +155,7 @@ public class Environment implements Serializable {
     /**
      * Increase the current scope of variables.
      */
-    public void inScope() {
+    public void inScope () {
         myScope += 1;
 
         myInstructions.add(new InstructionMap());
@@ -165,7 +164,7 @@ public class Environment implements Serializable {
     /**
      * Decrease the scope of the current variables.
      */
-    public void outScope() {
+    public void outScope () {
         myInstructions.remove(myInstructions.size() - 1);
         myScope -= 1;
     }
@@ -177,7 +176,7 @@ public class Environment implements Serializable {
      * @param out to write objects needed later
      * @throws IOException if objects can't be written
      */
-    public void save(ObjectOutput out) throws IOException {
+    public void save (ObjectOutput out) throws IOException {
         for (InstructionMap im : myInstructions) {
             im.save(out);
         }
@@ -194,19 +193,19 @@ public class Environment implements Serializable {
      *         in wrong order
      * @throws IOException if objects can't be read
      */
-    public void load(ObjectInput in) throws ClassNotFoundException, IOException {
+    public void load (ObjectInput in) throws ClassNotFoundException, IOException {
         for (InstructionMap im : myInstructions) {
             im.load(in);
         }
         myPalette.load(in);
     }
-    
+
     /**
      * Gives the resources used by this environment.
-     *  
+     * 
      * @return Resource bundle used by this environment
      */
-    public ResourceBundle getResources() {
+    public ResourceBundle getResources () {
         return myResources;
     }
 }

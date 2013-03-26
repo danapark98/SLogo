@@ -18,18 +18,18 @@ import javax.swing.event.ChangeListener;
  */
 public class ColorChooser extends JFrame
         implements ChangeListener {
-    
+
     private static final long serialVersionUID = 1L;
     private static final Dimension CHOOSER_BOUNDS = new Dimension(800, 600);
     private static final int MAX_RGB = 255;
-    
+
     // TODO: these strings cannot be here
     private static final String SET_PALLETE = "SetPalette";
     private static final String SET_PEN_COLOR = "SetPenColor";
     private JColorChooser myTcc;
     private View myView;
     private Color myColor;
-    
+
     /**
      * Creates a color chooser with an various types of color.
      * 
@@ -54,12 +54,13 @@ public class ColorChooser extends JFrame
             }
         });
     }
-    
+
     /**
      * Listens to a new color picked by the user.
      * 
      * @param e The event from the ColorChooser
      */
+    @Override
     public void stateChanged (ChangeEvent e) {
         myColor = myTcc.getColor();
         float[] compArray = null;
@@ -73,7 +74,7 @@ public class ColorChooser extends JFrame
         myView.getController().createRunInstruction(getResourceLocation(SET_PEN_COLOR) +
                                                     " 1");
     }
-    
+
     private String getResourceLocation (String input) {
         String allCommands = myView.getResources().getString(input);
         String command = allCommands.split(",")[0];

@@ -1,6 +1,5 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
@@ -8,6 +7,7 @@ import instructions.Instruction;
 import instructions.user_defined.VariableInstruction;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -20,13 +20,13 @@ import java.util.Scanner;
  */
 public class Parser {
 
-    /** Indicator for the start of a list*/
+    /** Indicator for the start of a list */
     public static final String BEGINNING_OF_LIST = "listStart";
-    
-    /** Indicator for the end of a list*/
+
+    /** Indicator for the end of a list */
     public static final String END_OF_LIST = "listEnd";
-    
-    /** Indicator for a user defined variable*/
+
+    /** Indicator for a user defined variable */
     public static final String START_OF_VARIABLE = "userVariable";
     private static final String ARGUMENT_ERROR_MESSAGE = "argumentErrorMessage";
     private static final String LIST_ERROR_MESSAGE = "listErrorMessage";
@@ -116,9 +116,10 @@ public class Parser {
      * @throws IllegalInstructionException if instruction not recognized
      */
     public Instruction nextInstruction (Scanner line) throws IllegalInstructionException {
-        if (!line.hasNext()) {
-            throw new IllegalInstructionException(myResources.getString(ARGUMENT_ERROR_MESSAGE));
-        }
+        if (!line.hasNext())
+            throw new IllegalInstructionException(
+                                                  myResources
+                                                          .getString(ARGUMENT_ERROR_MESSAGE));
         String next = line.next();
         if (next.equals(myResources.getString(BEGINNING_OF_LIST))) {
             next = unpackList(line);
@@ -137,12 +138,13 @@ public class Parser {
         StringBuilder sb = new StringBuilder();
         int counterBracket = 1;
         while (counterBracket != 0) {
-            if (!line.hasNext()) {
-                throw new IllegalInstructionException(myResources.getString(LIST_ERROR_MESSAGE));
-            }
+            if (!line.hasNext())
+                throw new IllegalInstructionException(
+                                                      myResources
+                                                              .getString(LIST_ERROR_MESSAGE));
             String str = line.next();
-            counterBracket = updateCounterBracket(str, counterBracket, 
-                                                  myResources.getString(BEGINNING_OF_LIST), 
+            counterBracket = updateCounterBracket(str, counterBracket,
+                                                  myResources.getString(BEGINNING_OF_LIST),
                                                   myResources.getString(END_OF_LIST));
             if (counterBracket != 0) {
                 sb.append(str);
@@ -165,16 +167,12 @@ public class Parser {
      * 
      * @return the updated counterBracket
      */
-    static int updateCounterBracket (String str, int counterBracket, 
+    static int updateCounterBracket (String str, int counterBracket,
                                      String listStart, String listEnd) {
-        if (str.equals(listStart)) {
+        if (str.equals(listStart))
             return counterBracket + 1;
-        }
-        else if (str.equals(listEnd)) {
+        else if (str.equals(listEnd))
             return counterBracket - 1;
-        }
-        else {
-            return counterBracket;
-        }
+        else return counterBracket;
     }
 }

@@ -4,6 +4,7 @@ import drawing.Palette;
 import drawing.StampSprite;
 import drawing.lines.Point;
 
+
 /**
  * Interface for objects that can have lines added.
  * 
@@ -19,20 +20,19 @@ public interface DisplayEditor {
      * @param line is the line to be added.
      */
     public void addLine (Point line);
-    
+
     /**
      * Adds a stamp of the turtle.
      * 
      * @param st Stamp to be added.
      */
     public void addStamp (StampSprite st);
-    
+
     /**
      * Gives a palette of graphical options used for drawing.
      * 
      * @return The Palette that can be used in editing.
      */
-    public Palette getPalette();
-        
-    
+    public Palette getPalette ();
+
 }

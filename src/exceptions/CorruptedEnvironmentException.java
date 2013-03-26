@@ -11,4 +11,5 @@ package exceptions;
  * @author Ellango Jothimurugesan
  */
 @SuppressWarnings("serial")
-public class CorruptedEnvironmentException extends RuntimeException { }
+public class CorruptedEnvironmentException extends RuntimeException {
+}

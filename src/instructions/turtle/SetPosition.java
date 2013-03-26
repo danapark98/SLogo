@@ -1,10 +1,10 @@
 package instructions.turtle;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
 import simulation.Turtle;
 import util.Location;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -31,16 +31,16 @@ public class SetPosition extends BaseInstruction {
      */
     private static final long serialVersionUID = -7480055529053641527L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes a movement to given position translation instruction.
      */
-    public SetPosition() {
+    public SetPosition () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         Turtle turtle = model.getTurtle();
         Location start = new Location(turtle.getX(), turtle.getY());
         Location centerOfScreen = Turtle.startingLocation();

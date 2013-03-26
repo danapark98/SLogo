@@ -1,12 +1,13 @@
 package instructions.user_defined;
 
-import control.Environment;
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import instructions.CompoundInstruction;
 import instructions.ConstantInstruction;
 import instructions.Instruction;
 import simulation.Model;
+import control.Environment;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents an instruction loops for a set amount of times.<br>
@@ -26,17 +27,16 @@ public class DoTimes extends BaseInstruction {
      */
     private static final long serialVersionUID = 7665168144376932102L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     private static final int VARIABLE_NAME_INDEX = 0;
     private static final int END_INDEX = 1;
-    
+
     /**
      * Initializes user defined do-times instruction.
      */
     public DoTimes () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-
 
     @Override
     public int execute (Model model) throws IllegalInstructionException {

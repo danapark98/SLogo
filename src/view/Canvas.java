@@ -1,6 +1,5 @@
 package view;
 
-import control.Controller;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import simulation.Model;
-
+import control.Controller;
 
 
 /**
@@ -84,18 +83,17 @@ public class Canvas extends JComponent {
         // create a timer to animate the canvas
         myTimer = new Timer(DEFAULT_DELAY,
                             new ActionListener() {
-                    @Override
-                    public void actionPerformed (ActionEvent e) {
-                        step();
-                    }
-                }
-        );
+                                @Override
+                                public void actionPerformed (ActionEvent e) {
+                                    step();
+                                }
+                            }
+                );
         mySimulation = new Model();
         view.setController(new Controller(mySimulation, view));
         myTimer.start();
     }
 
- 
     /**
      * Stops the timer animating the simulation.
      * This is never used but may be useful.

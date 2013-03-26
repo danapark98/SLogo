@@ -1,7 +1,8 @@
 package instructions.booleans;
 
-import exceptions.IllegalInstructionException;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
+
 
 /**
  * Represents the instruction for !=, and returns 0 if the two arguments are
@@ -23,11 +24,11 @@ public class NotEqual extends BooleanInstruction {
      */
     private static final long serialVersionUID = -3010226380769115508L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes an '!=' instruction.
      */
-    public NotEqual() {
+    public NotEqual () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
 

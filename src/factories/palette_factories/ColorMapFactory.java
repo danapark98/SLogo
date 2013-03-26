@@ -3,13 +3,14 @@ package factories.palette_factories;
 import java.awt.Color;
 import java.util.ResourceBundle;
 
+
 /**
  * Factory that builds map of indices to colors read in from text file.
  * 
  * @author Scott Valentine
- *
+ * 
  */
-public class ColorMapFactory extends IndexMapFactory< Color> {
+public class ColorMapFactory extends IndexMapFactory<Color> {
 
     // info for reading in from textfile
     private static final int R_INDEX = 0;
@@ -17,7 +18,6 @@ public class ColorMapFactory extends IndexMapFactory< Color> {
     private static final int B_INDEX = 2;
     private static final int ALPHA_INDEX = 3;
 
-    
     /**
      * Default Constructor. Sets the file to read Color data from
      * 
@@ -25,12 +25,12 @@ public class ColorMapFactory extends IndexMapFactory< Color> {
      * 
      * @param resources is a ResourceBundle with language specific strings.
      */
-    public ColorMapFactory(String indexFileLocation, ResourceBundle resources) {
+    public ColorMapFactory (String indexFileLocation, ResourceBundle resources) {
         super(indexFileLocation, resources);
     }
 
     @Override
-    protected Color getObject(String objectData) {
+    protected Color getObject (String objectData) {
         String[] rgbAlpha = objectData.split(" ");
 
         int r = Integer.parseInt(rgbAlpha[R_INDEX]);

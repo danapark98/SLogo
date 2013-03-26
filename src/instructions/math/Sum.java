@@ -1,8 +1,8 @@
 package instructions.math;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -24,7 +24,7 @@ public class Sum extends BaseInstruction {
      */
     private static final long serialVersionUID = -191594058546524267L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
-    
+
     /**
      * Initializes an addition operation instruction.
      */

@@ -1,6 +1,5 @@
 package control;
 
-import exceptions.IllegalInstructionException;
 import instructions.Instruction;
 import instructions.turtle.ClearScreen;
 import java.io.File;
@@ -16,6 +15,7 @@ import java.io.OutputStream;
 import java.util.ResourceBundle;
 import simulation.Model;
 import view.View;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -29,16 +29,15 @@ import view.View;
  */
 public class Controller {
 
-
     /** String that indicated a return result from a user input */
     public static final String PRINT_INDICATOR = "printIndicator";
-    /** String indicating the current user directory*/
+    /** String indicating the current user directory */
     public static final String USER_DIR = "user.dir";
     private static final String FILE_SAVING_ERROR_MESSAGE = "fileSaveErrorMessage";
     private static final String FILE_LOADING_ERROR_MESSAGE = "fileLoadErrorMessage";
-    
+
     private static final String AUTOSAVE_FILENAME = "/autoSLogo.bk";
-    
+
     private Model myModel;
     private View myView;
     private Parser myParser;
@@ -162,11 +161,11 @@ public class Controller {
     public void clear () {
         new ClearScreen().execute(myModel);
     }
-    
+
     /**
      * A type representing whether the Controller should save the environment
      * automatically or only when the user specifies to
-     *
+     * 
      */
     public enum SaveOption {
         /**
@@ -174,7 +173,7 @@ public class Controller {
          */
         AUTO {
             @Override
-            public String getResourceName() {
+            public String getResourceName () {
                 return AUTO_NAME;
             }
         },
@@ -183,7 +182,7 @@ public class Controller {
          */
         MANUAL {
             @Override
-            public String getResourceName() {
+            public String getResourceName () {
                 return MANUAL_NAME;
             }
         };
@@ -195,7 +194,7 @@ public class Controller {
          * 
          * @return The name of the resource (save)
          */
-        public abstract String getResourceName();
+        public abstract String getResourceName ();
     }
 
 }

@@ -1,8 +1,8 @@
 package instructions.math;
 
-import exceptions.IllegalInstructionException;
 import instructions.BaseInstruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -28,7 +28,7 @@ public class Remainder extends BaseInstruction {
     private static final long serialVersionUID = -4013823908746631449L;
     private static final int NUMBER_OF_ARGUMENTS = 2;
     private static final String ERROR_MESSAGE = "Dividing by zero";
-    
+
     /**
      * Initializes a remainder operation instruction (i.e. x = input1 mod input2).
      */
@@ -37,11 +37,11 @@ public class Remainder extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) throws IllegalInstructionException {
+    public int execute (Model model) throws IllegalInstructionException {
         int arg0 = nextOperand().execute(model);
         int arg1 = nextOperand().execute(model);
 
-        if (arg1 == 0) { throw new IllegalInstructionException(ERROR_MESSAGE); }
+        if (arg1 == 0) throw new IllegalInstructionException(ERROR_MESSAGE);
         return arg0 % arg1;
     }
 }

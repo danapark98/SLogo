@@ -1,16 +1,15 @@
 package drawing;
 
-import drawing.lines.LineBuilder;
-import exceptions.IllegalInstructionException;
-import factories.palette_factories.PaletteFactory;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.ResourceBundle;
-
 import util.Pixmap;
+import drawing.lines.LineBuilder;
+import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 
 
 /**
@@ -24,27 +23,25 @@ public class Palette implements Serializable {
     private static final long serialVersionUID = 8628824944325378976L;
     private static final String COLOR_VALUE_OUT_OF_RANGE = "Not valid color value";
     private static final int MAX_COLOR_VALUE = 255;
-    
+
     private GraphicsMap<Color> myColors;
     private GraphicsMap<LineBuilder> myLineStyles;
     private GraphicsMap<Pixmap> myImages;
     private GraphicsMap<PriorityPixmap> myBackgroundColorImages;
-
 
     /**
      * Constructs Palette with default colors, linestyles, and shapes
      * 
      * @param resources is ResourceBundle that contains specific langauge strings
      */
-    public Palette(ResourceBundle resources) {        
-        PaletteFactory pf = new PaletteFactory(resources);        
+    public Palette (ResourceBundle resources) {
+        PaletteFactory pf = new PaletteFactory(resources);
         myColors = pf.initializeColors();
         myLineStyles = pf.initializeLineStyles();
         myImages = pf.initializeImages();
         myBackgroundColorImages = pf.initializeBackgroundColorImages();
     }
-    
-    
+
     /**
      * Adds a new color to the palette.
      * 
@@ -54,11 +51,11 @@ public class Palette implements Serializable {
      * @param b is the blue component of the color
      * @throws IllegalInstructionException This occurs when the index is not valid (index <= 0.)
      */
-    public void addColor(int index, int r, int g, int b) throws IllegalInstructionException {
-        if (r < 0 || r > MAX_COLOR_VALUE || g < 0 || g > MAX_COLOR_VALUE || 
-                b < 0 || b > MAX_COLOR_VALUE) {
-            throw new IllegalInstructionException(COLOR_VALUE_OUT_OF_RANGE);
-        }
+    public void addColor (int index, int r, int g, int b) throws IllegalInstructionException {
+        if (r < 0 || r > MAX_COLOR_VALUE || g < 0 || g > MAX_COLOR_VALUE ||
+            b < 0 || b > MAX_COLOR_VALUE)
+            throw new IllegalInstructionException(
+                                                  COLOR_VALUE_OUT_OF_RANGE);
         myColors.put(index, new Color(r, g, b));
     }
 
@@ -69,22 +66,22 @@ public class Palette implements Serializable {
      * @return The color at the index.
      * @throws IllegalInstructionException occurs when the index has not yet been defined.
      */
-    public Color getColor(int index) throws IllegalInstructionException {
+    public Color getColor (int index) throws IllegalInstructionException {
         return myColors.get(index);
     }
-    
+
     /**
-     * Returns the image of the Turtle to paint at the given index 
+     * Returns the image of the Turtle to paint at the given index
      * 
      * @param index of the turtle image
      * @return Pixmap that represents Turtle's view
-     * @throws IllegalInstructionException 
+     * @throws IllegalInstructionException
      */
-    public Pixmap getImage(int index) throws IllegalInstructionException {
+    public Pixmap getImage (int index) throws IllegalInstructionException {
         return myImages.get(index);
 
     }
-    
+
     /**
      * Returns the line style at the given index.
      * 
@@ -92,10 +89,10 @@ public class Palette implements Serializable {
      * @return a LineBuilder that builds lines of a certain style.
      * @throws IllegalInstructionException if a line style not defined for that index
      */
-    public LineBuilder getLineStyle(int index) throws IllegalInstructionException {
+    public LineBuilder getLineStyle (int index) throws IllegalInstructionException {
         return myLineStyles.get(index);
     }
-    
+
     /**
      * Returns the background color image at the given index
      * 
@@ -103,7 +100,7 @@ public class Palette implements Serializable {
      * @return a PriorityPixmap that represents a background color image
      * @throws IllegalInstructionException if an image not defined for that index
      */
-    public PriorityPixmap getBackgroundColorImage(int index) throws IllegalInstructionException {
+    public PriorityPixmap getBackgroundColorImage (int index) throws IllegalInstructionException {
         return myBackgroundColorImages.get(index);
     }
 
@@ -122,9 +119,9 @@ public class Palette implements Serializable {
      * 
      * Objects must be loaded in the same order they were saved.
      * 
-     * @param in to read objects in 
+     * @param in to read objects in
      * @throws ClassNotFoundException if file not saved properly or objects read
-     * in wrong order
+     *         in wrong order
      * @throws IOException if objects can't be read
      */
     @SuppressWarnings("unchecked")

@@ -1,9 +1,5 @@
 package simulation;
 
-import drawing.Palette;
-import drawing.Pen;
-import exceptions.IllegalInstructionException;
-import factories.palette_factories.PaletteFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -15,6 +11,10 @@ import util.Sprite;
 import util.ValueText;
 import util.Vector;
 import view.View;
+import drawing.Palette;
+import drawing.Pen;
+import exceptions.IllegalInstructionException;
+import factories.palette_factories.PaletteFactory;
 
 
 /**
@@ -151,15 +151,15 @@ public class Turtle extends Sprite {
     public Pen getPen () {
         return myPen;
     }
-    
+
     /**
      * Changes the image
      * 
      * @param index is of the image in the palette.
      * @throws IllegalInstructionException if no image represented by the
-     * index
+     *         index
      */
-    public void changeImage(int index) throws IllegalInstructionException {
+    public void changeImage (int index) throws IllegalInstructionException {
         Pixmap image = myPalette.getImage(index);
         setView(image);
         myCurrentImageIndex = index;

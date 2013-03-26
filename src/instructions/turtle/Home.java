@@ -27,7 +27,7 @@ public class Home extends BaseInstruction {
      */
     private static final long serialVersionUID = 7834890056016622585L;
     private static final int NUMBER_OF_ARGUMENTS = 0;
-    
+
     /**
      * Initializes a return to default position instruction.
      */
@@ -36,7 +36,7 @@ public class Home extends BaseInstruction {
     }
 
     @Override
-    public int execute(Model model) {
+    public int execute (Model model) {
         Turtle turtle = model.getTurtle();
         Location startLocation = new Location(turtle.getX(), turtle.getY());
         turtle.setCenter(Turtle.startingLocation());

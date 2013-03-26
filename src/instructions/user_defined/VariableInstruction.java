@@ -1,8 +1,8 @@
 package instructions.user_defined;
 
-import exceptions.IllegalInstructionException;
 import instructions.Instruction;
 import simulation.Model;
+import exceptions.IllegalInstructionException;
 
 
 /**
@@ -22,7 +22,7 @@ public class VariableInstruction implements Instruction {
     private static final long serialVersionUID = 774078238165210357L;
     private static final String ERROR_MESSAGE = "Using an undefined variable";
     private String myName;
-    
+
     /**
      * Makes a new variable instruction with a given name.
      * 
@@ -42,11 +42,10 @@ public class VariableInstruction implements Instruction {
             throw new IllegalInstructionException(ERROR_MESSAGE);
         }
     }
-    
-    @Override
-    public String toString() {
-        return myName; 
-    }
 
+    @Override
+    public String toString () {
+        return myName;
+    }
 
 }

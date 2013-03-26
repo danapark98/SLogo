@@ -15,7 +15,7 @@ import simulation.Model;
  * 
  */
 public class ConstantInstruction extends BaseInstruction {
-    
+
     /**
      * Eclipse auto-generated ID to implement Serializable interface.
      */
@@ -43,9 +43,9 @@ public class ConstantInstruction extends BaseInstruction {
     public BaseInstruction newCopy () {
         return new ConstantInstruction(myValue);
     }
-    
+
     @Override
-    public String toString() {
+    public String toString () {
         return "" + myValue;
     }
 

@@ -29,12 +29,12 @@ public class IsPenDown extends BooleanInstruction {
     /**
      * Initializes a "Is the Turtle's pen down?" boolean instruction.
      */
-    public IsPenDown() {
+    public IsPenDown () {
         setNumberOfArguments(NUMBER_OF_ARGUMENTS);
     }
-    
+
     @Override
-    public boolean executeBoolean(Model model) {
+    public boolean executeBoolean (Model model) {
         return model.getTurtle().getPen().getColor().getAlpha() != 0;
     }
 }
