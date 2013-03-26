@@ -20,7 +20,6 @@ import java.util.Scanner;
 public class PrototypeMapFactory<V> extends TextFileReader<V> {
     
     private static final String PROPERTIES_SEPERATOR = "[,]";
-    private static final int DEFAULT_START_INDEX = 0;
 
     /**
      * Character that indicates a comment when places at beginning of line of
@@ -101,15 +100,18 @@ public class PrototypeMapFactory<V> extends TextFileReader<V> {
         Map<Integer, V> protoMap =
                 new HashMap<Integer, V>();
         
-        int index = DEFAULT_START_INDEX;
         
         while (line.hasNextLine()) {           
             String currentLine = line.nextLine();            
             if (!commentedLine(currentLine)) {
-                String classPath = myPackageLocation + currentLine;       
+                String[] data = currentLine.split("=");
+                int key = Integer.parseInt(data[0].trim());
+                
+                String className = data[1].trim();
+                
+                String classPath = myPackageLocation + className;       
                 V val = getValue(classPath);
-                protoMap.put(index, val);
-                index += 1;
+                protoMap.put(key, val);
             }        
         }
         line.close();
