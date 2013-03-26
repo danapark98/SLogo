@@ -22,6 +22,8 @@ public class ColorChooser extends JFrame
     private static final long serialVersionUID = 1L;
     private static final Dimension CHOOSER_BOUNDS = new Dimension(800, 600);
     private static final int MAX_RGB = 255;
+    
+    // TODO: these strings cannot be here
     private static final String SET_PALLETE = "SetPalette";
     private static final String SET_PEN_COLOR = "SetPenColor";
     private JColorChooser myTcc;
