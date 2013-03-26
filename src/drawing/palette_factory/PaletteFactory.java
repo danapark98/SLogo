@@ -51,7 +51,7 @@ public class PaletteFactory {
      */
     public static GraphicsMap<Pixmap> initializeImages () {       
         ImageMapFactory imf = new ImageMapFactory(SHAPE_INDEX);
-        Map<Integer, Pixmap> shapeMap = imf.buildMap();
+        Map<Integer, Pixmap> shapeMap = imf.buildIndexMap();
         return new GraphicsMap<>(shapeMap);
     }
 
@@ -62,7 +62,7 @@ public class PaletteFactory {
      */
     public static GraphicsMap<Color> initializeColors () {
         IndexMapFactory<Color> cmf = new ColorMapFactory(COLOR_INDEX);
-        Map<Integer, Color> colors = cmf.buildMap();
+        Map<Integer, Color> colors = cmf.buildIndexMap();
 
         return new GraphicsMap<Color>(colors);
     }
@@ -87,7 +87,7 @@ public class PaletteFactory {
      */
     public static GraphicsMap<PriorityPixmap> initializeBackgroundColorImages () {
         BackgroundMapFactory bgf = new BackgroundMapFactory(BACKGROUND_IMAGE_INDEX);        
-        Map<Integer, PriorityPixmap> shapeMap = bgf.buildMap();        
+        Map<Integer, PriorityPixmap> shapeMap = bgf.buildIndexMap();        
         return new GraphicsMap<>(shapeMap);
     }
 

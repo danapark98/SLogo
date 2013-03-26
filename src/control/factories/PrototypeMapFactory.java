@@ -15,9 +15,11 @@ import java.util.Scanner;
  * @param <V> is the Class of the prototypes that the properties file maps to.
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  * 
  */
-public class PrototypeMapFactory<V> extends TextFileReader<V> {
+public class PrototypeMapFactory<V> extends MapFactory<V> {
     
     private static final String PROPERTIES_SEPERATOR = "[,]";
 
@@ -67,15 +69,14 @@ public class PrototypeMapFactory<V> extends TextFileReader<V> {
      * @return Map of keywords to instructions.
      */
     public Map<String, V> buildStringMap() {
-        Scanner line = getScanner(myIndexFile);
+        Scanner line = getScanner();
         Map<String, V> protoMap =
                 new HashMap<String, V>();
 
         while (line.hasNextLine()) {
             String nextLine = line.nextLine();
             if (!commentedLine(nextLine)) {
-                String classPath = myPackageLocation + nextLine;
-                V generic = getValue(classPath);
+                V generic = getValue(nextLine);
 
                 String[] keyWords = getKeys(nextLine);
                 
@@ -89,43 +90,22 @@ public class PrototypeMapFactory<V> extends TextFileReader<V> {
         line.close();
         return protoMap;
     }
-    
-    /**
-     * Builds a Map of prototypes based on index in text file.
-     * 
-     * @return
-     */
-    public Map<Integer, V> buildIndexMap() {
-        Scanner line = getScanner(myIndexFile);
-        Map<Integer, V> protoMap =
-                new HashMap<Integer, V>();
-        
-        
-        while (line.hasNextLine()) {           
-            String currentLine = line.nextLine();            
-            if (!commentedLine(currentLine)) {
-                String[] data = currentLine.split("=");
-                int key = Integer.parseInt(data[0].trim());
-                
-                String className = data[1].trim();
-                
-                String classPath = myPackageLocation + className;       
-                V val = getValue(classPath);
-                protoMap.put(key, val);
-            }        
-        }
-        line.close();
-        return protoMap;
-    }
-    
-    private String[] getKeys(String line) {
+  
+
+	private String[] getKeys(String line) {
         String className = getClassName(line);
         String entry = myResources.getString(className);
         return entry.split(PROPERTIES_SEPERATOR);
     }
-
+    
+	@Override
+    protected V getMapValue(String[] restOfLine) {
+        return getValue(restOfLine[1].trim());
+    }
+	
     @SuppressWarnings("unchecked")
-    private V getValue(String classPath) {
+	private V getValue(String className) {
+    	String classPath = myPackageLocation + className;
         try {
             Class<?> genericClass = Class.forName(classPath);
             return (V) genericClass.newInstance();
@@ -133,7 +113,7 @@ public class PrototypeMapFactory<V> extends TextFileReader<V> {
         catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
             throw new CorruptedEnvironmentException();
         }
-    }
+	}
 
     /**
      * Determines the name of the class from the class path.
@@ -145,6 +125,11 @@ public class PrototypeMapFactory<V> extends TextFileReader<V> {
         String[] path = classPath.split("[.]");
         String str = path[path.length - 1];
         return str;
+    }
+    
+    @Override
+    protected String getIndexFile() {
+    	return myIndexFile;
     }
 
 }

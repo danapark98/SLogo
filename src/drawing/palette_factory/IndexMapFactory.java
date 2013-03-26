@@ -1,8 +1,5 @@
 package drawing.palette_factory;
-import control.factories.TextFileReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import control.factories.MapFactory;
 
 /**
  * Abstract Class that acts as a factory for maps that map integer indices
@@ -15,10 +12,12 @@ import java.util.Scanner;
  * "turtle.gif"
  * 
  * @author Scott Valentine
+ * @author Ryan Fishel
+ * @author Ellango Jothimurugesan
  *
  * @param <V> is the object to which integer indices map.
  */
-public abstract class IndexMapFactory<V> extends TextFileReader<V> {
+public abstract class IndexMapFactory<V> extends MapFactory<V> {
 
     private String myIndexFile;
 
@@ -26,37 +25,19 @@ public abstract class IndexMapFactory<V> extends TextFileReader<V> {
         myIndexFile = indexFileLocation;
     }
 
-    /**
-     * Builds an mapping of indices to objects
-     * 
-     * @return
-     */
-    public Map<Integer, V> buildMap() {
-        Map<Integer, V> result = new HashMap<Integer, V>();
-
-        Scanner fileScanner = getScanner(myIndexFile);
-
-        while (fileScanner.hasNextLine()) {
-            String currentLine = fileScanner.nextLine();
-            if (!commentedLine(currentLine)) {
-                String[] data = currentLine.split("[=]");
-
-                int key = Integer.parseInt(data[0].trim());
-
-                String objectData = "";
-                for (int i = 1; i < data.length; ++i) {
-                    objectData += " " + data[i].trim();
-                }
-
-                V value = getObject(objectData.trim());
-
-                result.put(key, value);
-            }
+    @Override
+    protected V getMapValue(String[] restOfLine) {
+    	String objectData = "";
+        for (int i = 1; i < restOfLine.length; ++i) {
+            objectData += " " + restOfLine[i].trim();
         }
-        fileScanner.close();
-        return result;
-
+        return getObject(objectData.trim());
     }
 
     protected abstract V getObject(String objectData);
+    
+    @Override
+    protected String getIndexFile() {
+    	return myIndexFile;
+    }
 }
