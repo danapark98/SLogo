@@ -1,14 +1,23 @@
+Sean, Yoshi : View Team
+
+Ellango, Ryan, Scott : Model Team
+
+
+
 180 man hours spent
 
 Start date: February 15, 2013 
 
 End date: March 25, 2013
 
-https://github.com/srwareham/SLogo
 
-Sean, Yoshi: View
 
-Ellango, Ryan, Scott: Model / Controller
+Respository: https://github.com/srwareham/SLogo
+
+API: http://people.duke.edu/~ej48/slogo/
+
+Team Wrap-up: See /Wrap-up folder for API document and Project Artifact
+
 
 <b>Resources Consulted:</b> stackoverflow.com, Google Images
 
